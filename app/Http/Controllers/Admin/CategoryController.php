@@ -34,6 +34,12 @@ class CategoryController extends BaseController
     }
     
     }
+    public function show($id)
+    {
+      
+        $category = Category::findOrFail($id);
+        return view('admin.categories.show', compact('category'));
+    }
 
  public function edit()
     {

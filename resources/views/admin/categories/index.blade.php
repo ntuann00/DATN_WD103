@@ -30,6 +30,7 @@
             <td>{{ $category->status }}</td>
             <td>
                  <a href="{{ route('categories.edit', $category->id) }}" class="btn btn-sm btn-warning">Sửa</a>
+                  <a href="{{ route('categories.show', $category->id) }}" class="btn btn-sm btn-warning">Chi tiết</a>
 
                         <form action="{{ route('categories.destroy', $category->id) }}" method="POST" style="display:inline-block;" onsubmit="return confirm('Bạn chắc chắn muốn xóa?')">
                             @csrf
