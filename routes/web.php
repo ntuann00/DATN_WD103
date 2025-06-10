@@ -3,6 +3,7 @@ namespace App\Http\Controllers;
 
 // use App\Http\Controllers\Admin\CategoryController;
 
+use App\Http\Controllers\Admin\AttributeController;
 use App\Http\Controllers\Admin\CategoryController;
 use Illuminate\Support\Facades\Route;
 
@@ -32,3 +33,14 @@ Route::get('/categories/{id}', [CategoryController::class, 'show'])->name('categ
 Route::get('/categories/{id}/edit', [CategoryController::class, 'edit'])->name('categories.edit');
 Route::put('/categories/{id}', [CategoryController::class, 'update'])->name('categories.update');
 Route::delete('/categories/{id}', [CategoryController::class, 'destroy'])->name('categories.destroy');
+
+//attribute
+Route::get('/attributes', [AttributeController::class, 'index'])->name('attributes.index');
+Route::get('/attributes/create', [AttributeController::class, 'create'])->name('attributes.create');
+Route::post('/attributes', [AttributeController::class, 'store'])->name('attributes.store');
+Route::get('/attributes/{id}', [AttributeController::class, 'show'])->name('attributes.show');
+Route::get('/attributes/{id}/edit', [AttributeController::class, 'edit'])->name('attributes.edit');
+Route::put('/attributes/{id}', [AttributeController::class, 'update'])->name('attributes.update');
+Route::delete('/attributes/{id}', [AttributeController::class, 'update'])->name('attributes.destroy');
+
+
