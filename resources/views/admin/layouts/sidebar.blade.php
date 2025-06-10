@@ -34,7 +34,7 @@
                 <span>Quản lí danh mục</span>
             </a>
             <ul>
-                <li><a href="">Danh sách danh mục</a></li>
+                <li><a href="{{ route('categories.index')}}">Danh sách danh mục</a></li>
                 <li><a href="">Thêm mới danh mục</a></li>
             </ul>
         </li>
