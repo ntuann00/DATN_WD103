@@ -22,8 +22,8 @@
                 <span>Quản lí người dùng</span>
             </a>
             <ul>
-                <li><a href="{{ route('users.index')}}">Danh sách người dùng</a></li>
-                <li><a href="{{ route('users.create')}}">Thêm mới người dùng</a></li>
+                <li><a href="">Danh sách người dùng</a></li>
+                <li><a href="">Thêm mới người dùng</a></li>
             </ul>
         </li>
         <li class>
@@ -34,7 +34,7 @@
                 <span>Quản lí danh mục</span>
             </a>
             <ul>
-                <li><a href="{{ route('categories.index') }}">Danh sách danh mục</a></li>
+                <li><a href="{{ route('categories.index')}}">Danh sách danh mục</a></li>
                 <li><a href="">Thêm mới danh mục</a></li>
             </ul>
         </li>
@@ -78,7 +78,7 @@
             </a>
         </li>
          <li class>
-            <a href="{{ route('comments.index')}}" aria-expanded="false">
+            <a href="" aria-expanded="false">
                 <div class="icon_menu">
                     <img src="{{ asset('admins/assets/img/menu-icon/8.svg')}}" alt>
                 </div>
