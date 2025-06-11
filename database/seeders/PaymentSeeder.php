@@ -14,14 +14,17 @@ class PaymentSeeder extends Seeder
      */
     public function run(): void
     {
-        $faker = Faker::create();
+         $faker = Faker::create();
 
-        foreach (range(1, 10) as $i) {
+        foreach (range(1, 5) as $i) {
             Payment::create([
-                'name' => $faker->creditCardType,
-                'provider' => $faker->company,
-                'account_no' => $faker->creditCardNumber,
-                'expiry_date' => $faker->creditCardExpirationDateString,
+                'name' => $faker->randomElement([
+                    'Credit Card',
+                    'Cash on Delivery',
+                    'Momo Wallet',
+                    'Bank Transfer',
+                    'ZaloPay'
+                ]),
             ]);
         }
     }

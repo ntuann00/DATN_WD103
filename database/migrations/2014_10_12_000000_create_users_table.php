@@ -14,14 +14,21 @@ return new class extends Migration
         Schema::create('users', function (Blueprint $table) {
             $table->id();
             $table->string('name');
-            $table->string('phone')->nullable(); // Thêm dòng này
+            $table->string('phone')->nullable();
             $table->string('email')->unique();
-            $table->enum('gender', ['male', 'female'])->nullable();
+            $table->string('img')->nullable(); // ảnh đại diện
             $table->date('birthday')->nullable();
             $table->string('password');
-            $table->unsignedBigInteger('status_id')->nullable();
+            $table->enum('gender', ['male', 'female'])->nullable();
+
+            // FK
             $table->unsignedBigInteger('role_id')->nullable();
+            $table->boolean('status')->default(true); // true = active, false = inactive
+            
             $table->timestamps();
+
+            // relationship
+            $table->foreign('role_id')->references('id')->on('roles')->onDelete('set null');
         });
     }
 

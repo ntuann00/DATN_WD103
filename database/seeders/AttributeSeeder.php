@@ -13,7 +13,7 @@ class AttributeSeeder extends Seeder
      */
     public function run(): void
     {
-        $attributes = ['Color', 'Size', 'Material', 'Weight', 'Length'];
+         $attributes = ['Color', 'Size', 'Material', 'Weight', 'Length', 'Width', 'Height', 'Volume', 'Capacity', 'Scent'];
 
         foreach ($attributes as $attribute) {
             Attribute::create([

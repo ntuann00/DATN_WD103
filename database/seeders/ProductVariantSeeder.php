@@ -15,17 +15,18 @@ class ProductVariantSeeder extends Seeder
      */
     public function run(): void
     {
-        $faker = Faker::create();
+        $faker    = Faker::create();
         $products = Product::all();
 
         foreach ($products as $product) {
             foreach (range(1, 2) as $i) {
                 Product_variant::create([
                     'product_id' => $product->id,
-                    'sku' => strtoupper($faker->bothify('SKU-####??')),
-                    'price' => $product->price + $faker->randomFloat(2, 1, 50),
-                    'quantity' => $faker->numberBetween(1, 100),
-                    'status' => $faker->randomElement(['active', 'inactive']),
+                    'sku'        => strtoupper($faker->bothify('SKU-###??')),
+                    'color'      => $faker->safeColorName,
+                    'capacity'   => $faker->randomElement(['30ml', '50ml', '100ml', '200ml']),
+                    'scent'      => $faker->randomElement(['Lavender', 'Vanilla', 'Citrus', 'Mint']),
+                    'texture'    => $faker->randomElement(['Smooth', 'Matte', 'Glossy', 'Rough']),
                 ]);
             }
         }

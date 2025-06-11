@@ -11,15 +11,19 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('reviews', function (Blueprint $table) {
+        Schema::create('product_variants', function (Blueprint $table) {
             $table->id();
-            $table->unsignedBigInteger('user_id');
+
+            // FK
             $table->unsignedBigInteger('product_id');
-            $table->tinyInteger('rating')->unsigned()->default(5); // từ 1 đến 5
-            $table->text('comment')->nullable();
+            $table->string('sku')->unique();
+            $table->string('color')->nullable();
+            $table->string('capacity')->nullable();
+            $table->string('scent')->nullable();
+            $table->string('texture')->nullable();
             $table->timestamps();
 
-            $table->foreign('user_id')->references('id')->on('users')->onDelete('cascade');
+            // relationship
             $table->foreign('product_id')->references('id')->on('products')->onDelete('cascade');
         });
     }
@@ -29,6 +33,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('reviews');
+        Schema::dropIfExists('product_variants');
     }
 };

@@ -15,20 +15,21 @@ class AttributeValueSeeder extends Seeder
     public function run(): void
     {
         $values = [
-            'Color' => ['Red', 'Blue', 'Green', 'Black', 'White'],
-            'Size' => ['S', 'M', 'L', 'XL'],
+            'Color'    => ['Red', 'Blue', 'Green', 'Black', 'White'],
+            'Size'     => ['S', 'M', 'L', 'XL'],
             'Material' => ['Cotton', 'Polyester', 'Leather'],
-            'Weight' => ['0.5kg', '1kg', '1.5kg'],
-            'Length' => ['30cm', '50cm', '70cm'],
+            'Weight'   => ['0.5kg', '1kg', '1.5kg'],
+            'Length'   => ['30cm', '50cm', '70cm'],
         ];
 
-        foreach ($values as $attribute => $attributeValues) {
-            $attributeModel = Attribute::where('name', $attribute)->first();
-            if ($attributeModel) {
+        foreach ($values as $attributeName => $attributeValues) {
+            $attribute = Attribute::where('name', $attributeName)->first();
+
+            if ($attribute) {
                 foreach ($attributeValues as $value) {
                     Attribute_value::create([
-                        'attribute_id' => $attributeModel->id,
-                        'value' => $value,
+                        'attribute_id' => $attribute->id,
+                        'value'        => $value,
                     ]);
                 }
             }

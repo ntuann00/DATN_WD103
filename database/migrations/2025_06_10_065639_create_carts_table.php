@@ -13,10 +13,12 @@ return new class extends Migration
     {
         Schema::create('carts', function (Blueprint $table) {
             $table->id();
+
+            // FK
             $table->unsignedBigInteger('user_id');
-            $table->enum('status', ['active', 'abandoned', 'converted'])->default('active');
             $table->timestamps();
 
+            // relationship
             $table->foreign('user_id')->references('id')->on('users')->onDelete('cascade');
         });
     }

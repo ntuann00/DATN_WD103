@@ -13,10 +13,7 @@ return new class extends Migration
     {
         Schema::create('payments', function (Blueprint $table) {
             $table->id();
-            $table->string('name'); // tên loại thanh toán (e.g. Visa, Paypal)
-            $table->string('provider')->nullable(); // nhà cung cấp (e.g. Techcombank)
-            $table->string('account_no')->nullable(); // số tài khoản/thẻ
-            $table->string('expiry_date')->nullable(); // ngày hết hạn thẻ
+            $table->string('name');
             $table->timestamps();
         });
     }

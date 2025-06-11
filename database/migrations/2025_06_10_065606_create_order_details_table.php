@@ -13,13 +13,17 @@ return new class extends Migration
     {
         Schema::create('order_details', function (Blueprint $table) {
             $table->id();
+
+            // FK
             $table->unsignedBigInteger('order_id');
             $table->unsignedBigInteger('product_id');
+
             $table->integer('quantity')->default(1);
-            $table->decimal('price', 10, 2); // đơn giá tại thời điểm đặt
-            $table->decimal('total', 12, 2); // tổng = quantity * price
+            $table->decimal('price', 10, 2)->default(0); // đơn giá tại thời điểm đặt
+            $table->decimal('total', 12, 2)->default(0); // tổng = quantity * price
             $table->timestamps();
 
+            // relationship
             $table->foreign('order_id')->references('id')->on('orders')->onDelete('cascade');
             $table->foreign('product_id')->references('id')->on('products')->onDelete('cascade');
         });

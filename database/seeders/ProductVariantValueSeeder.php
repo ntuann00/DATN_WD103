@@ -18,13 +18,21 @@ class ProductVariantValueSeeder extends Seeder
         $variants = Product_variant::all();
 
         foreach ($variants as $variant) {
+            // Lấy ngẫu nhiên 2 giá trị thuộc tính để gán cho mỗi biến thể
             $attributeValues = Attribute_value::inRandomOrder()->take(2)->get();
 
             foreach ($attributeValues as $value) {
-                Product_variant_value::create([
-                    'product_variant_id' => $variant->id,
-                    'attribute_value_id' => $value->id,
-                ]);
+                // Tránh gán trùng cặp variant_id + attribute_value_id
+                $exists = Product_variant_value::where('variant_id', $variant->id)
+                                               ->where('attribute_value_id', $value->id)
+                                               ->exists();
+
+                if (!$exists) {
+                    Product_variant_value::create([
+                        'variant_id'  => $variant->id,
+                        'attribute_value_id'  => $value->id,
+                    ]);
+                }
             }
         }
     }

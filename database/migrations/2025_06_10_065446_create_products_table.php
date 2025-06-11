@@ -14,14 +14,23 @@ return new class extends Migration
         Schema::create('products', function (Blueprint $table) {
             $table->id();
             $table->string('name');
-            $table->string('slug')->unique();
-            $table->decimal('price', 10, 2);
+
+            // FK
+            $table->unsignedBigInteger('productVariant_id')->nullable();
+            $table->unsignedBigInteger('category_id')->nullable();
+            $table->unsignedBigInteger('attribute_id')->nullable();
+            $table->unsignedBigInteger('promotion_id')->nullable();
+
+            $table->string('brand')->nullable();
             $table->text('description')->nullable();
-            $table->enum('status', ['active', 'inactive'])->default('active');
-            $table->unsignedBigInteger('category_id');
+            $table->boolean('status')->default(true); // true: active, false: inactive
             $table->timestamps();
 
-            $table->foreign('category_id')->references('id')->on('categories')->onDelete('cascade');
+            // relationship
+            // $table->foreign('productVariant_id')->references('id')->on('product_variants')->onDelete('set null');
+            $table->foreign('category_id')->references('id')->on('categories')->onDelete('set null');
+            $table->foreign('attribute_id')->references('id')->on('attributes')->onDelete('set null');
+            $table->foreign('promotion_id')->references('id')->on('promotions')->onDelete('set null');
         });
     }
 

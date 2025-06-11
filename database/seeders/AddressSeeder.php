@@ -3,6 +3,7 @@
 namespace Database\Seeders;
 
 use App\Models\Address;
+use App\Models\User;
 use App\Models\Users;
 use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 use Illuminate\Database\Seeder;
@@ -15,17 +16,19 @@ class AddressSeeder extends Seeder
      */
     public function run(): void
     {
-        $faker = Faker::create();
-        $userIds = Users::pluck('id')->toArray();
+         $faker = Faker::create();
+
+        // Lấy danh sách tất cả user ID
+        $userIds = User::pluck('id')->toArray();
 
         foreach ($userIds as $userId) {
-            Address::create([
-                'user_id' => $userId,
-                'province' => $faker->state,
-                'district' => $faker->city,
-                'ward' => $faker->streetName,
-                'detail' => $faker->streetAddress,
-            ]);
+            // Chỉ tạo địa chỉ nếu user chưa có
+            if (!Address::where('user_id', $userId)->exists()) {
+                Address::create([
+                    'user_id' => $userId,
+                    'address' => $faker->streetAddress . ', ' . $faker->city . ', ' . $faker->country,
+                ]);
+            }
         }
     }
 }

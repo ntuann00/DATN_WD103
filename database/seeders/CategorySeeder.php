@@ -18,9 +18,9 @@ class CategorySeeder extends Seeder
 
         foreach (range(1, 10) as $i) {
             Category::create([
-                'name' => ucfirst($faker->unique()->word),
+                'name'        => ucfirst($faker->unique()->word),
                 'description' => $faker->sentence,
-                'status' => $faker->randomElement(['active', 'inactive']),
+                'status'      => $faker->randomElement([1, 0]), // 1 = active, 0 = inactive
             ]);
         }
     }

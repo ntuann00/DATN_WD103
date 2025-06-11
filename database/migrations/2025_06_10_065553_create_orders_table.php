@@ -13,16 +13,23 @@ return new class extends Migration
     {
         Schema::create('orders', function (Blueprint $table) {
             $table->id();
+
+            // FK
             $table->unsignedBigInteger('user_id');
-            $table->unsignedBigInteger('payment_id');
-            $table->unsignedBigInteger('address_id')->nullable();
-            $table->string('phone')->nullable();
-            $table->decimal('total', 12, 2)->default(0);
+            $table->string('name');
+            $table->unsignedBigInteger('payment_id')->nullable();
+            $table->unsignedBigInteger('status_id')->nullable();
             $table->text('description')->nullable();
+            $table->unsignedBigInteger('address_id')->nullable();
+
+            $table->string('phone')->nullable();
+            $table->decimal('total', 12, 2)->default(0.00);
             $table->timestamps();
 
+            //relationship
             $table->foreign('user_id')->references('id')->on('users')->onDelete('cascade');
-            $table->foreign('payment_id')->references('id')->on('payments')->onDelete('cascade');
+            $table->foreign('payment_id')->references('id')->on('payments')->onDelete('set null');
+            $table->foreign('status_id')->references('id')->on('statuses')->onDelete('set null');
             $table->foreign('address_id')->references('id')->on('addresses')->onDelete('set null');
         });
     }

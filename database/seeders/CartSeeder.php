@@ -15,14 +15,15 @@ class CartSeeder extends Seeder
      */
     public function run(): void
     {
-        $faker = Faker::create();
         $users = User::all();
 
         foreach ($users as $user) {
-            Cart::create([
-                'user_id' => $user->id,
-                'status' => $faker->randomElement(['active', 'abandoned', 'converted']),
-            ]);
+            // Tránh trùng cart nếu chạy lại nhiều lần
+            if (!Cart::where('user_id', $user->id)->exists()) {
+                Cart::create([
+                    'user_id' => $user->id,
+                ]);
+            }
         }
     }
 }
