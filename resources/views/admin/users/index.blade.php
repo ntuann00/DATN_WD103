@@ -34,14 +34,7 @@
                         <td>{{ $user->name }}</td>
                         <td>{{ $user->phone }}</td>
                         <td>{{ $user->email }}</td>
-                        <td>
-                            @if ($user->img)
-                                <img src="{{ asset('storage/' . $user->img) }}" width="60" height="60"
-                                    style="object-fit:cover;">
-                            @else
-                                <span class="text-muted">Không có</span>
-                            @endif
-                        </td>
+                        <td><img src="{{ asset('storage/' . $user->img) }}" alt="img" width="100"></td>
                          <td> {{ $user->birthday->format('d-m-Y') }}</td>
                         <td>{{ ucfirst($user->gender) }}</td>
                         <td>{{ $user->role->name }}</td>
