@@ -6,6 +6,9 @@ use App\Models\Role;
 use App\Models\Users;
 use App\Models\Category;
 use Illuminate\Http\Request;
+use Illuminate\Foundation\Auth\User;
+use Illuminate\Support\Facades\Hash;
+use Illuminate\Support\Facades\Storage;
 use Illuminate\Routing\Controller as BaseController;
 use Illuminate\Foundation\Validation\ValidatesRequests;
 use Illuminate\Foundation\Auth\Access\AuthorizesRequests;
@@ -38,17 +41,10 @@ class UserController extends BaseController
     ]);
 
     // Xử lý upload ảnh nếu có
-    $urlImg = null;
 
         if ($request->hasFile('img')) {
             $file = $request->file('img');
-            $filename = time() . '_' . $file->getClientOriginalName();
-
-            // Lưu vào storage/app/public/avatar
-            $file->storeAs('public/img', $filename);
-
-            // Đường dẫn lưu trong database: public/storage/avatar/filename
-            $urlImg = 'img/' . $filename;
+            $validated['img'] = $file->store('images', 'public');
         }
 
     // Mã hoá mật khẩu
@@ -68,15 +64,43 @@ class UserController extends BaseController
 
     public function edit($id)
     {
-         $roles = Role::all(); // để đổ select box role_name
-    return view('users.edit', compact('user', 'roles'));
+        $users = User::findOrFail($id);
+         $roles = Role::all();
+        return view('admin.users.edit', compact('users', 'roles'));
     }
 
-    public function update(Request $request, $id)
+
+public function update(Request $request, User $user, $id)
     {
-        
+        $validated = $request->validate([
+            'name'     => 'required|string|max:255',
+            'email'    => 'required|email|unique:users,email,' . $user->id,
+            'phone'    => 'nullable|string|max:20',
+            'password' => 'nullable|string|min:6',
+            'birthday' => 'nullable|date',
+            'gender'   => 'nullable|in:male,female',
+            'role_id'  => 'required|integer|exists:roles,id',
+            'status'   => 'required|boolean',
+            'img'      => 'nullable|image|max:2048',
+        ]);
+
+       if ($request->hasFile('image')) {
+            $img = $request->file('uploads');
+            $imgName = time() . '.' . $img->getClientOriginalExtension();
+            $img->move(public_path('uploads'), $imgName);
+            $validatedData['img'] = $imgName;
+        }
+
+        $user->update($validated);
+
+        return redirect()->route('users.index')->with('success', 'Cập nhật người dùng thành công!');
     }
-    public function destroy($id) {
-              
+
+  public function destroy($id)
+    {
+        $user = Users::findOrFail($id);
+        $user->delete();
+
+        return redirect()->route('users.index')->with('success', 'Đã xoá người dùng');
     }
 }
