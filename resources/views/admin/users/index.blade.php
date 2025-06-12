@@ -49,6 +49,7 @@
                         <td>{{ $user->updated_at->format('d/m/y') }}</td>
                         <td>
                             <a href="{{ route('users.edit', $user) }}" class="btn btn-sm btn-warning">Sửa</a>
+                            <a href="{{ route('users.show', $user) }}" class="btn btn-sm btn-warning">Chi tiết</a>
                             <form id="delete-form-{{ $user->id }}"
                                     action="{{ route('users.destroy', $user->id) }}" method="POST"
                                     style="display: inline;">

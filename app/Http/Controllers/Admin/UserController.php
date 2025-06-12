@@ -57,7 +57,11 @@ class UserController extends BaseController
         return redirect()->route('users.index')->with('success', 'Tạo người dùng thành công!');
     }
 
-    public function show($id) {}
+    public function show($id) {
+         $users = Users::findOrFail($id);
+        $roles = Role::all();
+        return view('admin.users.show', compact('users', 'roles'));
+    }
 
     public function edit($id)
     {
