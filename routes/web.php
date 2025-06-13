@@ -24,7 +24,8 @@ use Illuminate\Support\Facades\Route;
 
 Route::get('/', function () {return view('user.index');});
 
-Route::get('/home', [HomeController::class, 'index'])->name('user.index');
+Route::get('/product', [HomeController::class, 'product']);
+Route::get('/product/1', [HomeController::class, 'product_detail']);
 
 
 

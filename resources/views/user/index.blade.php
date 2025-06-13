@@ -8,7 +8,7 @@
 <!-- chọn category với hình  -->
 @include('user.layouts.category-section')
 
-<!-- chưa rõ lắm -->
+<!-- quick view  -->
 @include('user.layouts.product-view-modal')
 
 <!-- danh sách vài sản phẩm  -->

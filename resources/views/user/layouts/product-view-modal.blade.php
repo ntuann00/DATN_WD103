@@ -14,8 +14,7 @@
                                                 <img src="{{ asset('user/assets/img/inner-page/shop-details-tab-img1.png')}}" alt="">
                                             </div>
                                         </div>
-                                        <div class="tab-pane fade" id="view-pills-img2" role="tabpanel"
-                                            >
+                                        <div class="tab-pane fade" id="view-pills-img2" role="tabpanel">
                                             <div class="shop-details-tab-img">
                                                 <img src="{{ asset('user/assets/img/inner-page/shop-details-tab-img2.png')}}" alt="">
                                             </div>
@@ -55,7 +54,7 @@
                             </div>
                             <div class="col-lg-6">
                                 <div class="shop-details-content">
-                                    <h1>Poutsicle Hydrating Lip Stain.</h1>
+                                    <h1>Under developing</h1>
                                     <div class="rating-review">
                                         <div class="rating">
                                             <div class="star">

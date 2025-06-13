@@ -26,5 +26,15 @@ class HomeController extends BaseController
         return view('user.index', compact('Products'));
         // return view('user.index');
     }
+    public function product(){
+        
+        $Products = Product::all();
+        return view('user.products.list-product', compact('Products'));
+    }
+    public function product_detail(){
+        
+        $Products = Product::all();
+        return view('user.products.product-detail', compact('Products'));
+    }
 
 }
