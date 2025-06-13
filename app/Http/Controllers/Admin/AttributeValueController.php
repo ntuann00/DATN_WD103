@@ -19,11 +19,19 @@ class AttributeValueController extends BaseController
     }
     public function create()
     {
-       
+         $attributes = Attribute::all();
+        return view('admin.attributeValues.create', compact('attributes'));
     }
     public function store(Request $request)
     { 
-    
+      $request->validate([
+            'attribute_id' => 'required|numeric',
+            'value' => 'required|string|max:255',
+        ]);
+
+        AttributeValue::create($request->all());
+        return redirect()->route('attributeValues.index')->with('success', 'Thêm thành công!');
+
     }
     public function show($id)
     {

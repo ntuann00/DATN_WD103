@@ -8,7 +8,7 @@
         <div class="alert alert-success">{{ session('success') }}</div>
     @endif
 
-    <a href="{{ route('attributes.create')}}" class="btn btn-primary mb-3">+ Thêm biến thể</a>
+    <a href="{{ route('attributeValues.create')}}" class="btn btn-primary mb-3">+ Thêm biến thể</a>
 
     <table class="table table-bordered">
         <thead>
