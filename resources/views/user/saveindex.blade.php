@@ -6,74 +6,32 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
      <!-- Bootstrap CSS -->
-     <link href="assets/css/bootstrap.min.css" rel="stylesheet">
+     <link href="{{ asset('user/assets/css/bootstrap.min.css')}}" rel="stylesheet">
      <!-- Bootstrap Icon CSS -->
-     <link href="assets/css/bootstrap-icons.css" rel="stylesheet">
+     <link href="{{ asset('user/assets/css/bootstrap-icons.css')}}" rel="stylesheet">
      <!-- Fontawesome all CSS -->
-     <link href="assets/css/all.min.css" rel="stylesheet">
-     <link href="assets/css/nice-select.css" rel="stylesheet">
-     <link href="assets/css/animate.min.css" rel="stylesheet">
+     <link href="{{ asset('user/assets/css/all.min.css')}}" rel="stylesheet">
+     <link href="{{ asset('user/assets/css/nice-select.css')}}" rel="stylesheet">
+     <link href="{{ asset('user/assets/css/animate.min.css')}}" rel="stylesheet">
      <!--  FancyBox CSS  -->
-     <link rel="stylesheet" href="assets/css/jquery.fancybox.min.css">
- 
+     <link rel="stylesheet" href="{{ asset('user/assets/css/jquery.fancybox.min.css')}}">
+    <!-- {{ asset('admins/assets/img/menu-icon/16.svg')}}')}}  linkasset-->
      <!-- Fontawesome CSS -->
-     <link href="assets/css/fontawesome.min.css" rel="stylesheet">
+     <link href="{{ asset('user/assets/css/fontawesome.min.css')}}" rel="stylesheet">
      <!-- box icon css -->
-     <link rel="stylesheet" href="assets/css/boxicons.min.css">
+     <link rel="stylesheet" href="{{ asset('user/assets/css/boxicons.min.css')}}">
      <!-- slider CSS -->
-     <link rel="stylesheet" href="assets/css/swiper-bundle.min.css">
-     <link rel="stylesheet" href="assets/css/slick-theme.css">
-     <link rel="stylesheet" href="assets/css/slick.css">
+     <link rel="stylesheet" href="{{ asset('user/assets/css/swiper-bundle.min.css')}}">
+     <link rel="stylesheet" href="{{ asset('user/assets/css/slick-theme.css')}}">
+     <link rel="stylesheet" href="{{ asset('user/assets/css/slick.css')}}">
      <!--  Style CSS  -->
-     <link rel="stylesheet" href="assets/css/style.css">
-    <title>Beautico - Beauty & Cosmetics HTML Template</title>
-    <link rel="icon" href="assets/img/sm-logo.svg" type="image/gif">
+     <link rel="stylesheet" href="{{ asset('user/assets/css/style.css')}}">
+    <title>5 Beauty - Beauty & Cosmetics</title>
+    <link rel="icon" href="{{ asset('user/assets/img/sm-logo.svg')}}" type="image/gif">
 </head>
 <body class="style-2">
    
-    <div class="top-bar2">
-        <div class="container-md container-fluid">
-            <div class="row">
-                <div class="col-lg-12 d-flex align-items-center justify-content-between gap-3">
-                    <div class="top-bar-left">
-                        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 16 16">
-                            <g clip-path="url(#clip0_1038_9)">
-                              <path d="M12.6448 9.91122C12.3172 9.57015 11.9221 9.3878 11.5034 9.3878C11.088 9.3878 10.6895 9.56678 10.3485 9.90784L9.28136 10.9716C9.19356 10.9243 9.10576 10.8804 9.02133 10.8365C8.89977 10.7757 8.78495 10.7183 8.68702 10.6575C7.68746 10.0227 6.77907 9.19532 5.90782 8.12484C5.48571 7.59128 5.20205 7.14215 4.99606 6.68627C5.27296 6.433 5.52961 6.1696 5.7795 5.91634C5.87406 5.82178 5.96861 5.72385 6.06316 5.6293C6.77231 4.92015 6.77231 4.00163 6.06316 3.29248L5.14127 2.37058C5.03658 2.2659 4.92852 2.15783 4.82721 2.04977C4.6246 1.84041 4.41185 1.62428 4.19235 1.42167C3.86479 1.09748 3.47307 0.925262 3.06109 0.925262C2.64911 0.925262 2.25063 1.09748 1.91294 1.42167C1.90956 1.42505 1.90956 1.42505 1.90619 1.42842L0.758037 2.5867C0.325793 3.01895 0.0792786 3.54575 0.025248 4.15697C-0.0557978 5.14302 0.234616 6.06154 0.457492 6.66263C1.00455 8.13834 1.82176 9.50599 3.04083 10.9716C4.51991 12.7377 6.29955 14.1324 8.33245 15.115C9.10913 15.4831 10.1458 15.9187 11.3041 15.993C11.375 15.9964 11.4493 15.9998 11.5169 15.9998C12.2969 15.9998 12.9521 15.7195 13.4653 15.1623C13.4687 15.1556 13.4755 15.1522 13.4789 15.1454C13.6545 14.9327 13.8571 14.7402 14.0698 14.5342C14.215 14.3958 14.3636 14.2506 14.5088 14.0986C14.8431 13.7508 15.0187 13.3455 15.0187 12.9302C15.0187 12.5114 14.8397 12.1096 14.4987 11.7719L12.6448 9.91122ZM13.8537 13.4671C13.8503 13.4671 13.8503 13.4705 13.8537 13.4671C13.722 13.6089 13.5869 13.7373 13.4417 13.8791C13.2222 14.0885 12.9993 14.308 12.79 14.5545C12.4489 14.9192 12.047 15.0914 11.5202 15.0914C11.4696 15.0914 11.4156 15.0914 11.3649 15.088C10.362 15.0239 9.42994 14.6321 8.73092 14.2978C6.81959 13.3726 5.14127 12.0589 3.7466 10.3941C2.59508 9.00621 1.82514 7.72298 1.31523 6.3452C1.00117 5.50435 0.88636 4.84923 0.937014 4.23126C0.970783 3.83616 1.12274 3.5086 1.40303 3.22832L2.55455 2.07679C2.72002 1.92145 2.89562 1.83703 3.06784 1.83703C3.28059 1.83703 3.45281 1.96535 3.56087 2.07341C3.56425 2.07679 3.56763 2.08017 3.571 2.08354C3.77699 2.27603 3.97286 2.47526 4.17885 2.68801C4.28353 2.79607 4.39159 2.90413 4.49965 3.01557L5.42155 3.93747C5.7795 4.29542 5.7795 4.62636 5.42155 4.98431C5.32362 5.08224 5.22906 5.18017 5.13113 5.27472C4.84747 5.56514 4.57732 5.83529 4.28353 6.09869C4.27678 6.10544 4.27002 6.10882 4.26665 6.11557C3.97623 6.40599 4.03026 6.68965 4.09105 6.88213C4.09442 6.89226 4.0978 6.90239 4.10118 6.91252C4.34094 7.49335 4.67863 8.04041 5.19192 8.69216L5.1953 8.69553C6.12732 9.84368 7.11 10.7386 8.19399 11.4241C8.33245 11.5119 8.47427 11.5828 8.60935 11.6503C8.73092 11.7111 8.84573 11.7685 8.94367 11.8293C8.95717 11.8361 8.97068 11.8462 8.98419 11.8529C9.099 11.9104 9.20706 11.9374 9.3185 11.9374C9.59879 11.9374 9.77439 11.7618 9.83179 11.7044L10.9867 10.5495C11.1015 10.4346 11.2839 10.2962 11.4966 10.2962C11.706 10.2962 11.8782 10.4279 11.9829 10.5427C11.9863 10.5461 11.9863 10.5461 11.9896 10.5495L13.8503 12.4101C14.1981 12.7546 14.1981 13.1092 13.8537 13.4671Z"/>
-                              <path d="M8.64606 3.80613C9.53081 3.95471 10.3345 4.37345 10.9761 5.01506C11.6177 5.65667 12.0331 6.46038 12.1851 7.34513C12.2222 7.568 12.4147 7.72334 12.6342 7.72334C12.6612 7.72334 12.6848 7.71996 12.7119 7.71659C12.9617 7.67606 13.1272 7.43968 13.0867 7.18979C12.9043 6.11931 12.3978 5.14338 11.6245 4.37007C10.8512 3.59676 9.87526 3.09022 8.80478 2.90787C8.55489 2.86734 8.32188 3.03281 8.27798 3.27933C8.23408 3.52584 8.39617 3.7656 8.64606 3.80613Z"/>
-                              <path d="M15.9811 7.05794C15.6806 5.29519 14.8499 3.69116 13.5734 2.41469C12.2969 1.13821 10.6929 0.307495 8.93016 0.00695018C8.68364 -0.0369496 8.45063 0.131896 8.40673 0.37841C8.36621 0.628301 8.53168 0.861308 8.78157 0.905208C10.3552 1.17198 11.7904 1.91828 12.9318 3.0563C14.0732 4.19769 14.8161 5.63288 15.0829 7.20652C15.12 7.4294 15.3125 7.58473 15.532 7.58473C15.559 7.58473 15.5827 7.58136 15.6097 7.57798C15.8562 7.54083 16.025 7.30445 15.9811 7.05794Z"/>
-                            </g>
-                        </svg>
-                        <a href="tel:2-965-871-8617">2-965-871-8617</a>
-                    </div>
-                    <p>Enjoy Free shipping for orders over $30! <a href="shop-list.html">Shop Now</a></p>
-                    <div class="social-area">
-                        <ul>
-                            <li>
-                                <a href="https://www.facebook.com/">
-                                    <i class="fab fa-facebook-f"></i>
-                                </a>
-                            </li>
-                            <li>
-                                <a href="https://twitter.com/">
-                                    <i class="fab fa-twitter"></i>
-                                </a>
-                            </li>
-                            <li>
-                                <a href="https://www.pinterest.com/">
-                                    <i class="fab fa-pinterest-p"></i>
-                                </a>
-                            </li>
-                            <li>
-                                <a href="https://www.instagram.com/">
-                                    <i class="fab fa-instagram"></i>
-                                </a>
-                            </li>
-                        </ul>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>
+    <!-- begin form log -->
     <div class="modal login-modal fade" id="user-login" data-bs-keyboard="false" tabindex="-1" aria-hidden="true">
         <div class="modal-dialog modal-dialog-centered">
             <div class="modal-content">
@@ -147,32 +105,31 @@
             </div>
         </div>
     </div>
-    <!-- Start home2 header section -->
+    <!-- end form log -->
+
+    <!-- Start home header section -->
     <header class="header-area style-2">
         <div class="container-md position-relative  d-flex flex-nowrap align-items-center justify-content-between">
-            <div class="header-logo d-lg-none d-flex">
-                <a href="index.html"><img alt="image" class="img-fluid" src="assets/img/logo.svg"></a>
-            </div>
+            <!-- <div class="header-logo d-lg-none d-flex">
+                <a href="#1"><img alt="image" class="img-fluid" src="{{ asset('user/assets/img/logo.svg')}}"></a>
+            </div> -->
             <div class="company-logo d-lg-flex d-none">
-                <a href="index.html"><img src="assets/img/logo.svg" alt=""></a>
+            <!-- logo  -->
+                <a href="#2"><img src="{{ asset('user/assets/img/logo.svg')}}" alt=""></a>
             </div>
             <div class="main-menu">
                 <div class="mobile-logo-area d-lg-none d-flex justify-content-between align-items-center">
                     <div class="mobile-logo-wrap">
-                        <a href="index.html"><img alt="image" src="assets/img/logo.svg"></a>
+                        <a href="#3"><img alt="image" src="{{ asset('user/assets/img/logo.svg')}}"></a>
                     </div>
                 </div>
+
                 <ul class="menu-list">
-                    <li class="menu-item-has-children">
-                        <a href="#" class="drop-down">Home</a><i class="bi bi-plus dropdown-icon"></i>
-                        <ul class="sub-menu">
-                            <li><a href="index.html">Home 1</a></li>
-                            <li><a href="index2.html">Home 2</a></li>
-                        </ul>
-                    </li>
+                <!-- start nav menu -->
+                    <!-- start FACE dropmenu -->
                     <li class="menu-item-has-children position-inherit">
                         <a href="#" class="drop-down">Face</a><i class="bi bi-plus dropdown-icon"></i>
-                        <div class="mega-menu2" style="background-image: url('assets/img/home1/megamenu2-face-bg.png');">
+                        <div class="mega-menu2" style="background-image: url('assets/img/home1/megamenu2-face-bg.png')}}');">
                             <div class="megamenu-wrap">
                                 <ul class="menu-row">
                                     <li class="menu-single-item">
@@ -322,9 +279,12 @@
                             </div>
                         </div>
                     </li> 
+                    <!-- end FACE dropmenu -->
+
+                    <!-- star BODY dropmenu -->
                     <li class="menu-item-has-children position-inherit">
                         <a href="#" class="drop-down">Body</a><i class="bi bi-plus dropdown-icon"></i>
-                        <div class="mega-menu2" style="background-image: url('assets/img/home1/megamenu2-body-bg.png');">
+                        <div class="mega-menu2" style="background-image: url('assets/img/home1/megamenu2-body-bg.png')}}');">
                             <div class="megamenu-wrap">
                                 <ul class="menu-row">
                                     <li class="menu-single-item">
@@ -474,9 +434,12 @@
                             </div>
                         </div>
                     </li> 
+                    <!-- end BODY dropmenu -->
+
+                    <!-- star HAIR dropmenu -->
                     <li class="menu-item-has-children position-inherit">
                         <a href="#" class="drop-down">Hair</a><i class="bi bi-plus dropdown-icon"></i>
-                        <div class="mega-menu2" style="background-image: url('assets/img/home1/megamenu2-hair-bg.png');">
+                        <div class="mega-menu2" style="background-image: url('assets/img/home1/megamenu2-hair-bg.png')}}');">
                             <div class="megamenu-wrap">
                                 <ul class="menu-row">
                                     <li class="menu-single-item">
@@ -626,9 +589,13 @@
                             </div>
                         </div>
                     </li> 
+                    <!-- end HAIR dropmenu -->
+
+                    <!-- star MAKEUP-dropmenu -->
                     <li class="menu-item-has-children position-inherit">
                         <a href="#" class="drop-down">Makeup</a><i class="bi bi-plus dropdown-icon"></i>
-                        <div class="mega-menu2" style="background-image: url('assets/img/home1/megamenu2-bg1.png');">
+                        <div class="mega-menu2" style="background-image: url('assets/img/home1/megamenu2-bg1.png')}}');">
+                            <!-- image makeup -->
                             <div class="megamenu-wrap">
                                 <ul class="menu-row">
                                     <li class="menu-single-item">
@@ -778,6 +745,10 @@
                             </div>
                         </div>
                     </li> 
+                    <!-- end MAKEUP-dropmenu -->
+
+
+                    <!-- start SHOP dropmenu -->
                     <li class="menu-item-has-children position-inherit for-dropdown">
                         <a href="#" class="drop-down">Shop<i class="bi bi-plus dropdown-icon d-lg-flex d-none"></i></a>
                         <i class="bi bi-plus dropdown-icon d-lg-none d-block"></i>
@@ -896,6 +867,8 @@
                                         
                                     </ul>
                                 </div>
+
+                                <!-- start nav product SHOP-dropmenu-->
                                 <div class="single-menu">
                                     <div class="menu-header">
                                         <h4>Product</h4>
@@ -943,6 +916,7 @@
                                                 </li>
                                             </ul>
                                         </li>
+
                                         <li class="menu-single-item">
                                             <h6>Product Gallery</h6>
                                             <ul>
@@ -976,51 +950,47 @@
                                         
                                     </ul>
                                 </div>
+                                <!-- end nav product SHOP-dropmenu -->
+
                             </div>
                         </div>
                     </li>
+                    <!-- end SHOP drop menu -->
+
+                    <!-- start page section -->
                     <li class="menu-item-has-children">
                         <a href="#" class="drop-down">Pages</a><i class="bi bi-plus dropdown-icon"></i>
                         <ul class="sub-menu">
                             <li>
-                                <a href="about-us.html">About Us</a>
+                                <a href="#">About Us</a>
                             </li>
                             <li>
-                                <a href="our-brand.html">Our Brand</a>
+                                <a href="#">Our Brand</a>
                             </li>
                             <li>
-                                <a href="category.html">Category</a>
+                                <a href="#">Category</a>
                             </li>
                             <li>
-                                <a href="blog-grid.html">Blog</a>
+                                <a href="#">Blog</a>
                                 <i class="d-lg-flex d-none bi bi-chevron-right dropdown-icon"></i>
                                 <i class="d-lg-none d-flex bi bi-plus dropdown-icon"></i>
                                 <ul class="sub-menu">
-                                    <li><a href="blog-grid.html">Blog Grid</a></li>
-                                    <li><a href="blog-masonary.html">Blog Masonary</a></li>
-                                    <li><a href="blog-grid-right-sidebar.html">Blog Grid Right Sidebar</a></li>
-                                    <li><a href="blog-grid-left-sidebar.html">Blog Grid Left Sidebar</a></li>
-                                    <li><a href="blog-standard-right-sidebar.html">Standard Right Sidebar</a></li>
-                                    <li><a href="blog-standard-left-sidebar.html">Standard Left Sidebar</a></li>
-                                    <li><a href="blog-details.html">Blog Details</a></li>
+                                    <li><a href="#">Blog Grid</a></li>
+                                    <li><a href="#">Blog Masonary</a></li>
+                                    <li><a href="#">Blog Grid Right Sidebar</a></li>
+                                    <li><a href="#">Blog Grid Left Sidebar</a></li>
+                                    <li><a href="#">Standard Right Sidebar</a></li>
+                                    <li><a href="#">Standard Left Sidebar</a></li>
+                                    <li><a href="#">Blog Details</a></li>
                                 </ul>
                             </li>
-                            <li>
-                                <a href="gift-card.html">Gift card</a>
-                            </li>
-                            <li>
-                                <a href="faq.html">FAQ</a>
-                            </li>
-                           <li>
-                                <a href="error.html">Error</a>
-                            </li>
-                            <li>
-                                <a href="contact.html">Contact Us</a>
-                            </li>
-                            
                         </ul>
                     </li>
+                    <!-- end page section -->
+
                 </ul>
+
+                <!-- search box mobile? -->
                 <div class="d-lg-none d-block">
                     <form class="mobile-menu-form d-lg-none d-block pt-50">
                         <div class="input-with-btn d-flex flex-column">
@@ -1053,8 +1023,11 @@
                         </div>
                     </form>
                 </div>
+
             </div>
+
             <div class="nav-right position-inherit d-flex jsutify-content-end align-items-center">
+                <!-- start search-box -->
                 <div class="search-area">
                     <div class="search-btn">
                         <i class='bx bx-search'></i>
@@ -1065,7 +1038,7 @@
                             <div class="search-group">
                                 <div class="form-inner">
                                     <select>
-                                        <option>Al Category</option>
+                                        <option>All Category</option>
                                         <option>Face</option>
                                         <option>Makeup</option>
                                         <option>Body</option>
@@ -1090,7 +1063,11 @@
                         
                     </div>
                 </div>
+                <!-- end search-box -->
+
+                <!-- start cart -->
                 <div class="dropdown">
+                    <!-- cart button -->
                     <button type="button" class="modal-btn header-cart-btn">
                         <svg width="18" height="18" viewBox="0 0 18 18" xmlns="http://www.w3.org/2000/svg">
                             <path
@@ -1098,15 +1075,18 @@
                             <path
                                 d="M8.99951 7.71427C6.49237 7.71427 4.49951 5.72141 4.49951 3.21427C4.49951 2.82855 4.75665 2.57141 5.14237 2.57141C5.52808 2.57141 5.78523 2.82855 5.78523 3.21427C5.78523 5.01427 7.19951 6.42855 8.99951 6.42855C10.7995 6.42855 12.2138 5.01427 12.2138 3.21427C12.2138 2.82855 12.4709 2.57141 12.8567 2.57141C13.2424 2.57141 13.4995 2.82855 13.4995 3.21427C13.4995 5.72141 11.5067 7.71427 8.99951 7.71427Z" />
                         </svg>
-                        <span>01</span>
+                        <span>01</span> <!-- number in cart -->
                     </button>
+                    <!-- cart button -->
+
                     <div class="cart-menu">
+                        <!-- cart-item -->
                         <div class="cart-body">
                             <ul>
                                 <li class="single-item">
                                     <div class="item-area">
                                         <div class="item-img">
-                                            <img src="assets/img/home1/cart-img-1.png" alt="">
+                                            <img src="{{ asset('user/assets/img/home1/cart-img-1.png')}}" alt="">
                                         </div>
                                         <div class="content-and-quantity">
                                             <div class="content">
@@ -1131,7 +1111,7 @@
                                 <li class="single-item">
                                     <div class="item-area">
                                         <div class="item-img">
-                                            <img src="assets/img/home1/cart-img-2.png" alt="">
+                                            <img src="{{ asset('user/assets/img/home1/cart-img-2.png')}}" alt="">
                                         </div>
                                         <div class="content-and-quantity">
                                             <div class="content">
@@ -1155,7 +1135,11 @@
                                 </li>
                             </ul>
                         </div>
+                        <!-- end cart-item -->
+
                         <div class="cart-footer">
+
+                            <!-- star cart price -->
                             <div class="pricing-area">
                                 <ul>
                                     <li><span>Sub Total</span><span>$468</span></li>
@@ -1165,36 +1149,38 @@
                                     <li><span>Total</span><span>$425</span></li>
                                 </ul>
                             </div>
+                            <!-- end cart price  -->
+
+                             <!-- cart-button  -->
                             <div class="footer-button">
                                 <ul>
                                     <li><a class="primary-btn1 hover-btn4" href="shop-list.html">Continue Shopping</a></li>
                                     <li><a class="primary-btn1 hover-btn3" href="checkout.html">Product Checkout</a></li>
                                 </ul>
                             </div>
+
                         </div>
                     </div>
                 </div>
-                <div class="save-btn">
-                    <a href="whistlist.html">
-                        <svg width="18" height="18" viewBox="0 0 18 18" xmlns="http://www.w3.org/2000/svg">
-                            <g clip-path="url(#clip0_68_10)">
-                                <path
-                                    d="M16.528 2.20922C16.0674 1.71414 15.5099 1.31909 14.8902 1.04862C14.2704 0.778143 13.6017 0.638026 12.9255 0.636976C12.2487 0.637756 11.5794 0.777669 10.959 1.04803C10.3386 1.31839 9.78042 1.71341 9.31911 2.20857L9.00132 2.54439L8.68352 2.20857C6.83326 0.217182 3.71893 0.102819 1.72758 1.95309C1.63932 2.0351 1.5541 2.12032 1.47209 2.20857C-0.490696 4.32568 -0.490696 7.59756 1.47209 9.71466L8.5343 17.1622C8.77862 17.4201 9.18579 17.4312 9.44373 17.1869C9.45217 17.1789 9.46039 17.1707 9.46838 17.1622L16.528 9.71466C18.4907 7.59779 18.4907 4.32609 16.528 2.20922ZM15.5971 8.82882H15.5965L9.00132 15.7849L2.40553 8.82882C0.90608 7.21116 0.90608 4.71143 2.40553 3.09377C3.76722 1.61792 6.06755 1.52538 7.5434 2.88706C7.61505 2.95317 7.68401 3.02213 7.75012 3.09377L8.5343 3.92107C8.79272 4.17784 9.20995 4.17784 9.46838 3.92107L10.2526 3.09441C11.6142 1.61856 13.9146 1.52602 15.3904 2.8877C15.4621 2.95381 15.531 3.02277 15.5971 3.09441C17.1096 4.71464 17.1207 7.21893 15.5971 8.82882Z" />
-                            </g>
-                        </svg>
-                    </a>
-                </div>
+                <!-- end-cart -->
+
+                <!-- user-log -->
                 <div class="user-login">
                     <button type="button" class="user-btn" data-bs-toggle="modal" data-bs-target="#userLoginModal">
-                        <svg width="18" height="18" viewBox="0 0 18 18" xmlns="http://www.w3.org/2000/svg">
-                            <g clip-path="url(#clip0_122_313)">
-                                <path
-                                    d="M15.364 11.636C14.3837 10.6558 13.217 9.93013 11.9439 9.49085C13.3074 8.55179 14.2031 6.9802 14.2031 5.20312C14.2031 2.33413 11.869 0 9 0C6.131 0 3.79688 2.33413 3.79688 5.20312C3.79688 6.9802 4.69262 8.55179 6.05609 9.49085C4.78308 9.93013 3.61631 10.6558 2.63605 11.636C0.936176 13.3359 0 15.596 0 18H1.40625C1.40625 13.8128 4.81279 10.4062 9 10.4062C13.1872 10.4062 16.5938 13.8128 16.5938 18H18C18 15.596 17.0638 13.3359 15.364 11.636ZM9 9C6.90641 9 5.20312 7.29675 5.20312 5.20312C5.20312 3.1095 6.90641 1.40625 9 1.40625C11.0936 1.40625 12.7969 3.1095 12.7969 5.20312C12.7969 7.29675 11.0936 9 9 9Z" />
-                            </g>
-                        </svg>
+                        
+                    <!-- icon -->
+                    <svg width="18" height="18" viewBox="0 0 18 18" xmlns="http://www.w3.org/2000/svg">
+                        <g clip-path="url(#clip0_122_313)">
+                            <path
+                                d="M15.364 11.636C14.3837 10.6558 13.217 9.93013 11.9439 9.49085C13.3074 8.55179 14.2031 6.9802 14.2031 5.20312C14.2031 2.33413 11.869 0 9 0C6.131 0 3.79688 2.33413 3.79688 5.20312C3.79688 6.9802 4.69262 8.55179 6.05609 9.49085C4.78308 9.93013 3.61631 10.6558 2.63605 11.636C0.936176 13.3359 0 15.596 0 18H1.40625C1.40625 13.8128 4.81279 10.4062 9 10.4062C13.1872 10.4062 16.5938 13.8128 16.5938 18H18C18 15.596 17.0638 13.3359 15.364 11.636ZM9 9C6.90641 9 5.20312 7.29675 5.20312 5.20312C5.20312 3.1095 6.90641 1.40625 9 1.40625C11.0936 1.40625 12.7969 3.1095 12.7969 5.20312C12.7969 7.29675 11.0936 9 9 9Z" />
+                        </g>
+                    </svg>
+                    <!-- icon -->
+
                     </button>
                     
                 </div>
+                <!-- user-log -->
                 <div class="sidebar-button mobile-menu-btn ">
                     <span></span>
                 </div>
@@ -1202,70 +1188,58 @@
         </div>
     </header>
     <!-- End home2 header section -->
+
+
     <!-- Start Banner2 section -->
     <div class="banner-2-section mb-110 ">
         <div class="container-fluid p-0">
             <div class="row">
+                <!-- banner  left-->
                 <div class="col-xxl-3 col-xl-4">
                     <div class="banner-2-left">
                         <div class="banner-2-left-img">
-                            <img src="assets/img/home2/banner-2-left-img.png" alt="">
+                            <img src="{{ asset('user/assets/img/home2/banner-2-left-img.png')}}" alt="">
                         </div>
                         <div class="banner-2-left-content">
-                            <h2>Up to <strong>40%</strong> off All Makeup</h2>
+                            <h2>Up to <strong>40%</strong> off All Makeup</h2> <!-- title -->
                             <a href="shop-list.html" class="primary-btn3 hover-btn5">Shop Now</a>
                         </div>
                     </div>
                 </div>
+                <!-- banner left -->
+
+                <!-- banner right -->
                 <div class="col-xxl-9 col-xl-8">
                     <div class="banner-2-right">
                         <div class="swiper banner2-slider">
                             <div class="swiper-wrapper">
+
+                            <!-- single banner -->
                                 <div class="swiper-slide">
-                                    <div class="banner-2-right-img-bg" style="background-image: url(assets/img/home2/banner-right-bg-img1.png);">
+                                    <div class="banner-2-right-img-bg" style="background-image: url({{asset('user/assets/img/home2/banner-right-bg-img1.png')}});">
                                         <div class="banner-2-right-content">
                                             <h1>Makeup Package <span>Under</span><strong>$25</strong></h1>
                                             <p>Whatever your summer looks like, bring yourown heat with up to 25% off Lumin Brand.</p>
-                                            <a href="shop-list.html" class="primary-btn3 black-bg hover-btn5 hover-white">Shop Now</a>
+                                            <!-- shop button -->
+                                            <a href="#" class="primary-btn3 black-bg hover-btn5 hover-white">Shop Now</a>
                                         </div>
                                     </div>
                                 </div>
-                                <div class="swiper-slide">
-                                    <div class="banner-2-right-img-bg" style="background-image: url(assets/img/home2/banner-right-bg-img2.png);">
-                                        <div class="banner-2-right-content">
-                                            <h2>Face Accessories <span>Under</span><strong>$25</strong></h2>
-                                            <p>Whatever your summer looks like, bring yourown heat with up to 25% off Lumin Brand.</p>
-                                            <a href="shop-list.html" class="primary-btn3 black-bg hover-btn5 hover-white">Shop Now</a>
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="swiper-slide">
-                                    <div class="banner-2-right-img-bg" style="background-image: url(assets/img/home2/banner-right-bg-img3.png);">
-                                        <div class="banner-2-right-content">
-                                            <h2>Beauty Product <span>Under</span><strong>$25</strong></h2>
-                                            <p>Whatever your summer looks like, bring yourown heat with up to 25% off Lumin Brand.</p>
-                                            <a href="shop-list.html" class="primary-btn3 black-bg hover-btn5 hover-white">Shop Now</a>
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="swiper-slide">
-                                    <div class="banner-2-right-img-bg" style="background-image: url(assets/img/home2/banner-right-bg-img4.png);">
-                                        <div class="banner-2-right-content">
-                                            <h2>Makeup Package <span>Under</span><strong>$25</strong></h2>
-                                            <p>Whatever your summer looks like, bring yourown heat with up to 25% off Lumin Brand.</p>
-                                            <a href="shop-list.html" class="primary-btn3 black-bg hover-btn5 hover-white">Shop Now</a>
-                                        </div>
-                                    </div>
-                                </div>
+                            <!-- single banner -->
+
                             </div>
                             <div class="swiper-pagination2"></div>
                         </div>
                     </div>
                 </div>
+                <!-- banner right -->
+
             </div>
         </div>
     </div>
     <!-- End Banner2 section -->
+
+
     <!-- product view modal  -->
     <div class="modal product-view-modal" id="product-view">
         <div class="modal-dialog modal-xl modal-dialog-centered">
@@ -1280,44 +1254,44 @@
                                     <div class="tab-content" id="view-tabContent">
                                         <div class="tab-pane fade show active" id="view-pills-img1" role="tabpanel">
                                             <div class="shop-details-tab-img">
-                                                <img src="assets/img/inner-page/shop-details-tab-img1.png" alt="">
+                                                <img src="{{ asset('user/assets/img/inner-page/shop-details-tab-img1.png')}}" alt="">
                                             </div>
                                         </div>
                                         <div class="tab-pane fade" id="view-pills-img2" role="tabpanel"
                                             >
                                             <div class="shop-details-tab-img">
-                                                <img src="assets/img/inner-page/shop-details-tab-img2.png" alt="">
+                                                <img src="{{ asset('user/assets/img/inner-page/shop-details-tab-img2.png')}}" alt="">
                                             </div>
                                         </div>
                                         <div class="tab-pane fade" id="view-pills-img3" role="tabpanel">
                                             <div class="shop-details-tab-img">
-                                                <img src="assets/img/inner-page/shop-details-tab-img3.png" alt="">
+                                                <img src="{{ asset('user/assets/img/inner-page/shop-details-tab-img3.png')}}" alt="">
                                             </div>
                                         </div>
                                         <div class="tab-pane fade" id="view-pills-img4" role="tabpanel">
                                             <div class="shop-details-tab-img">
-                                                <img src="assets/img/inner-page/shop-details-tab-img4.png" alt="">
+                                                <img src="{{ asset('user/assets/img/inner-page/shop-details-tab-img4.png')}}" alt="">
                                             </div>
                                         </div>
                                     </div>
                                     <div class="nav nav-pills" id="view-tab" role="tablist" aria-orientation="vertical">
                                         <button class="nav-link active" id="view-pills-img1-tab" data-bs-toggle="pill" data-bs-target="#view-pills-img1" type="button"
                                             role="tab" aria-controls="view-pills-img1" aria-selected="true">
-                                            <img src="assets/img/inner-page/shop-details-nav-img1.png" alt="">
+                                            <img src="{{ asset('user/assets/img/inner-page/shop-details-nav-img1.png')}}" alt="">
                                         </button>
                                         <button class="nav-link" id="view-pills-img2-tab" data-bs-toggle="pill" data-bs-target="#view-pills-img2" type="button"
                                             role="tab" aria-controls="view-pills-img2" aria-selected="false">
-                                            <img src="assets/img/inner-page/shop-details-nav-img2.png" alt="">
+                                            <img src="{{ asset('user/assets/img/inner-page/shop-details-nav-img2.png')}}" alt="">
                                         </button>
                                         <button class="nav-link" id="view-pills-img3-tab" data-bs-toggle="pill"
                                             data-bs-target="#view-pills-img3" type="button" role="tab"
                                             aria-controls="view-pills-img3" aria-selected="false">
-                                            <img src="assets/img/inner-page/shop-details-nav-img3.png" alt="">
+                                            <img src="{{ asset('user/assets/img/inner-page/shop-details-nav-img3.png')}}" alt="">
                                         </button>
                                         <button class="nav-link" id="view-pills-img4-tab" data-bs-toggle="pill"
                                             data-bs-target="#view-pills-img4" type="button" role="tab"
                                             aria-controls="view-pills-img4" aria-selected="false">
-                                            <img src="assets/img/inner-page/shop-details-nav-img4.png" alt="">
+                                            <img src="{{ asset('user/assets/img/inner-page/shop-details-nav-img4.png')}}" alt="">
                                         </button>
                                     </div>
                                 </div>
@@ -1379,13 +1353,13 @@
                                     <div class="payment-method">
                                         <h6>Guaranted Safe Checkout</h6>
                                         <ul class="payment-card-list">
-                                            <li><img src="assets/img/inner-page/payment-img1.svg" alt=""></li>
-                                            <li><img src="assets/img/inner-page/payment-img2.svg" alt=""></li>
-                                            <li><img src="assets/img/inner-page/payment-img3.svg" alt=""></li>
-                                            <li><img src="assets/img/inner-page/payment-img4.svg" alt=""></li>
-                                            <li><img src="assets/img/inner-page/payment-img5.svg" alt=""></li>
-                                            <li><img src="assets/img/inner-page/payment-img6.svg" alt=""></li>
-                                            <li><img src="assets/img/inner-page/payment-img7.svg" alt=""></li>
+                                            <li><img src="{{ asset('user/assets/img/inner-page/payment-img1.svg')}}" alt=""></li>
+                                            <li><img src="{{ asset('user/assets/img/inner-page/payment-img2.svg')}}" alt=""></li>
+                                            <li><img src="{{ asset('user/assets/img/inner-page/payment-img3.svg')}}" alt=""></li>
+                                            <li><img src="{{ asset('user/assets/img/inner-page/payment-img4.svg')}}" alt=""></li>
+                                            <li><img src="{{ asset('user/assets/img/inner-page/payment-img5.svg')}}" alt=""></li>
+                                            <li><img src="{{ asset('user/assets/img/inner-page/payment-img6.svg')}}" alt=""></li>
+                                            <li><img src="{{ asset('user/assets/img/inner-page/payment-img7.svg')}}" alt=""></li>
                                         </ul>
                                     </div>
                                     <ul class="product-shipping-delivers">
@@ -1449,9 +1423,12 @@
             </div>
         </div>
     </div>
+
+
     <!-- Start Home2 category section -->
     <div class="popular-category-section mb-110">
         <div class="container">
+            <!-- title-line -->
             <div class="section-title3">
                 <h3>Popular <span>Category</span> </h3>
                 <div class="view-all">
@@ -1465,12 +1442,15 @@
                     </a>  
                 </div>
             </div>
+
+            <!-- start category list  -->
             <div class="row g-4">
+                <!-- single category -->
                 <div class="col-lg-2 col-md-3 col-sm-4">
                     <div class="category-card style-2">
                         <div class="category-card-img">
                            <a href="shop-list.html">
-                            <img src="assets/img/home2/home2-category-img1.png" alt="">
+                            <img src="{{ asset('user/assets/img/home2/home2-category-img1.png')}}" alt="">
                            </a>
                         </div>
                         <div class="category-card-content">
@@ -1478,11 +1458,13 @@
                         </div>
                    </div>
                 </div>
+                <!-- single category -->
+
                 <div class="col-lg-2 col-md-3 col-sm-4">
                     <div class="category-card style-2">
                         <div class="category-card-img">
                             <a href="shop-list.html">
-                                <img src="assets/img/home2/home2-category-img2.png" alt="">
+                                <img src="{{ asset('user/assets/img/home2/home2-category-img2.png')}}" alt="">
                             </a>
                         </div>
                         <div class="category-card-content">
@@ -1494,7 +1476,7 @@
                     <div class="category-card style-2">
                         <div class="category-card-img">
                             <a href="shop-list.html">
-                                <img src="assets/img/home2/home2-category-img3.png" alt="">
+                                <img src="{{ asset('user/assets/img/home2/home2-category-img3.png')}}" alt="">
                             </a>
                         </div>
                         <div class="category-card-content">
@@ -1506,7 +1488,7 @@
                     <div class="category-card style-2">
                         <div class="category-card-img">
                             <a href="shop-list.html">
-                                <img src="assets/img/home2/home2-category-img4.png" alt="">
+                                <img src="{{ asset('user/assets/img/home2/home2-category-img4.png')}}" alt="">
                             </a>
                         </div>
                         <div class="category-card-content">
@@ -1518,7 +1500,7 @@
                     <div class="category-card style-2">
                         <div class="category-card-img">
                             <a href="shop-list.html">
-                                <img src="assets/img/home2/home2-category-img5.png" alt="">
+                                <img src="{{ asset('user/assets/img/home2/home2-category-img5.png')}}" alt="">
                             </a>
                         </div>
                         <div class="category-card-content">
@@ -1530,7 +1512,7 @@
                     <div class="category-card style-2">
                         <div class="category-card-img">
                             <a href="shop-list.html">
-                                <img src="assets/img/home2/home2-category-img6.png" alt="">
+                                <img src="{{ asset('user/assets/img/home2/home2-category-img6.png')}}" alt="">
                             </a>
                         </div>
                         <div class="category-card-content">
@@ -1539,6 +1521,7 @@
                    </div>
                 </div>
             </div>
+            <!-- end category list -->
         </div>
     </div>
     <!-- End Home2 category section -->
@@ -1568,7 +1551,7 @@
                         </div>
                         <div class="product-card-img">
                            <a href="shop-list.html">
-                            <img src="assets/img/home2/product-img-1.png" alt="">
+                            <img src="{{ asset('user/assets/img/home2/product-img-1.png')}}" alt="">
                            </a>
                            <div class="cart-btn-area">
                                <div class="cart-btn">
@@ -1619,7 +1602,7 @@
                         </div>
                         <div class="product-card-img">
                            <a href="shop-list.html">
-                            <img src="assets/img/home2/product-img-2.png" alt="">
+                            <img src="{{ asset('user/assets/img/home2/product-img-2.png')}}" alt="">
                            </a>
                            <div class="cart-btn-area">
                                <div class="cart-btn">
@@ -1674,8 +1657,8 @@
                         </div>
                         <div class="product-card-img double-img">
                            <a href="shop-list.html">
-                            <img src="assets/img/home2/product-img-3.png" alt="" class="img1">
-                            <img src="assets/img/home2/product-img-9.png" alt="" class="img2">
+                            <img src="{{ asset('user/assets/img/home2/product-img-3.png')}}" alt="" class="img1">
+                            <img src="{{ asset('user/assets/img/home2/product-img-9.png')}}" alt="" class="img2">
                            </a>
                            <div class="cart-btn-area">
                                <div class="cart-btn">
@@ -1730,7 +1713,7 @@
                         </div>
                         <div class="product-card-img">
                            <a href="shop-list.html">
-                            <img src="assets/img/home2/product-img-4.png" alt="">
+                            <img src="{{ asset('user/assets/img/home2/product-img-4.png')}}" alt="">
                            </a>
                             <div class="out-of-stock">
                                 <span>Out Of Stock</span>
@@ -1788,7 +1771,7 @@
                         </div>
                         <div class="product-card-img">
                            <a href="shop-list.html">
-                            <img src="assets/img/home2/product-img-5.png" alt="">
+                            <img src="{{ asset('user/assets/img/home2/product-img-5.png')}}" alt="">
                            </a>
                            <div class="cart-btn-area">
                                <div class="cart-btn">
@@ -1843,8 +1826,8 @@
                         </div>
                         <div class="product-card-img double-img">
                            <a href="shop-list.html">
-                            <img src="assets/img/home2/product-img-6.png" alt="" class="img1">
-                            <img src="assets/img/home2/product-img-12.png" alt="" class="img2">
+                            <img src="{{ asset('user/assets/img/home2/product-img-6.png')}}" alt="" class="img1">
+                            <img src="{{ asset('user/assets/img/home2/product-img-12.png')}}" alt="" class="img2">
                            </a>
                            <div class="cart-btn-area">
                                <div class="cart-btn">
@@ -1899,7 +1882,7 @@
                         </div>
                         <div class="product-card-img">
                            <a href="shop-list.html">
-                            <img src="assets/img/home2/product-img-7.png" alt="">
+                            <img src="{{ asset('user/assets/img/home2/product-img-7.png')}}" alt="">
                            </a>
                            <div class="cart-btn-area">
                                <div class="cart-btn">
@@ -1954,8 +1937,8 @@
                         </div>
                         <div class="product-card-img double-img">
                            <a href="shop-list.html">
-                            <img src="assets/img/home2/product-img-8.png" alt="" class="img1">
-                            <img src="assets/img/home2/product-img-11.png" alt="" class="img2">
+                            <img src="{{ asset('user/assets/img/home2/product-img-8.png')}}" alt="" class="img1">
+                            <img src="{{ asset('user/assets/img/home2/product-img-11.png')}}" alt="" class="img2">
                            </a>
                            <div class="cart-btn-area">
                                <div class="cart-btn">
@@ -2008,7 +1991,7 @@
     </div>
     <!-- End Home2 Feature product section -->
 
-    <!-- Star Product Banner section -->
+    <!-- Star Product Banner2 section -->
     <div class="product-banner-section mb-110">
         <div class="container">
             <div class="row">
@@ -2019,42 +2002,42 @@
                                 <div class="swiper-slide">
                                     <div class="product-banner-wrapper">
                                         <div class="product-banner-left-img">
-                                            <img src="assets/img/home2/product-banner-img1.png" alt="">
+                                            <img src="{{ asset('user/assets/img/home2/product-banner-img1.png')}}" alt="">
                                         </div>
                                         <div class="product-banner-content"> 
                                             <h2>Try fresh product for your face.</h2>
                                             <a href="shop-list.html" class="primary-btn3 black-bg hover-btn5 hover-white">Shop Now</a>
                                         </div>
                                         <div class="product-banner-right-img">
-                                            <img src="assets/img/home2/product-banner-img2.png" alt="">
+                                            <img src="{{ asset('user/assets/img/home2/product-banner-img2.png')}}" alt="">
                                         </div>
                                     </div>
                                 </div>
                                 <div class="swiper-slide">
                                     <div class="product-banner-wrapper">
                                         <div class="product-banner-left-img">
-                                            <img src="assets/img/home2/product-banner-img4.png" alt="">
+                                            <img src="{{ asset('user/assets/img/home2/product-banner-img4.png')}}" alt="">
                                         </div>
                                         <div class="product-banner-content"> 
                                             <h2>Refreshing Skin Revival Elixir</h2>
                                             <a href="shop-list.html" class="primary-btn3 black-bg hover-btn5 hover-white">Shop Now</a>
                                         </div>
                                         <div class="product-banner-right-img">
-                                            <img src="assets/img/home2/product-banner-img3.png" alt="">
+                                            <img src="{{ asset('user/assets/img/home2/product-banner-img3.png')}}" alt="">
                                         </div>
                                     </div>
                                 </div>
                                 <div class="swiper-slide">
                                     <div class="product-banner-wrapper">
                                         <div class="product-banner-left-img">
-                                            <img src="assets/img/home2/product-banner-img5.png" alt="">
+                                            <img src="{{ asset('user/assets/img/home2/product-banner-img5.png')}}" alt="">
                                         </div>
                                         <div class="product-banner-content"> 
                                             <h2>Renewing Facial Awakening Serum</h2>
                                             <a href="shop-list.html" class="primary-btn3 black-bg hover-btn5 hover-white">Shop Now</a>
                                         </div>
                                         <div class="product-banner-right-img">
-                                            <img src="assets/img/home2/product-banner-img6.png" alt="">
+                                            <img src="{{ asset('user/assets/img/home2/product-banner-img6.png')}}" alt="">
                                         </div>
                                     </div>
                                 </div>
@@ -2073,9 +2056,9 @@
             </div>
         </div>
     </div>
-    <!-- End Product Banner section -->
+    <!-- End Product Banner2 section -->
      
-    <!-- Start Suggest section -->
+    <!-- Start Suggest section (nhiều quá) -->
     <div class="suggest-section mb-110">
         <div class="container">
             <div class="section-title3">
@@ -2115,7 +2098,7 @@
                                         </div>
                                         <div class="product-card-img">
                                             <a href="shop-list.html">
-                                                <img src="assets/img/home2/product-img-9.png" alt="">
+                                                <img src="{{ asset('user/assets/img/home2/product-img-9.png')}}" alt="">
                                             </a>
                                             <div class="cart-btn-area">
                                <div class="cart-btn">
@@ -2173,8 +2156,8 @@
                                         </div>
                                         <div class="product-card-img double-img">
                                             <a href="shop-list.html">
-                                                <img src="assets/img/home2/product-img-10.png" alt="" class="img1">
-                                                <img src="assets/img/home2/product-img-13.png" alt="" class="img2">
+                                                <img src="{{ asset('user/assets/img/home2/product-img-10.png')}}" alt="" class="img1">
+                                                <img src="{{ asset('user/assets/img/home2/product-img-13.png')}}" alt="" class="img2">
                                             </a>
                                             <div class="cart-btn-area">
                                <div class="cart-btn">
@@ -2238,7 +2221,7 @@
                                                 </div>
                                                 <div class="product-card-img">
                                                     <a href="shop-list.html">
-                                                        <img src="assets/img/home2/suggest-slider-img-1.png" alt="">
+                                                        <img src="{{ asset('user/assets/img/home2/suggest-slider-img-1.png')}}" alt="">
                                                     </a>
                                                     <div class="view-and-favorite-area">
                                                         <ul>
@@ -2323,7 +2306,7 @@
                                                 </div>
                                                 <div class="product-card-img">
                                                     <a href="shop-list.html">
-                                                        <img src="assets/img/home2/suggest-slider-img-2.png" alt="">
+                                                        <img src="{{ asset('user/assets/img/home2/suggest-slider-img-2.png')}}" alt="">
                                                     </a>
                                                     <div class="view-and-favorite-area">
                                                         <ul>
@@ -2410,7 +2393,7 @@
                                                 </div>
                                                 <div class="product-card-img">
                                                     <a href="shop-list.html">
-                                                        <img src="assets/img/home2/suggest-slider-img-3.png" alt="">
+                                                        <img src="{{ asset('user/assets/img/home2/suggest-slider-img-3.png')}}" alt="">
                                                     </a>
                                                     <div class="view-and-favorite-area">
                                                         <ul>
@@ -2496,7 +2479,7 @@
                                                 </div>
                                                 <div class="product-card-img">
                                                     <a href="shop-list.html">
-                                                        <img src="assets/img/home2/suggest-slider-img-4.png" alt="">
+                                                        <img src="{{ asset('user/assets/img/home2/suggest-slider-img-4.png')}}" alt="">
                                                     </a>
                                                     <div class="view-and-favorite-area">
                                                         <ul>
@@ -2596,8 +2579,8 @@
                                         </div>
                                         <div class="product-card-img double-img">
                                             <a href="shop-list.html">
-                                                <img src="assets/img/home2/product-img-11.png" alt="" class="img1">
-                                                <img src="assets/img/home2/product-img-8.png" alt="" class="img2">
+                                                <img src="{{ asset('user/assets/img/home2/product-img-11.png')}}" alt="" class="img1">
+                                                <img src="{{ asset('user/assets/img/home2/product-img-8.png')}}" alt="" class="img2">
                                             </a>
                                             <div class="cart-btn-area">
                                <div class="cart-btn">
@@ -2655,7 +2638,7 @@
                                         </div>
                                         <div class="product-card-img">
                                             <a href="shop-list.html">
-                                                <img src="assets/img/home2/product-img-12.png" alt="">
+                                                <img src="{{ asset('user/assets/img/home2/product-img-12.png')}}" alt="">
                                             </a>
                                             <div class="cart-btn-area">
                                <div class="cart-btn">
@@ -2721,7 +2704,7 @@
                                         </div>
                                         <div class="product-card-img">
                                             <a href="shop-list.html">
-                                                <img src="assets/img/home2/product-img-9.png" alt="">
+                                                <img src="{{ asset('user/assets/img/home2/product-img-9.png')}}" alt="">
                                             </a>
                                             <div class="cart-btn-area">
                                <div class="cart-btn">
@@ -2779,8 +2762,8 @@
                                         </div>
                                         <div class="product-card-img double-img">
                                             <a href="shop-list.html">
-                                                <img src="assets/img/home2/product-img-10.png" alt="" class="img1">
-                                                <img src="assets/img/home2/product-img-13.png" alt="" class="img2">
+                                                <img src="{{ asset('user/assets/img/home2/product-img-10.png')}}" alt="" class="img1">
+                                                <img src="{{ asset('user/assets/img/home2/product-img-13.png')}}" alt="" class="img2">
                                             </a>
                                             <div class="cart-btn-area">
                                <div class="cart-btn">
@@ -2844,7 +2827,7 @@
                                                 </div>
                                                 <div class="product-card-img">
                                                     <a href="shop-list.html">
-                                                        <img src="assets/img/home2/suggest-slider-img-1.png" alt="">
+                                                        <img src="{{ asset('user/assets/img/home2/suggest-slider-img-1.png')}}" alt="">
                                                     </a>
                                                     <div class="view-and-favorite-area">
                                                         <ul>
@@ -2931,7 +2914,7 @@
                                                 </div>
                                                 <div class="product-card-img">
                                                     <a href="shop-list.html">
-                                                        <img src="assets/img/home2/suggest-slider-img-2.png" alt="">
+                                                        <img src="{{ asset('user/assets/img/home2/suggest-slider-img-2.png')}}" alt="">
                                                     </a>
                                                     <div class="view-and-favorite-area">
                                                         <ul>
@@ -3018,7 +3001,7 @@
                                                 </div>
                                                 <div class="product-card-img">
                                                     <a href="shop-list.html">
-                                                        <img src="assets/img/home2/suggest-slider-img-3.png" alt="">
+                                                        <img src="{{ asset('user/assets/img/home2/suggest-slider-img-3.png')}}" alt="">
                                                     </a>
                                                     <div class="view-and-favorite-area">
                                                         <ul>
@@ -3104,7 +3087,7 @@
                                                 </div>
                                                 <div class="product-card-img">
                                                     <a href="shop-list.html">
-                                                        <img src="assets/img/home2/suggest-slider-img-4.png" alt="">
+                                                        <img src="{{ asset('user/assets/img/home2/suggest-slider-img-4.png')}}" alt="">
                                                     </a>
                                                     <div class="view-and-favorite-area">
                                                         <ul>
@@ -3204,8 +3187,8 @@
                                         </div>
                                         <div class="product-card-img double-img">
                                             <a href="shop-list.html">
-                                                <img src="assets/img/home2/product-img-11.png" alt="" class="img1">
-                                                <img src="assets/img/home2/product-img-8.png" alt="" class="img2">
+                                                <img src="{{ asset('user/assets/img/home2/product-img-11.png')}}" alt="" class="img1">
+                                                <img src="{{ asset('user/assets/img/home2/product-img-8.png')}}" alt="" class="img2">
                                             </a>
                                             <div class="cart-btn-area">
                                <div class="cart-btn">
@@ -3263,7 +3246,7 @@
                                         </div>
                                         <div class="product-card-img">
                                             <a href="shop-list.html">
-                                                <img src="assets/img/home2/product-img-12.png" alt="">
+                                                <img src="{{ asset('user/assets/img/home2/product-img-12.png')}}" alt="">
                                             </a>
                                             <div class="cart-btn-area">
                                <div class="cart-btn">
@@ -3329,7 +3312,7 @@
                                         </div>
                                         <div class="product-card-img">
                                             <a href="shop-list.html">
-                                                <img src="assets/img/home2/product-img-9.png" alt="">
+                                                <img src="{{ asset('user/assets/img/home2/product-img-9.png')}}" alt="">
                                             </a>
                                             <div class="cart-btn-area">
                                <div class="cart-btn">
@@ -3387,8 +3370,8 @@
                                         </div>
                                         <div class="product-card-img double-img">
                                             <a href="shop-list.html">
-                                                <img src="assets/img/home2/product-img-10.png" alt="" class="img1">
-                                                <img src="assets/img/home2/product-img-13.png" alt="" class="img2">
+                                                <img src="{{ asset('user/assets/img/home2/product-img-10.png')}}" alt="" class="img1">
+                                                <img src="{{ asset('user/assets/img/home2/product-img-13.png')}}" alt="" class="img2">
                                             </a>
                                             <div class="cart-btn-area">
                                <div class="cart-btn">
@@ -3452,7 +3435,7 @@
                                                 </div>
                                                 <div class="product-card-img">
                                                     <a href="shop-list.html">
-                                                        <img src="assets/img/home2/suggest-slider-img-1.png" alt="">
+                                                        <img src="{{ asset('user/assets/img/home2/suggest-slider-img-1.png')}}" alt="">
                                                     </a>
                                                     <div class="view-and-favorite-area">
                                                         <ul>
@@ -3539,7 +3522,7 @@
                                                 </div>
                                                 <div class="product-card-img">
                                                     <a href="shop-list.html">
-                                                        <img src="assets/img/home2/suggest-slider-img-2.png" alt="">
+                                                        <img src="{{ asset('user/assets/img/home2/suggest-slider-img-2.png')}}" alt="">
                                                     </a>
                                                     <div class="view-and-favorite-area">
                                                         <ul>
@@ -3626,7 +3609,7 @@
                                                 </div>
                                                 <div class="product-card-img">
                                                     <a href="shop-list.html">
-                                                        <img src="assets/img/home2/suggest-slider-img-3.png" alt="">
+                                                        <img src="{{ asset('user/assets/img/home2/suggest-slider-img-3.png')}}" alt="">
                                                     </a>
                                                     <div class="view-and-favorite-area">
                                                         <ul>
@@ -3712,7 +3695,7 @@
                                                 </div>
                                                 <div class="product-card-img">
                                                     <a href="shop-list.html">
-                                                        <img src="assets/img/home2/suggest-slider-img-4.png" alt="">
+                                                        <img src="{{ asset('user/assets/img/home2/suggest-slider-img-4.png')}}" alt="">
                                                     </a>
                                                     <div class="view-and-favorite-area">
                                                         <ul>
@@ -3812,8 +3795,8 @@
                                         </div>
                                         <div class="product-card-img double-img">
                                             <a href="shop-list.html">
-                                                <img src="assets/img/home2/product-img-11.png" alt="" class="img1">
-                                                <img src="assets/img/home2/product-img-8.png" alt="" class="img2">
+                                                <img src="{{ asset('user/assets/img/home2/product-img-11.png')}}" alt="" class="img1">
+                                                <img src="{{ asset('user/assets/img/home2/product-img-8.png')}}" alt="" class="img2">
                                             </a>
                                             <div class="cart-btn-area">
                                <div class="cart-btn">
@@ -3871,7 +3854,7 @@
                                         </div>
                                         <div class="product-card-img">
                                             <a href="shop-list.html">
-                                                <img src="assets/img/home2/product-img-12.png" alt="">
+                                                <img src="{{ asset('user/assets/img/home2/product-img-12.png')}}" alt="">
                                             </a>
                                             <div class="cart-btn-area">
                                <div class="cart-btn">
@@ -3937,7 +3920,7 @@
                                         </div>
                                         <div class="product-card-img">
                                             <a href="shop-list.html">
-                                                <img src="assets/img/home2/product-img-9.png" alt="">
+                                                <img src="{{ asset('user/assets/img/home2/product-img-9.png')}}" alt="">
                                             </a>
                                             <div class="cart-btn-area">
                                <div class="cart-btn">
@@ -3995,8 +3978,8 @@
                                         </div>
                                         <div class="product-card-img double-img">
                                             <a href="shop-list.html">
-                                                <img src="assets/img/home2/product-img-10.png" alt="" class="img1">
-                                                <img src="assets/img/home2/product-img-13.png" alt="" class="img2">
+                                                <img src="{{ asset('user/assets/img/home2/product-img-10.png')}}" alt="" class="img1">
+                                                <img src="{{ asset('user/assets/img/home2/product-img-13.png')}}" alt="" class="img2">
                                             </a>
                                             <div class="cart-btn-area">
                                <div class="cart-btn">
@@ -4060,7 +4043,7 @@
                                                 </div>
                                                 <div class="product-card-img">
                                                     <a href="shop-list.html">
-                                                        <img src="assets/img/home2/suggest-slider-img-1.png" alt="">
+                                                        <img src="{{ asset('user/assets/img/home2/suggest-slider-img-1.png')}}" alt="">
                                                     </a>
                                                     <div class="view-and-favorite-area">
                                                         <ul>
@@ -4147,7 +4130,7 @@
                                                 </div>
                                                 <div class="product-card-img">
                                                     <a href="shop-list.html">
-                                                        <img src="assets/img/home2/suggest-slider-img-2.png" alt="">
+                                                        <img src="{{ asset('user/assets/img/home2/suggest-slider-img-2.png')}}" alt="">
                                                     </a>
                                                     <div class="view-and-favorite-area">
                                                         <ul>
@@ -4234,7 +4217,7 @@
                                                 </div>
                                                 <div class="product-card-img">
                                                     <a href="shop-list.html">
-                                                        <img src="assets/img/home2/suggest-slider-img-3.png" alt="">
+                                                        <img src="{{ asset('user/assets/img/home2/suggest-slider-img-3.png')}}" alt="">
                                                     </a>
                                                     <div class="view-and-favorite-area">
                                                         <ul>
@@ -4320,7 +4303,7 @@
                                                 </div>
                                                 <div class="product-card-img">
                                                     <a href="shop-list.html">
-                                                        <img src="assets/img/home2/suggest-slider-img-4.png" alt="">
+                                                        <img src="{{ asset('user/assets/img/home2/suggest-slider-img-4.png')}}" alt="">
                                                     </a>
                                                     <div class="view-and-favorite-area">
                                                         <ul>
@@ -4420,8 +4403,8 @@
                                         </div>
                                         <div class="product-card-img double-img">
                                             <a href="shop-list.html">
-                                                <img src="assets/img/home2/product-img-11.png" alt="" class="img1">
-                                                <img src="assets/img/home2/product-img-8.png" alt="" class="img2">
+                                                <img src="{{ asset('user/assets/img/home2/product-img-11.png')}}" alt="" class="img1">
+                                                <img src="{{ asset('user/assets/img/home2/product-img-8.png')}}" alt="" class="img2">
                                             </a>
                                             <div class="cart-btn-area">
                                <div class="cart-btn">
@@ -4479,7 +4462,7 @@
                                         </div>
                                         <div class="product-card-img">
                                             <a href="shop-list.html">
-                                                <img src="assets/img/home2/product-img-12.png" alt="">
+                                                <img src="{{ asset('user/assets/img/home2/product-img-12.png')}}" alt="">
                                             </a>
                                             <div class="cart-btn-area">
                                <div class="cart-btn">
@@ -4545,7 +4528,7 @@
                                         </div>
                                         <div class="product-card-img">
                                             <a href="shop-list.html">
-                                                <img src="assets/img/home2/product-img-9.png" alt="">
+                                                <img src="{{ asset('user/assets/img/home2/product-img-9.png')}}" alt="">
                                             </a>
                                             <div class="cart-btn-area">
                                <div class="cart-btn">
@@ -4603,8 +4586,8 @@
                                         </div>
                                         <div class="product-card-img double-img">
                                             <a href="shop-list.html">
-                                                <img src="assets/img/home2/product-img-10.png" alt="" class="img1">
-                                                <img src="assets/img/home2/product-img-13.png" alt="" class="img2">
+                                                <img src="{{ asset('user/assets/img/home2/product-img-10.png')}}" alt="" class="img1">
+                                                <img src="{{ asset('user/assets/img/home2/product-img-13.png')}}" alt="" class="img2">
                                             </a>
                                             <div class="cart-btn-area">
                                <div class="cart-btn">
@@ -4668,7 +4651,7 @@
                                                 </div>
                                                 <div class="product-card-img">
                                                     <a href="shop-list.html">
-                                                        <img src="assets/img/home2/suggest-slider-img-1.png" alt="">
+                                                        <img src="{{ asset('user/assets/img/home2/suggest-slider-img-1.png')}}" alt="">
                                                     </a>
                                                     <div class="view-and-favorite-area">
                                                         <ul>
@@ -4755,7 +4738,7 @@
                                                 </div>
                                                 <div class="product-card-img">
                                                     <a href="shop-list.html">
-                                                        <img src="assets/img/home2/suggest-slider-img-2.png" alt="">
+                                                        <img src="{{ asset('user/assets/img/home2/suggest-slider-img-2.png')}}" alt="">
                                                     </a>
                                                     <div class="view-and-favorite-area">
                                                         <ul>
@@ -4842,7 +4825,7 @@
                                                 </div>
                                                 <div class="product-card-img">
                                                     <a href="shop-list.html">
-                                                        <img src="assets/img/home2/suggest-slider-img-3.png" alt="">
+                                                        <img src="{{ asset('user/assets/img/home2/suggest-slider-img-3.png')}}" alt="">
                                                     </a>
                                                     <div class="view-and-favorite-area">
                                                         <ul>
@@ -4928,7 +4911,7 @@
                                                 </div>
                                                 <div class="product-card-img">
                                                     <a href="shop-list.html">
-                                                        <img src="assets/img/home2/suggest-slider-img-4.png" alt="">
+                                                        <img src="{{ asset('user/assets/img/home2/suggest-slider-img-4.png')}}" alt="">
                                                     </a>
                                                     <div class="view-and-favorite-area">
                                                         <ul>
@@ -5028,8 +5011,8 @@
                                         </div>
                                         <div class="product-card-img double-img">
                                             <a href="shop-list.html">
-                                                <img src="assets/img/home2/product-img-11.png" alt="" class="img1">
-                                                <img src="assets/img/home2/product-img-8.png" alt="" class="img2">
+                                                <img src="{{ asset('user/assets/img/home2/product-img-11.png')}}" alt="" class="img1">
+                                                <img src="{{ asset('user/assets/img/home2/product-img-8.png')}}" alt="" class="img2">
                                             </a>
                                             <div class="cart-btn-area">
                                <div class="cart-btn">
@@ -5087,7 +5070,7 @@
                                         </div>
                                         <div class="product-card-img">
                                             <a href="shop-list.html">
-                                                <img src="assets/img/home2/product-img-12.png" alt="">
+                                                <img src="{{ asset('user/assets/img/home2/product-img-12.png')}}" alt="">
                                             </a>
                                             <div class="cart-btn-area">
                                <div class="cart-btn">
@@ -5148,7 +5131,7 @@
             </div>
         </div>
     </div>
-    <!-- End Suggest section -->
+    <!-- End Suggest section (nhiều quá) -->
 
     <!-- Start Offer-banner-2 section -->
     <div class="offer-banner two mb-110">
@@ -5156,7 +5139,7 @@
             <div class="row gy-4">
                 <div class="col-lg-6">
                     <div class="offer-banner-left hover-img">
-                        <img src="assets/img/home2/offer-banner-left-img1.png" alt="">
+                        <img src="{{ asset('user/assets/img/home2/offer-banner-left-img1.png')}}" alt="">
                         <div class="offer-banner-left-content">
                             <h3>Up to <span>40%</span> Off All Accessory.</h3>
                             <a href="shop-list.html">Shop Now</a>
@@ -5165,7 +5148,7 @@
                 </div>
                 <div class="col-lg-6">
                     <div class="offer-banner-right hover-img">
-                        <img src="assets/img/home2/offer-banner-right-img1.png" alt="">
+                        <img src="{{ asset('user/assets/img/home2/offer-banner-right-img1.png')}}" alt="">
                         <div class="offer-banner-right-content">
                             <h3>Organic <span>product</span> for your face.</h3>
                             <a href="shop-list.html" class="primary-btn3 hover-btn5">Shop Now</a>
@@ -5177,7 +5160,7 @@
     </div>
     <!-- End Offer-banner-2 section -->
 
-    <!-- Start Top selling section -->
+    <!-- Start Top-selling section -->
     <div class="top-selling-section mb-110">
         <div class="container">
             <div class="section-title3">
@@ -5202,8 +5185,8 @@
                                     </div>
                                     <div class="product-card-img double-img">
                                         <a href="shop-list.html">
-                                            <img src="assets/img/home2/product-img-13.png" alt="" class="img1">
-                                            <img src="assets/img/home2/product-img-10.png" alt="" class="img2">
+                                            <img src="{{ asset('user/assets/img/home2/product-img-13.png')}}" alt="" class="img1">
+                                            <img src="{{ asset('user/assets/img/home2/product-img-10.png')}}" alt="" class="img2">
                                         </a>
                                         <div class="cart-btn-area">
                                <div class="cart-btn">
@@ -5262,7 +5245,7 @@
                                     </div>
                                     <div class="product-card-img">
                                         <a href="shop-list.html">
-                                            <img src="assets/img/home2/product-img-14.png" alt="">
+                                            <img src="{{ asset('user/assets/img/home2/product-img-14.png')}}" alt="">
                                         </a>
                                         <div class="cart-btn-area">
                                <div class="cart-btn">
@@ -5320,7 +5303,7 @@
                                     </div>
                                     <div class="product-card-img">
                                         <a href="shop-list.html">
-                                            <img src="assets/img/home2/product-img-15.png" alt="">
+                                            <img src="{{ asset('user/assets/img/home2/product-img-15.png')}}" alt="">
                                         </a>
                                         <div class="cart-btn-area">
                                <div class="cart-btn">
@@ -5378,7 +5361,7 @@
                                     </div>
                                     <div class="product-card-img">
                                         <a href="shop-list.html">
-                                            <img src="assets/img/home2/product-img-16.png" alt="">
+                                            <img src="{{ asset('user/assets/img/home2/product-img-16.png')}}" alt="">
                                         </a>
                                         <div class="out-of-stock">
                                             <span>Out Of Stock</span>
@@ -5439,7 +5422,7 @@
                                     </div>
                                     <div class="product-card-img">
                                         <a href="shop-list.html">
-                                            <img src="assets/img/home2/product-img-1.png" alt="">
+                                            <img src="{{ asset('user/assets/img/home2/product-img-1.png')}}" alt="">
                                         </a>
                                         <div class="cart-btn-area">
                                <div class="cart-btn">
@@ -5498,7 +5481,7 @@
                                     </div>
                                     <div class="product-card-img">
                                         <a href="shop-list.html">
-                                            <img src="assets/img/home2/product-img-2.png" alt="">
+                                            <img src="{{ asset('user/assets/img/home2/product-img-2.png')}}" alt="">
                                         </a>
                                         <div class="cart-btn-area">
                                <div class="cart-btn">
@@ -5555,7 +5538,7 @@
             </div>
         </div>
     </div>
-    <!-- End Top section -->
+    <!-- End Top-selling section -->
 
     <!-- Start Brand section -->
     <div class="brand-section mb-110">
@@ -5571,70 +5554,70 @@
                         <div class="col d-flex justify-content-center brand-divider">
                             <div class="brand-img pb-35">
                                 <a href="shop-list.html">
-                                    <img src="assets/img/home2/brand-img1.png" alt="">
+                                    <img src="{{ asset('user/assets/img/home2/brand-img1.png')}}" alt="">
                                 </a>
                             </div>
                         </div>
                         <div class="col d-flex justify-content-center brand-divider">
                             <div class="brand-img pb-35">
                                 <a href="shop-list.html">
-                                    <img src="assets/img/home2/brand-img2.png" alt="">
+                                    <img src="{{ asset('user/assets/img/home2/brand-img2.png')}}" alt="">
                                 </a>
                             </div>
                         </div>
                         <div class="col d-flex justify-content-center brand-divider">
                             <div class="brand-img pb-35">
                                 <a href="shop-list.html">
-                                    <img src="assets/img/home2/brand-img3.png" alt="">
+                                    <img src="{{ asset('user/assets/img/home2/brand-img3.png')}}" alt="">
                                 </a>
                             </div>
                         </div>
                         <div class="col d-flex justify-content-center brand-divider">
                             <div class="brand-img pb-35">
                                 <a href="shop-list.html">
-                                    <img src="assets/img/home2/brand-img4.png" alt="">
+                                    <img src="{{ asset('user/assets/img/home2/brand-img4.png')}}" alt="">
                                 </a>
                             </div>
                         </div>
                         <div class="col d-flex justify-content-center">
                             <div class="brand-img pb-35">
                                 <a href="shop-list.html">
-                                    <img src="assets/img/home2/brand-img5.png" alt="">
+                                    <img src="{{ asset('user/assets/img/home2/brand-img5.png')}}" alt="">
                                 </a>
                             </div>
                         </div>
                         <div class="col d-flex justify-content-center brand-divider">
                             <div class="brand-img pt-35">
                                 <a href="shop-list.html">
-                                    <img src="assets/img/home2/brand-img6.png" alt="">
+                                    <img src="{{ asset('user/assets/img/home2/brand-img6.png')}}" alt="">
                                 </a>
                             </div>
                         </div>
                         <div class="col d-flex justify-content-center brand-divider">
                             <div class="brand-img pt-35">
                                 <a href="shop-list.html">
-                                    <img src="assets/img/home2/brand-img7.png" alt="">
+                                    <img src="{{ asset('user/assets/img/home2/brand-img7.png')}}" alt="">
                                 </a>
                             </div>
                         </div>
                         <div class="col d-flex justify-content-center brand-divider">
                             <div class="brand-img pt-35">
                                 <a href="shop-list.html">
-                                    <img src="assets/img/home2/brand-img8.png" alt="">
+                                    <img src="{{ asset('user/assets/img/home2/brand-img8.png')}}" alt="">
                                 </a>
                             </div>
                         </div>
                         <div class="col d-flex justify-content-center brand-divider">
                             <div class="brand-img pt-35">
                                 <a href="shop-list.html">
-                                    <img src="assets/img/home2/brand-img9.png" alt="">
+                                    <img src="{{ asset('user/assets/img/home2/brand-img9.png')}}" alt="">
                                 </a>
                             </div>
                         </div>
                         <div class="col d-flex justify-content-center">
                             <div class="brand-img pt-35">
                                 <a href="shop-list.html">
-                                    <img src="assets/img/home2/brand-img10.png" alt="">
+                                    <img src="{{ asset('user/assets/img/home2/brand-img10.png')}}" alt="">
                                 </a>
                             </div>
                         </div>
@@ -5645,7 +5628,7 @@
     </div>
     <!-- End Brand section section -->
 
-    <!-- Start Testimonial section -->
+    <!-- Start Review section -->
     <div class="testimonial-section mb-110">
         <div class="container">
             <div class="section-title3">
@@ -5696,7 +5679,7 @@
                                 </div>
                                 <div class="author-img-and-rating">
                                     <div class="author-img">
-                                        <img src="assets/img/home2/testimonial-author-img1.png" alt="">
+                                        <img src="{{ asset('user/assets/img/home2/testimonial-author-img1.png')}}" alt="">
                                     </div>
                                 </div>
                             </div>
@@ -5733,7 +5716,7 @@
                                 </div>
                                 <div class="author-img-and-rating">
                                     <div class="author-img">
-                                        <img src="assets/img/home2/testimonial-author-img2.png" alt="">
+                                        <img src="{{ asset('user/assets/img/home2/testimonial-author-img2.png')}}" alt="">
                                     </div>
                                 </div>
                             </div>
@@ -5770,7 +5753,7 @@
                                 </div>
                                 <div class="author-img-and-rating">
                                     <div class="author-img">
-                                        <img src="assets/img/home2/testimonial-author-img3.png" alt="">
+                                        <img src="{{ asset('user/assets/img/home2/testimonial-author-img3.png')}}" alt="">
                                     </div>
                                 </div>
                             </div>
@@ -5807,7 +5790,7 @@
                                 </div>
                                 <div class="author-img-and-rating">
                                     <div class="author-img">
-                                        <img src="assets/img/home2/testimonial-author-img4.png" alt="">
+                                        <img src="{{ asset('user/assets/img/home2/testimonial-author-img4.png')}}" alt="">
                                     </div>
                                 </div>
                             </div>
@@ -5817,7 +5800,7 @@
             </div>
         </div>
     </div>
-    <!-- End Testimonial section -->
+    <!-- End Review section -->
 
     <!-- Start Home 2 Newsletter section -->
     <div class="newsletter-section style-2 mb-110">
@@ -5825,10 +5808,10 @@
             <div class="row">
                 <div class="col-lg-12">
                     <div class="newsletter-banner">
-                        <img src="assets/img/home2/newsletter-top-left-vector.png" alt="" class="top-left">
-                        <img src="assets/img/home2/newsletter-bottom-left-vector.png" alt="" class="bottom-left">
-                        <img src="assets/img/home2/newsletter-top-right-vector.png" alt="" class="top-right">
-                        <img src="assets/img/home2/newsletter-bottom-right-vector.png" alt="" class="bottom-right">
+                        <img src="{{ asset('user/assets/img/home2/newsletter-top-left-vector.png')}}" alt="" class="top-left">
+                        <img src="{{ asset('user/assets/img/home2/newsletter-bottom-left-vector.png')}}" alt="" class="bottom-left">
+                        <img src="{{ asset('user/assets/img/home2/newsletter-top-right-vector.png')}}" alt="" class="top-right">
+                        <img src="{{ asset('user/assets/img/home2/newsletter-bottom-right-vector.png')}}" alt="" class="bottom-right">
                         <div class="newsletter-content">
                             <h2>Sign up to our newsletter for all the latest Offer & discounts.</h2>
                             <form>
@@ -5845,7 +5828,7 @@
             </div>
         </div>
     </div>
-    <!-- End Home 2 Newsletter section -->
+    <!-- End Home 2 Newsletter section -->  
 
     <!-- Start Home 2 Article section -->
     <div class="latest-article-section mb-110">
@@ -5858,7 +5841,7 @@
                     <div class="article-card style-2">
                         <div class="article-image">
                             <a href="blog-details.html" class="article-card-img hover-img">
-                                <img src="assets/img/home2/latest-article-img1.png" alt="">
+                                <img src="{{ asset('user/assets/img/home2/latest-article-img1.png')}}" alt="">
                             </a>
                         </div>
                         <div class="article-card-content">
@@ -5884,7 +5867,7 @@
                     <div class="article-card style-2">
                         <div class="article-image">
                             <a href="blog-details.html" class="article-card-img hover-img">
-                                <img src="assets/img/home2/latest-article-img2.png" alt="">
+                                <img src="{{ asset('user/assets/img/home2/latest-article-img2.png')}}" alt="">
                             </a>
                         </div>
                         <div class="article-card-content">
@@ -5910,7 +5893,7 @@
                     <div class="article-card style-2">
                         <div class="article-image">
                             <a href="blog-details.html" class="article-card-img hover-img">
-                                <img src="assets/img/home2/latest-article-img3.png" alt="">
+                                <img src="{{ asset('user/assets/img/home2/latest-article-img3.png')}}" alt="">
                             </a>
                         </div>
                         <div class="article-card-content">
@@ -5936,7 +5919,7 @@
                     <div class="article-card style-2">
                         <div class="article-image">
                             <a href="blog-details.html" class="article-card-img hover-img">
-                                <img src="assets/img/home2/latest-article-img4.png" alt="">
+                                <img src="{{ asset('user/assets/img/home2/latest-article-img4.png')}}" alt="">
                             </a>
                         </div>
                         <div class="article-card-content">
@@ -5963,6 +5946,7 @@
     </div>
     <!-- End Home 2 Article section -->
 
+    <!-- start sup-footer -->
     <div class="banner-footer style-2">
         <div class="container-fluid p-0">
             <div class="banner-footer-wrapper">
@@ -6047,6 +6031,9 @@
             </div>
         </div>
     </div>
+    <!-- end sup-footer -->
+
+
     <!-- Start Footer section section -->
     <footer class="footer-section style-2">
         <div class="container">
@@ -6121,10 +6108,10 @@
                             <div class="payment-gateway">
                                 <p>Secured Payment Gateways</p>
                                 <div class="icons">
-                                    <img src="assets/img/home1/icon/visa.png" alt="">
-                                    <img src="assets/img/home1/icon/mastercard.png" alt="">
-                                    <img src="assets/img/home1/icon/american-express.png" alt="">
-                                    <img src="assets/img/home1/icon/maestro.png" alt="">
+                                    <img src="{{ asset('user/assets/img/home1/icon/visa.png')}}" alt="">
+                                    <img src="{{ asset('user/assets/img/home1/icon/mastercard.png')}}" alt="">
+                                    <img src="{{ asset('user/assets/img/home1/icon/american-express.png')}}" alt="">
+                                    <img src="{{ asset('user/assets/img/home1/icon/maestro.png')}}" alt="">
                                 </div>
                             </div>
                         </div>
@@ -6138,7 +6125,7 @@
                             <p>©Copyright 2023 Beautico | Design By <a href="https://www.egenslab.com/">Egens Lab</a></p>
                         </div>
                         <div class="footer-logo">
-                            <a href="index.html"><img src="assets/img/logo.svg" alt=""></a>
+                            <a href="index.html"><img src="{{ asset('user/assets/img/logo.svg')}}" alt=""></a>
                         </div>
                         <div class="footer-contact">
                             <div class="logo">
@@ -6167,21 +6154,22 @@
 
     
 <!--  Main jQuery  -->
-<script data-cfasync="false" src="../../../cdn-cgi/scripts/5c5dd728/cloudflare-static/email-decode.min.js"></script><script src="assets/js/jquery-3.6.0.min.js"></script>
+<script data-cfasync="false" src="{{ asset('user/assets/js/email-decode.min.js')}}"></script>
+<script src="{{ asset('user/assets/js/jquery-3.6.0.min.js')}}   "></script>
 <!-- Popper and Bootstrap JS -->
-<script src="assets/js/popper.min.js"></script>
-<script src="assets/js/jquery.nice-select.min.js"></script>
+<script src="{{ asset('user/assets/js/popper.min.js')}}"></script>
+<script src="{{ asset('user/assets/js/jquery.nice-select.min.js')}}"></script>
 <!-- Fancybox JS -->
-<script src="assets/js/jquery.fancybox.min.js"></script>
-<script src="assets/js/bootstrap.min.js"></script>
-<script src="assets/js/slick.js"></script>
+<script src="{{ asset('user/assets/js/jquery.fancybox.min.js')}}"></script>
+<script src="{{ asset('user/assets/js/bootstrap.min.js')}}"></script>
+<script src="{{ asset('user/assets/js/slick.js')}}"></script>
 <!-- Swiper slider JS -->
-<script src="assets/js/swiper-bundle.min.js"></script>
+<script src="{{ asset('user/assets/js/swiper-bundle.min.js')}}"></script>
 
 
-<script src="assets/js/waypoints.min.js"></script>
+<script src="{{ asset('user/assets/js/waypoints.min.js')}}"></script>
 <!-- main js  -->
-<script src="assets/js/main.js"></script>
+<script src="{{ asset('user/assets/js/main.js')}}"></script>
 </body>
 
 <!-- Mirrored from demo.egenslab.com/html/beautico/preview/index2.html by HTTrack Website Copier/3.x [XR&CO'2014], Fri, 13 Jun 2025 11:25:22 GMT -->
