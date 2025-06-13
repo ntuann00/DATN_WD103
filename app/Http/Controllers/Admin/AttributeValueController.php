@@ -43,11 +43,22 @@ class AttributeValueController extends BaseController
 
     public function edit($id)
     {
-       
+        $attributeValue = AttributeValue::findOrFail($id);
+       $attributes = Attribute::all();
+        return view('admin.attributeValues.edit', compact('attributeValue','attributes'));
     }
 
     public function update(Request $request, $id)
     {
+         $request->validate([
+            'attribute_id' => 'required|numeric',
+            'value' => 'required|string|max:255',
+        ]);
+
+        $value = AttributeValue::findOrFail($id);
+        $value->update($request->all());
+
+        return redirect()->route('attributeValues.index')->with('success', 'Cập nhật thành công!');
         
     }
     public function destroy($id) {
