@@ -32,7 +32,7 @@
 
 <body class="style-2">
     @include('user.layouts.header')
-
+    
     @yield('content') {{-- nội dung index sẽ hiển thị ở đây --}}
 
     @include('user.layouts.footer')
