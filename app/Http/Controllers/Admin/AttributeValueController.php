@@ -35,7 +35,9 @@ class AttributeValueController extends BaseController
     }
     public function show($id)
     {
-
+       $AttributeValue = AttributeValue::findOrFail($id);
+       $attributes = Attribute::all();
+        return view('admin.attributeValues.show', compact('AttributeValue','attributes'));
         
     }
 

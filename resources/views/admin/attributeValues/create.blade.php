@@ -35,7 +35,7 @@
             </div>
 
             <button type="submit" class="btn btn-primary">Lưu</button>
-            <a href="{{ route('categories.index') }}" class="btn btn-secondary">Quay lại</a>
+            <a href="{{ route('attributeValues.index') }}" class="btn btn-secondary">Quay lại</a>
         </form>
     </div>
 @endsection
