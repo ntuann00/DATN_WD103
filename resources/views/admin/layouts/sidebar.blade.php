@@ -36,7 +36,7 @@
             <ul>
                 <li><a href="{{ route('attributes.index')}}">Danh sách biến thể</a></li>
                 <li><a href="">Thêm mới biến thể</a></li>
-                <li><a href="">Biến thể con</a></li>
+                <li><a href="{{ route('attributeValues.index')}}">Biến thể con</a></li>
             </ul>
         </li>
        
