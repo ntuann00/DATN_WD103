@@ -7,6 +7,8 @@ use App\Http\Controllers\Admin\AttributeController;
 use App\Http\Controllers\Admin\AttributeValueController;
 use App\Http\Controllers\Admin\CategoryController;
 use App\Http\Controllers\Admin\UserController;
+
+use App\Http\Controllers\User\HomeController;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -20,9 +22,13 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::get('/', function () {
-    return view('welcome');
-});
+Route::get('/', function () {return view('user.index');});
+
+Route::get('/product', [HomeController::class, 'product']);
+Route::get('/product/1', [HomeController::class, 'product_detail']);
+
+
+
 Route::get('/admin', function () {
     return view('admin.dashboard');
 });
