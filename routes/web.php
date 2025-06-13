@@ -53,7 +53,7 @@ Route::post('/attributeValues', [AttributeValueController::class, 'store'])->nam
 Route::get('/attributeValues/{id}', [AttributeValueController::class, 'show'])->name('attributeValues.show');
 Route::get('/attributeValues/{id}/edit', [AttributeValueController::class, 'edit'])->name('attributeValues.edit');
 Route::put('/attributeValues/{id}', [AttributeValueController::class, 'update'])->name('attributeValues.update');
-Route::delete('/attributeValues/{id}', [AttributeValueController::class, 'update'])->name('attributeValues.destroy');
+Route::delete('/attributeValues/{id}', [AttributeValueController::class, 'destroy'])->name('attributeValues.destroy');
 
 //users
 
