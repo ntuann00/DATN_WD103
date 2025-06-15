@@ -41,6 +41,10 @@ Route::get('/faq', [HomeController::class, 'faq'])->name('u.faq');
 Route::get('/contact', [HomeController::class, 'contact'])->name('u.contact');
 
 Route::get('/account', [HomeController::class, 'account'])->name('u.account');
+Route::get('/login', [HomeController::class, 'login'])->name('u.login');
+Route::get('/register', [HomeController::class, 'register'])->name('u.register');
+
+Route::get('/cart', [HomeController::class, 'cart'])->name('u.cart');
 
 
 Route::get('/admin', function () {

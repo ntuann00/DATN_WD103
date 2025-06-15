@@ -133,6 +133,17 @@
                             <li>
                                 <a href="{{ route('u.blog') }}">Blog</a>
                             </li>
+                            <li>
+                                <a href="{{ route('u.cart') }}">Cart</a>
+                            </li>
+
+                            <li>
+                                <a href="{{ route('u.login') }}">Login</a>
+                            </li>
+                            <li>
+                                <a href="{{ route('u.register') }}">Register</a>
+                            </li>
+
                         </ul>
                     </li>
                     <!-- end page section -->

@@ -43,6 +43,17 @@ class HomeController extends BaseController
     public function account(){
         return view('user.pages.my_account');
     }
+    public function cart(){
+        return view('user.cart.cart');
+    }
+
+    public function login(){
+        return view('user.auth.login');
+    }
+    
+    public function register(){
+        return view('user.auth.register');
+    }
 
 
 
