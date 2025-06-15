@@ -26,14 +26,9 @@ class AttributeController extends BaseController
                 'name' => 'required|string|max:255',
             ]);
 
-            Attribute::create($validated);
+            $attribute = Attribute::create($validated);
 
-            return redirect()->route('attributeValues.index')->with('success', 'Thêm mới thành công!');
-    }
-    public function show($id)
-    {
-
-        
+            return redirect()->route('attributes.index',$attribute->id)->with('success', 'Thêm mới thành công!');
     }
 
     public function edit($id)

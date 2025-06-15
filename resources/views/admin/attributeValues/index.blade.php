@@ -17,7 +17,6 @@
                 <th>ID</th>
                 <th>Tên biến thể</th>
                 <th>Giá biến thể</th>
-                <th>Tên biến thể con</th>
                 <td>Hoạt động</td>
             </tr>
         </thead>
