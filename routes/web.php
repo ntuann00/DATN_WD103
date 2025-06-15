@@ -22,11 +22,25 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::get('/', function () {return view('user.index');});
+Route::get('/', function () {return view('user.index');})->name('home');
 
-Route::get('/product', [HomeController::class, 'product']);
-Route::get('/product/1', [HomeController::class, 'product_detail']);
+Route::get('/product', [HomeController::class, 'product'])->name('u.product');
+Route::get('/product/new', [HomeController::class, 'new_product'])->name('u.new_product');
+Route::get('/brand', [HomeController::class, 'brand '])->name('u.brand');
 
+Route::get('/product/1', [HomeController::class, 'product_detail'])->name('u.product_detail');
+
+Route::get('/checkout', [HomeController::class, 'checkout'])->name('u.checkout');
+
+Route::get('/about_us', [HomeController::class, 'about_us'])->name('u.about_us');
+
+Route::get('/blog', [HomeController::class, 'blog'])->name('u.blog');
+Route::get('/blog/1', [HomeController::class, 'blog_detail'])->name('u.blog_detail');
+
+Route::get('/faq', [HomeController::class, 'faq'])->name('u.faq');
+Route::get('/contact', [HomeController::class, 'contact'])->name('u.contact');
+
+Route::get('/account', [HomeController::class, 'account'])->name('u.account');
 
 
 Route::get('/admin', function () {
