@@ -100,14 +100,14 @@
                     <!-- start contact dropmenu -->
                     <li class="menu-item-has-children position-inherit">
                         
-                        <a href="{{ route('u.new_product') }}" class="drop-down"> Hàng mới về </a><i class="bi bi-plus dropdown-icon"></i>
+                        <a href="{{ route('u.new_product') }}" class="drop-down"> Hàng mới về *</a><i class="bi bi-plus dropdown-icon"></i>
                         <!-- link -->
                     </li> 
                     <!-- end contact dropmenu -->
                     <!-- start contact dropmenu -->
                     <li class="menu-item-has-children position-inherit">
                         
-                        <a href="{{ route('u.brand') }}" class="drop-down"> Thương hiệu </a><i class="bi bi-plus dropdown-icon"></i>
+                        <a href="{{ route('u.brand') }}" class="drop-down"> Thương hiệu *</a><i class="bi bi-plus dropdown-icon"></i>
                         <!-- link -->
                     </li> 
                     <!-- end contact dropmenu -->       
@@ -133,6 +133,17 @@
                             <li>
                                 <a href="{{ route('u.blog') }}">Blog</a>
                             </li>
+                            <li>
+                                <a href="{{ route('u.cart') }}">Cart</a>
+                            </li>
+
+                            <li>
+                                <a href="{{ route('u.login') }}">Login</a>
+                            </li>
+                            <li>
+                                <a href="{{ route('u.register') }}">Register</a>
+                            </li>
+
                         </ul>
                     </li>
                     <!-- end page section -->
