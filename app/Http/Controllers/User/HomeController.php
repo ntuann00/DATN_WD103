@@ -37,4 +37,10 @@ class HomeController extends BaseController
         return view('user.products.product-detail', compact('Products'));
     }
 
+    public function checkout(){
+        return view('user.pages.checkout_page');
+    }
+    public function about_us(){
+        return view('user.pages.about_us');
+    }
 }

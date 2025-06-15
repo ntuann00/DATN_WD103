@@ -22,11 +22,13 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::get('/', function () {return view('user.index');});
+Route::get('/', function () {return view('user.index');})->name('home');
 
-Route::get('/product', [HomeController::class, 'product']);
-Route::get('/product/1', [HomeController::class, 'product_detail']);
+Route::get('/product', [HomeController::class, 'product'])->name('u.product');
+Route::get('/product/1', [HomeController::class, 'product_detail'])->name('u.product.d');
 
+Route::get('/checkout', [HomeController::class, 'checkout'])->name('u.checkout');
+Route::get('/about_us', [HomeController::class, 'about_us'])->name('u.about_us');
 
 
 Route::get('/admin', function () {
