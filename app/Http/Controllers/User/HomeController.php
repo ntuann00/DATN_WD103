@@ -21,26 +21,48 @@ class HomeController extends BaseController
     
 
     public function index(){
-        
         $Products = Product::all();
-        return view('user.index', compact('Products'));
+        $Categorys = Category::all();
+        return view('user.index', compact('Products','Categorys'));
         // return view('user.index');
     }
+
+    public function brand(){
+        return view('user.products.list-brand');
+    }
+
     public function product(){
-        
         $Products = Product::all();
         return view('user.products.list-product', compact('Products'));
     }
     public function product_detail(){
-        
-        $Products = Product::all();
-        return view('user.products.product-detail', compact('Products'));
+        $Product = Product::one();
+        return view('user.products.product-detail', compact('Product'));
     }
+
+    public function account(){
+        return view('user.pages.my_account');
+    }
+
+
 
     public function checkout(){
         return view('user.pages.checkout_page');
     }
     public function about_us(){
         return view('user.pages.about_us');
+    }
+
+    public function blog(){
+        return view('user.pages.blog');
+    }
+    public function blog_detail(){
+        return view('user.pages.blog_detail');
+    }
+    public function contact(){
+        return view('user.pages.contact');
+    }
+    public function faq(){
+        return view('user.pages.faq');
     }
 }

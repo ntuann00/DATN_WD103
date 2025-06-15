@@ -21,7 +21,7 @@
                     <!-- start FACE dropmenu -->
                     <li class="menu-item-has-children position-inherit">
 
-                        <a href="{{ route('u.product') }}" class="drop-down">Product</a><i class="bi bi-plus dropdown-icon"></i>
+                        <a href="{{ route('u.product') }}" class="drop-down"> Sản phẩm </a>
                         <!-- link -->
                         <div class="mega-menu2" style="background-image: url('{{asset('user/assets/img/home1/megamenu2-face-bg.png')}}');">
                             <div class="megamenu-wrap">
@@ -57,214 +57,68 @@
                     </li> 
                     <!-- end FACE dropmenu -->
 
-                    <!-- start SHOP dropmenu -->
-                    <li class="menu-item-has-children position-inherit for-dropdown">
-                        <a href="#" class="drop-down">Shop<i class="bi bi-plus dropdown-icon d-lg-flex d-none"></i></a>
-                        <i class="bi bi-plus dropdown-icon d-lg-none d-block"></i>
-                        <div class="mega-menu">
+                    <!-- start category dropmenu -->
+                    <li class="menu-item-has-children position-inherit">
+
+                        <a href="{{ route('u.product') }}" class="drop-down"> Danh mục </a>
+                        <!-- link -->
+                        <div class="mega-menu2" style="background-image: url('{{asset('user/assets/img/home1/megamenu2-bg1.png')}}');">
                             <div class="megamenu-wrap">
-                                <div class="single-menu one">
-                                    <div class="menu-header">
-                                        <h4>Shop</h4>
-                                    </div>
-                                    <ul class="menu-row">
-                                        <li class="menu-single-item">
-                                            <h6>Shop Layout</h6>
-                                            <ul>
-                                                <li>
-                                                    <a href="right-sidebar.html">Right Sidebar</a>
-                                                </li>
-                                                <li>
-                                                    <a href="left-sidebar.html">Left Sidebar</a>
-                                                </li>
-                                                <li>
-                                                    <a href="shop-list.html">Shop List</a>
-                                                </li>
-                                                <li>
-                                                    <a href="category-on-top.html">Category Top</a>
-                                                </li>
-                                                <li>
-                                                    <a href="standard.html">Standard</a>
-                                                </li>
-                                                <li>
-                                                    <a href="slider.html">Slider</a>
-                                                </li>
-                                                <li>
-                                                    <a href="full-width.html">Full Width</a>
-                                                </li>
-                                            </ul>
-                                            <ul class="menu-rows">
-                                                <li class="menu-single-item">
-                                                    <h6>Cart & Checkout</h6>
-                                                    <ul>
-                                                        <li>
-                                                            <a href="cart.html">Cart Page</a>
-                                                        </li>
-                                                        <li>
-                                                            <a href="checkout.html">Checkout</a>
-                                                        </li>
-                                                    </ul>
-                                                </li>
-                                            </ul>
-                                        </li>
-                                        <li class="menu-single-item">
-                                            <h6>Filter Layout</h6>
-                                            <ul>
-                                                <li>
-                                                    <a href="left-sidebar.html">Left  Sidebar</a>
-                                                </li>
-                                                <li>
-                                                    <a href="right-sidebar.html">Right  Sidebar</a>
-                                                </li>
-                                                <li>
-                                                    <a href="shop-list.html">Filter Hidden</a>
-                                                </li>
-                                                <li>
-                                                    <a href="filter-top.html">Filter Top</a>
-                                                </li>
-                                                <li>
-                                                    <a href="filter-dropdown.html">Filter Dropdown</a>
-                                                </li>
-                                            </ul>
-                                            <ul class="menu-rows">
-                                                <li class="menu-single-item">
-                                                    <h6>Woo Pages</h6>
-                                                    <ul>
-                                                        <li>
-                                                            <a href="my-account.html">My Account</a>
-                                                        </li>
-                                                        <li>
-                                                            <a href="order-tracking.html">Order Tracking</a>
-                                                        </li>
-                                                        <li>
-                                                            <a href="whistlist.html">Wishlist</a>
-                                                        </li>
-                                                    </ul>
-                                                </li>
-                                            </ul>
-                                        </li>
-                                        <li class="menu-single-item">
-                                            <h6>Page Loading</h6>
-                                            <ul>
-                                                <li>
-                                                    <a href="shop-list.html">Pagination</a>
-                                                </li>
-                                                <li>
-                                                    <a href="load-more.html">Load More</a>
-                                                </li>
-                                                <li>
-                                                    <a href="infinity.html">Infinity</a>
-                                                </li>
-                                            </ul>
-                                            <ul class="menu-rows">
-                                                <li class="menu-single-item">
-                                                    <h6>Hover Style</h6>
-                                                    <ul>
-                                                        <li>
-                                                            <a href="left-sidebar.html">Add To Cart</a>
-                                                        </li>
-                                                        <li>
-                                                            <a href="quick-view.html">Quick View</a>
-                                                        </li>
-                                                        <li>
-                                                            <a href="double-image.html">Icon</a>
-                                                        </li>
-                                                    </ul>
-                                                </li>
-                                            </ul>
-                                        </li>
-                                        
-                                    </ul>
-                                </div>
+                                <ul class="menu-row">
 
-                                <!-- start nav product SHOP-dropmenu-->
-                                <div class="single-menu">
-                                    <div class="menu-header">
-                                        <h4>Product</h4>
-                                    </div>
-                                    <ul class="menu-row">
-                                        <li class="menu-single-item">
-                                            <h6>Product Type</h6>
-                                            <ul>
-                                                <li>
-                                                    <a href="video-popup.html">Video Popup</a>
-                                                </li>
-                                                <li>
-                                                    <a href="countdown.html">Countdown</a>
-                                                </li>
-                                                <li>
-                                                    <a href="product-with-size-variation.html">Size Variation</a>
-                                                </li>
-                                                <li>
-                                                    <a href="notify-me.html">Notify Me</a>
-                                                </li>
-                                                <li>
-                                                    <a href="low-stock-notice.html">Low Stock Notice</a>
-                                                </li>
-                                                <li>
-                                                    <a href="out-of-stock.html">Out Of Stock</a>
-                                                </li> 
-                                            </ul>
-                                            <ul class="menu-rows">
-                                                <li class="menu-single-item">
-                                                    <h6>Description Style</h6>
-                                                    <ul>
-                                                        <li>
-                                                            <a href="product-default.html">Tab Default</a>
-                                                        </li>
-                                                        <li>
-                                                            <a href="accordion.html">Accordion</a>
-                                                        </li> 
-                                                        <li>
-                                                            <a href="vertical.html">Verticle</a>
-                                                        </li> 
-                                                        <li>
-                                                            <a href="full-content.html">Full Content</a>
-                                                        </li> 
-                                                    </ul>
-                                                </li>
-                                            </ul>
-                                        </li>
+                                <!-- item in menu -->
+                                    <li class="menu-single-item">
+                                        <a href="{{ route('home') }}"> <!-- link -->
+                                            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="8" viewBox="0 0 16 8">
+                                                <path d="M11.346 4.44443L0.217529 4.42657C0.159577 4.42657 0.104 4.38069 0.0630221 4.29902C0.0220445 4.21734 -0.000976562 4.10656 -0.000976562 3.99106C-0.000976562 3.87555 0.0220445 3.76478 0.0630221 3.6831C0.104 3.60143 0.159577 3.55554 0.217529 3.55554L11.3462 3.5734C11.4042 3.5734 11.4597 3.61928 11.5007 3.70096C11.5417 3.78263 11.5647 3.89341 11.5647 4.00891C11.5647 4.12442 11.5417 4.2352 11.5007 4.31687C11.4597 4.39855 11.4039 4.44443 11.346 4.44443Z"/>
+                                                <path d="M15.9991 4.00526C13.6711 4.8883 10.7821 6.39874 8.9917 8L10.4038 4.00021L8.99703 0C10.7858 1.60336 13.6723 3.11716 15.9991 4.00526Z"/>
+                                              </svg>
+                                              sản phẩm mới có
+                                        </a>
+                                    </li>
+                                <!-- item in menu -->
 
-                                        <li class="menu-single-item">
-                                            <h6>Product Gallery</h6>
-                                            <ul>
-                                                <li>
-                                                    <a href="product-default.html">Product Default</a>
-                                                </li>
-                                                <li>
-                                                    <a href="product-thumb-left.html">Product Thumbnail Left</a>
-                                                </li>
-                                                <li>
-                                                    <a href="product-thumb-bottom.html">Product Thumbnail Bottom</a>
-                                                </li>
-                                                <li>
-                                                    <a href="product-full-width.html">Product Full Width</a>
-                                                </li>
-                                                <li>
-                                                    <a href="product-thumb-bottom.html">Product Slider</a>
-                                                </li>
-                                                <li>
-                                                    <a href="scroll-1-column.html">Scroll 1 Column</a>
-                                                </li>
-                                                <li>
-                                                    <a href="gallery-grid.html">Gallery Grid</a>
-                                                </li>
-                                                <li>
-                                                    <a href="product-default.html">Image Zoom</a>
-                                                </li>
-                                            </ul>
-                                            
-                                        </li>
-                                        
-                                    </ul>
+                                </ul>
+
+                                <!-- bottom button -->
+                                <div class="all-product">
+                                    <a class="hover-underline " href="{{ route('u.product') }}">*View All Product
+                                        <svg width="33" height="13" viewBox="0 0 33 13" xmlns="http://www.w3.org/2000/svg">
+                                            <path d="M25.5083 7.28L0.491206 7.25429C0.36093 7.25429 0.23599 7.18821 0.143871 7.0706C0.0517519 6.95299 0 6.79347 0 6.62714C0 6.46081 0.0517519 6.3013 0.143871 6.18369C0.23599 6.06607 0.36093 6 0.491206 6L25.5088 6.02571C25.6391 6.02571 25.764 6.09179 25.8561 6.2094C25.9482 6.32701 26 6.48653 26 6.65286C26 6.81919 25.9482 6.9787 25.8561 7.09631C25.764 7.21393 25.6386 7.28 25.5083 7.28Z"></path>
+                                            <path d="M33.0001 6.50854C29.2204 7.9435 24.5298 10.398 21.623 13L23.9157 6.50034L21.6317 0C24.5358 2.60547 29.2224 5.06539 33.0001 6.50854Z"></path>
+                                        </svg>
+                                    </a>
                                 </div>
-                                <!-- end nav product SHOP-dropmenu -->
+                                <!-- bottom button -->
 
                             </div>
                         </div>
-                    </li>
-                    <!-- end SHOP drop menu -->
+                    </li> 
+                    <!-- end category dropmenu -->
+
+                    
+                    <!-- start contact dropmenu -->
+                    <li class="menu-item-has-children position-inherit">
+                        
+                        <a href="{{ route('u.new_product') }}" class="drop-down"> Hàng mới về </a><i class="bi bi-plus dropdown-icon"></i>
+                        <!-- link -->
+                    </li> 
+                    <!-- end contact dropmenu -->
+                    <!-- start contact dropmenu -->
+                    <li class="menu-item-has-children position-inherit">
+                        
+                        <a href="{{ route('u.brand') }}" class="drop-down"> Thương hiệu </a><i class="bi bi-plus dropdown-icon"></i>
+                        <!-- link -->
+                    </li> 
+                    <!-- end contact dropmenu -->       
+                    
+                    <!-- start contact dropmenu -->
+                    <li class="menu-item-has-children position-inherit">
+
+                        <a href="{{ route('u.contact') }}" class="drop-down"> Liên hệ </a><i class="bi bi-plus dropdown-icon"></i>
+                        <!-- link -->
+                    </li> 
+                    <!-- end contact dropmenu -->
 
                     <!-- start page section -->
                     <li class="menu-item-has-children">
@@ -274,24 +128,10 @@
                                 <a href="{{ route('u.about_us') }}">About Us</a>
                             </li>
                             <li>
-                                <a href="#">Our Brand</a>
+                                <a href="{{ route('u.faq') }}">FaQ</a>
                             </li>
                             <li>
-                                <a href="#">Category</a>
-                            </li>
-                            <li>
-                                <a href="#">Blog</a>
-                                <i class="d-lg-flex d-none bi bi-chevron-right dropdown-icon"></i>
-                                <i class="d-lg-none d-flex bi bi-plus dropdown-icon"></i>
-                                <ul class="sub-menu">
-                                    <li><a href="#">Blog Grid</a></li>
-                                    <li><a href="#">Blog Masonary</a></li>
-                                    <li><a href="#">Blog Grid Right Sidebar</a></li>
-                                    <li><a href="#">Blog Grid Left Sidebar</a></li>
-                                    <li><a href="#">Standard Right Sidebar</a></li>
-                                    <li><a href="#">Standard Left Sidebar</a></li>
-                                    <li><a href="#">Blog Details</a></li>
-                                </ul>
+                                <a href="{{ route('u.blog') }}">Blog</a>
                             </li>
                         </ul>
                     </li>
@@ -367,7 +207,6 @@
                 </div>
                 <!-- end search-box -->
 
-                <!-- start cart -->
                 <div class="dropdown">
                     <!-- cart button -->
                     <button type="button" class="modal-btn header-cart-btn">
@@ -399,7 +238,7 @@
                                                          <i class="bi bi-x"></i> <!-- phim x -->
                                                     </button>
                                                 </div>
-                                                <p><a href="#">Tên sản phẩm</a></p>
+                                                <p><a href="#">Tên sản phẩm</a><i class="bi bi-plus dropdown-icon"></i></p>
                                             </div>
                                             <div class="quantity-area">
                                                 <div class="quantity">
@@ -437,6 +276,7 @@
                     </div>
                 </div>
                 <!-- end-cart -->
+                
 
                 <!-- user-log -->
                 <div class="user-login">
@@ -459,7 +299,7 @@
                             </svg>
                         </button>
                         <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton1">
-                            <li><a class="dropdown-item " href="#">Thông tin tài khoản</a></li>
+                            <li><a class="dropdown-item " href="{{ route('u.account') }}">Thông tin tài khoản</a></li>
                             <li><a class="dropdown-item fw-bold text-danger" href="#">Đăng xuất</a></li>
                         </ul>
                     </div>
