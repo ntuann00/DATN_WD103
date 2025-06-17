@@ -19,18 +19,6 @@
                 <div class="icon_menu">
                     <img src="{{ asset('admins/assets/img/menu-icon/2.svg')}}" alt>
                 </div>
-                <span>Quản lí người dùng</span>
-            </a>
-            <ul>
-                <li><a href="">Danh sách người dùng</a></li>
-                <li><a href="">Thêm mới người dùng</a></li>
-            </ul>
-        </li>
-        <li class>
-            <a class="has-arrow" href="#" aria-expanded="false">
-                <div class="icon_menu">
-                    <img src="{{ asset('admins/assets/img/menu-icon/3.svg') }}" alt>
-                </div>
                 <span>Quản lí danh mục</span>
             </a>
             <ul>
@@ -38,67 +26,23 @@
                 <li><a href="">Thêm mới danh mục</a></li>
             </ul>
         </li>
+        <li class>
+            <a class="has-arrow" href="#" aria-expanded="false">
+                <div class="icon_menu">
+                    <img src="{{ asset('admins/assets/img/menu-icon/2.svg')}}" alt>
+                </div>
+                <span>Quản lí biến thể</span>
+            </a>
+            <ul>
+                <li><a href="{{ route('attributes.index')}}">Danh sách biến thể</a></li>
+                <li><a href="">Thêm mới biến thể</a></li>
+                <li><a href="{{ route('attributeValues.index')}}">Biến thể con</a></li>
+            </ul>
+        </li>
+       
 
-        <li class>
-            <a class="has-arrow" href="#" aria-expanded="false">
-                <div class="icon_menu">
-                    <img src="{{ asset('admins/assets/img/menu-icon/4.svg')}}" alt>
-                </div>
-                <span>Quản lí sản phẩm</span>
-            </a>
-            <ul>
-                <li><a href="Basic_Elements.html">Basic Elements</a></li>
-                <li><a href="Groups.html">Groups</a></li>
-                <li><a href="Max_Length.html">Max Length</a></li>
-                <li><a href="Layouts.html">Layouts</a></li>
-            </ul>
-        </li>
-        <li class>
-            <a href="Board.html" aria-expanded="false">
-                <div class="icon_menu">
-                    <img src="{{ asset('admins/assets/img/menu-icon/5.svg')}}" alt>
-                </div>
-                <span>Quản lí mã giảm giá</span>
-            </a>
-        </li>
-        <li class>
-            <a href="invoice.html" aria-expanded="false">
-                <div class="icon_menu">
-                    <img src="{{ asset('admins/assets/img/menu-icon/6.svg')}}" alt>
-                </div>
-                <span>Quản lí đơn hàng</span>
-            </a>
-        </li>
-        <li class>
-            <a href="calender.html" aria-expanded="false">
-                <div class="icon_menu">
-                    <img src="{{ asset('admins/assets/img/menu-icon/7.svg')}}" alt>
-                </div>
-                <span>Quản lí kho</span>
-            </a>
-        </li>
-         <li class>
-            <a href="" aria-expanded="false">
-                <div class="icon_menu">
-                    <img src="{{ asset('admins/assets/img/menu-icon/8.svg')}}" alt>
-                </div>
-                <span>Quản lí bình luận</span>
-            </a>
-        </li>
-        <li class>
-            <a class="has-arrow" href="#" aria-expanded="false">
-                <div class="icon_menu">
-                    <img src="{{ asset('admins/assets/img/menu-icon/8.svg')}}" alt>
-                </div>
-                <span>Thống kê</span>
-            </a>
-            <ul>
-                <li><a href="Products.html">Products</a></li>
-                <li><a href="Product_Details.html">Product Details</a></li>
-                <li><a href="Cart.html">Cart</a></li>
-                <li><a href="Checkout.html">Checkout</a></li>
-            </ul>
-        </li>
+        
+        
         
         <li class>
             <a class="has-arrow" href="#" aria-expanded="false">
