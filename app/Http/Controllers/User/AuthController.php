@@ -80,8 +80,9 @@ class AuthController extends BaseController
         return redirect()->route('login');
     }
 
-    //     public function profile()
-    //     {
-    //         return view('auth.profile');
-    //     }
+        public function profile()
+        {
+              $user = auth()->user();
+    return view('user.auth.profile', compact('user'));
+        }
 }
