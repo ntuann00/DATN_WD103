@@ -19,11 +19,7 @@ class UserController extends BaseController
 
     public function index()
     {
-<<<<<<< Updated upstream
-        $users = Users::all();
-=======
-       $users = Users::latest()->paginate(5);
->>>>>>> Stashed changes
+       $users = Users::latest()->paginate(10);
         return view('admin.users.index', compact('users'));
     }
     public function create()

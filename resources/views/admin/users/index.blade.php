@@ -35,7 +35,7 @@
                         <td>{{ $user->phone }}</td>
                         <td>{{ $user->email }}</td>
                         <td><img src="{{ asset('storage/' . $user->img) }}" alt="avatar" width="100"></td>
-                        <td> {{ $user->birthday->format('d-m-Y') }}</td>
+                        <td> {{ $user->birthday }}</td>
                         <td>{{ ucfirst($user->gender) }}</td>
                         <td>{{ $user->role->name }}</td>
                         <td>

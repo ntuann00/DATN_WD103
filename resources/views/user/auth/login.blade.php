@@ -9,9 +9,9 @@
                     <div class="order-traking-area two mt-110 mb-110">
                         <div class="section-title text-center">
                             <h2>Đăng nhập</h2>
-                            <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Reiciendis, sit velit itaque quaerat neque saepe. Consequuntur eos repellat magni perspiciatis modi voluptatum veritatis doloribus commodi. Iste quo similique debitis voluptates!</p>
                         </div>
-                        <form>
+                        <form method="POST" action="{{ url('/login') }}">
+    @csrf
                             <div class="row justify-content-center">
                                 <div class="col-md-9 mb-25">
                                     <div class="form-inner">
