@@ -12,6 +12,7 @@ use Illuminate\Support\Facades\Storage;
 use Illuminate\Routing\Controller as BaseController;
 use Illuminate\Foundation\Validation\ValidatesRequests;
 use Illuminate\Foundation\Auth\Access\AuthorizesRequests;
+use Illuminate\Validation\Rule;
 
 class UserController extends BaseController
 {
@@ -23,58 +24,59 @@ class UserController extends BaseController
     }
     public function create()
     {
-         $roles = Role::all(); // lấy danh sách role
-       return view('admin.users.create', compact('roles'));
+        $roles = Role::all(); // lấy danh sách role
+        return view('admin.users.create', compact('roles'));
     }
     public function store(Request $request)
-    { 
-    $validated = $request->validate([
-        'name'     => 'required|string|max:255',
-        'phone'    => 'nullable|string|max:20',
-        'email'    => 'required|email|unique:users,email',
-        'password' => 'required|string|min:6',
-        'birthday' => 'nullable|date',
-        'gender'   => 'nullable|in:male,female',
-        'role_id'  => 'required|integer|exists:roles,id',
-        'status'   => 'required|boolean',
-        'img'      => 'nullable|image|max:2048',
-    ]);
+    {
+        $validated = $request->validate([
+            'name'     => 'required|string|max:255',
+            'phone'    => 'nullable|string|max:20',
+            'email'    => 'required|email|unique:users,email',
+            'password' => 'required|string|min:6',
+            'birthday' => 'nullable|date',
+            'gender'   => 'nullable|in:male,female',
+            'role_id'  => 'required|integer|exists:roles,id',
+            'status'   => 'required|boolean',
+            'img'      => 'nullable|image|max:2048',
+        ]);
 
-    // Xử lý upload ảnh nếu có
+        // Xử lý upload ảnh nếu có
 
         if ($request->hasFile('img')) {
             $file = $request->file('img');
             $validated['img'] = $file->store('images', 'public');
         }
 
-    // Mã hoá mật khẩu
-    $validated['password'] = bcrypt($validated['password']);
+        // Mã hoá mật khẩu
+        $validated['password'] = bcrypt($validated['password']);
 
-    // Tạo user mới
-    Users::create($validated);
+        // Tạo user mới
+        Users::create($validated);
 
-    return redirect()->route('users.index')->with('success', 'Tạo người dùng thành công!');
-}
+        return redirect()->route('users.index')->with('success', 'Tạo người dùng thành công!');
+    }
 
-    public function show($id)
-    {
-
-    
+    public function show($id) {
+         $users = Users::findOrFail($id);
+        $roles = Role::all();
+        return view('admin.users.show', compact('users', 'roles'));
     }
 
     public function edit($id)
     {
-        $users = User::findOrFail($id);
-         $roles = Role::all();
+        $users = Users::findOrFail($id);
+        $roles = Role::all();
         return view('admin.users.edit', compact('users', 'roles'));
     }
 
 
-public function update(Request $request, User $user, $id)
+
+    public function update(Request $request, Users $users)
     {
-        $validated = $request->validate([
+         $validated = $request->validate([
             'name'     => 'required|string|max:255',
-            'email'    => 'required|email|unique:users,email,' . $user->id,
+            'email'    => ['required', 'email', Rule::unique('users')->ignore($users->id)],
             'phone'    => 'nullable|string|max:20',
             'password' => 'nullable|string|min:6',
             'birthday' => 'nullable|date',
@@ -84,19 +86,25 @@ public function update(Request $request, User $user, $id)
             'img'      => 'nullable|image|max:2048',
         ]);
 
-       if ($request->hasFile('image')) {
-            $img = $request->file('uploads');
-            $imgName = time() . '.' . $img->getClientOriginalExtension();
-            $img->move(public_path('uploads'), $imgName);
-            $validatedData['img'] = $imgName;
+        if ($request->hasFile('img')) {
+            if ($users->img && Storage::disk('public')->exists($users->img)) {
+                Storage::disk('public')->delete($users->img);
+            }
+            $validated['img'] = $request->file('img')->store('img', 'public');
         }
 
-        $user->update($validated);
+        if (!empty($validated['password'])) {
+            $validated['password'] = Hash::make($validated['password']);
+        } else {
+            unset($validated['password']);
+        }
+
+        $users->update($validated);
 
         return redirect()->route('users.index')->with('success', 'Cập nhật người dùng thành công!');
     }
 
-  public function destroy($id)
+    public function destroy($id)
     {
         $user = Users::findOrFail($id);
         $user->delete();
