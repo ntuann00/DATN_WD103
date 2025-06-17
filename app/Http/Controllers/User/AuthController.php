@@ -12,7 +12,8 @@ use Illuminate\Support\Facades\Hash;
 
 class AuthController extends BaseController
 {
-    public function showRegisterForm() {
+    public function showRegisterForm()
+    {
         return view('user.auth.register');
     }
 
@@ -32,41 +33,45 @@ class AuthController extends BaseController
             'name'     => $validated['name'],
             'email'    => $validated['email'],
             'phone'    => $validated['phone'],
-            'password' => Hash::make($validated['password']),
+            'password' => $validated['password'],
             'gender'   => $validated['gender'],
             'birthday' => $validated['birthday'],
             'role_id'  => 2,
             'status'   => 1,
         ]);
-        $users->save();
 
-        Auth::login($users);
+        $users->save();
         return redirect()->route('login')->with('success', 'Đăng ký thành công!');
     }
 
-     public function showLoginForm() {
+    public function showLoginForm()
+    {
         return view('user.auth.login');
     }
 
     public function login(Request $request)
     {
-        $request->validate([
+
+        $data = $request->validate([
             'email'    => 'required|email',
             'password' => 'required|string',
         ]);
 
         $user = Users::where('email', $request->email)->first();
 
-        if (!$user || !Hash::check($request->password, $user->password)) {
-            return back()->withErrors(['email' => 'Email hoặc mật khẩu không đúng!']);
+        if(!$user){
+            return back()->withErrors('Tài khoản không tồn tại!');
         }
 
         if ($user->status != 1) {
             return back()->withErrors(['email' => 'Tài khoản bị khóa']);
         }
 
-        Auth::login($user);
-        return redirect()->route('profile');
+        if (Auth::attempt($data)) {
+            return redirect()->route('home')->with('success', 'Đăng nhập thành cong!');
+        } else {
+            return back()->withErrors('Tài khoản hoặc mật khẩu không đúng!');
+        }
     }
 
     public function logout()
@@ -75,8 +80,8 @@ class AuthController extends BaseController
         return redirect()->route('login');
     }
 
-//     public function profile()
-//     {
-//         return view('auth.profile');
-//     }
+    //     public function profile()
+    //     {
+    //         return view('auth.profile');
+    //     }
 }

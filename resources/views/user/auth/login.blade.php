@@ -15,14 +15,14 @@
                             <div class="row justify-content-center">
                                 <div class="col-md-9 mb-25">
                                     <div class="form-inner">
-                                        <label>Email/Username</label>
-                                        <input type="text" placeholder="Enter your email/username">
+                                        <label>Email</label>
+                                        <input name="email" type="text" placeholder="Enter your email">
                                     </div>
                                 </div>
                                 <div class="col-md-9 mb-25">
                                     <div class="form-inner">
                                         <label>Password</label>
-                                        <input type="password" placeholder="Enter your password">
+                                        <input name="password" type="password" placeholder="Enter your password">
                                     </div>
                                 </div>
 
@@ -35,7 +35,7 @@
 
                                         <a href="#" class="forget-pass hover-underline"> Quên mật khẩu? </a>
                                         |
-                                        <a href="#" class="forget-pass hover-underline"> Đăng ký </a>
+                                        <a href="{{ route('register') }}" class="forget-pass hover-underline"> Đăng ký </a>
 
                                     </div>
                                 </div>
