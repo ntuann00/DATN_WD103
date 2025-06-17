@@ -347,15 +347,36 @@
                         </svg>
                     </button>
                     <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton1">
-                        {{-- <li><a class="dropdown-item" href="{{ route('register') }}">Đăng ký</a></li>
-                        <li><a class="dropdown-item" href="{{ route('login') }}">Đăng nhập</a></li> --}}
-                        @if (Auth::check())
-                            <span class="dropdown-item-text">👋 {{ Auth::user()->name }}</span>
-                        @else
-                            <a class="dropdown-item" href="{{ route('login') }}">Đăng nhập</a>
-                            <a class="dropdown-item" href="{{ route('register') }}">Đăng ký</a>
+                        <li>
+                            <a class="dropdown-item" href="{{ route('profile') }}">👤 Hồ sơ</a>
+                        </li>
+                        <li>
+                            <a class="dropdown-item" href="">🛒 Giỏ hàng</a>
+                        </li>
+                        <li>
+                            <a class="dropdown-item" href="">📦 Lịch sử mua hàng</a>
+                        </li>
+
+                        @if (Auth::user() && Auth::user()->role === 'admin')
+                            <li>
+                                <a class="dropdown-item text-primary" href="{{ route('admin.login') }}">🔑 Đăng nhập
+                                    admin</a>
+                            </li>
                         @endif
+
+                        <li>
+                            <hr class="dropdown-divider">
+                        </li>
+                        <li><a href="{{ route('logout') }}"
+                                onclick="event.preventDefault(); document.getElementById('logout-form').submit();">
+                                Đăng xuất
+                            </a>
+                            <form id="logout-form" action="{{ route('logout') }}" method="POST" class="d-none">
+                                @csrf
+                            </form>
+                        </li>
                     </ul>
+
                 </div>
 
             </div>
