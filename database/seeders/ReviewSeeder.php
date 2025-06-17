@@ -4,7 +4,7 @@ namespace Database\Seeders;
 
 use App\Models\Product;
 use App\Models\Review;
-use App\Models\User;
+use App\Models\Users;
 use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 use Illuminate\Database\Seeder;
 use Faker\Factory as Faker;
@@ -17,7 +17,7 @@ class ReviewSeeder extends Seeder
     public function run(): void
     {
         $faker    = Faker::create();
-        $users    = User::all();
+        $users    = Users::all();
         $products = Product::all();
 
         foreach ($users as $user) {

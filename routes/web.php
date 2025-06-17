@@ -8,6 +8,7 @@ use App\Http\Controllers\Admin\AttributeValueController;
 use App\Http\Controllers\Admin\CategoryController;
 use App\Http\Controllers\Admin\UserController;
 
+use App\Http\Controllers\User\AuthController;
 use App\Http\Controllers\User\HomeController;
 use Illuminate\Support\Facades\Route;
 
@@ -45,6 +46,24 @@ Route::get('/login', [HomeController::class, 'login'])->name('u.login');
 Route::get('/register', [HomeController::class, 'register'])->name('u.register');
 
 Route::get('/cart', [HomeController::class, 'cart'])->name('u.cart');
+
+//đki,
+
+Route::get('/register', [AuthController::class, 'showRegisterForm'])->name('register');
+Route::post('/register', [AuthController::class, 'register']);
+//dnhap
+
+Route::get('/login', [AuthController::class, 'showLoginForm'])->name('login');
+Route::post('/login', [AuthController::class, 'login']);
+
+//logout
+Route::get('/logout', [AuthController::class, 'logout'])->name('logout');
+
+//sau khhi dnhap
+Route::middleware('auth')->group(function () {
+    Route::get('/profile', [AuthController::class, 'profile'])->name('profile');
+});
+
 
 
 Route::get('/admin', function () {
