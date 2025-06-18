@@ -166,18 +166,35 @@
                                 </div>
                             </div>
                         </div>
+
+                        <!-- start my-profile -->
                         <div class="tab-pane fade" id="v-pills-profile" role="tabpanel"
                             aria-labelledby="v-pills-profile-tab">
                             <div class="dashboard-profile">
                                 <div class="table-title-area">
                                     <h3>Edit Your Profile</h3>
+
                                     <p>From your My Account Dashboard you have the ability to view a snapshot of your
                                         recent account activity and update your account information. Select a link below
                                         to view or edit information.</p>
                                 </div>
+                                
                                 <div class="form-wrapper">
                                     <form action="#">
                                         <div class="row">
+
+                                            <div class="col-12">
+                                                <div class="col-xl-6 col-lg-12 col-md-6 mb-25">
+                                                    <div class="gift-card-img hover-img col-6">
+                                                        <img src="{{asset('user/assets/img/inner-page/gift-card-img1.png')}}" alt="">
+                                                    </div>
+
+                                                    <div class="form-label col-6">
+                                                        <input type="file" placeholder="Enter your first name*" class="form-control form-control-sm">
+                                                    </div>
+                                                </div>
+                                            </div>
+
                                             <div class="col-xl-6 col-lg-12 col-md-6 mb-25">
                                                 <div class="form-inner">
                                                     <input type="text" placeholder="Enter your first name*">
@@ -268,6 +285,8 @@
                                 </div>
                             </div>
                         </div>
+                        <!-- end my profile -->
+
                         <div class="tab-pane fade" id="v-pills-order" role="tabpanel"
                             aria-labelledby="v-pills-order-tab">
                             <div class="order-traking-area">
