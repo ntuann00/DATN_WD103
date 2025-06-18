@@ -10,6 +10,7 @@
 
     <a href="{{ route('attributes.create')}}" class="btn btn-primary mb-3">+ Thêm biến thể</a>
      <a href="{{ route('attributeValues.create')}}" class="btn btn-primary mb-3"> Thêm biến thể con</a>
+     <a href="{{ route('attributeValues.index')}}" class="btn btn-primary mb-3"> Danh sách</a>
 
     <table class="table table-bordered">
         <thead>
