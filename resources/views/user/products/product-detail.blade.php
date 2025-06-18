@@ -2,68 +2,43 @@
 
 @section('content')
 
-
-<h1>detail product</h1>
-
 <!-- Start Shop Details top section -->
     <div class="shop-details-top-section mt-110 mb-110"> 
         <div class="container-xl container-fluid-lg container">
             <div class="row gy-5">
+                <!-- img hinh-anh -->
                 <div class="col-lg-6">
                     <div class="shop-details-img">  
                         <div class="tab-content" id="v-pills-tabContent">
+
                             <div class="tab-pane fade show active" id="v-pills-img1" role="tabpanel"
                                >
                                 <div class="shop-details-tab-img product-img--main" data-scale="1.4" data-image="assets/img/inner-page/shop-details-tab-img1.png">
-                                    <img src="assets/img/inner-page/shop-details-tab-img1.png" alt="">
+                                    <img src="{{asset('user/assets/img/inner-page/shop-details-tab-img1.png')}}" alt="">
+                                    
                                 </div> 
                             </div>
-                            <div class="tab-pane fade" id="v-pills-img2" role="tabpanel"
-                                >
-                                <div class="shop-details-tab-img product-img--main" data-scale="1.4" data-image="assets/img/inner-page/shop-details-tab-img2.png">
-                                    <img src="assets/img/inner-page/shop-details-tab-img2.png" alt="">
-                                </div>
-                            </div>
-                            <div class="tab-pane fade" id="v-pills-img3" role="tabpanel"
-                                aria-labelledby="v-pills-img3-tab">
-                                <div class="shop-details-tab-img product-img--main" data-scale="1.4" data-image="assets/img/inner-page/shop-details-tab-img3.png">
-                                    <img src="assets/img/inner-page/shop-details-tab-img3.png" alt="">
-                                </div>
-                            </div>
-                            <div class="tab-pane fade" id="v-pills-img4" role="tabpanel"
-                                aria-labelledby="v-pills-img4-tab">
-                                <div class="shop-details-tab-img product-img--main" data-scale="1.4" data-image="assets/img/inner-page/shop-details-tab-img4.png">
-                                    <img src="assets/img/inner-page/shop-details-tab-img4.png" alt="">
-                                </div>
-                            </div>
+
                         </div>
                         <div class="nav nav-pills" id="v-pills-tab" role="tablist"
                             aria-orientation="vertical">
+
                             <button class="nav-link active" id="v-pills-img1-tab" data-bs-toggle="pill"
                                 data-bs-target="#v-pills-img1" type="button" role="tab" aria-controls="v-pills-img1" aria-selected="true">
-                                <img src="assets/img/inner-page/shop-details-nav-img1.png" alt="">
+                                <img src="{{asset('user/assets/img/inner-page/shop-details-nav-img1.png')}}" alt="">
                             </button>
-                            <button class="nav-link" id="v-pills-img2-tab" data-bs-toggle="pill"
-                                data-bs-target="#v-pills-img2" type="button" role="tab" aria-controls="v-pills-img2"
-                                aria-selected="false">
-                                <img src="assets/img/inner-page/shop-details-nav-img2.png" alt="">
-                            </button>
-                            <button class="nav-link" id="v-pills-img3-tab" data-bs-toggle="pill"
-                                data-bs-target="#v-pills-img3" type="button" role="tab" aria-controls="v-pills-img3"
-                                aria-selected="false">
-                                <img src="assets/img/inner-page/shop-details-nav-img3.png" alt="">
-                            </button>
-                            <button class="nav-link" id="v-pills-img4-tab" data-bs-toggle="pill"
-                                data-bs-target="#v-pills-img4" type="button" role="tab" aria-controls="v-pills-img4"
-                                aria-selected="false">
-                                <img src="assets/img/inner-page/shop-details-nav-img4.png" alt="">
-                            </button>
+
                         </div>
                     </div>
                 </div>
+                <!-- end img hinh-anh -->
+
                 <div class="col-lg-6">
                     <div class="shop-details-content">
-                        <h1>Poutsicle Hydrating Lip Stain.</h1>
+                        <!-- name -->
+                        <h1>{{$Product->name}}</h1>
+
+                         <!-- review -->
                         <div class="rating-review">
                             <div class="rating">
                                 <div class="star">
@@ -76,23 +51,24 @@
                                 <p><a href="#reviews">(50 customer review)</a></p>
                             </div>
                         </div>
-                        <p>Aptent taciti sociosqu ad litora torquent per conubia nostra, per inceptos only
-                            placerat felis non aliquam.Mauris nec justo vitae ante auctor tol euismod sit amet
-                            Praesent commodo at massa eget suscipit. Utani vitae enim velit.</p>
+                        <!-- end review -->
+                        <p>{{$Product->description}}</p>
                         <div class="price-area">
                             <p class="price">$150.00 <del>$200.00</del></p>
                         </div>
                         <div class="quantity-color-area">
+                            <!-- số lượng -->
                             <div class="quantity-color">
-                                <h6 class="widget-title">Quantity</h6>
+                                <h6 class="widget-title">Quantity**</h6>
                                 <div class="quantity-counter">
                                     <a href="#" class="quantity__minus"><i class='bx bx-minus'></i></a>
                                     <input name="quantity" type="text" class="quantity__input" value="01">
                                     <a href="#" class="quantity__plus"><i class='bx bx-plus' ></i></a>
                                 </div>
                             </div>
+                            <!-- biến thể -->
                             <div class="quantity-color">
-                                <h6 class="widget-title">Color</h6>
+                                <h6 class="widget-title">Color**</h6>
                                 <ul class="color-list">
                                     <li class="select-wrap selected"><span></span></li>
                                     <li class="select-wrap"><span></span></li>
@@ -104,28 +80,21 @@
                             </div>
                         </div>
                         <div class="shop-details-btn">
+                            <!-- add cart -->
                             <a href="#" class="primary-btn1 hover-btn3">*Add to Cart*</a>
-                            <a href="checkout.html" class="primary-btn1 style-3 hover-btn4">*Buy Now*</a>
+                            <!-- check out -->
+                            <a href="{{ route('u.checkout') }}" class="primary-btn1 style-3 hover-btn4">*Buy Now*</a>
                         </div>
                         <div class="product-info">
                             <ul class="product-info-list">
                                 <li> <span>SKU:</span> 9852410</li>
-                                <li> <span>Brand:</span> <a href="shop-4-columns.html">Chanel</a></li>
-                                <li> <span>Category:</span> <a href="shop-slider.html">Body</a>, <a href="shop-slider.html">Face</a></li>
+                                <li> <span>Brand:</span> <a href="shop-4-columns.html">{{$Product->brand}}</a></li>
+                                <li> <span>Category:</span> 
+                                    <a href="shop-slider.html">{{$Product->category}}</a>
+                                </li>
                             </ul>
                         </div>
-                        <div class="payment-method">
-                            <h6>Guaranted Safe Checkout</h6>
-                            <ul class="payment-card-list">
-                                <li><img src="assets/img/inner-page/payment-img1.svg" alt=""></li>
-                                <li><img src="assets/img/inner-page/payment-img2.svg" alt=""></li>
-                                <li><img src="assets/img/inner-page/payment-img3.svg" alt=""></li>
-                                <li><img src="assets/img/inner-page/payment-img4.svg" alt=""></li>
-                                <li><img src="assets/img/inner-page/payment-img5.svg" alt=""></li>
-                                <li><img src="assets/img/inner-page/payment-img6.svg" alt=""></li>
-                                <li><img src="assets/img/inner-page/payment-img7.svg" alt=""></li>
-                            </ul>
-                        </div>
+
                         <ul class="product-shipping-delivers">
                             <li class="product-shipping">
                                 <svg xmlns="http://www.w3.org/2000/svg" width="30" height="30" viewBox="0 0 55 32">
@@ -143,39 +112,10 @@
                                         <path d="M14 28L5.99996 28.1234C5.29929 28.136 5.30263 29.1974 5.99996 29.21L14 29.3334C14.8913 29.33 14.8873 28.0027 14 28ZM30 18.0874C24.9653 18.154 22.438 24.4747 26.0413 27.9587C29.572 31.4994 35.838 29.0654 35.93 24C36.1166 20.7847 33.1946 17.9287 30 18.0874ZM26.4166 27.584C23.32 24.4854 25.6406 19.09 30 19.2467C32.5386 19.2854 34.67 21.5054 34.7366 24.0007C34.918 28.3327 29.4726 30.7434 26.4166 27.584Z"></path>
                                     </g>
                                 </svg>
-                                <p>Delivers in: 3-7 Working Days <a href="#">Shipping &amp; Return</a></p>
+                                <p>Delivers in: 3-7 Working Days <a href="{{ route('u.contact') }}">Shipping &amp; Return</a></p>
                             </li>
                         </ul>
-                        <div class="compare-wishlist-area">
-                            <ul>
-                                <li>
-                                    <a href="#">
-                                        <span>
-                                            <svg width="11" height="11" viewBox="0 0 11 11" xmlns="http://www.w3.org/2000/svg">
-                                                <g clip-path="url(#clip0_529_317)">
-                                                    <path
-                                                        d="M2.11516 6.51849L10.5773 6.51849C10.6609 6.51857 10.7426 6.54421 10.8121 6.59218C10.8816 6.64015 10.9358 6.7083 10.9678 6.78801C10.9998 6.86772 11.0082 6.95543 10.9919 7.04006C10.9756 7.12468 10.9354 7.20242 10.8763 7.26347L8.05556 10.1735C8.01682 10.2164 7.97011 10.2508 7.91821 10.2747C7.86631 10.2985 7.81028 10.3114 7.75347 10.3124C7.69666 10.3134 7.64023 10.3027 7.58755 10.2807C7.53486 10.2587 7.48701 10.2261 7.44683 10.1846C7.40665 10.1432 7.37498 10.0938 7.3537 10.0394C7.33242 9.98509 7.32197 9.92687 7.32297 9.86826C7.32397 9.80965 7.33641 9.75185 7.35953 9.6983C7.38266 9.64476 7.416 9.59657 7.45757 9.5566L9.55561 7.39151L2.11516 7.39151C2.00294 7.39151 1.89532 7.34552 1.81598 7.26366C1.73663 7.1818 1.69205 7.07077 1.69205 6.955C1.69205 6.83923 1.73663 6.72821 1.81598 6.64634C1.89532 6.56448 2.00294 6.51849 2.11516 6.51849ZM2.94444 0.826402L0.123739 3.73647C0.0646414 3.79751 0.0244043 3.87526 0.00810944 3.95988C-0.00818542 4.04451 0.000192853 4.13222 0.0321861 4.21193C0.0641793 4.29164 0.118352 4.35979 0.187863 4.40776C0.257374 4.45573 0.339105 4.48137 0.422733 4.48145L8.88485 4.48145C8.99706 4.48145 9.10468 4.43546 9.18403 4.35359C9.26337 4.27173 9.30795 4.16071 9.30795 4.04494C9.30795 3.92917 9.26337 3.81814 9.18403 3.73628C9.10468 3.65442 8.99706 3.60843 8.88485 3.60843L1.44439 3.60843L3.54243 1.44334C3.584 1.40337 3.61734 1.35518 3.64047 1.30164C3.66359 1.24809 3.67603 1.19029 3.67703 1.13168C3.67803 1.07307 3.66758 1.01485 3.6463 0.9605C3.62502 0.906147 3.59335 0.856772 3.55317 0.815322C3.51299 0.773871 3.46514 0.741194 3.41245 0.71924C3.35977 0.697286 3.30334 0.686504 3.24653 0.687539C3.18972 0.688573 3.13369 0.701401 3.08179 0.725259C3.02989 0.749117 2.98318 0.783515 2.94444 0.826402Z" />
-                                                </g>
-                                            </svg>
-                                        </span>
-                                        Compare
-                                    </a>
-                                </li>
-                                <li>
-                                    <a href="#">
-                                        <span>
-                                            <svg width="11" height="11" viewBox="0 0 18 18" xmlns="http://www.w3.org/2000/svg">
-                                                <g clip-path="url(#clip0_168_378)">
-                                                    <path
-                                                        d="M16.528 2.20919C16.0674 1.71411 15.5099 1.31906 14.8902 1.04859C14.2704 0.778112 13.6017 0.637996 12.9255 0.636946C12.2487 0.637725 11.5794 0.777639 10.959 1.048C10.3386 1.31835 9.78042 1.71338 9.31911 2.20854L9.00132 2.54436L8.68352 2.20854C6.83326 0.217151 3.71893 0.102789 1.72758 1.95306C1.63932 2.03507 1.5541 2.12029 1.47209 2.20854C-0.490696 4.32565 -0.490696 7.59753 1.47209 9.71463L8.5343 17.1622C8.77862 17.4201 9.18579 17.4312 9.44373 17.1868C9.45217 17.1788 9.46039 17.1706 9.46838 17.1622L16.528 9.71463C18.4907 7.59776 18.4907 4.32606 16.528 2.20919ZM15.5971 8.82879H15.5965L9.00132 15.7849L2.40553 8.82879C0.90608 7.21113 0.90608 4.7114 2.40553 3.09374C3.76722 1.61789 6.06755 1.52535 7.5434 2.88703C7.61505 2.95314 7.68401 3.0221 7.75012 3.09374L8.5343 3.92104C8.79272 4.17781 9.20995 4.17781 9.46838 3.92104L10.2526 3.09438C11.6142 1.61853 13.9146 1.52599 15.3904 2.88767C15.4621 2.95378 15.531 3.02274 15.5971 3.09438C17.1096 4.71461 17.1207 7.2189 15.5971 8.82879Z" />
-                                                </g>
-                                            </svg>
-                                        </span>
-                                        Add to wishlist
-                                    </a>
-                                </li>
-                            </ul>
-                        </div>
+                        
                     </div>
                 </div>
             </div>
@@ -191,7 +131,7 @@
                     <div class="shop-details-description-nav mb-50">
                         <nav>
                             <div class="nav nav-tabs" id="nav-tab" role="tablist">
-                              <button class="nav-link active" id="nav-description-tab" data-bs-toggle="tab" data-bs-target="#nav-description" type="button" role="tab" aria-controls="nav-description" aria-selected="true">Description</button>
+                              <button class="nav-link active" id="nav-description-tab" data-bs-toggle="tab" data-bs-target="#nav-description" type="button" role="tab" aria-controls="nav-description" aria-selected="true">Recomment</button>
                               <button class="nav-link" id="nav-add-info-tab" data-bs-toggle="tab" data-bs-target="#nav-add-info" type="button" role="tab" aria-controls="nav-add-info" aria-selected="false">Additional Information</button>
                               <button class="nav-link" id="nav-reviews-tab" data-bs-toggle="tab" data-bs-target="#nav-reviews" type="button" role="tab" aria-controls="nav-reviews" aria-selected="false">Reviews (15)</button>
                             </div>
@@ -199,39 +139,16 @@
                     </div>
                     <div class="shop-details-description-tab">
                         <div class="tab-content" id="nav-tabContent">
+                            <!-- description- chuyển thành recomment -->
                             <div class="tab-pane fade show active" id="nav-description" role="tabpanel" aria-labelledby="nav-description-tab">
                                 <div class="row gy-5">
-                                    <div class="col-lg-3">
-                                        <div class="description-content">
-                                            <div class="description-left-content1">
-                                                <h6>Lobortis arcu varius sed</h6>
-                                                <p>Software development is the process offer creatain onet computer.</p>
-                                            </div>
-                                            <div class="description-left-content2">
-                                                <h6>Mauris arcu mollis nulla</h6>
-                                                <p>Software development is the process offer creatain onet computer.</p>
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <div class="col-lg-6 d-flex align-items-center justify-content-center">
-                                        <div class="description-tab-img">
-                                            <img src="assets/img/inner-page/shop-details-description-img.png" alt="">
-                                        </div>
-                                    </div>
-                                    <div class="col-lg-3">
-                                        <div class="description-content">
-                                            <div class="description-right-content1">
-                                                <h6>Etiam vitae malesu adan</h6>
-                                                <p>Software development is the process offer creatain onet computer.</p>
-                                            </div>
-                                            <div class="description-right-content2">
-                                                <h6>Nam tempor laoreet conv</h6>
-                                                <p>Software development is the process offer creatain onet computer.</p>
-                                            </div>
-                                        </div>
-                                    </div>
+                                    
+                                    <!-- content -->
+
                                 </div>
                             </div>
+                            <!-- description- chuyển thành recomment -->
+
                             <div class="tab-pane fade" id="nav-add-info" role="tabpanel" aria-labelledby="nav-add-info-tab">
                                 <div class="addithonal-information">
                                     <table class="table total-table2">

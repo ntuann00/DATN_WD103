@@ -215,7 +215,6 @@
             </div>
 
         </div>
-
         <div class="nav-right position-inherit d-flex jsutify-content-end align-items-center">
             <!-- start search-box -->
             <div class="search-area">
@@ -226,7 +225,6 @@
                     <div class="serch-close"></div>
                     <form>
                         <div class="search-group">
-
                             <div class="form-inner2">
                                 <input type="text" placeholder="Search your products">
                                 <button type="submit"><i class='bx bx-search'></i></button>
