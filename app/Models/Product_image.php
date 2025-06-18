@@ -5,11 +5,8 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
-class Attribute_value extends Model
+class Product_image extends Model
 {
     use HasFactory;
-    public function attribute()
-    {
-        return $this->belongsTo(Attribute::class, 'attribute_id');
-    }
+    protected $fillable = ['image_url', 'alt_text', 'sort_order', 'product_variant_id'];
 }

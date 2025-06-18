@@ -47,7 +47,7 @@
                 <span>Quản lí sản phẩm</span>
             </a>
             <ul>
-                <li><a href="Basic_Elements.html">Basic Elements</a></li>
+                <li><a href="{{ route('products.index')}}">Danh sách sản phẩm</a></li>
                 <li><a href="Groups.html">Groups</a></li>
                 <li><a href="Max_Length.html">Max Length</a></li>
                 <li><a href="Layouts.html">Layouts</a></li>
@@ -99,7 +99,7 @@
                 <li><a href="Checkout.html">Checkout</a></li>
             </ul>
         </li>
-        
+
         <li class>
             <a class="has-arrow" href="#" aria-expanded="false">
                 <div class="icon_menu">
