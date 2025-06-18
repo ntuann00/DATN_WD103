@@ -27,7 +27,7 @@ Route::get('/', function () {return view('user.index');})->name('home');
 Route::get('/product', [HomeController::class, 'product'])->name('u.product');
 Route::get('/product/{id}', [HomeController::class, 'product_detail'])->name('u.product_detail');
 
-Route::get('/product/new', [HomeController::class, 'new_product'])->name('u.new_product');
+Route::get('/newproduct', [HomeController::class, 'new_product'])->name('u.new_product');
 Route::get('/brand', [HomeController::class, 'brand '])->name('u.brand');
 
 Route::get('/checkout', [HomeController::class, 'checkout'])->name('u.checkout');
