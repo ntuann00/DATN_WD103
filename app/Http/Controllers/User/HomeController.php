@@ -21,20 +21,74 @@ class HomeController extends BaseController
     
 
     public function index(){
-        
         $Products = Product::all();
-        return view('user.index', compact('Products'));
+        $Categorys = Category::all();
+        return view('user.index', compact('Products','Categorys'));
         // return view('user.index');
     }
-    public function product(){
-        
-        $Products = Product::all();
-        return view('user.products.list-product', compact('Products'));
-    }
-    public function product_detail(){
-        
-        $Products = Product::all();
-        return view('user.products.product-detail', compact('Products'));
+
+    public function brand(){
+        return view('user.products.list-brand');
     }
 
+    public function product(){
+        $Products = Product::paginate(20);
+        // var_dump($Products);
+        return view('user.products.list-product', compact('Products'));
+    }
+
+    public function new_product(){
+        $Products = Product::orderby('created_at')->paginate(20);
+        echo '<pre>' , var_dump($Products) , '</pre>';
+        
+        // $result = Post::orderBy('another_key')->paginate();
+        // $sortedResult = $result->getCollection()->sortBy('key_name')->values();
+        // $result->setCollection($sortedResult);
+        
+        return view('user.products.list-product', compact('Products'));
+        // return $result;
+    }
+
+    public function product_detail($id){
+        $Products = Product::paginate(4);
+        $Product = Product::findOrFail($id);
+        return view('user.products.product-detail', compact('Product','Products'));
+    }
+
+    public function account(){
+        return view('user.pages.my_account');
+    }
+    public function cart(){
+        return view('user.cart.cart');
+    }
+
+    public function login(){
+        return view('user.auth.login');
+    }
+    
+    public function register(){
+        return view('user.auth.register');
+    }
+
+
+
+    public function checkout(){
+        return view('user.pages.checkout_page');
+    }
+    public function about_us(){
+        return view('user.pages.about_us');
+    }
+
+    public function blog(){
+        return view('user.pages.blog');
+    }
+    public function blog_detail(){
+        return view('user.pages.blog_detail');
+    }
+    public function contact(){
+        return view('user.pages.contact');
+    }
+    public function faq(){
+        return view('user.pages.faq');
+    }
 }

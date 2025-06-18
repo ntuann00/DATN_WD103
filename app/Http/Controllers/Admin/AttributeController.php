@@ -13,7 +13,7 @@ class AttributeController extends BaseController
 
     public function index()
     {
-         $attributes = Attribute::paginate(3);
+        $attributes = Attribute::latest()->paginate(3);
         return view('admin.attributes.index', compact('attributes'));
     }
     public function create()
@@ -26,15 +26,11 @@ class AttributeController extends BaseController
             'name' => 'required|string|max:255',
         ]);
 
-            Attribute::create($validated);
+        Attribute::create($validated);
 
-            return redirect()->route('attributes.index')->with('success', 'Thêm mới thành công!');
+        return redirect()->route('attributes.index')->with('success', 'Thêm mới thành công!');
     }
-    public function show($id)
-    {
 
-        
-    }
 
     public function edit($id)
     {

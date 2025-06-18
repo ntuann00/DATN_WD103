@@ -35,7 +35,7 @@
                         <td>{{ $user->phone }}</td>
                         <td>{{ $user->email }}</td>
                         <td><img src="{{ asset('storage/' . $user->img) }}" alt="avatar" width="100"></td>
-                        <td> {{ $user->birthday->format('d-m-Y') }}</td>
+                        <td> {{ $user->birthday }}</td>
                         <td>{{ ucfirst($user->gender) }}</td>
                         <td>{{ $user->role->name }}</td>
                         <td>
@@ -48,7 +48,8 @@
                         <td> {{ $user->created_at->format('d-m-Y') }}</td>
                         <td>{{ $user->updated_at->format('d/m/y') }}</td>
                         <td>
-                            <a href="{{ route('users.edit', $user->id) }}" class="btn btn-sm btn-warning">Sửa</a>
+                            <a href="{{ route('users.edit', $user) }}" class="btn btn-sm btn-warning">Sửa</a>
+                            <a href="{{ route('users.show', $user) }}" class="btn btn-sm btn-warning">Chi tiết</a>
                             <form id="delete-form-{{ $user->id }}"
                                     action="{{ route('users.destroy', $user->id) }}" method="POST"
                                     style="display: inline;">
