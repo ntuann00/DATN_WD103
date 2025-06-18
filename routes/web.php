@@ -7,9 +7,6 @@ use App\Http\Controllers\Admin\AttributeController;
 use App\Http\Controllers\Admin\AttributeValueController;
 use App\Http\Controllers\Admin\CategoryController;
 use App\Http\Controllers\Admin\UserController;
-
-use App\Http\Controllers\User\AuthController;
-use App\Http\Controllers\User\HomeController;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -23,49 +20,9 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::get('/', function () {return view('user.index');})->name('home');
-
-Route::get('/product', [HomeController::class, 'product'])->name('u.product');
-Route::get('/product/{id}', [HomeController::class, 'product_detail'])->name('u.product_detail');
-
-Route::get('/newproduct', [HomeController::class, 'new_product'])->name('u.new_product');
-Route::get('/brand', [HomeController::class, 'brand '])->name('u.brand');
-
-Route::get('/checkout', [HomeController::class, 'checkout'])->name('u.checkout');
-
-Route::get('/about_us', [HomeController::class, 'about_us'])->name('u.about_us');
-
-Route::get('/blog', [HomeController::class, 'blog'])->name('u.blog');
-Route::get('/blog/1', [HomeController::class, 'blog_detail'])->name('u.blog_detail');
-
-Route::get('/faq', [HomeController::class, 'faq'])->name('u.faq');
-Route::get('/contact', [HomeController::class, 'contact'])->name('u.contact');
-
-Route::get('/account', [HomeController::class, 'account'])->name('u.account');
-Route::get('/login', [HomeController::class, 'login'])->name('u.login');
-Route::get('/register', [HomeController::class, 'register'])->name('u.register');
-
-Route::get('/cart', [HomeController::class, 'cart'])->name('u.cart');
-
-//đki,
-
-Route::get('/register', [AuthController::class, 'showRegisterForm'])->name('register');
-Route::post('/register', [AuthController::class, 'register']);
-//dnhap
-
-Route::get('/login', [AuthController::class, 'showLoginForm'])->name('login');
-Route::post('/login', [AuthController::class, 'login']);
-
-//logout
-Route::post('/logout', [AuthController::class, 'logout'])->name('logout');
-
-//sau khhi dnhap
-Route::middleware('auth')->group(function () {
-    Route::get('/profile', [AuthController::class, 'profile'])->name('profile');
+Route::get('/', function () {
+    return view('welcome');
 });
-
-
-
 Route::get('/admin', function () {
     return view('admin.dashboard');
 });
@@ -88,7 +45,7 @@ Route::get('/attributes/{id}/edit', [AttributeController::class, 'edit'])->name(
 Route::put('/attributes/{id}', [AttributeController::class, 'update'])->name('attributes.update');
 Route::delete('/attributes/{id}', [AttributeController::class, 'update'])->name('attributes.destroy');
 
-// attribute_value
+//attribute_value
 
 Route::get('/attributeValues', [AttributeValueController::class, 'index'])->name('attributeValues.index');
 Route::get('/attributeValues/create', [AttributeValueController::class, 'create'])->name('attributeValues.create');
@@ -105,5 +62,5 @@ Route::get('/users/create', [UserController::class, 'create'])->name('users.crea
 Route::post('/users', [UserController::class, 'store'])->name('users.store');
 Route::get('/users/{id}', [UserController::class, 'show'])->name('users.show');
 Route::get('/users/{id}/edit', [UserController::class, 'edit'])->name('users.edit');
-Route::put('/users/{users}', [UserController::class, 'update'])->name('users.update');
-Route::delete('/users/{id}', [UserController::class, 'destroy'])->name('users.destroy');
+Route::put('/users/{id}', [UserController::class, 'update'])->name('users.update');
+Route::delete('/users/{id}', [UserController::class, 'update'])->name('users.destroy');

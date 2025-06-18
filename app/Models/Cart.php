@@ -9,3 +9,5 @@ class Cart extends Model
 {
     use HasFactory;
 }
+
+

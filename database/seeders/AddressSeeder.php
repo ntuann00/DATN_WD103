@@ -3,6 +3,7 @@
 namespace Database\Seeders;
 
 use App\Models\Address;
+use App\Models\User;
 use App\Models\Users;
 use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 use Illuminate\Database\Seeder;
@@ -18,7 +19,7 @@ class AddressSeeder extends Seeder
          $faker = Faker::create();
 
         // Lấy danh sách tất cả user ID
-        $userIds = Users::pluck('id')->toArray();
+        $userIds = User::pluck('id')->toArray();
 
         foreach ($userIds as $userId) {
             // Chỉ tạo địa chỉ nếu user chưa có

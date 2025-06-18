@@ -9,3 +9,4 @@ class Order extends Model
 {
     use HasFactory;
 }
+

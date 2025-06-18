@@ -34,8 +34,8 @@
                         <td>{{ $user->name }}</td>
                         <td>{{ $user->phone }}</td>
                         <td>{{ $user->email }}</td>
-                        <td><img src="{{ asset('storage/' . $user->img) }}" alt="avatar" width="100"></td>
-                        <td> {{ $user->birthday }}</td>
+                        <td><img src="{{ asset('storage/' . $user->img) }}" alt="img" width="100"></td>
+                         <td> {{ $user->birthday->format('d-m-Y') }}</td>
                         <td>{{ ucfirst($user->gender) }}</td>
                         <td>{{ $user->role->name }}</td>
                         <td>
@@ -45,21 +45,16 @@
                                 <span class="badge bg-secondary">Ẩn</span>
                             @endif
                         </td>
-                        <td> {{ $user->created_at->format('d-m-Y') }}</td>
+                         <td> {{ $user->created_at->format('d-m-Y') }}</td>
                         <td>{{ $user->updated_at->format('d/m/y') }}</td>
                         <td>
-                            <a href="{{ route('users.edit', $user) }}" class="btn btn-sm btn-warning">Sửa</a>
-                            <a href="{{ route('users.show', $user) }}" class="btn btn-sm btn-warning">Chi tiết</a>
-                            <form id="delete-form-{{ $user->id }}"
-                                    action="{{ route('users.destroy', $user->id) }}" method="POST"
-                                    style="display: inline;">
-                                    @csrf
-                                    @method('DELETE')
-                                    <button type="button" class="btn  btn-danger"
-                                        onclick="confirmDelete({{ $user->id }})">
-                                        Xóa
-                                    </button>
-                                </form>
+                            <a href="{{ route('users.edit', $user->id) }}" class="btn btn-sm btn-warning">Sửa</a>
+                            <form action="{{ route('users.destroy', $user->id) }}" method="POST"
+                                style="display:inline-block;">
+                                @csrf @method('DELETE')
+                                <button onclick="return confirm('Bạn có chắc muốn xoá?')"
+                                    class="btn btn-sm btn-danger">Xoá</button>
+                            </form>
                         </td>
                     </tr>
                 @endforeach
@@ -67,23 +62,3 @@
         </table>
     </div>
 @endsection
-
-<script>
-    function confirmDelete(userId) {
-        Swal.fire({
-            title: 'Bạn chắc chắn muốn xóa?',
-            text: "Hành động này không thể hoàn tác!",
-            icon: 'warning',
-            showCancelButton: true,
-            confirmButtonColor: '#d33',
-            cancelButtonColor: '#3085d6',
-            confirmButtonText: 'Xóa',
-            cancelButtonText: 'Hủy'
-        }).then((result) => {
-            if (result.isConfirmed) {
-                document.getElementById('delete-form-' + userId).submit();
-            }
-        });
-    }
-    
-</script>

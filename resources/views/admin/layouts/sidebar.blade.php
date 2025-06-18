@@ -36,21 +36,10 @@
             <ul>
                 <li><a href="{{ route('attributes.index')}}">Danh sách biến thể</a></li>
                 <li><a href="">Thêm mới biến thể</a></li>
-                <li><a href="{{ route('attributeValues.index')}}">Biến thể con</a></li>
+                <li><a href="">Biến thể con</a></li>
             </ul>
         </li>
-       <li class>
-            <a class="has-arrow" href="#" aria-expanded="false">
-                <div class="icon_menu">
-                    <img src="{{ asset('admins/assets/img/menu-icon/2.svg')}}" alt>
-                </div>
-                <span>Quản lí khách hàng</span>
-            </a>
-            <ul>
-                <li><a href="{{ route('users.index')}}">Danh sách khách hàng</a></li>
-                <li><a href="">Thêm mới khách hàng</a></li>
-            </ul>
-        </li>
+       
 
         
         
