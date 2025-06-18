@@ -27,7 +27,6 @@
             <td>{{ $attribute->name }}</td>
             <td>
                  <a href="{{ route('attributes.edit', $attribute->id) }}" class="btn btn-sm btn-warning">Sửa</a>
-                  <a href="{{ route('attributes.show', $attribute->id) }}" class="btn btn-sm btn-warning">Chi tiết</a>
 
                         <form action="{{ route('attributes.destroy', $attribute->id) }}" method="POST" style="display:inline-block;" onsubmit="return confirm('Bạn chắc chắn muốn xóa?')">
                             @csrf
