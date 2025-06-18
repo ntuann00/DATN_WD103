@@ -32,12 +32,15 @@ class HomeController extends BaseController
     }
 
     public function product(){
-        $Products = Product::all();
+        $Products = Product::paginate(20);
+        // var_dump($Products);
         return view('user.products.list-product', compact('Products'));
+
     }
-    public function product_detail(){
-        $Product = Product::one();
-        return view('user.products.product-detail', compact('Product'));
+    public function product_detail($id){
+        $Products = Product::paginate(4);
+        $Product = Product::findOrFail($id);
+        return view('user.products.product-detail', compact('Product','Products'));
     }
 
     public function account(){
