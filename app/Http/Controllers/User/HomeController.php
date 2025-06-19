@@ -10,6 +10,7 @@ use App\Models\Users;
 use App\Models\Category;
 use Illuminate\Http\Request;
 use Illuminate\Foundation\Auth\User;
+use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Storage;
 use Illuminate\Routing\Controller as BaseController;
@@ -37,6 +38,7 @@ class HomeController extends BaseController
         return view('user.products.list-product', compact('Products'));
     }
 
+
     public function new_product(){
         $Products = Product::orderby('created_at')->paginate(20);
         echo '<pre>' , var_dump($Products) , '</pre>';
@@ -53,6 +55,12 @@ class HomeController extends BaseController
         $Products = Product::paginate(4);
         $Product = Product::findOrFail($id);
         return view('user.products.product-detail', compact('Product','Products'));
+    }
+
+    public function category_product($id){
+        $Products = Product::all()->where('category_id', $id);
+        // var_dump($Products);
+        return view('user.products.list-product', compact('Products'));
     }
 
     public function account(){
