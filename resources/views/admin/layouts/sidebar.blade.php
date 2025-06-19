@@ -52,9 +52,20 @@
             </ul>
         </li>
 
-        
-        
-        
+        <li class>
+            <a class="has-arrow" href="#" aria-expanded="false">
+                <div class="icon_menu">
+                    <img src="{{ asset('admins/assets/img/menu-icon/2.svg')}}" alt>
+                </div>
+                <span>Quản lí sản phẩm</span>
+            </a>
+            <ul>
+                <li><a href="{{ route('products.index')}}">Danh sách sản phẩm</a></li>
+                <li><a href="{{ route('products.create')}}">Thêm mới sản phẩm</a></li>
+            </ul>
+        </li>
+
+
         <li class>
             <a class="has-arrow" href="#" aria-expanded="false">
                 <div class="icon_menu">
