@@ -19,7 +19,9 @@ class UserController extends BaseController
 
     public function index()
     {
-       $users = Users::latest()->paginate(10);
+
+       $users = Users::latest()->paginate(5);
+
         return view('admin.users.index', compact('users'));
     }
     public function create()
@@ -120,4 +122,5 @@ class UserController extends BaseController
         return redirect()->route('users.index')
             ->with('success', 'Đã cập nhật trạng thái tài khoản.');
     }
+
 }

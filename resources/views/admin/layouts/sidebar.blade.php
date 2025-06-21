@@ -35,10 +35,11 @@
             </a>
             <ul>
                 <li><a href="{{ route('attributes.index')}}">Danh sách biến thể</a></li>
-                <li><a href="">Thêm mới biến thể</a></li>
-                <li><a href="{{ route('attributeValues.index')}}">Biến thể con</a></li>
+                <li><a href="{{ route('attributes.create')}}">Thêm mới biến thể</a></li>
+                <li><a href="{{ route('attributeValues.index')}}">Thêm mới biến thể</a></li>
             </ul>
         </li>
+
        <li class>
             <a class="has-arrow" href="#" aria-expanded="false">
                 <div class="icon_menu">
@@ -52,9 +53,14 @@
             </ul>
         </li>
 
-        
-        
-        
+
+        <li class>
+            <a class="has-arrow" href="#" aria-expanded="false">
+                <div class="icon_menu">
+                    <img src="{{ asset('admins/assets/img/menu-icon/2.svg')}}" alt>
+                </div>
+
+
         <li class>
             <a class="has-arrow" href="#" aria-expanded="false">
                 <div class="icon_menu">

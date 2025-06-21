@@ -6,6 +6,8 @@ namespace App\Http\Controllers;
 use App\Http\Controllers\Admin\AttributeController;
 use App\Http\Controllers\Admin\AttributeValueController;
 use App\Http\Controllers\Admin\CategoryController;
+use App\Http\Controllers\Admin\ProductController;
+use App\Http\Controllers\Admin\ProductImageController;
 use App\Http\Controllers\Admin\UserController;
 
 use App\Http\Controllers\User\AuthController;
@@ -83,10 +85,10 @@ Route::delete('/categories/{id}', [CategoryController::class, 'destroy'])->name(
 Route::get('/attributes', [AttributeController::class, 'index'])->name('attributes.index');
 Route::get('/attributes/create', [AttributeController::class, 'create'])->name('attributes.create');
 Route::post('/attributes', [AttributeController::class, 'store'])->name('attributes.store');
-Route::get('/attributes/{id}', [AttributeController::class, 'show'])->name('attributes.show');
+
 Route::get('/attributes/{id}/edit', [AttributeController::class, 'edit'])->name('attributes.edit');
 Route::put('/attributes/{id}', [AttributeController::class, 'update'])->name('attributes.update');
-Route::delete('/attributes/{id}', [AttributeController::class, 'update'])->name('attributes.destroy');
+Route::delete('/attributes/{id}', [AttributeController::class, 'destroy'])->name('attributes.destroy');
 
 // attribute_value
 
@@ -96,7 +98,7 @@ Route::post('/attributeValues', [AttributeValueController::class, 'store'])->nam
 Route::get('/attributeValues/{id}', [AttributeValueController::class, 'show'])->name('attributeValues.show');
 Route::get('/attributeValues/{id}/edit', [AttributeValueController::class, 'edit'])->name('attributeValues.edit');
 Route::put('/attributeValues/{id}', [AttributeValueController::class, 'update'])->name('attributeValues.update');
-Route::delete('/attributeValues/{id}', [AttributeValueController::class, 'update'])->name('attributeValues.destroy');
+Route::delete('/attributeValues/{id}', [AttributeValueController::class, 'destroy'])->name('attributeValues.destroy');
 
 //users
 
@@ -106,4 +108,17 @@ Route::post('/users', [UserController::class, 'store'])->name('users.store');
 Route::get('/users/{id}', [UserController::class, 'show'])->name('users.show');
 Route::get('/users/{id}/edit', [UserController::class, 'edit'])->name('users.edit');
 Route::put('/users/{users}', [UserController::class, 'update'])->name('users.update');
+
 Route::patch('/users/{id}/toggle-status', [UserController::class, 'toggleStatus'])->name('users.toggleStatus');
+
+
+Route::get('/products', [ProductController::class, 'index'])->name('products.index');
+Route::get('/admin/products/create', [ProductController::class, 'create'])->name('products.create');
+Route::post('/admin/products', [ProductController::class, 'store'])->name('products.store');
+Route::get('/products/{id}', [ProductController::class, 'show'])->name('products.show');
+Route::get('/products/{id}/edit', [ProductController::class, 'edit'])->name('products.edit');
+Route::put('/products/{id}', [ProductController::class, 'update'])->name('products.update');
+Route::delete('/products/{id}', [ProductController::class, 'destroy'])->name('products.destroy');
+Route::delete('/admin/product-images/{id}', [ProductImageController::class, 'destroy'])
+    ->name('product-images.destroy');
+

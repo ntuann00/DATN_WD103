@@ -47,14 +47,16 @@
                         <td>{{ $user->phone }}</td>
                         <td>{{ $user->email }}</td>
                         <td><img src="{{ asset('storage/' . $user->img) }}" alt="avatar" width="100"></td>
-                        <td> {{ $user->birthday }}</td>
+
+                        <td> {{ $user->birthday}}</td>
+
                         <td>{{ ucfirst($user->gender) }}</td>
                         <td>{{ $user->role->name }}</td>
                         <td>
                             @if ($user->status)
                                 <span class="badge bg-success">Hoạt động</span>
                             @else
-                                <span class="badge bg-secondary">Ẩn</span>
+                                <span class="badge bg-secondary">Khóa</span>
                             @endif
                         </td>
                         <td> {{ $user->created_at->format('d-m-Y') }}</td>
