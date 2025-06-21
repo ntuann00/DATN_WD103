@@ -19,11 +19,7 @@ class UserController extends BaseController
 
     public function index()
     {
-<<<<<<< Updated upstream
-        $users = Users::all();
-=======
        $users = Users::latest()->paginate(5);
->>>>>>> Stashed changes
         return view('admin.users.index', compact('users'));
     }
     public function create()
@@ -108,11 +104,21 @@ class UserController extends BaseController
         return redirect()->route('users.index')->with('success', 'Cập nhật người dùng thành công!');
     }
 
-    public function destroy($id)
+    public function toggleStatus($id)
     {
-        $user = Users::findOrFail($id);
-        $user->delete();
+        $user = User::findOrFail($id);
 
-        return redirect()->route('users.index')->with('success', 'Đã xoá người dùng');
+        if ($user->role && $user->role->name === 'admin') {
+            return redirect()->route('users.index')
+                ->with('error', 'Không thể khóa tài khoản quản trị viên.');
+        }
+
+        // Đảo trạng thái: 1 => 0, 0 => 1
+        $user->status = $user->status == 1 ? 0 : 1;
+        $user->save();
+
+        return redirect()->route('users.index')
+            ->with('success', 'Đã cập nhật trạng thái tài khoản.');
     }
+
 }

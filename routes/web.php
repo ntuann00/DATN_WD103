@@ -77,7 +77,7 @@ Route::post('/attributeValues', [AttributeValueController::class, 'store'])->nam
 Route::get('/attributeValues/{id}', [AttributeValueController::class, 'show'])->name('attributeValues.show');
 Route::get('/attributeValues/{id}/edit', [AttributeValueController::class, 'edit'])->name('attributeValues.edit');
 Route::put('/attributeValues/{id}', [AttributeValueController::class, 'update'])->name('attributeValues.update');
-Route::delete('/attributeValues/{id}', [AttributeValueController::class, 'update'])->name('attributeValues.destroy');
+Route::delete('/attributeValues/{id}', [AttributeValueController::class, 'destroy'])->name('attributeValues.destroy');
 
 //users
 
@@ -87,4 +87,4 @@ Route::post('/users', [UserController::class, 'store'])->name('users.store');
 Route::get('/users/{id}', [UserController::class, 'show'])->name('users.show');
 Route::get('/users/{id}/edit', [UserController::class, 'edit'])->name('users.edit');
 Route::put('/users/{users}', [UserController::class, 'update'])->name('users.update');
-Route::delete('/users/{id}', [UserController::class, 'destroy'])->name('users.destroy');
+Route::patch('/users/{id}/toggle-status', [UserController::class, 'toggleStatus'])->name('users.toggleStatus');
