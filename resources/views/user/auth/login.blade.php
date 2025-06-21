@@ -9,20 +9,20 @@
                     <div class="order-traking-area two mt-110 mb-110">
                         <div class="section-title text-center">
                             <h2>Đăng nhập</h2>
-                            <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Reiciendis, sit velit itaque quaerat neque saepe. Consequuntur eos repellat magni perspiciatis modi voluptatum veritatis doloribus commodi. Iste quo similique debitis voluptates!</p>
                         </div>
-                        <form>
+                        <form method="POST" action="{{ url('/login') }}">
+    @csrf
                             <div class="row justify-content-center">
                                 <div class="col-md-9 mb-25">
                                     <div class="form-inner">
-                                        <label>Email/Username</label>
-                                        <input type="text" placeholder="Enter your email/username">
+                                        <label>Email</label>
+                                        <input name="email" type="text" placeholder="Enter your email">
                                     </div>
                                 </div>
                                 <div class="col-md-9 mb-25">
                                     <div class="form-inner">
                                         <label>Password</label>
-                                        <input type="password" placeholder="Enter your password">
+                                        <input name="password" type="password" placeholder="Enter your password">
                                     </div>
                                 </div>
 
@@ -35,7 +35,7 @@
 
                                         <a href="#" class="forget-pass hover-underline"> Quên mật khẩu? </a>
                                         |
-                                        <a href="#" class="forget-pass hover-underline"> Đăng ký </a>
+                                        <a href="{{ route('register') }}" class="forget-pass hover-underline"> Đăng ký </a>
 
                                     </div>
                                 </div>

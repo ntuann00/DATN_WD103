@@ -32,12 +32,27 @@ class HomeController extends BaseController
     }
 
     public function product(){
-        $Products = Product::all();
+        $Products = Product::paginate(20);
+        // var_dump($Products);
         return view('user.products.list-product', compact('Products'));
     }
-    public function product_detail(){
-        $Product = Product::one();
-        return view('user.products.product-detail', compact('Product'));
+
+    public function new_product(){
+        $Products = Product::orderby('created_at')->paginate(20);
+        echo '<pre>' , var_dump($Products) , '</pre>';
+        
+        // $result = Post::orderBy('another_key')->paginate();
+        // $sortedResult = $result->getCollection()->sortBy('key_name')->values();
+        // $result->setCollection($sortedResult);
+        
+        return view('user.products.list-product', compact('Products'));
+        // return $result;
+    }
+
+    public function product_detail($id){
+        $Products = Product::paginate(4);
+        $Product = Product::findOrFail($id);
+        return view('user.products.product-detail', compact('Product','Products'));
     }
 
     public function account(){

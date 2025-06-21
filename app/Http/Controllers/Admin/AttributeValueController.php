@@ -14,33 +14,55 @@ class AttributeValueController extends BaseController
 
     public function index()
     {
-        $attributeValues = AttributeValue::paginate(5);
+        $attributeValues = AttributeValue::latest()->paginate(5);
         return view('admin.attributeValues.index', compact('attributeValues'));
     }
     public function create()
     {
-       
+        $attributes = Attribute::all();
+        return view('admin.attributeValues.create', compact('attributes'));
     }
     public function store(Request $request)
-    { 
-    
+    {
+        $request->validate([
+            'attribute_id' => 'required|numeric',
+            'value' => 'required|string|max:255',
+        ]);
+
+        AttributeValue::create($request->all());
+        return redirect()->route('attributeValues.index')->with('success', 'Thêm thành công!');
     }
     public function show($id)
     {
-
-        
+        $AttributeValue = AttributeValue::findOrFail($id);
+        $attributes = Attribute::all();
+        return view('admin.attributeValues.show', compact('AttributeValue', 'attributes'));
     }
 
     public function edit($id)
     {
-       
+        $attributeValue = AttributeValue::findOrFail($id);
+        $attributes = Attribute::all();
+        return view('admin.attributeValues.edit', compact('attributeValue', 'attributes'));
     }
 
     public function update(Request $request, $id)
     {
-        
+        $request->validate([
+            'attribute_id' => 'required|numeric',
+            'value' => 'required|string|max:255',
+        ]);
+
+        $attributeValues = AttributeValue::findOrFail($id);
+        $attributeValues->update($request->all());
+
+        return redirect()->route('.index')->with('success', 'Cập nhật thành công!');
     }
-    public function destroy($id) {
-        
+    public function destroy($id)
+    {
+        $attributeValues = AttributeValue::findOrFail($id);
+        $attributeValues->delete();
+
+        return redirect()->route('attributeValues.index')->with('success', 'Xóa thành công!');
     }
 }

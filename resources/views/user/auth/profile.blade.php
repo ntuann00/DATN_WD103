@@ -1,13 +1,38 @@
+{{-- @extends('user.layouts.app') 
+
+@section('title', 'Hồ sơ cá nhân')
+
+@section('content')
+<div class="container mt-5">
+    <h2 class="mb-4">👤 Hồ sơ cá nhân</h2>
+    <div class="card">
+        <div class="card-body">
+            <p><strong>Họ và tên:</strong> {{ $user->name }}</p>
+            <p><strong>Email:</strong> {{ $user->email }}</p>
+            <p><strong>Số điện thoại:</strong> {{ $user->phone }}</p>
+            <p><strong>Ngày sinh:</strong> {{ $user->birthday->format('d/m/Y') }}</p>
+            <p><strong>Giới tính:</strong> {{ $user->gender == 'male' ? 'Nam' : 'Nữ' }}</p>
+            <p><strong>Ngày tham gia:</strong> {{ $user->created_at->format('d/m/Y') }}</p>
+
+            <a href="" class="btn btn-primary mt-3">✏️ Chỉnh sửa hồ sơ</a>
+        </div>
+    </div>
+</div>
+@endsection --}}
+
 @extends('user.layouts.app')
 
 @section('content')
-<div class="dashboard-section mt-110 mb-110">
+    <div class="dashboard-section mt-110 mb-110">
         <div class="container">
             <div class="row g-4">
+
+                <!-- dashboard menu -->
                 <div class="col-lg-3">
                     <div class="dashboard-left">
                         <div class="nav flex-column nav-pills " id="v-pills-tab" role="tablist"
                             aria-orientation="vertical">
+                            <!-- dashboard -->
                             <button class="nav-link active nav-btn-style mx-auto" id="v-pills-dashboard-tab"
                                 data-bs-toggle="pill" data-bs-target="#v-pills-dashboard" type="button" role="tab"
                                 aria-controls="v-pills-dashboard" aria-selected="true">
@@ -28,22 +53,17 @@
                                         </clipPath>
                                     </defs>
                                 </svg>Dashboard</button>
-                            <button class="nav-link nav-btn-style mx-auto" id="v-pills-profile-tab"
+                            
+                                <!-- myprofile -->
+                                <button class="nav-link nav-btn-style mx-auto" id="v-pills-profile-tab"
                                 data-bs-toggle="pill" data-bs-target="#v-pills-profile" type="button" role="tab"
                                 aria-controls="v-pills-profile" aria-selected="true"><i class="lar la-user"></i><svg
                                     width="20" height="20" viewBox="0 0 22 22" xmlns="http://www.w3.org/2000/svg">
                                     <path
                                         d="M18.7782 14.2218C17.5801 13.0237 16.1541 12.1368 14.5982 11.5999C16.2646 10.4522 17.3594 8.53136 17.3594 6.35938C17.3594 2.85282 14.5066 0 11 0C7.49345 0 4.64062 2.85282 4.64062 6.35938C4.64062 8.53136 5.73543 10.4522 7.40188 11.5999C5.84598 12.1368 4.41994 13.0237 3.22184 14.2218C1.14421 16.2995 0 19.0618 0 22H1.71875C1.71875 16.8823 5.88229 12.7188 11 12.7188C16.1177 12.7188 20.2812 16.8823 20.2812 22H22C22 19.0618 20.8558 16.2995 18.7782 14.2218ZM11 11C8.44117 11 6.35938 8.91825 6.35938 6.35938C6.35938 3.8005 8.44117 1.71875 11 1.71875C13.5588 1.71875 15.6406 3.8005 15.6406 6.35938C15.6406 8.91825 13.5588 11 11 11Z" />
                                 </svg>My Profile</button>
-                            <button class="nav-link nav-btn-style mx-auto" id="v-pills-order-tab" data-bs-toggle="pill"
-                                data-bs-target="#v-pills-order" type="button" role="tab" aria-controls="v-pills-order"
-                                aria-selected="true"><svg width="20" height="20" viewBox="0 0 22 22"
-                                    xmlns="http://www.w3.org/2000/svg">
-                                    <path
-                                        d="M19.7115 18.1422L18.729 5.7622C18.6678 4.96461 17.9932 4.3398 17.1933 4.3398H15.2527V4.25257C15.2527 1.90768 13.345 0 11.0002 0C8.65527 0 6.74758 1.90768 6.74758 4.25257V4.3398H4.80703C4.00708 4.3398 3.33251 4.96457 3.2715 5.76052L2.28872 18.1439C2.21266 19.1354 2.55663 20.1225 3.23235 20.852C3.90808 21.5815 4.86598 22 5.86041 22H16.1399C17.1342 22 18.0922 21.5816 18.768 20.852C19.4437 20.1224 19.7876 19.1354 19.7115 18.1422ZM8.03622 4.25257C8.03622 2.61826 9.36588 1.28863 11.0002 1.28863C12.6344 1.28863 13.9641 2.6183 13.9641 4.25257V4.3398H8.03622V4.25257ZM17.8225 19.9764C17.3835 20.4503 16.7859 20.7114 16.1399 20.7114H5.86045C5.21437 20.7114 4.61685 20.4503 4.17779 19.9764C3.73878 19.5024 3.5242 18.8866 3.57352 18.2441L4.55622 5.86072C4.56619 5.73044 4.67636 5.62843 4.80703 5.62843H6.74758V7.21548C6.74758 7.57131 7.03607 7.8598 7.3919 7.8598C7.74772 7.8598 8.03622 7.57131 8.03622 7.21548V5.62843H13.9641V7.21548C13.9641 7.57131 14.2526 7.8598 14.6084 7.8598C14.9642 7.8598 15.2527 7.57131 15.2527 7.21548V5.62843H17.1933C17.324 5.62843 17.4341 5.73048 17.4443 5.86244L18.4267 18.2424C18.4762 18.8866 18.2615 19.5024 17.8225 19.9764Z" />
-                                    <path
-                                        d="M13.9035 10.9263C13.652 10.6746 13.244 10.6746 12.9924 10.9263L10.1154 13.8033L9.00909 12.697C8.75751 12.4454 8.34952 12.4454 8.0979 12.697C7.84627 12.9486 7.84627 13.3566 8.0979 13.6082L9.65977 15.1701C9.78558 15.2959 9.9505 15.3588 10.1153 15.3588C10.2802 15.3588 10.4451 15.2959 10.5709 15.1701L13.9034 11.8375C14.1551 11.5858 14.1551 11.1779 13.9035 10.9263Z" />
-                                </svg> Order Traking</button>
+                            
+                                <!-- order -->
                             <button class="nav-link nav-btn-style mx-auto" id="v-pills-purchase-tab"
                                 data-bs-toggle="pill" data-bs-target="#v-pills-purchase" type="button" role="tab"
                                 aria-controls="v-pills-purchase" aria-selected="true">
@@ -72,27 +92,31 @@
                                 </svg>Logout</button>
                         </div>
                     </div>
-
                 </div>
+                <!-- end dashboard menu -->
+
                 <div class="col-lg-9">
                     <div class="tab-content" id="v-pills-tabContent">
+
+                        <!-- user dashboard -->
                         <div class="tab-pane fade show active" id="v-pills-dashboard" role="tabpanel"
                             aria-labelledby="v-pills-dashboard-tab">
                             <div class="dashboard-area box--shadow">
-                                <p>Hello, <strong>Johan Martin SR !</strong></p>
+                                <p>Hello:<strong>@if (Auth::check())<span class="dropdown-item-text">{{ Auth::user()->name }}</span>@endif</strong></p>
                                 <p>From your My Account Dashboard you have the ability to view a snapshot of your recent
                                     account activity and update your account information. Select a link below to view or
                                     edit information.</p>
                                 <div class="row pt-25 g-4">
-                                    <div class="col-md-4 col-sm-6">
+                                    <div class="col-md-6 col-sm-6">
                                         <div class="dashboard-card hover-border1 wow fadeInDown"
                                             data-wow-duration="1.5s" data-wow-delay=".2s">
                                             <div class="header">
-                                                <h5>Total Order</h5>
+                                                <h5>Tổng đơn hàng</h5>
                                             </div>
                                             <div class="body">
                                                 <div class="counter-item">
-                                                    <h2>3600</h2>
+                                                    <h2>123***</h2>
+                                                    <!-- số đơn hàng order count -->
                                                 </div>
                                                 <div class="icon">
                                                     <svg xmlns="http://www.w3.org/2000/svg" width="50" height="50"
@@ -109,15 +133,16 @@
                                         </div>
 
                                     </div>
-                                    <div class="col-md-4 col-sm-6">
+                                    <div class="col-md-6 col-sm-6">
                                         <div class="dashboard-card hover-border1 wow fadeInDown"
                                             data-wow-duration="1.5s" data-wow-delay=".4s">
                                             <div class="header">
-                                                <h5>Pending Orders</h5>
+                                                <h5>Đang chờ</h5>
                                             </div>
                                             <div class="body">
                                                 <div class="counter-item">
                                                     <h2>200</h2>
+                                                    <!-- inprogess -->
                                                 </div>
                                                 <div class="icon">
                                                     <svg xmlns="http://www.w3.org/2000/svg" width="50" height="50"
@@ -131,187 +156,106 @@
                                             </div>
                                         </div>
                                     </div>
-                                    <div class="col-md-4 col-sm-6">
-                                        <div class="dashboard-card hover-border1 wow fadeInDown"
-                                            data-wow-duration="1.5s" data-wow-delay=".6s">
-                                            <div class="header">
-                                                <h5>Wishlist</h5>
-                                            </div>
-                                            <div class="body">
-                                                <div class="counter-item">
-                                                    <h2>36354</h2>
-                                                </div>
-                                                <div class="icon">
-                                                    <svg xmlns="http://www.w3.org/2000/svg" width="50" height="50"
-                                                        viewBox="0 0 50 50">
-                                                        <path
-                                                            d="M24.3996 0.153577C23.4061 0.353602 22.2926 0.863666 21.1245 1.66377C20.0873 2.38386 19.4214 3.14395 18.8428 4.3141C18.0895 5.80428 18.1223 5.25421 18.1223 17.8158V29.1472L15.9061 29.1572C14.0611 29.1772 13.559 29.2072 12.8493 29.3872C9.869 30.1073 7.69651 32.1576 6.99782 34.8979C6.79039 35.698 6.76856 36.0881 6.76856 39.5585C6.76856 43.699 6.74672 43.8891 6.11354 45.0592C5.69869 45.8393 4.49782 46.9894 3.74454 47.3395C2.96943 47.6895 2.06332 47.8996 1.24454 47.8996C0.665939 47.8996 0.534934 47.9396 0.283843 48.1596C0.0545852 48.3796 0 48.5196 0 48.9197C0 49.3297 0.0545852 49.4598 0.316594 49.7098L0.633188 49.9998H12.7183C26.1463 49.9998 25.6004 50.0298 27.1507 49.3197C29.0175 48.4796 30.3384 47.2895 31.1245 45.7693C31.7358 44.5591 31.7686 44.3491 31.7686 40.7687V37.4983H36.0153H40.262L40.6004 37.2082L40.9389 36.9182V22.6264V8.3446L44.8362 8.37461C49.0284 8.40461 49.3886 8.37461 49.7707 7.92455C49.9782 7.68452 50 7.5345 50 5.9443C50 4.08407 49.8908 3.534 49.3777 2.6939C48.9847 2.07382 47.6638 0.923674 46.9432 0.593632C45.5786 -0.0364465 46.0808 -0.00644271 35.131 0.00355854C26.7576 0.00355854 25.0437 0.0335623 24.3996 0.153577ZM39.5633 2.36385C39.2358 2.82391 38.952 3.41399 38.7991 3.94405C38.679 4.3541 38.6463 6.88442 38.6463 17.3057V30.1773L37.9476 29.8373C36.4738 29.1172 37.0306 29.1572 28.3515 29.1272L20.5131 29.0972V17.7158L20.5022 6.34435L20.786 5.64426C21.4847 3.95405 22.9258 2.68389 24.6725 2.23384C25.0437 2.14383 26.9869 2.11382 32.4672 2.10382L39.7598 2.09382L39.5633 2.36385ZM45.5677 2.29385C46.2773 2.56388 47.0852 3.29397 47.3908 3.92405C47.5655 4.28409 47.6528 4.70415 47.6856 5.31422L47.7293 6.19433H44.3341H40.9389V5.39423C40.9389 4.83416 41.0044 4.43411 41.1681 4.04406C41.4629 3.31397 42.2598 2.58388 43.0349 2.30385C43.81 2.03381 44.9017 2.02381 45.5677 2.29385ZM30.5022 31.4675C30.1965 31.8976 29.8908 32.4976 29.7162 33.0477C29.5852 33.4477 29.5415 34.5379 29.4869 38.6984C29.4105 43.709 29.4105 43.8691 29.1703 44.4491C29.0393 44.7792 28.7555 45.2792 28.548 45.5593C28.0131 46.2694 26.9323 47.1795 26.3319 47.4295C25.1528 47.8996 25.262 47.8996 15.7205 47.8996H6.72489L7.1179 47.5195C7.8821 46.7994 8.61354 45.5093 8.9083 44.3991C9.01747 43.9891 9.05022 42.8089 9.06114 39.8185C9.06114 35.388 9.07205 35.268 9.74891 34.0478C10.1419 33.3277 11.3428 32.2076 12.0852 31.8675C12.631 31.6175 13.5044 31.3375 13.9738 31.2675C14.1266 31.2475 17.9476 31.2175 22.4782 31.2075L30.6987 31.1975L30.5022 31.4675ZM36.6812 31.5475C37.8712 32.1076 38.5044 33.0777 38.6135 34.5679L38.679 35.398H35.2183H31.7686V34.9179C31.7686 34.2478 31.9651 33.3177 32.2052 32.8977C32.4454 32.4776 33.1223 31.8375 33.5699 31.6175C34.5087 31.1675 35.786 31.1375 36.6812 31.5475Z" />
-                                                        <path
-                                                            d="M23.3078 6.31439C22.9257 6.50442 22.7074 6.83446 22.7074 7.22451C22.7074 7.73457 23.0458 8.15462 23.5589 8.29464C24.1266 8.43466 35.1419 8.43466 35.5567 8.28464C36.1135 8.09462 36.3537 7.80458 36.3537 7.32452C36.3537 6.77445 36.2227 6.54442 35.8078 6.3444C35.5349 6.21438 34.6397 6.19438 29.5087 6.19438C25.3712 6.20438 23.4607 6.23438 23.3078 6.31439Z" />
-                                                        <path
-                                                            d="M23.3078 12.6155C22.9148 12.8055 22.7074 13.1355 22.7074 13.5656C22.7074 13.8956 22.7729 14.0456 23.0458 14.2857L23.3843 14.5957H29.5305H35.6768L36.0153 14.3357C36.2991 14.1156 36.3537 14.0056 36.3537 13.6256C36.3537 13.0755 36.2227 12.8455 35.8078 12.6455C35.5349 12.5154 34.6397 12.4954 29.5087 12.4954C25.3712 12.5054 23.4607 12.5354 23.3078 12.6155Z" />
-                                                        <path
-                                                            d="M23.3078 18.8163C22.9257 19.0064 22.7074 19.3364 22.7074 19.7265C22.7074 20.2365 23.0458 20.6566 23.5589 20.7966C24.1266 20.9366 35.1419 20.9366 35.5567 20.7866C36.1353 20.5866 36.3537 20.3065 36.3537 19.7665C36.3537 19.3464 36.31 19.2364 36.0153 18.9864L35.6768 18.6963H29.596C25.393 18.7063 23.4607 18.7363 23.3078 18.8163Z" />
-                                                        <path
-                                                            d="M23.3078 25.1164C22.9148 25.3065 22.7074 25.6365 22.7074 26.0666C22.7074 26.3966 22.7729 26.5466 23.0458 26.7866L23.3843 27.0967H29.5524H35.7205L36.0371 26.8066C36.2882 26.5766 36.3537 26.4266 36.3537 26.0966C36.3537 25.5765 36.2118 25.3365 35.8078 25.1464C35.5349 25.0164 34.6397 24.9964 29.5087 24.9964C25.3712 25.0064 23.4607 25.0364 23.3078 25.1164Z" />
-                                                        <path
-                                                            d="M11.8341 35.5778C11.2336 36.0179 11.19 36.6679 11.7249 37.158L12.0961 37.498H19.2686C24.3341 37.498 26.5066 37.468 26.6703 37.388C27.369 37.058 27.5109 36.2379 26.976 35.7078L26.6594 35.3978H19.3559C12.6092 35.3978 12.0415 35.4178 11.8341 35.5778Z" />
-                                                        <path
-                                                            d="M12.3908 41.669C11.4301 41.859 11.0371 42.7491 11.6375 43.3892L11.9214 43.6992H19.334H26.7576L27.0196 43.4392C27.5764 42.8891 27.2489 41.909 26.441 41.699C26.048 41.599 12.8821 41.569 12.3908 41.669Z" />
-                                                    </svg>
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </div>
+                                    
                                 </div>
                             </div>
                         </div>
+                        <!-- end user dashboard -->
+
+
                         <div class="tab-pane fade" id="v-pills-profile" role="tabpanel"
                             aria-labelledby="v-pills-profile-tab">
                             <div class="dashboard-profile">
+
                                 <div class="table-title-area">
                                     <h3>Edit Your Profile</h3>
                                         @if (Auth::check())
                                         <p>
-                                            <span class="dropdown-item-text">Hồ sơ của {{ Auth::user()->name }}</span>
+                                            <span class="dropdown-item-text">Hồ sơ của: {{ Auth::user()->name }}</span>
                                         </p>
                                         @endif
                                 </div>
+
                                 <div class="form-wrapper">
+                                    <!-- action -->
                                     <form action="#">
-                                        <div class="row">
-                                            <div class="col-xl-6 col-lg-12 col-md-6 mb-25">
-                                                <div class="form-inner">
-                                                    <input type="text" placeholder="Enter your first name*">
+                                        <div class="row align-items">
+                                            <!-- data -->
+                                            <div class="col-6">
+                                                <div class="col-xl-12 col-lg-12 col-md-12 mb-25">
+                                                    <div class="form-inner">
+                                                        <label for="">Tên tài khoản:</label>
+                                                        <input type="text" value="{{ $user->name }}">
+                                                    </div>
+                                                </div>
+
+                                                <div class="col-xl-12 col-lg-12 col-md-12 mb-25">
+                                                    <div class="form-inner">
+                                                        <label for="">Emai:</label>
+                                                        <input type="text" value="{{ $user->email }}">
+                                                    </div>
+                                                </div>
+
+                                                <div class="col-xl-12 col-lg-12 col-md-12 mb-25">
+                                                    <div class="form-inner">
+                                                        <label for="">Số điện thoại:</label>
+                                                        <input type="text" value="{{ $user->phone }}">
+                                                    </div>
+                                                </div>
+
+                                                <div class="col-xl-12 col-lg-12 col-md-12 mb-25">
+                                                    <div class="form-inner">
+                                                        <label for="">Ngày tham gia:</label>
+                                                        <input type="text" value="{{ $user->created_at->format('d/m/Y') }}">
+                                                    </div>
+                                                </div>
+
+                                                <div class="col-xl-12 col-lg-12 col-md-12 mb-25">
+                                                    <!-- <input type="text" value="{{ $user->gender == 'male' ? 'Nam' : 'Nữ' }}"> -->
+                                                    <div class="form-inner">
+                                                        <select id="gender" name="gender">
+                                                            <option class="{{$user->gender=='male'?'active':'unactive'}}" value="male">Nam</option>
+                                                            <option class="{{$user->gender=='male'?'active':'unactive'}}" value="female">Nữ</option>
+                                                        </select>
+                                                    </div>
+                                                </div>
+
+                                                
+                                            </div>
+                                            
+                                            <!-- data -->
+
+                                            <!-- avatar -->
+                                            <div class="col-6">
+                                                <div class="col-xl-6 col-lg-18 col-md-6 mb-25">
+                                                    <div class="form-inner">
+                                                        <p>Ảnh đại diện</p>
+                                                        <img src="{{ asset('storage/' . $user->img) }}" alt="">
+                                                    </div>
                                                 </div>
                                             </div>
-                                            <div class="col-xl-6 col-lg-12 col-md-6 mb-25">
-                                                <div class="form-inner">
-                                                    <input type="text" placeholder="Enter your last name*">
-                                                </div>
-                                            </div>
-                                            <div class="col-xl-6 col-lg-12 col-md-6 mb-25">
-                                                <div class="form-inner">
-                                                    <input type="text" placeholder="Enter yout contact number">
-                                                </div>
-                                            </div>
-                                            <div class="col-xl-6 col-lg-12 col-md-6 mb-25">
-                                                <div class="form-inner">
-                                                    <input type="text" placeholder="Enter your email address*">
-                                                </div>
-                                            </div>
-                                            <div class="col-12 mb-25">
-                                                <div class="form-inner">
-                                                    <input type="text" placeholder="Enter your present address">
-                                                </div>
-                                            </div>
-                                            <div class="col-xl-6 col-lg-12 col-md-6 mb-25">
-                                                <div class="form-inner">
-                                                    <select id="city">
-                                                        <option>City</option>
-                                                        <option>Dhaka</option>
-                                                        <option>Sylhet</option>
-                                                        <option>Chittagong</option>
-                                                        <option>Rajshahi</option>
-                                                    </select>
-                                                </div>
-                                            </div>
-                                            <div class="col-xl-6 col-lg-12 col-md-6 mb-25">
-                                                <div class="form-inner">
-                                                    <select name="state" id="state">
-                                                        <option>State</option>
-                                                        <option>Dhaka</option>
-                                                        <option>Sylhet</option>
-                                                        <option>Chittagong</option>
-                                                        <option>Rajshahi</option>
-                                                    </select>
-                                                </div>
-                                            </div>
-                                            <div class="col-xl-6 col-lg-12 col-md-6 mb-25">
-                                                <div class="form-inner">
-                                                    <input type="text" placeholder="Zip Code">
-                                                </div>
-                                            </div>
-                                            <div class="col-xl-6 col-lg-12 col-md-6 mb-25">
-                                                <div class="form-inner">
-                                                    <select>
-                                                        <option>Country</option>
-                                                        <option>Bangladesh</option>
-                                                        <option>Afganistan</option>
-                                                        <option>India</option>
-                                                        <option>China</option>
-                                                    </select>
-                                                </div>
-                                            </div>
-                                            <div class="col-12 mb-25">
-                                                <div class="form-inner">
-                                                    <input type="password" name="password" id="password4"
-                                                        placeholder="Password"/>
-                                                    <i class="bi bi-eye-slash" id="togglePassword4"></i>
-                                                </div>
-                                            </div>
-                                            <div class="col-12 mb-25">
-                                                <div class="form-inner mb-0">
-                                                    <input type="password" name="password" id="password5"
-                                                        placeholder="Confirm password"/>
-                                                    <i class="bi bi-eye-slash" id="togglePassword5"></i>
-                                                </div>
-                                            </div>
-                                            <div class="col-12">
+                                            <!-- avatar -->
+                                        </div>
+
+                                        <div class="col-12">
                                                 <div class="button-group">
                                                     <button type="submit"
                                                         class="primary-btn3 black-bg  hover-btn5 hover-white">Update
                                                         Profile</button>
                                                     <button class="primary-btn3 hover-btn5">Cancel</button>
                                                 </div>
-                                            </div>
                                         </div>
                                     </form>
                                 </div>
                             </div>
                         </div>
-                        <div class="tab-pane fade" id="v-pills-order" role="tabpanel"
-                            aria-labelledby="v-pills-order-tab">
-                            <div class="order-traking-area">
-                                <p>To track your order please enter your Order ID in the box below and press the "Track"
-                                    button. This given to you on your receipt and in the confirmation email you should
-                                    have received.</p>
-                                <form>
-                                    <div class="row justify-content-center">
-                                        <div class="col-md-8 mb-25">
-                                            <div class="form-inner">
-                                                <label>Order ID</label>
-                                                <input type="text" placeholder="Enter your order ID">
-                                            </div>
-                                        </div>
-                                        <div class="col-md-8">
-                                            <div class="form-inner">
-                                                <label>Billing Email</label>
-                                                <input type="text" placeholder="Enter your email">
-                                            </div>
-                                        </div>
-                                        <div class="col-md-5 d-flex justify-content-center">
-                                            <div class="button-group">
-                                                <button type="submit"
-                                                    class="primary-btn3 black-bg  hover-btn5 hover-white">Track</button>
-                                            </div>
-                                        </div>
 
-                                    </div>
-                                </form>
-                            </div>
-                        </div>
+
                         <div class="tab-pane fade" id="v-pills-purchase" role="tabpanel"
                             aria-labelledby="v-pills-purchase-tab">
                             <!-- table title-->
                             <div class="table-title-area">
                                 <h3>My Order</h3>
-                                <select>
-                                    <option value="01">Show: Last 05 Order</option>
-                                    <option value="02">Show: Last 03 Order</option>
-                                    <option value="03">Show: Last 15 Order</option>
-                                    <option value="04">Show: Last 20 Order</option>
-                                </select>
                             </div>
 
                             <!-- table -->
