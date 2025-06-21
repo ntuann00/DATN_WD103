@@ -4,8 +4,20 @@
     <div class="container">
         <h2 class="mb-4">Danh sách người dùng</h2>
 
-        @if (session('success'))
+        {{-- @if (session('success'))
             <div class="alert alert-success">{{ session('success') }}</div>
+        @endif --}}
+
+        @if (session('success'))
+            <div class="alert alert-success">
+                {{ session('success') }}
+            </div>
+        @endif
+
+        @if (session('error'))
+            <div class="alert alert-danger">
+                {{ session('error') }}
+            </div>
         @endif
 
         <a href="{{ route('users.create') }}" class="btn btn-primary mb-3">+ Thêm người dùng</a>
@@ -50,16 +62,18 @@
                         <td>
                             <a href="{{ route('users.edit', $user) }}" class="btn btn-sm btn-warning">Sửa</a>
                             <a href="{{ route('users.show', $user) }}" class="btn btn-sm btn-warning">Chi tiết</a>
-                            <form id="delete-form-{{ $user->id }}"
-                                    action="{{ route('users.destroy', $user->id) }}" method="POST"
-                                    style="display: inline;">
+                            <form action="{{ url('/users/' . $user->id . '/toggle-status') }}" method="POST"
+                                    style="display:inline-block;">
                                     @csrf
-                                    @method('DELETE')
-                                    <button type="button" class="btn  btn-danger"
-                                        onclick="confirmDelete({{ $user->id }})">
-                                        Xóa
-                                    </button>
+                                    @method('PATCH')
+
+                                    @if ($user->status == 1)
+                                        <button type="submit" class="btn btn-secondary">Khóa</button>
+                                    @else
+                                        <button type="submit" class="btn btn-success">Kích hoạt</button>
+                                    @endif
                                 </form>
+
                         </td>
                     </tr>
                 @endforeach

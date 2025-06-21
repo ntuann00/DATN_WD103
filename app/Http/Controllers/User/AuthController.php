@@ -9,6 +9,7 @@ use Illuminate\Http\Request;
 use Illuminate\Routing\Controller as BaseController;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
+use Illuminate\Support\Facades\Validator;
 
 class AuthController extends BaseController
 {
@@ -50,29 +51,48 @@ class AuthController extends BaseController
     }
 
     public function login(Request $request)
-    {
+{
+    // 1. Tạo validator với rule cơ bản
+    $validator = Validator::make($request->all(), [
+        'email'    => 'required|email|max:255',
+        'password' => 'required|string|min:6',
+    ], [
+        'email.required'    => 'Vui lòng nhập email.',
+        'email.email'       => 'Email không hợp lệ.',
+        'email.max'         => 'Email quá dài.',
+        'password.required' => 'Vui lòng nhập mật khẩu.',
+        'password.min'      => 'Mật khẩu phải ít nhất 6 ký tự.',
+    ]);
 
-        $data = $request->validate([
-            'email'    => 'required|email',
-            'password' => 'required|string',
-        ]);
-
+    // 2. Thêm điều kiện kiểm tra user có tồn tại & bị khóa không
+    $validator->after(function ($validator) use ($request) {
         $user = Users::where('email', $request->email)->first();
 
-        if(!$user){
-            return back()->withErrors('Tài khoản không tồn tại!');
+        if (!$user) {
+            $validator->errors()->add('email', 'Tài khoản không tồn tại!');
+        } elseif ($user->status != 1) {
+            $validator->errors()->add('email', 'Tài khoản đã bị khóa! Vui lòng liên hệ qua đường dây lóng');
         }
+    });
 
-        if ($user->status != 1) {
-            return back()->withErrors(['email' => 'Tài khoản bị khóa']);
-        }
-
-        if (Auth::attempt($data)) {
-            return redirect()->route('home')->with('success', 'Đăng nhập thành cong!');
-        } else {
-            return back()->withErrors('Tài khoản hoặc mật khẩu không đúng!');
-        }
+    // 3. Nếu có lỗi thì quay lại với lỗi
+    if ($validator->fails()) {
+        return back()
+            ->withErrors($validator)
+            ->withInput();
     }
+
+    // 4. Đăng nhập
+    if (Auth::attempt($request->only('email', 'password'))) {
+        $request->session()->regenerate();
+        return redirect()->route('home')->with('success', 'Đăng nhập thành công!');
+    }
+
+    // 5. Sai mật khẩu
+    return back()
+        ->withErrors(['password' => 'Tài khoản hoặc mật khẩu không đúng!'])
+        ->withInput();
+}
 
     public function logout()
     {
