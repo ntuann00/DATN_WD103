@@ -9,13 +9,13 @@ class AttributeValue extends Model
 {
     use HasFactory;
 
- protected $table = 'attribute_values';
+    protected $table = 'attribute_values';
      protected $fillable = ['attribute_id', 'value'];
 
     // Mối quan hệ (giả sử có bảng attributes)
     public function attribute()
     {
-        return $this->belongsTo(Attribute::class);
+        return $this->belongsTo(Attribute::class,'attribute_id');
     }
     
 }
