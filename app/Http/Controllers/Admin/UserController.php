@@ -106,9 +106,9 @@ class UserController extends BaseController
         return redirect()->route('users.index')->with('success', 'Cập nhật người dùng thành công!');
     }
 
-    public function toggleStatus($id)
+   public function toggleStatus($id)
     {
-        $user = User::findOrFail($id);
+        $user = Users::findOrFail($id);
 
         if ($user->role && $user->role->name === 'admin') {
             return redirect()->route('users.index')
