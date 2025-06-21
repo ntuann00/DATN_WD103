@@ -2,14 +2,14 @@
 
 @section('content')
 <div class="container">
-    <h1>Danh sách biến thể</h1>
+    <h1>Danh sách giá trị thuộc tính</h1>
 
     @if(session('success'))
         <div class="alert alert-success">{{ session('success') }}</div>
     @endif
 
-    <a href="{{ route('attributeValues.create')}}" class="btn btn-primary mb-3"> Thêm biến thể con</a>
-    <a href="{{ route('attributes.create')}}" class="btn btn-primary mb-3"> Thêm biến thể </a>
+    <a href="{{ route('attributeValues.create')}}" class="btn btn-primary mb-3"> Thêm giá trị</a>
+    <a href="{{ route('attributes.index')}}" class="btn btn-primary mb-3">Danh sách thuộc tính</a>
 
     <table class="table table-bordered">
         <thead>

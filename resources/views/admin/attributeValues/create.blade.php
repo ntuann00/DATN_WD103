@@ -2,7 +2,7 @@
 
 @section('content')
     <div class="container">
-        <h2>Thêm mới Category</h2>
+        <h2>Thêm mới giá trị</h2>
 
         {{-- Hiển thị thông báo lỗi (nếu có) --}}
         @if ($errors->any())
@@ -35,7 +35,7 @@
             </div>
 
             <button type="submit" class="btn btn-primary">Lưu</button>
-            <a href="{{ route('attributeValues.index', request('attributed')) }}" class="btn btn-secondary">Quay lại</a>
+            <a href="{{ route('attributes.index', request('attributed')) }}" class="btn btn-secondary">Quay lại</a>
         </form>
     </div>
 @endsection
