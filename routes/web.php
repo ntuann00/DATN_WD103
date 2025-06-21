@@ -85,7 +85,7 @@ Route::delete('/categories/{id}', [CategoryController::class, 'destroy'])->name(
 Route::get('/attributes', [AttributeController::class, 'index'])->name('attributes.index');
 Route::get('/attributes/create', [AttributeController::class, 'create'])->name('attributes.create');
 Route::post('/attributes', [AttributeController::class, 'store'])->name('attributes.store');
-
+Route::get('/attributes/{id}/show', [AttributeController::class, 'show'])->name('attributes.show');
 Route::get('/attributes/{id}/edit', [AttributeController::class, 'edit'])->name('attributes.edit');
 Route::put('/attributes/{id}', [AttributeController::class, 'update'])->name('attributes.update');
 Route::delete('/attributes/{id}', [AttributeController::class, 'destroy'])->name('attributes.destroy');

@@ -31,12 +31,11 @@
                 <div class="icon_menu">
                     <img src="{{ asset('admins/assets/img/menu-icon/2.svg')}}" alt>
                 </div>
-                <span>Quản lí biến thể</span>
+                <span>Quản lí thuộc tính</span>
             </a>
             <ul>
-                <li><a href="{{ route('attributes.index')}}">Danh sách biến thể</a></li>
-                <li><a href="{{ route('attributes.create')}}">Thêm mới biến thể</a></li>
-                <li><a href="{{ route('attributeValues.index')}}">Thêm mới biến thể</a></li>
+                <li><a href="{{ route('attributes.index')}}">Danh sách thuộc tính</a></li>
+                <li><a href="{{ route('attributes.create')}}">Thêm mới thuộc tính</a></li>
             </ul>
         </li>
 

@@ -16,7 +16,8 @@ class Attribute extends Model
         'name',
     ];
     public function values()
-{
-    return $this->hasMany(\App\Models\AttributeValue::class);
-}
+
+    {
+        return $this->hasMany(AttributeValue::class, 'attribute_id');
+    }
 }

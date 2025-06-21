@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Admin;
 
 use App\Models\Attribute;
+use App\Models\AttributeValue;
 use Illuminate\Foundation\Auth\Access\AuthorizesRequests;
 use Illuminate\Foundation\Validation\ValidatesRequests;
 use Illuminate\Http\Request;
@@ -13,7 +14,8 @@ class AttributeController extends BaseController
 
     public function index()
     {
-        $attributes = Attribute::latest()->paginate(3);
+        $attributes = Attribute::with('values')->withCount('values')->latest()->paginate(3);
+      
         return view('admin.attributes.index', compact('attributes'));
     }
     public function create()
@@ -54,4 +56,9 @@ class AttributeController extends BaseController
         Attribute::destroy($id);
         return redirect()->route('attributes.index')->with('success', 'Xóa thành công!');
     }
+    public function show($id)
+{
+    $attribute = Attribute::with('values')->findOrFail($id);
+    return view('admin.attributes.show', compact('attribute'));
+}
 }
