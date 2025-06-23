@@ -70,7 +70,6 @@ Route::middleware('auth')->group(function () {
 
 Route::middleware(['auth', 'check.role'])->group(function () {
     Route::get('/admin', [AdminController::class, 'index'])->name('admin');
-});
 
 //category
 Route::get('/categories', [CategoryController::class, 'index'])->name('categories.index');
@@ -121,4 +120,6 @@ Route::put('/products/{id}', [ProductController::class, 'update'])->name('produc
 Route::delete('/products/{id}', [ProductController::class, 'destroy'])->name('products.destroy');
 Route::delete('/admin/product-images/{id}', [ProductImageController::class, 'destroy'])
     ->name('product-images.destroy');
+});
+
 
