@@ -3,6 +3,7 @@ namespace App\Http\Controllers;
 
 // use App\Http\Controllers\Admin\CategoryController;
 
+use App\Http\Controllers\Admin\AdminController;
 use App\Http\Controllers\Admin\AttributeController;
 use App\Http\Controllers\Admin\AttributeValueController;
 use App\Http\Controllers\Admin\CategoryController;
@@ -67,9 +68,8 @@ Route::middleware('auth')->group(function () {
 });
 
 
-
-Route::get('/admin', function () {
-    return view('admin.dashboard');
+Route::middleware(['auth', 'check.role'])->group(function () {
+    Route::get('/admin', [AdminController::class, 'index'])->name('admin');
 });
 
 //category
