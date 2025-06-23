@@ -8,10 +8,7 @@
         @yield('content') {{-- nội dung dashboard sẽ hiển thị ở đây --}}
         <style>
             table {
-                width: 100%;
                 border-collapse: collapse;
-                table-layout: fixed; /* Cố định layout cột */
-                margin-top: 20px;
             }
 
             th, td {
@@ -41,7 +38,7 @@
             td:nth-child(2),
             td:nth-child(3),
             td:nth-child(4) {
-                max-width: 180px;
+                max-width: 200px;
             }
         </style>
     </div>

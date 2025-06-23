@@ -21,8 +21,8 @@
         @endif
 
         <a href="{{ route('users.create') }}" class="btn btn-primary mb-3">+ Thêm người dùng</a>
-
-        <table class="table table-bordered table-striped">
+<div style="overflow-x: auto;">
+        <table class="table" >
             <thead class="thead-dark">
                 <tr>
                     <th>ID</th>
@@ -48,7 +48,7 @@
                         <td>{{ $user->email }}</td>
                         <td><img src="{{ asset('storage/' . $user->img) }}" alt="avatar" width="100"></td>
 
-                        <td> {{ $user->birthday}}</td>
+                        <td> {{ $user->birthday->format('d-m-Y') }}</td>
 
                         <td>{{ ucfirst($user->gender) }}</td>
                         <td>{{ $user->role->name }}</td>
@@ -63,7 +63,6 @@
                         <td>{{ $user->updated_at->format('d/m/y') }}</td>
                         <td>
                             <a href="{{ route('users.edit', $user) }}" class="btn btn-sm btn-warning">Sửa</a>
-                            <a href="{{ route('users.show', $user) }}" class="btn btn-sm btn-warning">Chi tiết</a>
                             <form action="{{ url('/users/' . $user->id . '/toggle-status') }}" method="POST"
                                     style="display:inline-block;">
                                     @csrf
@@ -81,6 +80,7 @@
                 @endforeach
             </tbody>
         </table>
+        </div>
     </div>
 @endsection
 

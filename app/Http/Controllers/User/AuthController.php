@@ -51,48 +51,55 @@ class AuthController extends BaseController
     }
 
     public function login(Request $request)
-{
-    // 1. Tạo validator với rule cơ bản
-    $validator = Validator::make($request->all(), [
-        'email'    => 'required|email|max:255',
-        'password' => 'required|string|min:6',
-    ], [
-        'email.required'    => 'Vui lòng nhập email.',
-        'email.email'       => 'Email không hợp lệ.',
-        'email.max'         => 'Email quá dài.',
-        'password.required' => 'Vui lòng nhập mật khẩu.',
-        'password.min'      => 'Mật khẩu phải ít nhất 6 ký tự.',
-    ]);
+    {
+        // 1. Tạo validator với rule cơ bản
+        $validator = Validator::make($request->all(), [
+            'email'    => 'required|email|max:255',
+            'password' => 'required|string|min:6',
+        ], [
+            'email.required'    => 'Vui lòng nhập email.',
+            'email.email'       => 'Email không hợp lệ.',
+            'email.max'         => 'Email quá dài.',
+            'password.required' => 'Vui lòng nhập mật khẩu.',
+            'password.min'      => 'Mật khẩu phải ít nhất 6 ký tự.',
+        ]);
 
-    // 2. Thêm điều kiện kiểm tra user có tồn tại & bị khóa không
-    $validator->after(function ($validator) use ($request) {
-        $user = Users::where('email', $request->email)->first();
+        // 2. Thêm điều kiện kiểm tra user có tồn tại & bị khóa không
+        $validator->after(function ($validator) use ($request) {
+            $user = Users::where('email', $request->email)->first();
 
-        if (!$user) {
-            $validator->errors()->add('email', 'Tài khoản không tồn tại!');
-        } elseif ($user->status != 1) {
-            $validator->errors()->add('email', 'Tài khoản đã bị khóa! Vui lòng liên hệ qua đường dây lóng');
+            if (!$user) {
+                $validator->errors()->add('email', 'Tài khoản không tồn tại!');
+            } elseif ($user->status != 1) {
+                $validator->errors()->add('email', 'Tài khoản đã bị khóa! Vui lòng liên hệ qua đường dây lóng');
+            }
+        });
+
+        // 3. Nếu có lỗi thì quay lại với lỗi
+        if ($validator->fails()) {
+            return back()
+                ->withErrors($validator)
+                ->withInput();
         }
-    });
+        // 4. Đăng nhập
+        if (Auth::attempt($request->only('email', 'password'))) {
+            $request->session()->regenerate();
 
-    // 3. Nếu có lỗi thì quay lại với lỗi
-    if ($validator->fails()) {
+            // Phân quyền sau khi đăng nhập
+            $role = Auth::user()->role_id;
+
+            if ($role === 1) {
+                return redirect()->route('admin')->with('success', 'Đăng nhập thành công với quyền Admin!');
+            } else {
+                return redirect()->route('home')->with('success', 'Đăng nhập thành công!');
+            }
+        }
+
+        // 5. Sai mật khẩu
         return back()
-            ->withErrors($validator)
+            ->withErrors(['password' => 'Tài khoản hoặc mật khẩu không đúng!'])
             ->withInput();
     }
-
-    // 4. Đăng nhập
-    if (Auth::attempt($request->only('email', 'password'))) {
-        $request->session()->regenerate();
-        return redirect()->route('home')->with('success', 'Đăng nhập thành công!');
-    }
-
-    // 5. Sai mật khẩu
-    return back()
-        ->withErrors(['password' => 'Tài khoản hoặc mật khẩu không đúng!'])
-        ->withInput();
-}
 
     public function logout()
     {
@@ -100,9 +107,9 @@ class AuthController extends BaseController
         return redirect()->route('login');
     }
 
-        public function profile()
-        {
-              $user = auth()->user();
-    return view('user.auth.profile', compact('user'));
-        }
+    public function profile()
+    {
+        $user = auth()->user();
+        return view('user.auth.profile', compact('user'));
+    }
 }
