@@ -88,7 +88,7 @@ Route::post('/attributes', [AttributeController::class, 'store'])->name('attribu
 Route::get('/attributes/{id}/show', [AttributeController::class, 'show'])->name('attributes.show');
 Route::get('/attributes/{id}/edit', [AttributeController::class, 'edit'])->name('attributes.edit');
 Route::put('/attributes/{id}', [AttributeController::class, 'update'])->name('attributes.update');
-Route::delete('/attributes/{id}', [AttributeController::class, 'destroy'])->name('attributes.destroy');
+
 
 // attribute_value
 
@@ -97,8 +97,8 @@ Route::get('/attributeValues/create', [AttributeValueController::class, 'create'
 Route::post('/attributeValues', [AttributeValueController::class, 'store'])->name('attributeValues.store');
 Route::get('/attributeValues/{id}', [AttributeValueController::class, 'show'])->name('attributeValues.show');
 Route::get('/attributeValues/{id}/edit', [AttributeValueController::class, 'edit'])->name('attributeValues.edit');
-Route::put('/attributeValues/{id}', [AttributeValueController::class, 'update'])->name('attributeValues.update');
-Route::delete('/attributeValues/{id}', [AttributeValueController::class, 'destroy'])->name('attributeValues.destroy');
+Route::put('/attributeValues', [AttributeValueController::class, 'update'])->name('attributeValues.update');
+
 
 //users
 
