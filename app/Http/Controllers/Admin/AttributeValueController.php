@@ -17,10 +17,11 @@ class AttributeValueController extends BaseController
         $attributeValues = AttributeValue::latest()->paginate(5);
         return view('admin.attributeValues.index', compact('attributeValues'));
     }
-    public function create()
+    public function create(Request $request)
     {
-        $attributes = Attribute::all();
-        return view('admin.attributeValues.create', compact('attributes'));
+       $attribute_id = $request->query('attribute_id'); // lấy từ URL
+   $attributes = Attribute::all();
+        return view('admin.attributeValues.create', compact('attributes', 'attribute_id'));
     }
     public function store(Request $request)
     {
@@ -30,7 +31,7 @@ class AttributeValueController extends BaseController
         ]);
 
         AttributeValue::create($request->all());
-        return redirect()->route('attributeValues.index')->with('success', 'Thêm thành công!');
+        return redirect()->route('attributes.index')->with('success', 'Thêm thành công!');
     }
     public function show($id)
     {
@@ -45,19 +46,18 @@ class AttributeValueController extends BaseController
         $attributes = Attribute::all();
         return view('admin.attributeValues.edit', compact('attributeValue', 'attributes'));
     }
+public function update(Request $request)
+{
+    $data = $request->input('values'); // Lấy toàn bộ input values
 
-    public function update(Request $request, $id)
-    {
-        $request->validate([
-            'attribute_id' => 'required|numeric',
-            'value' => 'required|string|max:255',
+    foreach ($data as $item) {
+        AttributeValue::where('id', $item['id'])->update([
+            'value' => $item['value']
         ]);
-
-        $attributeValues = AttributeValue::findOrFail($id);
-        $attributeValues->update($request->all());
-
-        return redirect()->route('.index')->with('success', 'Cập nhật thành công!');
     }
+
+    return redirect()->route('attributes.index')->with('success', 'Cập nhật thành công!');
+}
     public function destroy($id)
     {
         $attributeValues = AttributeValue::findOrFail($id);
