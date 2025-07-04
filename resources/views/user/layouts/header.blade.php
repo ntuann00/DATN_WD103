@@ -29,6 +29,7 @@
                             <ul class="menu-row">
 
                                 <!-- item in menu -->
+                                 @foreach ($Hproducts as $pro)
                                 <li class="menu-single-item">
                                     <a href="{{ route('home') }}"> <!-- link -->
                                         <svg xmlns="http://www.w3.org/2000/svg" width="16" height="8"
@@ -38,9 +39,10 @@
                                             <path
                                                 d="M15.9991 4.00526C13.6711 4.8883 10.7821 6.39874 8.9917 8L10.4038 4.00021L8.99703 0C10.7858 1.60336 13.6723 3.11716 15.9991 4.00526Z" />
                                         </svg>
-                                        sản phẩm mới có
+                                        {{$pro->name}}
                                     </a>
                                 </li>
+                                @endforeach
                                 <!-- item in menu -->
 
                             </ul>
@@ -75,8 +77,8 @@
                         style="background-image: url('{{ asset('user/assets/img/home1/megamenu2-bg1.png') }}');">
                         <div class="megamenu-wrap">
                             <ul class="menu-row">
-
                                 <!-- item in menu -->
+                                @foreach ($HCategories as $cate)
                                 <li class="menu-single-item">
                                     <a href="{{ route('home') }}"> <!-- link -->
                                         <svg xmlns="http://www.w3.org/2000/svg" width="16" height="8"
@@ -86,11 +88,11 @@
                                             <path
                                                 d="M15.9991 4.00526C13.6711 4.8883 10.7821 6.39874 8.9917 8L10.4038 4.00021L8.99703 0C10.7858 1.60336 13.6723 3.11716 15.9991 4.00526Z" />
                                         </svg>
-                                        sản phẩm mới có
+                                        {{$cate->name}}
                                     </a>
                                 </li>
+                                @endforeach
                                 <!-- item in menu -->
-
                             </ul>
 
                             <!-- bottom button -->
@@ -173,12 +175,14 @@
 
             <!-- search box mobile? -->
             <div class="d-lg-none d-block">
-                <form class="mobile-menu-form d-lg-none d-block pt-50">
+                                
+                <form  class="mobile-menu-form d-lg-none d-block pt-50">
                     <div class="input-with-btn d-flex flex-column">
-                        <input type="text" placeholder="Search here...">
+                        <input type="text" name="keyword" placeholder="Search here...">
                         <button type="submit" class="primary-btn1 hover-btn3">Search</button>
                     </div>
                 </form>
+
                 <form class="mobile-menu-form">
                     <div class="hotline pt-40">
                         <div class="hotline-icon">
@@ -223,10 +227,11 @@
                 </div>
                 <div class="search-input">
                     <div class="serch-close"></div>
-                    <form>
+                    <form action="{{ route('products.search') }}" method="GET">
+
                         <div class="search-group">
                             <div class="form-inner2">
-                                <input type="text" placeholder="Search your products">
+                                <input type="text" name="keyword" placeholder="Search your products">
                                 <button type="submit"><i class='bx bx-search'></i></button>
                             </div>
                         </div>

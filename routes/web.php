@@ -25,6 +25,9 @@ use Illuminate\Support\Facades\Route;
 
 Route::get('/', function () {return view('user.index');})->name('home');
 
+Route::get('/header', [HomeController::class, 'header'])->name('u.header');
+Route::get('/search', [HomeController::class, 'search'])->name('products.search');
+
 Route::get('/product', [HomeController::class, 'product'])->name('u.product');
 Route::get('/product/{id}', [HomeController::class, 'product_detail'])->name('u.product_detail');
 Route::get('/category/{id}', [HomeController::class, 'category_product'])->name('u.category_product');

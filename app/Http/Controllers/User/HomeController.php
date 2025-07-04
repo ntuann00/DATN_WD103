@@ -13,18 +13,47 @@ use Illuminate\Foundation\Auth\User;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Storage;
+use Illuminate\Support\Facades\View;
 use Illuminate\Routing\Controller as BaseController;
 use Illuminate\Foundation\Validation\ValidatesRequests;
 use Illuminate\Foundation\Auth\Access\AuthorizesRequests;
 
 class HomeController extends BaseController
 {
-    
+    public function __construct()
+    {
+        
+    }
+
+    public function search(Request $request)
+    {
+        $keyword = $request->input('keyword');
+        $Products = Product::where('name', 'like', "%{$keyword}%") ->get();
+        // dd($request->all());
+        return view('user.products.list-product',compact('Products'));
+        // var_dump($results);
+    }
+
+    public function loadAllof($table){
+        $loadof=$table::all();
+        return $loadof;
+    }
+    public function loadCategory(){
+        $Category = Category::all();
+        return $Category;
+    }
+
+    public function header(){
+        $HCategories = $this->loadCategory();
+        $HProducts = Product::all();
+        echo '<pre>' , var_dump($HCategories) , '</pre>';
+        return view('user.layouts.header',compact('HCategories'));
+    }
 
     public function index(){
-        $Products = Product::all();
-        $Categorys = Category::all();
-        return view('user.index', compact('Products','Categorys'));
+        // $this->header();
+        $this->loadProduct();
+        return view('user.index');
         // return view('user.index');
     }
 
@@ -34,20 +63,21 @@ class HomeController extends BaseController
 
     public function product(){
         $Products = Product::paginate(20);
-        // var_dump($Products);
+        $this->header();
+        // echo '<pre>' , var_dump($this->header()) , '</pre>';
         return view('user.products.list-product', compact('Products'));
     }
 
 
     public function new_product(){
-        $Products = Product::orderby('created_at')->paginate(20);
-        echo '<pre>' , var_dump($Products) , '</pre>';
+        // echo '<pre>' , var_dump($Products) , '</pre>';
         
         // $result = Post::orderBy('another_key')->paginate();
         // $sortedResult = $result->getCollection()->sortBy('key_name')->values();
         // $result->setCollection($sortedResult);
         
-        return view('user.products.list-product', compact('Products'));
+        $Products = $this->loadProduct();
+        return view('user.products.list-product',compact('Products'));
         // return $result;
     }
 
