@@ -23,7 +23,7 @@ class UserSeeder extends Seeder
         $statusIds = Status::pluck('id')->toArray();
 
         foreach (range(1, 20) as $i) {
-            Users::create([
+            User::create([
                 'name'      => $faker->name,
                 'phone'     => $faker->phoneNumber,
                 'email'     => $faker->unique()->safeEmail,

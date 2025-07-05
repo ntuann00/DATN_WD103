@@ -17,7 +17,7 @@ class ReviewSeeder extends Seeder
     public function run(): void
     {
         $faker    = Faker::create();
-        $users    = Users::all();
+        $users    = User::all();
         $products = Product::all();
 
         foreach ($users as $user) {

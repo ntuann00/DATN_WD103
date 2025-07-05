@@ -22,7 +22,7 @@ class OrderSeeder extends Seeder
     {
         $faker = Faker::create();
 
-        $users    = Users::all();
+        $users    = User::all();
         $products = Product::all();
         $statuses = Status::pluck('id')->toArray();
         $payments = Payment::pluck('id')->toArray();

@@ -29,3 +29,5 @@ class Product extends Model
         return $this->belongsTo(Promotion::class);
     }
 }
+
+
