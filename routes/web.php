@@ -91,4 +91,3 @@ Route::prefix('admin')->name('admin.')->group(function () {
     Route::get('/orders', [AdminOrderController::class, 'index'])->name('orders.index');
     Route::get('/orders/{id}', [AdminOrderController::class, 'show'])->name('orders.show');
 });
-// Đây là dòng kiểm tra push mới từ Hoang
