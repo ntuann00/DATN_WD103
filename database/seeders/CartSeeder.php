@@ -15,7 +15,7 @@ class CartSeeder extends Seeder
      */
     public function run(): void
     {
-        $users = Users::all();
+        $users = User::all();
 
         foreach ($users as $user) {
             // Tránh trùng cart nếu chạy lại nhiều lần

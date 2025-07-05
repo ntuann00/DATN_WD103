@@ -66,7 +66,7 @@ class AuthController extends BaseController
 
         // 2. Thêm điều kiện kiểm tra user có tồn tại & bị khóa không
         $validator->after(function ($validator) use ($request) {
-            $user = Users::where('email', $request->email)->first();
+            $user = User::where('email', $request->email)->first();
 
             if (!$user) {
                 $validator->errors()->add('email', 'Tài khoản không tồn tại!');
