@@ -1,12 +1,8 @@
 <?php
+
 namespace App\Http\Controllers;
 
-// ❌ Sai dòng này bị xóa đi:
-// use App\Http\Controllers\AdminOrderController;
-
-// ✅ Thay bằng dòng đúng:
 use App\Http\Controllers\Admin\AdminOrderController;
-
 use App\Http\Controllers\Admin\AdminController;
 use App\Http\Controllers\Admin\AttributeController;
 use App\Http\Controllers\Admin\AttributeValueController;
@@ -14,7 +10,6 @@ use App\Http\Controllers\Admin\CategoryController;
 use App\Http\Controllers\Admin\ProductController;
 use App\Http\Controllers\Admin\ProductImageController;
 use App\Http\Controllers\Admin\UserController;
-
 use App\Http\Controllers\User\AuthController;
 use App\Http\Controllers\User\HomeController;
 use Illuminate\Support\Facades\Route;
@@ -22,14 +17,14 @@ use App\Http\Controllers\CartController;
 
 // ----------------- Các routes giữ nguyên ------------------------
 
-Route::get('/', function () {return view('user.index');})->name('home');
+Route::get('/', function () {
+    return view('user.index');
+})->name('home');
 
 Route::get('/product', [HomeController::class, 'product'])->name('u.product');
 Route::get('/product/{id}', [HomeController::class, 'product_detail'])->name('u.product_detail');
-
 Route::get('/newproduct', [HomeController::class, 'new_product'])->name('u.new_product');
 Route::get('/brand', [HomeController::class, 'brand'])->name('u.brand');
-
 Route::get('/checkout', [HomeController::class, 'checkout'])->name('u.checkout');
 Route::get('/about_us', [HomeController::class, 'about_us'])->name('u.about_us');
 Route::get('/blog', [HomeController::class, 'blog'])->name('u.blog');
@@ -86,7 +81,7 @@ Route::middleware('auth')->group(function () {
     Route::get('/cart', [CartController::class, 'index'])->name('u.cart');
 });
 
-// ✅ Đoạn này đã dùng đúng class AdminOrderController
+// Đơn hàng (Order)
 Route::prefix('admin')->name('admin.')->group(function () {
     Route::get('/orders', [AdminOrderController::class, 'index'])->name('orders.index');
     Route::get('/orders/{id}', [AdminOrderController::class, 'show'])->name('orders.show');

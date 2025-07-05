@@ -14,22 +14,21 @@
                 </ul>
             </div>
         @endif
-
-        {{-- Form tạo mới category --}}
         <form action="{{ route('attributeValues.store') }}" method="POST">
             @csrf
-            <label for="attribute_id">Vai trò:</label>
+            <label for="attribute_id">Thuộc tính</label>
             <select name="attribute_id" class="form-control">
-                <option value="">-- Chọn vai trò --</option>
+                <option value=""> -- Chọn thuộc tính--</option>
                 @foreach ($attributes as $attribute)
-                    <option value="{{ $attribute->id }}" {{ old('attribute_id') == $attribute->id ? 'selected' : '' }}>
-                        {{ $attribute->name }}
-                    </option>
+                
+                    <option value="{{ $attribute->id }}"
+                        
+                        {{ old('attribute_id', $attribute_id ?? '') == $attribute->id ? 'selected' : '' }}>{{ $attribute->name }}</option>
                 @endforeach
             </select>
 
             <div class="mb-3">
-                <label for="value" class="form-label">Tên biến thể con </label>
+                <label for="value" class="form-label">Giá trị thuộc tính</label>
                 <input type="text" class="form-control" id="value" name="value" value="{{ old('value') }}"
                     required>
             </div>
