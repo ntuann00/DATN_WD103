@@ -30,8 +30,7 @@
                 <!-- dashboard menu -->
                 <div class="col-lg-3">
                     <div class="dashboard-left">
-                        <div class="nav flex-column nav-pills " id="v-pills-tab" role="tablist"
-                            aria-orientation="vertical">
+                        <div class="nav flex-column nav-pills " id="v-pills-tab" role="tablist" aria-orientation="vertical">
                             <!-- dashboard -->
                             <button class="nav-link active nav-btn-style mx-auto" id="v-pills-dashboard-tab"
                                 data-bs-toggle="pill" data-bs-target="#v-pills-dashboard" type="button" role="tab"
@@ -53,19 +52,19 @@
                                         </clipPath>
                                     </defs>
                                 </svg>Dashboard</button>
-                            
-                                <!-- myprofile -->
-                                <button class="nav-link nav-btn-style mx-auto" id="v-pills-profile-tab"
-                                data-bs-toggle="pill" data-bs-target="#v-pills-profile" type="button" role="tab"
+
+                            <!-- myprofile -->
+                            <button class="nav-link nav-btn-style mx-auto" id="v-pills-profile-tab" data-bs-toggle="pill"
+                                data-bs-target="#v-pills-profile" type="button" role="tab"
                                 aria-controls="v-pills-profile" aria-selected="true"><i class="lar la-user"></i><svg
                                     width="20" height="20" viewBox="0 0 22 22" xmlns="http://www.w3.org/2000/svg">
                                     <path
                                         d="M18.7782 14.2218C17.5801 13.0237 16.1541 12.1368 14.5982 11.5999C16.2646 10.4522 17.3594 8.53136 17.3594 6.35938C17.3594 2.85282 14.5066 0 11 0C7.49345 0 4.64062 2.85282 4.64062 6.35938C4.64062 8.53136 5.73543 10.4522 7.40188 11.5999C5.84598 12.1368 4.41994 13.0237 3.22184 14.2218C1.14421 16.2995 0 19.0618 0 22H1.71875C1.71875 16.8823 5.88229 12.7188 11 12.7188C16.1177 12.7188 20.2812 16.8823 20.2812 22H22C22 19.0618 20.8558 16.2995 18.7782 14.2218ZM11 11C8.44117 11 6.35938 8.91825 6.35938 6.35938C6.35938 3.8005 8.44117 1.71875 11 1.71875C13.5588 1.71875 15.6406 3.8005 15.6406 6.35938C15.6406 8.91825 13.5588 11 11 11Z" />
                                 </svg>My Profile</button>
-                            
-                                <!-- order -->
-                            <button class="nav-link nav-btn-style mx-auto" id="v-pills-purchase-tab"
-                                data-bs-toggle="pill" data-bs-target="#v-pills-purchase" type="button" role="tab"
+
+                            <!-- order -->
+                            <button class="nav-link nav-btn-style mx-auto" id="v-pills-purchase-tab" data-bs-toggle="pill"
+                                data-bs-target="#v-pills-purchase" type="button" role="tab"
                                 aria-controls="v-pills-purchase" aria-selected="true">
                                 <svg width="20" height="20" viewBox="0 0 22 22" xmlns="http://www.w3.org/2000/svg">
                                     <path
@@ -102,14 +101,18 @@
                         <div class="tab-pane fade show active" id="v-pills-dashboard" role="tabpanel"
                             aria-labelledby="v-pills-dashboard-tab">
                             <div class="dashboard-area box--shadow">
-                                <p>Hello:<strong>@if (Auth::check())<span class="dropdown-item-text">{{ Auth::user()->name }}</span>@endif</strong></p>
+                                <p>Hello:<strong>
+                                        @if (Auth::check())
+                                            <span class="dropdown-item-text">{{ Auth::user()->name }}</span>
+                                        @endif
+                                    </strong></p>
                                 <p>From your My Account Dashboard you have the ability to view a snapshot of your recent
                                     account activity and update your account information. Select a link below to view or
                                     edit information.</p>
                                 <div class="row pt-25 g-4">
                                     <div class="col-md-6 col-sm-6">
-                                        <div class="dashboard-card hover-border1 wow fadeInDown"
-                                            data-wow-duration="1.5s" data-wow-delay=".2s">
+                                        <div class="dashboard-card hover-border1 wow fadeInDown" data-wow-duration="1.5s"
+                                            data-wow-delay=".2s">
                                             <div class="header">
                                                 <h5>Tổng đơn hàng</h5>
                                             </div>
@@ -134,8 +137,8 @@
 
                                     </div>
                                     <div class="col-md-6 col-sm-6">
-                                        <div class="dashboard-card hover-border1 wow fadeInDown"
-                                            data-wow-duration="1.5s" data-wow-delay=".4s">
+                                        <div class="dashboard-card hover-border1 wow fadeInDown" data-wow-duration="1.5s"
+                                            data-wow-delay=".4s">
                                             <div class="header">
                                                 <h5>Đang chờ</h5>
                                             </div>
@@ -156,7 +159,7 @@
                                             </div>
                                         </div>
                                     </div>
-                                    
+
                                 </div>
                             </div>
                         </div>
@@ -169,60 +172,67 @@
 
                                 <div class="table-title-area">
                                     <h3>Edit Your Profile</h3>
-                                        @if (Auth::check())
+                                    @if (Auth::check())
                                         <p>
                                             <span class="dropdown-item-text">Hồ sơ của: {{ Auth::user()->name }}</span>
                                         </p>
-                                        @endif
+                                    @endif
                                 </div>
 
                                 <div class="form-wrapper">
                                     <!-- action -->
-                                    <form action="#">
+                                    <form method="POST" action="{{ route('profile.update') }}"
+                                        enctype="multipart/form-data">
+                                        @csrf
+                                        @method('PUT')
                                         <div class="row align-items">
                                             <!-- data -->
                                             <div class="col-6">
                                                 <div class="col-xl-12 col-lg-12 col-md-12 mb-25">
                                                     <div class="form-inner">
                                                         <label for="">Tên tài khoản:</label>
-                                                        <input type="text" value="{{ $user->name }}">
+                                                        <input type="text" name="name" value="{{ $user->name }}">
                                                     </div>
                                                 </div>
 
                                                 <div class="col-xl-12 col-lg-12 col-md-12 mb-25">
                                                     <div class="form-inner">
                                                         <label for="">Emai:</label>
-                                                        <input type="text" value="{{ $user->email }}">
+                                                        <input type="text" name="email" value="{{ $user->email }}">
                                                     </div>
                                                 </div>
 
                                                 <div class="col-xl-12 col-lg-12 col-md-12 mb-25">
                                                     <div class="form-inner">
                                                         <label for="">Số điện thoại:</label>
-                                                        <input type="text" value="{{ $user->phone }}">
+                                                        <input type="text" name="phone" value="{{ $user->phone }}">
                                                     </div>
                                                 </div>
 
                                                 <div class="col-xl-12 col-lg-12 col-md-12 mb-25">
                                                     <div class="form-inner">
                                                         <label for="">Ngày tham gia:</label>
-                                                        <input type="text" value="{{ $user->created_at->format('d/m/Y') }}">
+                                                        <input type="text" name="created_at"
+                                                            value="{{ $user->created_at->format('d/m/Y') }}">
                                                     </div>
                                                 </div>
 
                                                 <div class="col-xl-12 col-lg-12 col-md-12 mb-25">
                                                     <!-- <input type="text" value="{{ $user->gender == 'male' ? 'Nam' : 'Nữ' }}"> -->
                                                     <div class="form-inner">
-                                                        <select id="gender" name="gender">
-                                                            <option class="{{$user->gender=='male'?'active':'unactive'}}" value="male">Nam</option>
-                                                            <option class="{{$user->gender=='male'?'active':'unactive'}}" value="female">Nữ</option>
+                                                        <select name="gender">
+                                                            <option value="male"
+                                                                {{ $user->gender == 'male' ? 'selected' : '' }}>Nam</option>
+                                                            <option value="female"
+                                                                {{ $user->gender == 'female' ? 'selected' : '' }}>Nữ
+                                                            </option>
                                                         </select>
                                                     </div>
                                                 </div>
 
-                                                
+
                                             </div>
-                                            
+
                                             <!-- data -->
 
                                             <!-- avatar -->
@@ -238,12 +248,13 @@
                                         </div>
 
                                         <div class="col-12">
-                                                <div class="button-group">
-                                                    <button type="submit"
-                                                        class="primary-btn3 black-bg  hover-btn5 hover-white">Update
-                                                        Profile</button>
-                                                    <button class="primary-btn3 hover-btn5">Cancel</button>
-                                                </div>
+                                            <div class="button-group">
+                                                <a href="{{ route('profile.edit', $user->id) }}"  class="primary-btn3 black-bg  hover-btn5 hover-white">Update Profile</a></a>
+                                                {{-- <button type="submit"
+                                                    class="primary-btn3 black-bg  hover-btn5 hover-white">Update
+                                                    Profile</button> --}}
+                                                <button type="button" class="primary-btn3 hover-btn5">Cancel</button>
+                                            </div>
                                         </div>
                                     </form>
                                 </div>
@@ -317,7 +328,8 @@
                                 <nav class="shop-pagination">
                                     <ul class="pagination-list">
                                         <li>
-                                            <a href="#" class="shop-pagi-btn"><i class="bi bi-chevron-left"></i></a>
+                                            <a href="#" class="shop-pagi-btn"><i
+                                                    class="bi bi-chevron-left"></i></a>
                                         </li>
                                         <li>
                                             <a href="#">1</a>
@@ -335,7 +347,8 @@
                                             <a href="#">6</a>
                                         </li>
                                         <li>
-                                            <a href="#" class="shop-pagi-btn"><i class="bi bi-chevron-right"></i></a>
+                                            <a href="#" class="shop-pagi-btn"><i
+                                                    class="bi bi-chevron-right"></i></a>
                                         </li>
                                     </ul>
                                 </nav>
