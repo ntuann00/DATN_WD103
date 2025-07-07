@@ -79,18 +79,20 @@
                                 </ul>
                             </div>
                         </div>
+
                         <div class="shop-details-btn">
                             <!-- add cart -->
                             <a href="#" class="primary-btn1 hover-btn3">*Add to Cart*</a>
-                            <!-- check out -->
+                            <!-- check out / buy now-->
                             <a href="{{ route('u.checkout') }}" class="primary-btn1 style-3 hover-btn4">*Buy Now*</a>
                         </div>
+
                         <div class="product-info">
                             <ul class="product-info-list">
-                                <li> <span>SKU:</span> 9852410</li>
+                                <li> <span>SKU:</span> *** </li>
                                 <li> <span>Brand:</span> <a href="shop-4-columns.html">{{$Product->brand}}</a></li>
                                 <li> <span>Category:</span> 
-                                    <a href="shop-slider.html">{{$Product->category}}</a>
+                                    <a href="shop-slider.html">{{$Product->category_id}}</a>
                                 </li>
                             </ul>
                         </div>
@@ -144,6 +146,7 @@
                                 <div class="row gy-5">
                                     
                                     <!-- content -->
+                                     hehe
 
                                 </div>
                             </div>

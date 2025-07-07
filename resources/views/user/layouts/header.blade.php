@@ -31,7 +31,7 @@
                                 <!-- item in menu -->
                                  @foreach ($Hproducts as $pro)
                                 <li class="menu-single-item">
-                                    <a href="{{ route('home') }}"> <!-- link -->
+                                    <a href="{{ route('u.product_detail',$pro->id) }}"> <!-- link -->
                                         <svg xmlns="http://www.w3.org/2000/svg" width="16" height="8"
                                             viewBox="0 0 16 8">
                                             <path
@@ -80,7 +80,7 @@
                                 <!-- item in menu -->
                                 @foreach ($HCategories as $cate)
                                 <li class="menu-single-item">
-                                    <a href="{{ route('home') }}"> <!-- link -->
+                                    <a href="{{ route('u.category_product',$cate->id) }}"> <!-- link -->
                                         <svg xmlns="http://www.w3.org/2000/svg" width="16" height="8"
                                             viewBox="0 0 16 8">
                                             <path

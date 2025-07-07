@@ -20,10 +20,6 @@ use Illuminate\Foundation\Auth\Access\AuthorizesRequests;
 
 class HomeController extends BaseController
 {
-    public function __construct()
-    {
-        
-    }
 
     public function search(Request $request)
     {
@@ -34,26 +30,24 @@ class HomeController extends BaseController
         // var_dump($results);
     }
 
-    public function loadAllof($table){
-        $loadof=$table::all();
-        return $loadof;
-    }
     public function loadCategory(){
         $Category = Category::all();
         return $Category;
     }
 
-    public function header(){
-        $HCategories = $this->loadCategory();
-        $HProducts = Product::all();
-        echo '<pre>' , var_dump($HCategories) , '</pre>';
-        return view('user.layouts.header',compact('HCategories'));
+    public function showFeatureProduct()
+    {
+        $products = Product::with(['category', 'variants.values'])->take(4)->get();
+        // $product = Product::with(['category', 'variants.values'])->find(8); // lấy product kèm theo category, variants và variant values
+        dd($products);
+        return view('user.layouts.feature_product', compact('products'));
     }
 
     public function index(){
-        // $this->header();
-        $this->loadProduct();
-        return view('user.index');
+        $FProducts=Product::orderBy('created_at', 'desc')->paginate(8);
+        $Fcate=Category::all();
+        // dd($FProducts,$Fcate);
+        return view('user.index', compact('FProducts','Fcate'));
         // return view('user.index');
     }
 
