@@ -8,7 +8,7 @@ use App\Models\Order_detail;
 use App\Models\Payment;
 use App\Models\Product;
 use App\Models\Status;
-use App\Models\Users;
+use App\Models\User;
 use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 use Illuminate\Database\Seeder;
 use Faker\Factory as Faker;

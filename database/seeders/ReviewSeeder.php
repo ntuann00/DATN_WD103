@@ -4,7 +4,7 @@ namespace Database\Seeders;
 
 use App\Models\Product;
 use App\Models\Review;
-use App\Models\Users;
+use App\Models\User;
 use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 use Illuminate\Database\Seeder;
 use Faker\Factory as Faker;

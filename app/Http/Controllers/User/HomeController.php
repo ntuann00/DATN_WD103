@@ -6,10 +6,10 @@ use App\Models\Role;
 use App\Models\Product;
 use App\Models\Product_variant;
 use App\Models\Product_variant_value;
-use App\Models\Users;
+use App\Models\User;
 use App\Models\Category;
 use Illuminate\Http\Request;
-use Illuminate\Foundation\Auth\User;
+
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Storage;
 use Illuminate\Routing\Controller as BaseController;
