@@ -3,7 +3,7 @@
 namespace Database\Seeders;
 
 use App\Models\Cart;
-use App\Models\Users;
+use App\Models\User;
 use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 use Illuminate\Database\Seeder;
 use Faker\Factory as Faker;
