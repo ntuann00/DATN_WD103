@@ -8,7 +8,7 @@
                             <h3>Join Our Newsletter & Get 30% Off?</h3>
                             <form>
                                 <div class="from-inner">
-                                    <input type="email" placeholder="Email Address">
+                                    <input type="email" placeholder="Email Address chua nhan">
                                     <div class="from-arrow">
                                         <svg xmlns="http://www.w3.org/2000/svg" width="18" height="11" viewBox="0 0 18 11">
                                             <path
@@ -27,11 +27,11 @@
                                 <h5>Support</h5>
                             </div>
                             <ul class="widget-list">
-                                <li><a href="contact.html">Help & Contact Us</a></li>
-                                <li><a href="#">Return & Refunds</a></li>
-                                <li><a href="shop-list.html">Online Stores</a></li>
-                                <li><a href="#">Privacy Policy</a></li>
-                                <li><a href="my-account.html">Profile</a></li>
+                                <li><a href="{{ route('u.contact') }}">Help & Contact Us</a></li>
+                                <li><a href="{{ route('u.contact') }}">Return & Refunds</a></li>
+                                <li><a href="{{ route('u.contact') }}">Online Stores</a></li>
+                                <li><a href="{{ route('u.contact') }}">Privacy Policy</a></li>
+                                <li><a href="{{ route('u.account') }}">Profile</a></li>
                             </ul>
                         </div>
                     </div>
@@ -41,11 +41,11 @@
                                 <h5>Company</h5>
                             </div>
                             <ul class="widget-list">
-                                <li><a href="about-us.html">What we do</a></li>
-                                <li><a href="gift-card.html">Gift Offers</a></li>
-                                <li><a href="blog-grid.html">Latest Posts</a></li>
-                                <li><a href="faq.html">F.A.Q</a></li>
-                                <li><a href="our-brand.html">Our Brand</a></li>
+                                <li><a href="{{ route('u.contact') }}l">What we do</a></li>
+                                <li><a href="{{ route('u.contact') }}">Gift Offers</a></li>
+                                <li><a href="{{ route('u.contact') }}">Latest Posts</a></li>
+                                <li><a href="{{ route('u.contact') }}">F.A.Q</a></li>
+                                <li><a href="{{ route('u.contact') }}">Our Brand</a></li>
                             </ul>
                         </div>
                     </div>
@@ -55,11 +55,11 @@
                                 <h5>Category</h5>
                             </div>
                             <ul class="widget-list">
-                                <li><a href="shop-list.html">Bath & Body</a></li>
-                                <li><a href="shop-list.html">Skin Care</a></li>
-                                <li><a href="shop-list.html">Hair Care</a></li>
-                                <li><a href="shop-list.html">Kids & Baby</a></li>
-                                <li><a href="shop-list.html">Fragrance</a></li>
+                                <li><a href="{{ route('u.contact') }}">Bath & Body</a></li>
+                                <li><a href="{{ route('u.contact') }}">Skin Care</a></li>
+                                <li><a href="{{ route('u.contact') }}">Hair Care</a></li>
+                                <li><a href="{{ route('u.contact') }}">Kids & Baby</a></li>
+                                <li><a href="{{ route('u.contact') }}">Fragrance</a></li>
                             </ul>
                         </div>
                     </div>
@@ -68,7 +68,7 @@
                             <div class="widget-title style-2">
                                 <h5>Payment Gateway</h5>
                             </div>
-                            <p>Sed vitae elementum elit. Ut sed maur id sem ultricies ultricies.</p>
+                            <p>Các phương thức thanh toán được hỗ trợ.</p>
                             <div class="payment-gateway">
                                 <p>Secured Payment Gateways</p>
                                 <div class="icons">
@@ -89,7 +89,7 @@
                             <p>©Copyright 2023 Beautico | Design By <a href="https://www.egenslab.com/">Egens Lab</a></p>
                         </div>
                         <div class="footer-logo">
-                            <a href="index.html"><img src="{{ asset('user/assets/img/logo.svg')}}" alt=""></a>
+                            <a href="{{ route('u.contact') }}"><img src="{{ asset('user/assets/img/logo.svg')}}" alt=""></a>
                         </div>
                         <div class="footer-contact">
                             <div class="logo">
@@ -105,8 +105,8 @@
                                 </svg>
                             </div>
                             <div class="content">
-                                <p>For Inquiry</p>
-                                <h6><a href="tel:29658718617">2-965-871-8617</a></h6>
+                                <p>Hotline</p>
+                                <h6><a href="{{ route('u.contact') }}">0-000-000-000</a></h6>
                             </div>
                         </div>
                     </div>

@@ -1,4 +1,4 @@
-<nav class="sidebar vertical-scroll  ps-container ps-theme-default ps-active-y">
+<nav class="sidebar vertical-scroll ps-container ps-theme-default ps-active-y">
     <div class="logo d-flex justify-content-between">
         <img src="{{ asset('admins/assets/img/Logo1.png')}}" 
      alt="Logo" 
@@ -81,6 +81,16 @@
                     <img src="{{ asset('admins/assets/img/menu-icon/16.svg')}}" alt>
                 </div>
                 <span>Lịch sử đơn hàng</span>
+            </a>
+        </li>
+
+        <!-- 🎟️ Mã giảm giá -->
+        <li class="{{ request()->is('admin/discounts*') ? 'mm-active' : '' }}">
+            <a href="{{ route('admin.discounts.index') }}" aria-expanded="false">
+                <div class="icon_menu">
+                    <i class="ti-tag"></i>
+                </div>
+                <span>Mã giảm giá</span>
             </a>
         </li>
 
