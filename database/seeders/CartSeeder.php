@@ -3,7 +3,7 @@
 namespace Database\Seeders;
 
 use App\Models\Cart;
-use App\Models\Users;
+use App\Models\User;
 use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 use Illuminate\Database\Seeder;
 use Faker\Factory as Faker;
@@ -15,7 +15,7 @@ class CartSeeder extends Seeder
      */
     public function run(): void
     {
-        $users = Users::all();
+        $users = User::all();
 
         foreach ($users as $user) {
             // Tránh trùng cart nếu chạy lại nhiều lần

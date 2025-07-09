@@ -38,12 +38,6 @@
                             
                         </td>
                         <td><a href="{{ route('attributes.edit', $attribute->id) }}" class="btn btn-sm btn-warning">Sửa</a>
-
-                            <form action="{{ route('attributes.destroy', $attribute->id) }}" method="POST"
-                                style="display:inline-block;" onsubmit="return confirm('Xác nhận xóa?')">
-                                @csrf
-                                @method('DELETE')
-                                <button type="submit" class="btn btn-sm btn-danger">Xóa</button></form>
                         </td>
 
                     </tr>

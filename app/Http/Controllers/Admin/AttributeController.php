@@ -51,11 +51,6 @@ class AttributeController extends BaseController
 
         return redirect()->route('attributes.index')->with('success', 'Cập nhật thành công!');
     }
-    public function destroy($id)
-    {
-        Attribute::destroy($id);
-        return redirect()->route('attributes.index')->with('success', 'Xóa thành công!');
-    }
     public function show($id)
 {
     $attribute = Attribute::with('values')->findOrFail($id);

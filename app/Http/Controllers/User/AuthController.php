@@ -2,7 +2,8 @@
 
 namespace App\Http\Controllers\User;
 
-use App\Models\Users;
+use App\Models\User;
+
 use Illuminate\Foundation\Auth\Access\AuthorizesRequests;
 use Illuminate\Foundation\Validation\ValidatesRequests;
 use Illuminate\Http\Request;
@@ -29,7 +30,7 @@ class AuthController extends BaseController
             'birthday' => 'nullable|date',
         ]);
 
-        $users = new Users();
+        $users = new User();
         $users->fill([
             'name'     => $validated['name'],
             'email'    => $validated['email'],
@@ -66,7 +67,7 @@ class AuthController extends BaseController
 
         // 2. Thêm điều kiện kiểm tra user có tồn tại & bị khóa không
         $validator->after(function ($validator) use ($request) {
-            $user = Users::where('email', $request->email)->first();
+            $user = User::where('email', $request->email)->first();
 
             if (!$user) {
                 $validator->errors()->add('email', 'Tài khoản không tồn tại!');
@@ -82,11 +83,11 @@ class AuthController extends BaseController
                 ->withInput();
         }
         // 4. Đăng nhập
-        if (Auth::attempt($request->only('email', 'password'))) {
+        if (Auth::attempt(['email' => $request->email, 'password' => $request->password])) {
             $request->session()->regenerate();
 
             // Phân quyền sau khi đăng nhập
-            $role = Auth::user()->role_id;
+            $role = Auth::User()->role_id;
 
             if ($role === 1) {
                 return redirect()->route('admin')->with('success', 'Đăng nhập thành công với quyền Admin!');

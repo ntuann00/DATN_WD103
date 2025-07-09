@@ -55,7 +55,7 @@
                     <input type="checkbox" class="custom-check-box" id="check1" name="remember">
                     <label for="check1">Nhớ đăng nhập</label>
                 </div>
-                <a href="#" class="forget-pass hover-underline">Quên mật khẩu?</a>
+                <a href="{{ route('password.request') }}" class="forget-pass hover-underline">Quên mật khẩu?</a>
             </div>
         </div>
 
