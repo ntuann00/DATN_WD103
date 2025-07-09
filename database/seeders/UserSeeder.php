@@ -4,7 +4,7 @@ namespace Database\Seeders;
 
 use App\Models\Role;
 use App\Models\Status;
-use App\Models\Users;
+use App\Models\User;
 use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 use Illuminate\Database\Seeder;
 use Faker\Factory as Faker;
@@ -23,7 +23,7 @@ class UserSeeder extends Seeder
         $statusIds = Status::pluck('id')->toArray();
 
         foreach (range(1, 20) as $i) {
-            Users::create([
+            User::create([
                 'name'      => $faker->name,
                 'phone'     => $faker->phoneNumber,
                 'email'     => $faker->unique()->safeEmail,

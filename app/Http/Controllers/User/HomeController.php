@@ -6,7 +6,7 @@ use App\Models\Role;
 use App\Models\Product;
 use App\Models\Product_variant;
 use App\Models\Product_variant_value;
-use App\Models\Users;
+use App\Models\User;
 use App\Models\Category;
 use Illuminate\Http\Request;
 use Illuminate\Foundation\Auth\User;
@@ -20,6 +20,7 @@ use Illuminate\Foundation\Auth\Access\AuthorizesRequests;
 
 class HomeController extends BaseController
 {
+
 
     public function search(Request $request){
         $keyword = $request->input('keyword');
@@ -36,6 +37,17 @@ class HomeController extends BaseController
     public function index(){
         $FProducts = Product::with(['category', 'variants.values'])->orderBy('created_at', 'desc')->limit(8)->get();
         return view('user.index', compact('FProducts'));
+
+        $Products = Product::has('variants')
+                           ->with('variants')
+                           ->latest()       // order by created_at desc
+                           ->take(12)        // ví dụ lấy 8 sản phẩm nổi bật
+                           ->get();
+
+        $Categorys = Category::all();
+
+        return view('user.index', compact('Products','Categorys'));
+
     }
 
     public function brand(){
@@ -44,19 +56,37 @@ class HomeController extends BaseController
 
     public function product(){
         $Products = Product::paginate(20);
-        return view('user.products.list-product', compact('Products'));
+        // Eager‐load relation 'variants' để có thể dùng $product->variants->first() trong view
+        $Products = Product::has('variants')
+                           ->with('variants')
+                           ->get();
+
     }
 
 
     public function new_product(){
         $FProducts=Product::orderBy('created_at', 'desc')->paginate(20);
         return view('user.products.list-product',compact('Products'));
+        $Products = Product::has('variants')
+                           ->with('variants')
+                           ->orderBy('created_at', 'desc')
+                           ->paginate(20);
+
+        return view('user.products.list-product', compact('Products'));
     }
 
     public function product_detail($id){
-        $Products = Product::paginate(4);
-        $Product = Product::findOrFail($id);
-        return view('user.products.product-detail', compact('Product','Products'));
+        $Product = Product::with('variants')->findOrFail($id);
+
+        // Lấy thêm 4 sản phẩm ngẫu nhiên (có variant) để gợi ý nếu bạn muốn
+        $Related = Product::has('variants')
+                          ->with('variants')
+                          ->where('id', '!=', $id)
+                          ->inRandomOrder()
+                          ->take(4)
+                          ->get();
+
+        return view('user.products.product-detail', compact('Product','Related'));
     }
 
     public function category_product($id){

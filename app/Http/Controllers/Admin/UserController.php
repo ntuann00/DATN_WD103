@@ -3,30 +3,27 @@
 namespace App\Http\Controllers\Admin;
 
 use App\Models\Role;
-use App\Models\Users;
-use App\Models\Category;
+use App\Models\User;
 use Illuminate\Http\Request;
-use Illuminate\Foundation\Auth\User;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Storage;
 use Illuminate\Routing\Controller as BaseController;
-use Illuminate\Foundation\Validation\ValidatesRequests;
-use Illuminate\Foundation\Auth\Access\AuthorizesRequests;
 use Illuminate\Validation\Rule;
 
 class UserController extends BaseController
 {
-
     public function index()
     {
-       $users = Users::latest()->paginate(10);
+        $users = User::latest()->paginate(5);
         return view('admin.users.index', compact('users'));
     }
+
     public function create()
     {
-        $roles = Role::all(); // lấy danh sách role
+        $roles = Role::all();
         return view('admin.users.create', compact('roles'));
     }
+
     public function store(Request $request)
     {
         $validated = $request->validate([
@@ -41,42 +38,36 @@ class UserController extends BaseController
             'img'      => 'nullable|image|max:2048',
         ]);
 
-        // Xử lý upload ảnh nếu có
-
         if ($request->hasFile('img')) {
-            $file = $request->file('img');
-            $validated['img'] = $file->store('images', 'public');
+            $validated['img'] = $request->file('img')->store('images', 'public');
         }
 
-        // Mã hoá mật khẩu
-        $validated['password'] = bcrypt($validated['password']);
+        $validated['password'] = Hash::make($validated['password']);
 
-        // Tạo user mới
-        Users::create($validated);
+        User::create($validated);
 
         return redirect()->route('users.index')->with('success', 'Tạo người dùng thành công!');
     }
 
-    public function show($id) {
-         $users = Users::findOrFail($id);
+    public function show($id)
+    {
+        $user = User::findOrFail($id);
         $roles = Role::all();
-        return view('admin.users.show', compact('users', 'roles'));
+        return view('admin.users.show', compact('user', 'roles'));
     }
 
     public function edit($id)
     {
-        $users = Users::findOrFail($id);
+        $user = User::findOrFail($id);
         $roles = Role::all();
-        return view('admin.users.edit', compact('users', 'roles'));
+        return view('admin.users.edit', compact('user', 'roles'));
     }
 
-
-
-    public function update(Request $request, Users $users)
+    public function update(Request $request, Users $user)
     {
-         $validated = $request->validate([
+        $validated = $request->validate([
             'name'     => 'required|string|max:255',
-            'email'    => ['required', 'email', Rule::unique('users')->ignore($users->id)],
+            'email'    => ['required', 'email', Rule::unique('users')->ignore($user->id)],
             'phone'    => 'nullable|string|max:20',
             'password' => 'nullable|string|min:6',
             'birthday' => 'nullable|date',
@@ -87,10 +78,10 @@ class UserController extends BaseController
         ]);
 
         if ($request->hasFile('img')) {
-            if ($users->img && Storage::disk('public')->exists($users->img)) {
-                Storage::disk('public')->delete($users->img);
+            if ($user->img && Storage::disk('public')->exists($user->img)) {
+                Storage::disk('public')->delete($user->img);
             }
-            $validated['img'] = $request->file('img')->store('img', 'public');
+            $validated['img'] = $request->file('img')->store('images', 'public');
         }
 
         if (!empty($validated['password'])) {
@@ -99,16 +90,22 @@ class UserController extends BaseController
             unset($validated['password']);
         }
 
-        $users->update($validated);
+        $user->update($validated);
 
         return redirect()->route('users.index')->with('success', 'Cập nhật người dùng thành công!');
     }
 
-    public function destroy($id)
+    public function toggleStatus($id)
     {
-        $user = Users::findOrFail($id);
-        $user->delete();
+        $user = User::findOrFail($id);
 
-        return redirect()->route('users.index')->with('success', 'Đã xoá người dùng');
+        if ($user->role && $user->role->name === 'admin') {
+            return redirect()->route('users.index')->with('error', 'Không thể khóa tài khoản quản trị viên.');
+        }
+
+        $user->status = $user->status == 1 ? 0 : 1;
+        $user->save();
+
+        return redirect()->route('users.index')->with('success', 'Đã cập nhật trạng thái tài khoản.');
     }
 }

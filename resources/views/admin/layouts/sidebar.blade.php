@@ -1,4 +1,4 @@
-<nav class="sidebar vertical-scroll  ps-container ps-theme-default ps-active-y">
+<nav class="sidebar vertical-scroll ps-container ps-theme-default ps-active-y">
     <div class="logo d-flex justify-content-between">
         <a href="index-2.html"><img src="{{ asset('admins/assets/img/logo.png')}}" alt></a>
         <div class="sidebar_close_icon d-lg-none">
@@ -14,7 +14,9 @@
                 <span>Dashboard</span>
             </a>
         </li>
-        <li class>
+
+        <!-- Quản lí danh mục -->
+        <li>
             <a class="has-arrow" href="#" aria-expanded="false">
                 <div class="icon_menu">
                     <img src="{{ asset('admins/assets/img/menu-icon/2.svg')}}" alt>
@@ -22,24 +24,27 @@
                 <span>Quản lí danh mục</span>
             </a>
             <ul>
-                <li><a href="{{ route('categories.index')}}">Danh sách danh mục</a></li>
-                <li><a href="">Thêm mới danh mục</a></li>
+                <li><a href="{{ route('categories.index') }}">Danh sách danh mục</a></li>
+                <li><a href="#">Thêm mới danh mục</a></li>
             </ul>
         </li>
-        <li class>
+
+        <!-- Quản lí thuộc tính -->
+        <li>
             <a class="has-arrow" href="#" aria-expanded="false">
                 <div class="icon_menu">
                     <img src="{{ asset('admins/assets/img/menu-icon/2.svg')}}" alt>
                 </div>
-                <span>Quản lí biến thể</span>
+                <span>Quản lí thuộc tính</span>
             </a>
             <ul>
-                <li><a href="{{ route('attributes.index')}}">Danh sách biến thể</a></li>
-                <li><a href="">Thêm mới biến thể</a></li>
-                <li><a href="{{ route('attributeValues.index')}}">Biến thể con</a></li>
+                <li><a href="{{ route('attributes.index') }}">Danh sách thuộc tính</a></li>
+                <li><a href="{{ route('attributes.create') }}">Thêm mới thuộc tính</a></li>
             </ul>
         </li>
-       <li class>
+
+        <!-- Quản lí khách hàng -->
+        <li>
             <a class="has-arrow" href="#" aria-expanded="false">
                 <div class="icon_menu">
                     <img src="{{ asset('admins/assets/img/menu-icon/2.svg')}}" alt>
@@ -47,15 +52,33 @@
                 <span>Quản lí khách hàng</span>
             </a>
             <ul>
-                <li><a href="{{ route('users.index')}}">Danh sách khách hàng</a></li>
-                <li><a href="">Thêm mới khách hàng</a></li>
+                <li><a href="{{ route('users.index') }}">Danh sách khách hàng</a></li>
+                <li><a href="#">Thêm mới khách hàng</a></li>
             </ul>
         </li>
 
-        
-        
-        
-        <li class>
+        <!-- 🛒 Lịch sử đơn hàng -->
+        <li class="{{ request()->is('admin/orders*') ? 'mm-active' : '' }}">
+            <a href="{{ route('admin.orders.index') }}" aria-expanded="false">
+                <div class="icon_menu">
+                    <img src="{{ asset('admins/assets/img/menu-icon/16.svg')}}" alt>
+                </div>
+                <span>Lịch sử đơn hàng</span>
+            </a>
+        </li>
+
+        <!-- 🎟️ Mã giảm giá -->
+        <li class="{{ request()->is('admin/discounts*') ? 'mm-active' : '' }}">
+            <a href="{{ route('admin.discounts.index') }}" aria-expanded="false">
+                <div class="icon_menu">
+                    <i class="ti-tag"></i>
+                </div>
+                <span>Mã giảm giá</span>
+            </a>
+        </li>
+
+        <!-- Pages -->
+        <li>
             <a class="has-arrow" href="#" aria-expanded="false">
                 <div class="icon_menu">
                     <img src="{{ asset('admins/assets/img/menu-icon/16.svg')}}" alt>

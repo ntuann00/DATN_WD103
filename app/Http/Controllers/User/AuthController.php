@@ -2,13 +2,15 @@
 
 namespace App\Http\Controllers\User;
 
-use App\Models\Users;
+use App\Models\User;
+
 use Illuminate\Foundation\Auth\Access\AuthorizesRequests;
 use Illuminate\Foundation\Validation\ValidatesRequests;
 use Illuminate\Http\Request;
 use Illuminate\Routing\Controller as BaseController;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
+use Illuminate\Support\Facades\Validator;
 
 class AuthController extends BaseController
 {
@@ -28,7 +30,7 @@ class AuthController extends BaseController
             'birthday' => 'nullable|date',
         ]);
 
-        $users = new Users();
+        $users = new User();
         $users->fill([
             'name'     => $validated['name'],
             'email'    => $validated['email'],
@@ -51,27 +53,53 @@ class AuthController extends BaseController
 
     public function login(Request $request)
     {
-
-        $data = $request->validate([
-            'email'    => 'required|email',
-            'password' => 'required|string',
+        // 1. Tạo validator với rule cơ bản
+        $validator = Validator::make($request->all(), [
+            'email'    => 'required|email|max:255',
+            'password' => 'required|string|min:6',
+        ], [
+            'email.required'    => 'Vui lòng nhập email.',
+            'email.email'       => 'Email không hợp lệ.',
+            'email.max'         => 'Email quá dài.',
+            'password.required' => 'Vui lòng nhập mật khẩu.',
+            'password.min'      => 'Mật khẩu phải ít nhất 6 ký tự.',
         ]);
 
-        $user = Users::where('email', $request->email)->first();
+        // 2. Thêm điều kiện kiểm tra user có tồn tại & bị khóa không
+        $validator->after(function ($validator) use ($request) {
+            $user = User::where('email', $request->email)->first();
 
-        if(!$user){
-            return back()->withErrors('Tài khoản không tồn tại!');
+            if (!$user) {
+                $validator->errors()->add('email', 'Tài khoản không tồn tại!');
+            } elseif ($user->status != 1) {
+                $validator->errors()->add('email', 'Tài khoản đã bị khóa! Vui lòng liên hệ qua đường dây lóng');
+            }
+        });
+
+        // 3. Nếu có lỗi thì quay lại với lỗi
+        if ($validator->fails()) {
+            return back()
+                ->withErrors($validator)
+                ->withInput();
+        }
+        // 4. Đăng nhập
+        if (Auth::attempt(['email' => $request->email, 'password' => $request->password])) {
+            $request->session()->regenerate();
+
+            // Phân quyền sau khi đăng nhập
+            $role = Auth::User()->role_id;
+
+            if ($role === 1) {
+                return redirect()->route('admin')->with('success', 'Đăng nhập thành công với quyền Admin!');
+            } else {
+                return redirect()->route('home')->with('success', 'Đăng nhập thành công!');
+            }
         }
 
-        if ($user->status != 1) {
-            return back()->withErrors(['email' => 'Tài khoản bị khóa']);
-        }
-
-        if (Auth::attempt($data)) {
-            return redirect()->route('home')->with('success', 'Đăng nhập thành cong!');
-        } else {
-            return back()->withErrors('Tài khoản hoặc mật khẩu không đúng!');
-        }
+        // 5. Sai mật khẩu
+        return back()
+            ->withErrors(['password' => 'Tài khoản hoặc mật khẩu không đúng!'])
+            ->withInput();
     }
 
     public function logout()
@@ -80,9 +108,9 @@ class AuthController extends BaseController
         return redirect()->route('login');
     }
 
-        public function profile()
-        {
-              $user = auth()->user();
-    return view('user.auth.profile', compact('user'));
-        }
+    public function profile()
+    {
+        $user = auth()->user();
+        return view('user.auth.profile', compact('user'));
+    }
 }

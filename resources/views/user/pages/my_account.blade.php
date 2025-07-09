@@ -180,6 +180,13 @@
                                     <p>From your My Account Dashboard you have the ability to view a snapshot of your
                                         recent account activity and update your account information. Select a link below
                                         to view or edit information.</p>
+
+                                        @if (Auth::check())
+                                        <p>
+                                            <span class="dropdown-item-text">Hồ sơ của {{ Auth::user()->name }}</span>
+                                        </p>
+                                        @endif
+
                                 </div>
                                 
                                 <div class="form-wrapper">

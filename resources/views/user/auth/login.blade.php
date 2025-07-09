@@ -10,43 +10,62 @@
                         <div class="section-title text-center">
                             <h2>Đăng nhập</h2>
                         </div>
-                        <form method="POST" action="{{ url('/login') }}">
+                       <!-- HIỂN THỊ THÔNG BÁO LỖI TỔNG QUÁT -->
+@if ($errors->any())
+    <div class="alert alert-danger">
+        @foreach ($errors->all() as $error)
+            <div>{{ $error }}</div>
+        @endforeach
+    </div>
+@endif
+
+<form method="POST" action="{{ url('/login') }}">
     @csrf
-                            <div class="row justify-content-center">
-                                <div class="col-md-9 mb-25">
-                                    <div class="form-inner">
-                                        <label>Email</label>
-                                        <input name="email" type="text" placeholder="Enter your email">
-                                    </div>
-                                </div>
-                                <div class="col-md-9 mb-25">
-                                    <div class="form-inner">
-                                        <label>Password</label>
-                                        <input name="password" type="password" placeholder="Enter your password">
-                                    </div>
-                                </div>
 
-                                <div class="col-md-9 ">
-                                    <div class="form-remember-forget">
-                                        <div class="remember">
-                                            <input type="checkbox" class="custom-check-box" id="check1">
-                                            <label for="check1">Nhớ đăng nhập</label>
-                                        </div>
+    <div class="row justify-content-center">
+        <!-- EMAIL -->
+        <div class="col-md-9 mb-25">
+            <div class="form-inner">
+                <label for="email">Email</label>
+                <input name="email" type="text" placeholder="Enter your email"
+                       value="{{ old('email') }}"
+                       class="form-control @error('email') is-invalid @enderror">
+                @error('email')
+                    <small class="text-danger">{{ $message }}</small>
+                @enderror
+            </div>
+        </div>
 
-                                        <a href="#" class="forget-pass hover-underline"> Quên mật khẩu? </a>
-                                        |
-                                        <a href="{{ route('register') }}" class="forget-pass hover-underline"> Đăng ký </a>
+        <!-- PASSWORD -->
+        <div class="col-md-9 mb-25">
+            <div class="form-inner">
+                <label for="password">Password</label>
+                <input name="password" type="password" placeholder="Enter your password"
+                       class="form-control @error('password') is-invalid @enderror">
+                @error('password')
+                    <small class="text-danger">{{ $message }}</small>
+                @enderror
+            </div>
+        </div>
 
-                                    </div>
-                                </div>
-                                <div class="col-md-9 d-flex justify-content-center">
-                                    <div class="button-group">
-                                        <button type="submit"
-                                            class="primary-btn3 black-bg hover-btn5 hover-white">Login</button>
-                                    </div>
-                                </div>
-                            </div>
-                        </form>
+        <!-- REMEMBER ME -->
+        <div class="col-md-9">
+            <div class="form-remember-forget">
+                <div class="remember">
+                    <input type="checkbox" class="custom-check-box" id="check1" name="remember">
+                    <label for="check1">Nhớ đăng nhập</label>
+                </div>
+                <a href="{{ route('password.request') }}" class="forget-pass hover-underline">Quên mật khẩu?</a>
+            </div>
+        </div>
+
+        <!-- NÚT ĐĂNG NHẬP -->
+        <div class="col-md-9 mt-3">
+            <button type="submit" class="btn btn-primary w-100">Đăng nhập</button>
+        </div>
+    </div>
+</form>
+
                     </div>
                 </div>
             </div>
