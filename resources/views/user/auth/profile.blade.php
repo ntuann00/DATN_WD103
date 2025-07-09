@@ -114,21 +114,24 @@
                                                 <div class="col-xl-12 col-lg-12 col-md-12 mb-25">
                                                     <div class="form-inner">
                                                         <label for="">Tên tài khoản:</label>
-                                                        <input type="text" name="name" value="{{ $user->name }}">
+                                                        <input type="text" name="name" value="{{ $user->name }}"
+                                                            readonly>
                                                     </div>
                                                 </div>
 
                                                 <div class="col-xl-12 col-lg-12 col-md-12 mb-25">
                                                     <div class="form-inner">
                                                         <label for="">Emai:</label>
-                                                        <input type="text" name="email" value="{{ $user->email }}">
+                                                        <input type="text" name="email" value="{{ $user->email }}"
+                                                            readonly>
                                                     </div>
                                                 </div>
 
                                                 <div class="col-xl-12 col-lg-12 col-md-12 mb-25">
                                                     <div class="form-inner">
                                                         <label for="">Số điện thoại:</label>
-                                                        <input type="text" name="phone" value="{{ $user->phone }}">
+                                                        <input type="text" name="phone" value="{{ $user->phone }}"
+                                                            readonly>
                                                     </div>
                                                 </div>
 
@@ -136,20 +139,16 @@
                                                     <div class="form-inner">
                                                         <label for="">Ngày tham gia:</label>
                                                         <input type="text" name="created_at"
-                                                            value="{{ $user->created_at->format('d/m/Y') }}">
+                                                            value="{{ $user->created_at->format('d/m/Y') }}" readonly>
                                                     </div>
                                                 </div>
 
                                                 <div class="col-xl-12 col-lg-12 col-md-12 mb-25">
-                                                    <!-- <input type="text" value="{{ $user->gender == 'male' ? 'Nam' : 'Nữ' }}"> -->
+
                                                     <div class="form-inner">
-                                                        <select name="gender">
-                                                            <option value="male"
-                                                                {{ $user->gender == 'male' ? 'selected' : '' }}>Nam</option>
-                                                            <option value="female"
-                                                                {{ $user->gender == 'female' ? 'selected' : '' }}>Nữ
-                                                            </option>
-                                                        </select>
+                                                        <label for="">Giới tính:</label>
+                                                        <input type="text"
+                                                            value="{{ $user->gender == 1 ? 'Nam' : 'Nữ' }}" readonly>
                                                     </div>
                                                 </div>
 
@@ -160,10 +159,11 @@
 
                                             <!-- avatar -->
                                             <div class="col-6">
-                                                <div class="col-xl-6 col-lg-18 col-md-6 mb-25">
-                                                    <div class="form-inner">
-                                                        <p>Ảnh đại diện</p>
-                                                        <img src="{{ asset('storage/' . $user->img) }}" alt="">
+                                                <div class="col-xl-6 col-lg-12 col-md-6 mb-25">
+                                                    <div class="form-inner text-end">
+                                                        <p><strong>Ảnh đại diện</strong></p>
+                                                        <img src="{{ asset('storage/' . $user->img) }}" alt="Ảnh đại diện"
+                                                            class="img-fluid rounded shadow" style="max-width: 250px;">
                                                     </div>
                                                 </div>
                                             </div>
@@ -175,10 +175,7 @@
                                                 <a href="{{ route('profile.edit', $user->id) }}"
                                                     class="primary-btn3 black-bg  hover-btn5 hover-white">Update
                                                     Profile</a></a>
-                                                {{-- <button type="submit"
-                                                    class="primary-btn3 black-bg  hover-btn5 hover-white">Update
-                                                    Profile</button> --}}
-                                                <button type="button" class="primary-btn3 hover-btn5">Cancel</button>
+
                                             </div>
                                         </div>
                                     </form>

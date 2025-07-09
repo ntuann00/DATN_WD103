@@ -163,16 +163,15 @@
                                 </li>
                             </div>
                             <div class="profile_info">
-                                <img src="{{ asset('admins/assets/img/client_img.png')}}" alt="#">
+                                <img src="{{ asset('storage/' .  Auth::user()->img)}}" alt="#" 
+                                style="width: 60px; height: 60px; border-radius: 50%; object-fit: cover; box-shadow: 0 4px 8px rgba(0,0,0,0.1); border: 2px solid #fff;">
                                 <div class="profile_info_iner">
                                     <div class="profile_author_name">
-                                        <p>Neurologist </p>
-                                        <h5>Dr. Robar Smith</h5>
+                                        <p>{{ Auth::user()->name}}</p>
                                     </div>
                                     <div class="profile_info_details">
-                                        <a href="#">My Profile </a>
-                                        <a href="#">Settings</a>
-                                        <a href="#">Log Out </a>
+                                        <a href="{{ route('home')}}">Trang chủ</a>
+                                        <a href="{{ route('logout') }}" onclick="event.preventDefault(); document.getElementById('logout-form').submit();">Đăng xuất </a>
                                     </div>
                                 </div>
                             </div>

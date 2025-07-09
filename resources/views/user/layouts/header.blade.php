@@ -350,34 +350,49 @@
                         </svg>
                     </button>
                     <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton1">
-                        <li>
-                            <a class="dropdown-item" href="{{ route('profile') }}">👤 Hồ sơ</a>
-                        </li>
-                        <li>
-                            <a class="dropdown-item" href="">🛒 Giỏ hàng</a>
-                        </li>
-                        <li>
-                            <a class="dropdown-item" href="">📦 Lịch sử mua hàng</a>
-                        </li>
-
-                        @if (Auth::user() && Auth::user()->role === 'admin')
+                        @if (Auth::check())
+                            {{-- ✅ Người dùng đã đăng nhập --}}
                             <li>
-                                <a class="dropdown-item text-primary" href="{{ route('admin.login') }}">🔑 Đăng nhập
-                                    admin</a>
+                                <a class="dropdown-item" href="{{ route('profile') }}">👤 Hồ sơ</a>
+                            </li>
+                            <li>
+                                <a class="dropdown-item" href="#">🛒 Giỏ hàng</a>
+                            </li>
+                            <li>
+                                <a class="dropdown-item" href="#">📦 Lịch sử mua hàng</a>
+                            </li>
+
+                            {{-- ✅ Nếu là admin thì hiện thêm "Quản trị" --}}
+                            @if (Auth::user()->role === 'admin' && Auth::user()->status == 1)
+                                <li>
+                                    <a class="dropdown-item text-danger" href="{{ route('admin') }}">🛠️ Quản trị</a>
+                                </li>
+                            @endif
+
+                            <li>
+                                <hr class="dropdown-divider">
+                            </li>
+
+                            {{-- Đăng xuất --}}
+                            <li>
+                                <a class="dropdown-item text-danger" href="{{ route('logout') }}"
+                                    onclick="event.preventDefault(); document.getElementById('logout-form').submit();">
+                                    🚪 Đăng xuất
+                                </a>
+                                <form id="logout-form" action="{{ route('logout') }}" method="POST"
+                                    class="d-none">
+                                    @csrf
+                                </form>
+                            </li>
+                        @else
+                            {{-- ❌ Người dùng chưa đăng nhập --}}
+                            <li>
+                                <a class="dropdown-item" href="{{ route('login') }}">🔐 Đăng nhập</a>
+                            </li>
+                            <li>
+                                <a class="dropdown-item" href="{{ route('register') }}">📝 Đăng ký</a>
                             </li>
                         @endif
-
-                        <li>
-                            <hr class="dropdown-divider">
-                        </li>
-                        <li><a href="{{ route('logout') }}"
-                                onclick="event.preventDefault(); document.getElementById('logout-form').submit();">
-                                Đăng xuất
-                            </a>
-                            <form id="logout-form" action="{{ route('logout') }}" method="POST" class="d-none">
-                                @csrf
-                            </form>
-                        </li>
                     </ul>
 
                 </div>
