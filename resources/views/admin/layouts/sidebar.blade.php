@@ -1,6 +1,9 @@
 <nav class="sidebar vertical-scroll  ps-container ps-theme-default ps-active-y">
     <div class="logo d-flex justify-content-between">
-        <a href="index-2.html"><img src="{{ asset('admins/assets/img/logo.png')}}" alt></a>
+        <img src="{{ asset('admins/assets/img/Logo1.png')}}" 
+     alt="Logo" 
+     class="rounded-circle" 
+     style="width: 180px; height: 180px; object-fit: cover;">
         <div class="sidebar_close_icon d-lg-none">
             <i class="ti-close"></i>
         </div>
@@ -54,6 +57,20 @@
             <ul>
                 <li><a href="{{ route('users.index') }}">Danh sách khách hàng</a></li>
                 <li><a href="#">Thêm mới khách hàng</a></li>
+            </ul>
+        </li>
+
+         <!-- Quản lí sản phẩm -->
+        <li>
+            <a class="has-arrow" href="#" aria-expanded="false">
+                <div class="icon_menu">
+                    <img src="{{ asset('admins/assets/img/menu-icon/2.svg')}}" alt>
+                </div>
+                <span>Quản lí sản phẩm</span>
+            </a>
+            <ul>
+                <li><a href="{{ route('products.index') }}">Danh sách sản phẩm</a></li>
+                <li><a href="{{ route('products.create') }}">Thêm mới sản phẩm</a></li>
             </ul>
         </li>
 

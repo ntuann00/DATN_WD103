@@ -46,14 +46,7 @@ Route::get('/login', [AuthController::class, 'showLoginForm'])->name('login');
 Route::post('/login', [AuthController::class, 'login']);
 Route::post('/logout', [AuthController::class, 'logout'])->name('logout');
 // quen mk
-// routes/web.php
-Route::get('forgot-password', [ForgotPasswordController::class, 'showLinkRequestForm'])->name('password.request');
-Route::post('forgot-password', [ForgotPasswordController::class, 'sendResetLinkEmail'])->name('password.email');
-// Hiển thị form nhập mật khẩu mới (sau khi click email)
-Route::get('reset-password/{token}', [ForgotPasswordController::class, 'showResetForm'])->name('password.reset');
 
-// Xử lý form đặt lại mật khẩu
-Route::post('reset-password', [ForgotPasswordController::class, 'resetPassword'])->name('password.update');
 
 
 
