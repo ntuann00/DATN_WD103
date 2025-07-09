@@ -71,7 +71,7 @@
                         <li class="brand-list">
                             <a href="shop-list.html">Nivea
                                 <span>50</span>
-                            </a>  
+                            </a>
                         </li>
                         <li class="brand-list">
                             <a href="shop-list.html">Loreal
@@ -133,7 +133,7 @@
             </div>
         </div>
     </div>
-    <div class="shop-list-section mt-110 mb-110"> 
+    <div class="shop-list-section mt-110 mb-110">
         <div class="container-lg container-fluid">
             <div class="shop-columns-title-section mb-40">
                 <p>Showing 1–12 of 101 results</p>
@@ -151,9 +151,9 @@
                     </div>
                     <div class="selector">
                         <select>
-                            <option>Default Sorting</option>
-                            <option>Price Low to High</option>
-                            <option>Price High to Low</option>
+                            <option>Mặc định</option>
+                            <option>Giá từ thấp đến cao</option>
+                            <option>Giá từ cao đến thấp</option>
                           </select>
                     </div>
                     <ul class="grid-view">
@@ -208,52 +208,105 @@
             <div class="all-products list-grid-product-wrap">
                 <div class="row gy-4 mb-80 ">
                     <!-- single item -->
-                    
-                    @foreach ($Products as $product )
-                    <div class="col-lg-3 col-md-4 col-sm-6 item">
-                        <div class="product-card style-3 hover-btn">
-                            <div class="product-card-img">
-                                <a href=""> <!--link product-detail -->
-                                <img src="{{asset('user/assets/img/home1/product-img-4.png')}}" alt="" class="img1">
-                                <!-- img product -->
-                                 
-                                <div class="batch">
-                                    <!-- <span>-15%</span> -->
-                                     <!-- sale + new zone -->
-                                </div>
 
-                               </a>
-                               <!-- add cart -->
-                                <div class="overlay">
-                                    <div class="cart-area">
-                                        <a href="cart.html" class="hover-btn3 add-cart-btn"><i class="bi bi-bag-check"></i> Add To Cart</a>
+                    @foreach($Products as $product)
+                        @php
+                            // Lấy variant đầu tiên (có thể null)
+                            $variant = $product->variants->first();
+                        @endphp
+
+                        {{-- Nếu không có variant, bỏ qua luôn hoặc hiển thị message --}}
+                        @if(! $variant)
+                            {{-- bỏ qua sản phẩm này --}}
+                            @continue
+                        @endif
+
+                        <div class="col-lg-3 col-md-4 col-sm-6 item">
+                            <div class="product-card style-3 hover-btn">
+                                <div class="product-card-img">
+                                    <a href="{{ route('u.product_detail', $product->id) }}">
+                                        {{-- <img src="{{ asset($product->image) }}" alt="{{ $product->name }}" class="img1"> --}}
+                                        <img src="https://product.hstatic.net/1000006063/product/3ce_blush_lighter_atf_-_02_b483e7c8fa3b4c12b167fbade4e7537d_1024x1024.jpg" alt="">
+                                    </a>
+                                    <div class="overlay">
+                                        <div class="cart-area">
+                                            @auth
+                                            <form action="{{ route('cart.add', $variant->id) }}" method="POST">
+                                                @csrf
+                                                <input type="hidden" name="quantity" value="1">
+                                                <button type="submit" class="hover-btn3 add-cart-btn">
+                                                    <i class="bi bi-bag-check"></i> Thêm vào giỏ
+                                                </button>
+                                            </form>
+                                            @else
+                                            <a href="{{ route('login') }}" class="btn btn-primary">Đăng nhập để thêm vào giỏ</a>
+                                            @endauth
+                                        </div>
                                     </div>
                                 </div>
-                                <!-- end add cart -->
-                                
-                            </div>
-                            <div class="product-card-content">
-                                <!-- ten -->
-                                <h6><a href="{{ route('u.product_detail',$product->id) }}" class="hover-underline">{{ $product->name }}</a></h6>
-                                
-                                <p><a href="{{ route('u.product_detail',$product->id) }}">{{$product->brand}}</a></p>
-                                <p class="price">{{$product->price}} </p>
-                                <div class="rating">
-                                    <ul>
-                                        <li><i class="bi bi-star-fill"></i></li>
-                                        <li><i class="bi bi-star-fill"></i></li>
-                                        <li><i class="bi bi-star-fill"></i></li>
-                                        <li><i class="bi bi-star-fill"></i></li>
-                                        <li><i class="bi bi-star-fill"></i></li>
-                                    </ul>
-                                    <span>(50)</span>
+                                <div class="product-card-content">
+                                    <h6>
+                                        <a href="{{ route('u.product_detail', $product->id) }}" class="hover-underline">
+                                            {{ $product->name }}
+                                        </a>
+                                    </h6>
+                                    <p>{{ $product->brand }}</p>
+                                    <p class="price">
+                                        {{ number_format($variant->price, 0, ',', '.') }}₫
+                                    </p>
                                 </div>
                             </div>
-                            <span class="for-border"></span>
+                        </div>
+                    @endforeach
+            @foreach($Products as $product)
+                @php
+                    // Lấy variant đầu tiên (có thể null)
+                    $variant = $product->variants->first();
+                @endphp
+
+                {{-- Nếu không có variant, bỏ qua luôn hoặc hiển thị message --}}
+                @if(! $variant)
+                    {{-- bỏ qua sản phẩm này --}}
+                    @continue
+                @endif
+
+                <div class="col-lg-3 col-md-4 col-sm-6 item">
+                    <div class="product-card style-3 hover-btn">
+                        <div class="product-card-img">
+                            <a href="{{ route('u.product_detail', $product->id) }}">
+                                <img src="{{ asset($product->image) }}" alt="{{ $product->name }}" class="img1">
+                            </a>
+                            <div class="overlay">
+                                <div class="cart-area">
+                                    @auth
+                                    <form action="{{ route('cart.add', $variant->id) }}" method="POST">
+                                        @csrf
+                                        <input type="hidden" name="quantity" value="1">
+                                        <button type="submit" class="hover-btn3 add-cart-btn">
+                                            <i class="bi bi-bag-check"></i> Thêm vào giỏ
+                                        </button>
+                                    </form>
+                                    @else
+                                    <a href="{{ route('login') }}" class="btn btn-primary">Đăng nhập để thêm vào giỏ</a>
+                                    @endauth
+                                </div>
+                            </div>
+                        </div>
+                        <div class="product-card-content">
+                            <h6>
+                                <a href="{{ route('u.product_detail', $product->id) }}" class="hover-underline">
+                                    {{ $product->name }}
+                                </a>
+                            </h6>
+                            <p>{{ $product->brand }}</p>
+                            <p class="price">
+                                {{ number_format($variant->price, 0, ',', '.') }}₫
+                            </p>
                         </div>
                     </div>
+                </div>
+            @endforeach
                     <!-- single item -->
-                    @endforeach
                 </div>
             </div>
             <nav class="shop-pagination">

@@ -155,7 +155,7 @@
                             <a href="{{ route('u.blog') }}">Blog</a>
                         </li>
                         <li>
-                            <a href="{{ route('u.cart') }}">Cart</a>
+                            <a href="{{ route('cart.view') }}">Cart</a>
                         </li>
 
                         <li>
@@ -312,7 +312,7 @@
                             <ul>
                                 <li><a class="primary-btn1 hover-btn4" href="{{ route('u.product') }}">Mua sắm
                                         thêm</a></li>
-                                <li><a class="primary-btn1 hover-btn3" href="{{ route('u.checkout') }}">Mua hàng</a>
+                                <li><a class="primary-btn1 hover-btn3" href="{{ route('checkout.form') }}">Mua hàng</a>
                                 </li>
                             </ul>
                         </div>
