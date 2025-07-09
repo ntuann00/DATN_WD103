@@ -21,34 +21,21 @@ use Illuminate\Foundation\Auth\Access\AuthorizesRequests;
 class HomeController extends BaseController
 {
 
-    public function search(Request $request)
-    {
+    public function search(Request $request){
         $keyword = $request->input('keyword');
         $Products = Product::where('name', 'like', "%{$keyword}%") ->get();
-        // dd($request->all());
         return view('user.products.list-product',compact('Products'));
-        // var_dump($results);
     }
 
-    public function loadCategory(){
-        $Category = Category::all();
-        return $Category;
-    }
-
-    public function showFeatureProduct()
-    {
-        $products = Product::with(['category', 'variants.values'])->take(4)->get();
-        // $product = Product::with(['category', 'variants.values'])->find(8); // lấy product kèm theo category, variants và variant values
-        dd($products);
-        return view('user.layouts.feature_product', compact('products'));
-    }
-
+    // public function index(){
+    //     $FProducts=Product::orderBy('created_at', 'desc')->paginate(8);
+    //     $Fcate=Category::all();
+    //     return view('user.index', compact('FProducts','Fcate'));
+        
+    // }
     public function index(){
-        $FProducts=Product::orderBy('created_at', 'desc')->paginate(8);
-        $Fcate=Category::all();
-        // dd($FProducts,$Fcate);
-        return view('user.index', compact('FProducts','Fcate'));
-        // return view('user.index');
+        $FProducts = Product::with(['category', 'variants.values'])->orderBy('created_at', 'desc')->limit(8)->get();
+        return view('user.index', compact('FProducts'));
     }
 
     public function brand(){
@@ -57,22 +44,13 @@ class HomeController extends BaseController
 
     public function product(){
         $Products = Product::paginate(20);
-        $this->header();
-        // echo '<pre>' , var_dump($this->header()) , '</pre>';
         return view('user.products.list-product', compact('Products'));
     }
 
 
     public function new_product(){
-        // echo '<pre>' , var_dump($Products) , '</pre>';
-        
-        // $result = Post::orderBy('another_key')->paginate();
-        // $sortedResult = $result->getCollection()->sortBy('key_name')->values();
-        // $result->setCollection($sortedResult);
-        
-        $Products = $this->loadProduct();
+        $FProducts=Product::orderBy('created_at', 'desc')->paginate(20);
         return view('user.products.list-product',compact('Products'));
-        // return $result;
     }
 
     public function product_detail($id){
@@ -83,7 +61,6 @@ class HomeController extends BaseController
 
     public function category_product($id){
         $Products = Product::all()->where('category_id', $id);
-        // var_dump($Products);
         return view('user.products.list-product', compact('Products'));
     }
 
@@ -93,24 +70,18 @@ class HomeController extends BaseController
     public function cart(){
         return view('user.cart.cart');
     }
-
     public function login(){
         return view('user.auth.login');
     }
-    
     public function register(){
         return view('user.auth.register');
     }
-
-
-
     public function checkout(){
         return view('user.pages.checkout_page');
     }
     public function about_us(){
         return view('user.pages.about_us');
     }
-
     public function blog(){
         return view('user.pages.blog');
     }

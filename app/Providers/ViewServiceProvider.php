@@ -15,7 +15,7 @@ class ViewServiceProvider extends ServiceProvider
         // Gửi dữ liệu tới view header
         View::composer('*', function ($view) {
             $view->with([
-                'Hproducts' => Product::all(),
+                'Hproducts' => Product::orderBy('created_at', 'desc')->limit(20)->get(),
                 'HCategories' => Category::all(),
                 'HCarts' => Cart::all(),
                 'HUsers' => Users::all(),

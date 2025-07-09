@@ -10,6 +10,9 @@ class Product_variant extends Model
     use HasFactory;
 
     public function values() {
-        return $this->hasMany(Product_variant_value::class);
+        return $this->hasMany(Product_variant_value::class, 'variant_id');
+    }
+    public function product() {
+        return $this->belongsTo(Product::class);
     }
 }
