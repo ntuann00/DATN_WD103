@@ -25,12 +25,15 @@ use App\Http\Controllers\User\ProfileController;
 
 // ----------------- Các routes giữ nguyên ------------------------
 
-Route::get('/', function () {
-    return view('user.index');
-})->name('home');
+// Route::get('/', function () {return view('user.index');})->name('home');
+Route::get('/', [HomeController::class, 'index'])->name('home');
+
+Route::get('/search', [HomeController::class, 'search'])->name('products.search');
 
 Route::get('/product', [HomeController::class, 'product'])->name('u.product');
 Route::get('/product/{id}', [HomeController::class, 'product_detail'])->name('u.product_detail');
+Route::get('/category/{id}', [HomeController::class, 'category_product'])->name('u.category_product');
+
 Route::get('/newproduct', [HomeController::class, 'new_product'])->name('u.new_product');
 Route::get('/brand', [HomeController::class, 'brand'])->name('u.brand');
 Route::get('/checkout', [HomeController::class, 'checkout'])->name('u.checkout');
