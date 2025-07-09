@@ -1,180 +1,106 @@
 @extends('user.layouts.app')
 
 @section('content')
-<!-- Star Whistlist section -->
-    <div class="whistlist-section cart mt-110 mb-110">
-        <div class="container">
-            <div class="row mb-50">
-                <div class="col-12">
-                    <div class="whistlist-table">
-                        <table class="eg-table2">
-                            <thead>
-                                <tr>
-                                    <th></th>
-                                    <th>Product</th>
-                                    <th>Price</th>
-                                    <th>Quantity</th>
-                                    <th>Total</th>
-                                </tr>
-                            </thead>
-                            <tbody>
-                                <tr>
-                                    <td>
-                                        <div class="delete-icon">
-                                            <i class="bi bi-x-lg"></i>
-                                        </div>
-                                    </td>
-                                    <td data-label="Product" class="table-product">
-                                        <div class="product-img">
-                                            <img src="assets/img/inner-page/whistlist-img1.png" alt="">
-                                        </div>
-                                        <div class="product-content">
-                                            <h6><a href="#">Eau De Blue Perfume</a></h6>
-                                        </div>
-                                    </td>
-                                    <td data-label="Price">
-                                        <p class="price">
-                                            <del>$40.00</del>
-                                            $30.00
-                                        </p>
-                                    </td>
-                                    <td data-label="Quantity">
-                                        <div class="quantity-counter">
-                                            <a href="#" class="quantity__minus"><i class='bx bx-minus'></i></a>
-                                            <input name="quantity" type="text" class="quantity__input" value="01">
-                                            <a href="#" class="quantity__plus"><i class='bx bx-plus' ></i></a>
-                                        </div>
-                                    </td>
-                                    <td data-label="Total">
-                                        $30.00
-                                    </td>
-                                </tr>
-                                <tr>
-                                    <td>
-                                        <div class="delete-icon">
-                                            <i class="bi bi-x-lg"></i>
-                                        </div>
-                                    </td>
-                                    <td data-label="Product" class="table-product">
-                                        <div class="product-img">
-                                            <img src="assets/img/inner-page/whistlist-img2.png" alt="">
-                                        </div>
-                                        <div class="product-content">
-                                            <h6><a href="#">Smooth Makeup Box</a></h6>
-                                        </div>
-                                    </td>
-                                    <td data-label="Price">
-                                        <p class="price">
-                                            <del>$40.00</del>
-                                            $25.00
-                                        </p>
-                                    </td>
-                                    <td data-label="Quantity">
-                                        <div class="quantity-counter">
-                                            <a href="#" class="quantity__minus"><i class='bx bx-minus'></i></a>
-                                            <input name="quantity" type="text" class="quantity__input" value="01">
-                                            <a href="#" class="quantity__plus"><i class='bx bx-plus' ></i></a>
-                                        </div>
-                                    </td>
-                                    <td data-label="Total">
-                                        $50.00
-                                    </td>
-                                </tr>
-                                <tr>
-                                    <td>
-                                        <div class="delete-icon">
-                                            <i class="bi bi-x-lg"></i>
-                                        </div>
-                                    </td>
-                                    <td data-label="Product" class="table-product">
-                                        <div class="product-img">
-                                            <img src="assets/img/inner-page/whistlist-img3.png" alt="">
-                                        </div>
-                                        <div class="product-content">
-                                            <h6><a href="#">Modern Red Lipstick</a></h6>
-                                        </div>
-                                    </td>
-                                    <td data-label="Price">
-                                        <p class="price">
-                                            <del>$40.00</del>
-                                            $32.00
-                                        </p>
-                                    </td>
-                                    <td data-label="Quantity">
-                                        <div class="quantity-counter">
-                                            <a href="#" class="quantity__minus"><i class='bx bx-minus'></i></a>
-                                            <input name="quantity" type="text" class="quantity__input" value="01">
-                                            <a href="#" class="quantity__plus"><i class='bx bx-plus' ></i></a>
-                                        </div>
-                                    </td>
-                                    <td data-label="Total">
-                                        $30.00
-                                    </td>
-                                </tr>
-                            </tbody>
-                        </table>
-                    </div>
-                </div>
-            </div>
-            <div class="row g-4">
-                <div class="col-lg-4">
-                    <div class="coupon-area">
-                        <div class="cart-coupon-input">
-                            <h5>Coupon Code</h5>
-                            <form>
-                                <div class="form-inner">
-                                    <input type="text" placeholder="Coupon Code">
-                                    <button type="submit" class="primary-btn1 hover-btn3">Apply Code</button>
+<div class="container py-4">
+    <h2 class="mb-4 text-center fw-bold">🛒 Giỏ hàng của bạn</h2>
+
+    @if(session('success'))
+        <div class="alert alert-success text-center">{{ session('success') }}</div>
+    @endif
+
+    @if(count($cart) > 0)
+    <form action="{{ route('cart.update') }}" method="POST">
+        @csrf
+        <div class="table-responsive shadow-sm">
+            <table class="table table-bordered align-middle text-center">
+                <thead class="table-secondary">
+                    <tr>
+                        <th scope="col">Ảnh</th>
+                        <th scope="col">Tên sản phẩm</th>
+                        <th scope="col">Số lượng</th>
+                        <th scope="col">Giá</th>
+                        <th scope="col">Tổng cộng</th>
+                        <th scope="col">Xóa</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @php $total = 0; @endphp
+                    @foreach($cart as $id => $item)
+                        @php
+                            $itemTotal = $item['price'] * $item['quantity'];
+                            $total += $itemTotal;
+                        @endphp
+                        <tr>
+                            <td>
+                                <img src="{{ asset($item['image']) }}" class="img-thumbnail border-0" style="max-width: 60px;">
+                            </td>
+                            <td class="text-start fw-medium">{{ $item['name'] }}</td>
+                            <td style="width: 160px;">
+                                <div class="input-group justify-content-center">
+                                    <button type="button" class="btn btn-outline-secondary btn-sm quantity-btn decrement" data-id="{{ $id }}">-</button>
+                                    <input type="text" name="quantities[{{ $id }}]" value="{{ $item['quantity'] }}" class="form-control text-center quantity-input" style="max-width: 50px;" readonly>
+                                    <button type="button" class="btn btn-outline-secondary btn-sm quantity-btn increment" data-id="{{ $id }}">+</button>
                                 </div>
-                            </form>
-                        </div>
-                    </div>
-                </div>
-                <div class="col-lg-8">
-                    <table class="cart-table">
-                        <thead>
-                            <tr>
-                                <th>Cart Totals</th>
-                                <th></th>
-                                <th>$128.70</th>
-                            </tr>
-                        </thead>
-                        <tbody>
-                            <tr>
-                                <td>Shipping</td>
-                                <td>
-                                    <ul class="cost-list text-start">
-                                        <li>Shipping Fee</li>
-                                        <li>Total ( tax excl.)</li>
-                                        <li>Total ( tax incl.)</li>
-                                        <li>Taxes</li>
-                                        <li>Shipping Enter your address to view shipping options. <br> <a href="#">Calculate
-                                                shipping</a>
-                                        </li>
-                                    </ul>
-                                </td>
-                                <td>
-                                    <ul class="single-cost text-center">
-                                        <li>Fee</li>
-                                        <li>$15</li>
-                                        <li></li>
-                                        <li>$15</li>
-                                        <li>$15</li>
-                                        <li>$5</li>
-                                    </ul>
-                                </td>
-                            </tr>
-                            <tr>
-                                <td>Subtotal</td>
-                                <td></td>
-                                <td>$162.70</td>
-                            </tr>
-                        </tbody>
-                    </table>
-                    <button type="submit" class="primary-btn1 hover-btn3">Product Checkout</button>
-                </div>
-            </div>
+                            </td>
+                            <td class="fw-semibold">{{ number_format($item['price'], 0, ',', '.') }}₫</td>
+                            <td class="fw-semibold">{{ number_format($itemTotal, 0, ',', '.') }} VND</td>
+                            <td>
+                                <form action="{{ route('cart.remove', $id) }}" method="POST">
+                                    @csrf
+                                    <button class="btn btn-danger btn-sm">Xóa</button>
+                                </form>
+                            </td>
+                        </tr>
+                    @endforeach
+                </tbody>
+                <tfoot class="table-light">
+                    <tr>
+                        <td colspan="4" class="text-end fw-bold">Tổng tiền:</td>
+                        <td colspan="2" class="fw-bold text-danger">{{ number_format($total, 0, ',', '.') }}₫</td>
+                    </tr>
+                </tfoot>
+            </table>
         </div>
-    </div>
-    <!-- End Whistlist section -->
+
+        <div class="d-flex justify-content-between mt-3">
+            <button type="submit" class="btn btn-primary btn-lg">
+                💾 Cập nhật giỏ hàng
+            </button>
+            {{-- Xóa toàn bộ giỏ hàng --}}
+            <form action="{{ route('cart.clear') }}" method="POST" onsubmit="return confirm('Bạn có chắc muốn xóa toàn bộ giỏ hàng?')">
+                @csrf
+                <button type="submit" class="btn btn-danger btn-lg">
+                    🗑 Xóa toàn bộ giỏ hàng
+                </button>
+            </form>
+            <a href="{{ route('checkout.form') }}" class="btn btn-success btn-lg">
+                🛒 Đặt hàng
+            </a>
+        </div>
+    </form>
+    @else
+        <div class="alert alert-warning text-center">
+            🛒 Giỏ hàng của bạn đang trống!
+        </div>
+    @endif
+</div>
+
+<!-- Script tăng giảm số lượng -->
+<script>
+    document.querySelectorAll('.increment').forEach(btn => {
+        btn.addEventListener('click', function () {
+            let input = this.parentElement.querySelector('.quantity-input');
+            input.value = parseInt(input.value) + 1;
+        });
+    });
+
+    document.querySelectorAll('.decrement').forEach(btn => {
+        btn.addEventListener('click', function () {
+            let input = this.parentElement.querySelector('.quantity-input');
+            if (parseInt(input.value) > 1) {
+                input.value = parseInt(input.value) - 1;
+            }
+        });
+    });
+</script>
 @endsection
