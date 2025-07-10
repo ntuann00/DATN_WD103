@@ -152,15 +152,15 @@ Route::get('/admin/products/create', [ProductController::class, 'create'])->name
 Route::post('/admin/products', [ProductController::class, 'store'])->name('products.store');
 Route::delete('/admin/product-images/{id}', [ProductImageController::class, 'destroy'])->name('product-images.destroy');
 
-// Cart (yêu cầu đăng nhập)
-Route::middleware('auth')->group(function () {
-    Route::get('/cart', [CartController::class, 'index'])->name('cart.index');
-    Route::post('/cart/add', [CartController::class, 'addToCart'])->name('cart.add');
-    Route::post('/cart/update/{id}', [CartController::class, 'update'])->name('cart.update');
-    Route::get('/cart/remove/{id}', [CartController::class, 'remove'])->name('cart.remove');
-    Route::get('/cart/clear', [CartController::class, 'clear'])->name('cart.clear');
-    Route::get('/cart', [CartController::class, 'index'])->name('u.cart');
-});
+// // Cart (yêu cầu đăng nhập)
+// Route::middleware('auth')->group(function () {
+//     Route::get('/cart', [CartController::class, 'index'])->name('cart.index');
+//     Route::post('/cart/add', [CartController::class, 'addToCart'])->name('cart.add');
+//     Route::post('/cart/update/{id}', [CartController::class, 'update'])->name('cart.update');
+//     Route::get('/cart/remove/{id}', [CartController::class, 'remove'])->name('cart.remove');
+//     Route::get('/cart/clear', [CartController::class, 'clear'])->name('cart.clear');
+//     Route::get('/cart', [CartController::class, 'index'])->name('u.cart');
+// });
 
 // Đơn hàng (Order)
 Route::prefix('admin')->name('admin.')->group(function () {

@@ -6,7 +6,7 @@ use Illuminate\Support\ServiceProvider;
 use Illuminate\Support\Facades\View;
 use App\Models\Product;
 use App\Models\Category;
-use App\Models\Users;
+use App\Models\User;
 
 class ViewServiceProvider extends ServiceProvider
 {
@@ -18,7 +18,7 @@ class ViewServiceProvider extends ServiceProvider
                 'Hproducts' => Product::orderBy('created_at', 'desc')->limit(20)->get(),
                 'HCategories' => Category::all(),
                 'HCarts' => Cart::all(),
-                'HUsers' => Users::all(),
+                'HUsers' => User::all(),
             ]);
         });
     }

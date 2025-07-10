@@ -88,14 +88,14 @@
                             <!-- add cart -->
                             <a href="#" class="primary-btn1 hover-btn3">*Add to Cart*</a>
                             <!-- check out / buy now-->
-                            <a href="{{ route('u.checkout') }}" class="primary-btn1 style-3 hover-btn4">*Buy Now*</a>
+                            <a href="{{ route('checkout.form') }}" class="primary-btn1 style-3 hover-btn4">*Buy Now*</a>
                         </div>
 
                         <div class="product-info">
                             <ul class="product-info-list">
                                 <li> <span>SKU:</span> *** </li>
                                 <li> <span>Brand:</span> <a href="shop-4-columns.html">{{$Product->brand}}</a></li>
-                                <li> <span>Category:</span> 
+                                <li> <span>Category:</span>
                                     <a href="shop-slider.html">{{$Product->category_id}}</a>
                                 </li>
                             </ul>
@@ -137,7 +137,7 @@
                             <!-- description- chuyển thành recomment -->
                             <div class="tab-pane fade show active" id="nav-description" role="tabpanel" aria-labelledby="nav-description-tab">
                                 <div class="row gy-5">
-                                    
+
                                     <!-- content -->
                                      hehe
 
