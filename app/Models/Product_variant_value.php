@@ -9,15 +9,13 @@ class Product_variant_value extends Model
 {
     use HasFactory;
 
-    public function variant()
-    {
-        return $this->belongsTo(
-            Product_variant::class,
-            'variant_id', // cột FK trong product_variant_values
-            'id'
-        );
+
+    public function variant() {
+        return $this->belongsTo(Product_variant::class);
     }
-        protected $fillable = [ 'variant_id','attribute_value_id'];
+    protected $fillable = [
+    'variant_id',
+    'attribute_value_id',];
 
     public function attributeValue()
     {
