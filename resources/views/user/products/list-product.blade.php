@@ -258,54 +258,7 @@
                             </div>
                         </div>
                     @endforeach
-            @foreach($Products as $product)
-                @php
-                    // Lấy variant đầu tiên (có thể null)
-                    $variant = $product->variants->first();
-                @endphp
 
-                {{-- Nếu không có variant, bỏ qua luôn hoặc hiển thị message --}}
-                @if(! $variant)
-                    {{-- bỏ qua sản phẩm này --}}
-                    @continue
-                @endif
-
-                <div class="col-lg-3 col-md-4 col-sm-6 item">
-                    <div class="product-card style-3 hover-btn">
-                        <div class="product-card-img">
-                            <a href="{{ route('u.product_detail', $product->id) }}">
-                                <img src="{{ asset($product->image) }}" alt="{{ $product->name }}" class="img1">
-                            </a>
-                            <div class="overlay">
-                                <div class="cart-area">
-                                    @auth
-                                    <form action="{{ route('cart.add', $variant->id) }}" method="POST">
-                                        @csrf
-                                        <input type="hidden" name="quantity" value="1">
-                                        <button type="submit" class="hover-btn3 add-cart-btn">
-                                            <i class="bi bi-bag-check"></i> Thêm vào giỏ
-                                        </button>
-                                    </form>
-                                    @else
-                                    <a href="{{ route('login') }}" class="btn btn-primary">Đăng nhập để thêm vào giỏ</a>
-                                    @endauth
-                                </div>
-                            </div>
-                        </div>
-                        <div class="product-card-content">
-                            <h6>
-                                <a href="{{ route('u.product_detail', $product->id) }}" class="hover-underline">
-                                    {{ $product->name }}
-                                </a>
-                            </h6>
-                            <p>{{ $product->brand }}</p>
-                            <p class="price">
-                                {{ number_format($variant->price, 0, ',', '.') }}₫
-                            </p>
-                        </div>
-                    </div>
-                </div>
-            @endforeach
                     <!-- single item -->
                 </div>
             </div>

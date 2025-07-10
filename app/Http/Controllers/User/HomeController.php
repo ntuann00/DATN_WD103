@@ -9,7 +9,7 @@ use App\Models\Product_variant_value;
 use App\Models\User;
 use App\Models\Category;
 use Illuminate\Http\Request;
-use Illuminate\Foundation\Auth\User;
+
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Storage;
@@ -60,19 +60,13 @@ class HomeController extends BaseController
         $Products = Product::has('variants')
                            ->with('variants')
                            ->get();
-
+        return view('user.products.list-product',compact('Products'));
     }
 
 
     public function new_product(){
         $FProducts=Product::orderBy('created_at', 'desc')->paginate(20);
         return view('user.products.list-product',compact('Products'));
-        $Products = Product::has('variants')
-                           ->with('variants')
-                           ->orderBy('created_at', 'desc')
-                           ->paginate(20);
-
-        return view('user.products.list-product', compact('Products'));
     }
 
     public function product_detail($id){

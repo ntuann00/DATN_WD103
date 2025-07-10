@@ -88,7 +88,7 @@
                             <!-- add cart -->
                             <a href="#" class="primary-btn1 hover-btn3">*Add to Cart*</a>
                             <!-- check out / buy now-->
-                            <a href="{{ route('u.checkout') }}" class="primary-btn1 style-3 hover-btn4">*Buy Now*</a>
+                            <a href="{{ route('checkout.form') }}" class="primary-btn1 style-3 hover-btn4">*Buy Now*</a>
                         </div>
 
                         <div class="product-info">
