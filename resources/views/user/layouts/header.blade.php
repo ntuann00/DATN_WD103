@@ -157,7 +157,7 @@
                             <a href="{{ route('u.blog') }}">Blog</a>
                         </li>
                         <li>
-                            <a href="{{ route('cart.view') }}">Cart</a>
+                            <a href="">Cart</a>
                         </li>
 
                         <li>

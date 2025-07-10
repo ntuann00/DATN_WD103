@@ -11,14 +11,11 @@ class Product_variant_value extends Model
 
     public function variant() {
         return $this->belongsTo(Product_variant::class);
-
-    protected $fillable = [
-    'variant_id',
-    'attribute_value_id',];
-      
-    public function attributeValue()
-    {
-        return $this->belongsTo(AttributeValue::class, 'attribute_value_id')->with('attribute');
-
     }
+    
+    public function attributeValue(){
+        return $this->belongsTo(AttributeValue::class, 'attribute_value_id')->with('attribute');
+        
+    }
+    protected $fillable = ['variant_id','attribute_value_id'];
 }

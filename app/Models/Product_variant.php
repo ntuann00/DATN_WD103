@@ -19,6 +19,10 @@ class Product_variant extends Model
     {
         return $this->hasMany(Product_variant_value::class, 'variant_id')->with('attributeValue.attribute');
     }
+    public function values()
+    {
+        return $this->hasMany(Product_variant_value::class, 'variant_id')->with('attributeValue.attribute');
+    }
         public function images()
     {
         return $this->hasMany(Product_image::class, 'product_variant_id');
