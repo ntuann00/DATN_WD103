@@ -9,13 +9,14 @@ class Product_variant_value extends Model
 {
     use HasFactory;
 
+
     public function variant() {
         return $this->belongsTo(Product_variant::class);
     }
     protected $fillable = [
     'variant_id',
     'attribute_value_id',];
-      
+
     public function attributeValue()
     {
         return $this->belongsTo(AttributeValue::class, 'attribute_value_id')->with('attribute');

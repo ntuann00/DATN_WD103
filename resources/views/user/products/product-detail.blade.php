@@ -95,7 +95,7 @@
                             <ul class="product-info-list">
                                 <li> <span>SKU:</span> *** </li>
                                 <li> <span>Brand:</span> <a href="shop-4-columns.html">{{$Product->brand}}</a></li>
-                                <li> <span>Category:</span> 
+                                <li> <span>Category:</span>
                                     <a href="shop-slider.html">{{$Product->category_id}}</a>
                                 </li>
                             </ul>
@@ -137,7 +137,7 @@
                             <!-- description- chuyển thành recomment -->
                             <div class="tab-pane fade show active" id="nav-description" role="tabpanel" aria-labelledby="nav-description-tab">
                                 <div class="row gy-5">
-                                    
+
                                     <!-- content -->
                                      hehe
 

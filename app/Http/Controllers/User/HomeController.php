@@ -9,7 +9,6 @@ use App\Models\Product_variant_value;
 use App\Models\User;
 use App\Models\Category;
 use Illuminate\Http\Request;
-
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Storage;
@@ -32,7 +31,7 @@ class HomeController extends BaseController
     //     $FProducts=Product::orderBy('created_at', 'desc')->paginate(8);
     //     $Fcate=Category::all();
     //     return view('user.index', compact('FProducts','Fcate'));
-        
+
     // }
     public function index(){
         $FProducts = Product::with(['category', 'variants.values'])->orderBy('created_at', 'desc')->limit(8)->get();

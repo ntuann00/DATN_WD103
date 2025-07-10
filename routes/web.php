@@ -85,9 +85,6 @@ Route::middleware('auth')->group(function () {
 });
 
 
-
-
-
 // Admin dashboard (yêu cầu đăng nhập + check role)
 Route::middleware(['auth', 'check.role'])->group(function () {
     Route::get('/admin', [AdminController::class, 'index'])->name('admin');
