@@ -4,7 +4,7 @@
 <div class="container mt-4">
     <h2>Thêm mã giảm giá</h2>
 
-    <form action="{{ route('admin.discounts.store') }}" method="POST">
+    <form action="{{ route('admin.promotions.store') }}" method="POST">
         @csrf
 
         <div class="mb-3">
@@ -56,7 +56,7 @@
         </div>
 
         <button type="submit" class="btn btn-primary">Tạo mới</button>
-        <a href="{{ route('admin.discounts.index') }}" class="btn btn-secondary">Quay lại</a>
+        <a href="{{ route('admin.promotions.index') }}" class="btn btn-secondary">Quay lại</a>
     </form>
 </div>
 @endsection

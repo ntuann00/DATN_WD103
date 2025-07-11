@@ -11,22 +11,15 @@ use App\Models\Address;
 class Order extends Model
 {
     use HasFactory;
-
-    // Mỗi đơn hàng thuộc về 1 người dùng
+    protected $fillable = [
+        'user_id', 'name', 'status_id', 'description', 'address_id', 'phone', 'total'
+    ];
+    public function orderDetails()
+    {
+      return $this->hasMany(Order_detail::class);
+    }
     public function user()
     {
         return $this->belongsTo(User::class);
-    }
-
-    // Một đơn hàng có nhiều chi tiết đơn hàng
-    public function orderDetails()
-    {
-        return $this->hasMany(OrderDetail::class, 'order_id', 'id');
-    }
-
-    // Mỗi đơn hàng có 1 địa chỉ nhận hàng
-    public function address()
-    {
-        return $this->belongsTo(Address::class, 'address_id');
     }
 }

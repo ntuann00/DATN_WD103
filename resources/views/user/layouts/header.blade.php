@@ -29,8 +29,9 @@
                             <ul class="menu-row">
 
                                 <!-- item in menu -->
+                                 @foreach ($Hproducts as $pro)
                                 <li class="menu-single-item">
-                                    <a href="{{ route('home') }}"> <!-- link -->
+                                    <a href="{{ route('u.product_detail',$pro->id) }}"> <!-- link -->
                                         <svg xmlns="http://www.w3.org/2000/svg" width="16" height="8"
                                             viewBox="0 0 16 8">
                                             <path
@@ -38,9 +39,10 @@
                                             <path
                                                 d="M15.9991 4.00526C13.6711 4.8883 10.7821 6.39874 8.9917 8L10.4038 4.00021L8.99703 0C10.7858 1.60336 13.6723 3.11716 15.9991 4.00526Z" />
                                         </svg>
-                                        sản phẩm mới có
+                                        {{$pro->name}}
                                     </a>
                                 </li>
+                                @endforeach
                                 <!-- item in menu -->
 
                             </ul>
@@ -75,10 +77,10 @@
                         style="background-image: url('{{ asset('user/assets/img/home1/megamenu2-bg1.png') }}');">
                         <div class="megamenu-wrap">
                             <ul class="menu-row">
-
                                 <!-- item in menu -->
+                                @foreach ($HCategories as $cate)
                                 <li class="menu-single-item">
-                                    <a href="{{ route('home') }}"> <!-- link -->
+                                    <a href="{{ route('u.category_product',$cate->id) }}"> <!-- link -->
                                         <svg xmlns="http://www.w3.org/2000/svg" width="16" height="8"
                                             viewBox="0 0 16 8">
                                             <path
@@ -86,11 +88,11 @@
                                             <path
                                                 d="M15.9991 4.00526C13.6711 4.8883 10.7821 6.39874 8.9917 8L10.4038 4.00021L8.99703 0C10.7858 1.60336 13.6723 3.11716 15.9991 4.00526Z" />
                                         </svg>
-                                        sản phẩm mới có
+                                        {{$cate->name}}
                                     </a>
                                 </li>
+                                @endforeach
                                 <!-- item in menu -->
-
                             </ul>
 
                             <!-- bottom button -->
@@ -155,7 +157,7 @@
                             <a href="{{ route('u.blog') }}">Blog</a>
                         </li>
                         <li>
-                            <a href="{{ route('u.cart') }}">Cart</a>
+                            <a href="{{ route('cart.view') }}">Cart</a>
                         </li>
 
                         <li>
@@ -173,12 +175,14 @@
 
             <!-- search box mobile? -->
             <div class="d-lg-none d-block">
-                <form class="mobile-menu-form d-lg-none d-block pt-50">
+                                
+                <form  class="mobile-menu-form d-lg-none d-block pt-50">
                     <div class="input-with-btn d-flex flex-column">
-                        <input type="text" placeholder="Search here...">
+                        <input type="text" name="keyword" placeholder="Search here...">
                         <button type="submit" class="primary-btn1 hover-btn3">Search</button>
                     </div>
                 </form>
+
                 <form class="mobile-menu-form">
                     <div class="hotline pt-40">
                         <div class="hotline-icon">
@@ -223,10 +227,11 @@
                 </div>
                 <div class="search-input">
                     <div class="serch-close"></div>
-                    <form>
+                    <form action="{{ route('products.search') }}" method="GET">
+
                         <div class="search-group">
                             <div class="form-inner2">
-                                <input type="text" placeholder="Search your products">
+                                <input type="text" name="keyword" placeholder="Search your products">
                                 <button type="submit"><i class='bx bx-search'></i></button>
                             </div>
                         </div>
@@ -312,7 +317,7 @@
                             <ul>
                                 <li><a class="primary-btn1 hover-btn4" href="{{ route('u.product') }}">Mua sắm
                                         thêm</a></li>
-                                <li><a class="primary-btn1 hover-btn3" href="{{ route('u.checkout') }}">Mua hàng</a>
+                                <li><a class="primary-btn1 hover-btn3" href="">Mua hàng</a>
                                 </li>
                             </ul>
                         </div>
@@ -345,34 +350,49 @@
                         </svg>
                     </button>
                     <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton1">
-                        <li>
-                            <a class="dropdown-item" href="{{ route('profile') }}">👤 Hồ sơ</a>
-                        </li>
-                        <li>
-                            <a class="dropdown-item" href="">🛒 Giỏ hàng</a>
-                        </li>
-                        <li>
-                            <a class="dropdown-item" href="">📦 Lịch sử mua hàng</a>
-                        </li>
-
-                        @if (Auth::user() && Auth::user()->role === 'admin')
+                        @if (Auth::check())
+                            {{-- ✅ Người dùng đã đăng nhập --}}
                             <li>
-                                <a class="dropdown-item text-primary" href="{{ route('admin.login') }}">🔑 Đăng nhập
-                                    admin</a>
+                                <a class="dropdown-item" href="{{ route('profile') }}">👤 Hồ sơ</a>
+                            </li>
+                            <li>
+                                <a class="dropdown-item" href="#">🛒 Giỏ hàng</a>
+                            </li>
+                            <li>
+                                <a class="dropdown-item" href="#">📦 Lịch sử mua hàng</a>
+                            </li>
+
+                            {{-- ✅ Nếu là admin thì hiện thêm "Quản trị" --}}
+                            @if (Auth::user()->role === 'admin' && Auth::user()->status == 1)
+                                <li>
+                                    <a class="dropdown-item text-danger" href="{{ route('admin') }}">🛠️ Quản trị</a>
+                                </li>
+                            @endif
+
+                            <li>
+                                <hr class="dropdown-divider">
+                            </li>
+
+                            {{-- Đăng xuất --}}
+                            <li>
+                                <a class="dropdown-item text-danger" href="{{ route('logout') }}"
+                                    onclick="event.preventDefault(); document.getElementById('logout-form').submit();">
+                                    🚪 Đăng xuất
+                                </a>
+                                <form id="logout-form" action="{{ route('logout') }}" method="POST"
+                                    class="d-none">
+                                    @csrf
+                                </form>
+                            </li>
+                        @else
+                            {{-- ❌ Người dùng chưa đăng nhập --}}
+                            <li>
+                                <a class="dropdown-item" href="{{ route('login') }}">🔐 Đăng nhập</a>
+                            </li>
+                            <li>
+                                <a class="dropdown-item" href="{{ route('register') }}">📝 Đăng ký</a>
                             </li>
                         @endif
-
-                        <li>
-                            <hr class="dropdown-divider">
-                        </li>
-                        <li><a href="{{ route('logout') }}"
-                                onclick="event.preventDefault(); document.getElementById('logout-form').submit();">
-                                Đăng xuất
-                            </a>
-                            <form id="logout-form" action="{{ route('logout') }}" method="POST" class="d-none">
-                                @csrf
-                            </form>
-                        </li>
                     </ul>
 
                 </div>

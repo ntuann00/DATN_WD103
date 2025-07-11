@@ -417,7 +417,7 @@
                 <div class="col-lg-12">
                     <div class="newsletter-banner hover-img">
                         <div class="newsletter-content">
-                            <h2>Sign up to our newsletter for all the latest Offer & discounts.</h2>
+                            <h2>Sign up to our newsletter for all the latest Offer & promotions.</h2>
                             <form>
                                 <div class="from-inner">
                                     <input type="email" placeholder="Email Address">

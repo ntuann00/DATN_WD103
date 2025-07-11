@@ -54,8 +54,8 @@
                                 </svg>
                             </div>
                             <div class="banner-footer-content">
-                                <h5>Online Discount</h5>
-                                <p>Add multi-buy discount </p>
+                                <h5>Online Promotion</h5>
+                                <p>Add multi-buy Promotion </p>
                             </div>
                         </div>
                     </div>
