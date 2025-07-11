@@ -1,3 +1,4 @@
+
 <?php
 
 namespace App\Http\Controllers\User;
@@ -5,7 +6,7 @@ namespace App\Http\Controllers\User;
 use App\Models\Order;
 use App\Http\Controllers\Controller;
 use App\Models\Cart;
-use App\Models\Discount;
+use App\Models\Promotion;
 use App\Models\Order_detail;
 use App\Models\Product;
 use Illuminate\Http\Request;
@@ -15,7 +16,6 @@ use Illuminate\Support\Facades\Session;
 
 class OrderController extends Controller
 {
-
     public function index(Request $request)
     {
         if (!auth()->check()) {
@@ -51,7 +51,6 @@ class OrderController extends Controller
 
         $cartItems = Cart::where('user_id', auth()->id())->with('product', 'variant')->get();
 
-        // Tính tổng
         $subtotal = $cartItems->sum(function ($item) {
             return $item->price * $item->quantity;
         });
@@ -59,9 +58,9 @@ class OrderController extends Controller
         $discountAmount = 0;
         $voucher = null;
         if ($request->voucher_id) {
-            $voucher = Discount::find($request->voucher_id);
+            $voucher = Promotion::find($request->voucher_id);
             if ($voucher) {
-                $discountAmount = $subtotal * ($voucher->discount / 100);
+                $discountAmount = $subtotal * ($voucher->discount_value / 100);
             }
         }
 
@@ -78,7 +77,7 @@ class OrderController extends Controller
             'payment_method' => $request->payment_method,
             'total' => $total,
             'shipping_fee' => $shipping,
-            'discount' => $discountAmount,
+            'promotion' => $discountAmount,
         ]);
 
         foreach ($cartItems as $item) {
@@ -95,6 +94,4 @@ class OrderController extends Controller
 
         return redirect()->route('order.success')->with('success', 'Đặt hàng thành công!');
     }
-
-
 }
