@@ -1,11 +1,13 @@
 <?php
 
 use Illuminate\Support\Facades\Route;
+
 use App\Http\Controllers\User\HomeController;
 use App\Http\Controllers\User\AuthController;
 use App\Http\Controllers\User\ProfileController;
 use App\Http\Controllers\User\UserProductController;
 use App\Http\Controllers\User\OrderController;
+
 use App\Http\Controllers\Admin\AdminController;
 use App\Http\Controllers\Admin\CategoryController;
 use App\Http\Controllers\Admin\AttributeController;
@@ -91,6 +93,6 @@ Route::prefix('admin')->name('admin.')->middleware(['auth', 'check.role'])->grou
     Route::get('/orders', [AdminOrderController::class, 'index'])->name('orders.index');
     Route::get('/orders/{id}', [AdminOrderController::class, 'show'])->name('orders.show');
 
-    // promotions
+    // Promotions
     Route::resource('promotions', PromotionController::class);
 });

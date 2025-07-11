@@ -26,7 +26,7 @@ class Order extends Model
         'address_detail',
         'payment_method',
         'shipping_fee',
-        'discount', // hoặc 'Promotion' nếu dùng tên cũ
+        'promotion', // dùng đúng với cột bạn tạo trong migration
     ];
 
     public function orderDetails()
@@ -41,6 +41,6 @@ class Order extends Model
 
     public function address()
     {
-        return $this->belongsTo(Address::class); // Cần có bảng addresses và cột address_id trong orders
+        return $this->belongsTo(Address::class);
     }
 }

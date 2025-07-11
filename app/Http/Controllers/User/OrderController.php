@@ -1,3 +1,4 @@
+
 <?php
 
 namespace App\Http\Controllers\User;
@@ -50,7 +51,6 @@ class OrderController extends Controller
 
         $cartItems = Cart::where('user_id', auth()->id())->with('product', 'variant')->get();
 
-        // Tính tổng
         $subtotal = $cartItems->sum(function ($item) {
             return $item->price * $item->quantity;
         });
@@ -60,7 +60,7 @@ class OrderController extends Controller
         if ($request->voucher_id) {
             $voucher = Promotion::find($request->voucher_id);
             if ($voucher) {
-                $discountAmount = $subtotal * ($voucher->Promotion / 100);
+                $discountAmount = $subtotal * ($voucher->discount_value / 100);
             }
         }
 
@@ -77,7 +77,7 @@ class OrderController extends Controller
             'payment_method' => $request->payment_method,
             'total' => $total,
             'shipping_fee' => $shipping,
-            'Promotion' => $discountAmount,
+            'promotion' => $discountAmount,
         ]);
 
         foreach ($cartItems as $item) {
