@@ -15,7 +15,6 @@ use Illuminate\Support\Facades\Session;
 
 class OrderController extends Controller
 {
-
     public function index(Request $request)
     {
         if (!auth()->check()) {
@@ -95,6 +94,4 @@ class OrderController extends Controller
 
         return redirect()->route('order.success')->with('success', 'Đặt hàng thành công!');
     }
-
-
 }
