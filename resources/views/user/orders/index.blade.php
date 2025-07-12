@@ -27,17 +27,17 @@
 
                             <div class="form-inner mb-3">
                                 <label>Tỉnh/Thành phố:</label>
-                                <input type="text" name="province" placeholder="VD: Hà Nội" required>
+                                <input id="provinceInput" type="text" name="province" placeholder="VD: Hà Nội" value="{{ old('province') }}" required>
                             </div>
 
                             <div class="form-inner mb-3">
                                 <label>Quận/Huyện/Xã:</label>
-                                <input type="text" name="district" required>
+                                <input type="text" name="district" value="{{ old('district') }}" required>
                             </div>
 
                             <div class="form-inner mb-3">
                                 <label>Số nhà, tên đường:</label>
-                                <input type="text" name="address_detail" required>
+                                <input type="text" name="address_detail" value="{{ old('address_detail') }}" required>
                             </div>
                         </div>
 
@@ -47,20 +47,18 @@
                                 <label>Đơn hàng:</label>
                                 <div class="order-summary p-3 border rounded bg-light">
                                     @foreach ($cartItems as $item)
-                                    
                                         <p>
                                             <strong>{{ $item->product->name }}</strong><br>
-                                            Biến thể: {{ $item->variant->name ?? 'Không có' }}<br>
+                                            Biến thể: {{ optional($item->product->variant)->sku ?? 'Không có' }}<br>
                                             Số lượng: {{ $item->quantity }}<br>
-                                            Giá: {{ number_format($item->price) }} đ
+                                            Đơn giá: {{ number_format($item->product->price, 0, ',', '.') }} đ<br>
+                                            Thành tiền: {{ number_format($item->product->price * $item->quantity, 0, ',', '.') }} đ
                                         </p>
                                         <hr>
                                     @endforeach
 
-                                   
-                                        <p>Phí ship: {{ number_format($shippingFee, 0, ',', '.') }}đ</p>
-
-                                   <p>Tổng tiền: <strong id="totalAmount">{{ number_format($total, 0, ',', '.') }}đ</strong></p>
+                                    <p>Phí ship: <span id="shippingFee">{{ number_format($shippingFee, 0, ',', '.') }} đ</span></p>
+                                    <p>Tổng tiền: <strong id="totalAmount">{{ number_format($total, 0, ',', '.') }} đ</strong></p>
                                 </div>
                             </div>
 
@@ -85,14 +83,21 @@
         </div>
     </div>
 
-    <!-- Script tự động tính phí ship -->
+    <!-- Script tự động tính phí ship và cập nhật tổng -->
     <script>
-        document.querySelector('input[name="province"]').addEventListener('input', function () {
-            const province = this.value.toLowerCase();
-            const shippingFee = (province.includes('hà nội') || province.includes('ha noi')) ? 0 : 30000;
-            document.getElementById('shippingFee').innerText = shippingFee.toLocaleString('vi-VN') + ' đ';
+        (() => {
+            const provinceInput   = document.getElementById('provinceInput');
+            const shippingFeeEl   = document.getElementById('shippingFee');
+            const totalAmountEl   = document.getElementById('totalAmount');
+            // Tổng tiền hàng tính trước (đã bao gồm phí ship ban đầu)
+            const baseTotal       = {{ $total - $shippingFee }};
 
-            
-        });
+            provinceInput.addEventListener('input', function() {
+                const prov = this.value.toLowerCase();
+                const fee = (prov.includes('hà nội') || prov.includes('ha noi')) ? 0 : 30000;
+                shippingFeeEl.innerText = fee.toLocaleString('vi-VN') + ' đ';
+                totalAmountEl.innerText = (baseTotal + fee).toLocaleString('vi-VN') + ' đ';
+            });
+        })();
     </script>
 @endsection
