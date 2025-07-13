@@ -61,7 +61,6 @@ class OrderController extends Controller
         // 1. Validate input
         $request->validate([
             'name'           => 'required|string',
-            'email'          => 'required|email',
             'phone'          => 'required',
             'province'       => 'required',
             'district'       => 'required',
@@ -108,13 +107,10 @@ class OrderController extends Controller
         $order = Order::create([
             'user_id'        => Auth::id(),
             'name'           => $request->name,
-            'email'          => $request->email,
             'phone'          => $request->phone,
-            'province'       => $request->province,
-            'district'       => $request->district,
-            'address_detail' => $request->address_detail,
-            'payment_method' => $request->payment_method,
-            'shipping_fee'   => $shipping,
+            'address_id' => $request->address_id,
+            'payment_id' => $request->payment_id,
+            // 'shipping_fee'   => $shipping,
             'discount'       => $discountAmount,
             'total'          => $total,
         ]);

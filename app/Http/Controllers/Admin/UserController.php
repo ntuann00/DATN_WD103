@@ -63,7 +63,7 @@ class UserController extends BaseController
         return view('admin.users.edit', compact('user', 'roles'));
     }
 
-    public function update(Request $request, Users $user)
+    public function update(Request $request, User $user)
     {
         $validated = $request->validate([
             'name'     => 'required|string|max:255',

@@ -3,7 +3,7 @@
 namespace Database\Seeders;
 
 use App\Models\Attribute;
-use App\Models\Attribute_value;
+use App\Models\AttributeValue;
 use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 use Illuminate\Database\Seeder;
 
@@ -27,7 +27,7 @@ class AttributeValueSeeder extends Seeder
 
             if ($attribute) {
                 foreach ($attributeValues as $value) {
-                    Attribute_value::create([
+                    AttributeValue::create([
                         'attribute_id' => $attribute->id,
                         'value'        => $value,
                     ]);

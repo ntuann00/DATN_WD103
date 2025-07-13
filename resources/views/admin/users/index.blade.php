@@ -64,7 +64,6 @@
                         <td> {{ $user->created_at->format('d-m-Y') }}</td>
                         <td>{{ $user->updated_at->format('d/m/y') }}</td>
                         <td>
-                            <a href="{{ route('admin.users.edit', $user) }}" class="btn btn-sm btn-warning">Sửa</a>
                             <form action="{{ url('/users/' . $user->id . '/toggle-status') }}" method="POST"
                                     style="display:inline-block;">
                                     @csrf
