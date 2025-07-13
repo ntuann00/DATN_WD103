@@ -55,7 +55,7 @@ Route::middleware('auth')->group(function () {
     // Cart
     Route::get('/cart', [UserProductController::class, 'cart'])->name('cart.view');
     Route::post('/cart/update', [UserProductController::class, 'updateCart'])->name('cart.update');
-    Route::post('/add-to-cart/{variantId}', [UserProductController::class, 'addToCart'])->name('cart.add');
+    Route::post('/add-to-cart', [UserProductController::class, 'addToCart'])->name('cart.add');
     Route::post('/cart/remove/{productId}', [UserProductController::class, 'removeFromCart'])->name('cart.remove');
     Route::post('/cart/clear', [UserProductController::class, 'clearCart'])->name('cart.clear');
 
@@ -68,8 +68,8 @@ Route::middleware('auth')->group(function () {
 });
 
 // ========== Admin Routes ==========
-Route::prefix('admin')->name('admin.')->middleware(['auth', 'check.role'])->group(function () {
-    Route::get('/', [AdminController::class, 'index'])->name('dashboard');
+Route::middleware(['auth', 'check.role'])->group(function () {
+    Route::get('/admin', [AdminController::class, 'index'])->name('admin');
 
     // Categories
     Route::resource('categories', CategoryController::class);

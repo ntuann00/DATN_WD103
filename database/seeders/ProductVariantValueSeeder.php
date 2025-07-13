@@ -2,7 +2,7 @@
 
 namespace Database\Seeders;
 
-use App\Models\Attribute_value;
+use App\Models\AttributeValue;
 use App\Models\Product_variant;
 use App\Models\Product_variant_value;
 use Illuminate\Database\Console\Seeds\WithoutModelEvents;
@@ -19,7 +19,7 @@ class ProductVariantValueSeeder extends Seeder
 
         foreach ($variants as $variant) {
             // Lấy ngẫu nhiên 2 giá trị thuộc tính để gán cho mỗi biến thể
-            $attributeValues = Attribute_value::inRandomOrder()->take(2)->get();
+            $attributeValues = AttributeValue::inRandomOrder()->take(2)->get();
 
             foreach ($attributeValues as $value) {
                 // Tránh gán trùng cặp variant_id + attribute_value_id
