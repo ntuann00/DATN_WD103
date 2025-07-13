@@ -6,6 +6,7 @@ use App\Http\Controllers\Controller;
 use App\Models\Cart;
 use App\Models\Discount;
 use App\Models\Order;
+use App\Models\Promotion;
 use App\Models\Order_detail;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
@@ -96,7 +97,7 @@ class OrderController extends Controller
         if ($voucherId = $request->voucher_id) {
             $voucher = Discount::find($voucherId);
             if ($voucher) {
-                $discountAmount = $subtotal * ($voucher->discount / 100);
+                $discountAmount = $subtotal * ($voucher->discount_value / 100);
             }
         }
 

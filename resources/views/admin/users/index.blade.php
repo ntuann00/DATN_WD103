@@ -20,7 +20,9 @@
             </div>
         @endif
 
-        <a href="{{ route('users.create') }}" class="btn btn-primary mb-3">+ Thêm người dùng</a>
+        
+        <a href="{{ route('admin.users.create') }}" class="btn btn-primary mb-3">+ Thêm người dùng</a>
+
 <div style="overflow-x: auto;">
         <table class="table" >
             <thead class="thead-dark">
@@ -62,7 +64,7 @@
                         <td> {{ $user->created_at->format('d-m-Y') }}</td>
                         <td>{{ $user->updated_at->format('d/m/y') }}</td>
                         <td>
-                            <a href="{{ route('users.edit', $user) }}" class="btn btn-sm btn-warning">Sửa</a>
+                            <a href="{{ route('admin.users.edit', $user) }}" class="btn btn-sm btn-warning">Sửa</a>
                             <form action="{{ url('/users/' . $user->id . '/toggle-status') }}" method="POST"
                                     style="display:inline-block;">
                                     @csrf
