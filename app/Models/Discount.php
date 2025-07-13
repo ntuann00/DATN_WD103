@@ -5,7 +5,7 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Model;
 
 
-class Promotion extends Model
+class Discount extends Model
 
 {
     protected $fillable = [

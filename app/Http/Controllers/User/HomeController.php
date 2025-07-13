@@ -37,15 +37,15 @@ class HomeController extends BaseController
         $FProducts = Product::with(['category', 'variants.values'])->orderBy('created_at', 'desc')->limit(8)->get();
         return view('user.index', compact('FProducts'));
 
-        $Products = Product::has('variants')
-                           ->with('variants')
-                           ->latest()       // order by created_at desc
-                           ->take(12)        // ví dụ lấy 8 sản phẩm nổi bật
-                           ->get();
+        // $Products = Product::has('variants')
+        //                    ->with('variants')
+        //                    ->latest()       // order by created_at desc
+        //                    ->take(12)        // ví dụ lấy 8 sản phẩm nổi bật
+        //                    ->get();
 
-        $Categorys = Category::all();
+        // $Categorys = Category::all();
 
-        return view('user.index', compact('Products','Categorys'));
+        // return view('user.index', compact('Products','Categorys'));
 
     }
 

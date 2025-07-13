@@ -25,4 +25,13 @@ class Product_variant extends Model
     {
         return $this->hasMany(Product_image::class, 'product_variant_id');
     }
+    // public function values()
+    // {
+    //     // thứ tự: RelatedModel, foreign_key_on_related_table, local_key
+    //     return $this->hasMany(
+    //         Product_variant_value::class,
+    //         'variant_id', // đúng với cột trong product_variant_values
+    //         'id'
+    //     );
+    // }
 }
