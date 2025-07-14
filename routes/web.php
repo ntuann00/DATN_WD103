@@ -19,8 +19,9 @@ use App\Http\Controllers\Admin\AdminOrderController;
 use App\Http\Controllers\Admin\PromotionController;
 
 use App\Http\Controllers\Admin\ReviewController;
-=======
+
 use Illuminate\Support\Facades\DB;
+
 
 
 // ================== Public Routes ===================
@@ -74,8 +75,13 @@ Route::middleware('auth')->group(function () {
 });
 
 // ========== Admin Routes ==========
+
+Route::prefix('admin')->middleware(['auth', 'check.role'])->name('admin.')->group(function () {
+    Route::get('/', [AdminController::class, 'index'])->name('dashboard');
+
 Route::middleware(['auth', 'check.role'])->group(function () {
     Route::get('/admin', [AdminController::class, 'index'])->name('admin');
+
 
     // Categories
     Route::resource('categories', CategoryController::class);
@@ -102,7 +108,7 @@ Route::middleware(['auth', 'check.role'])->group(function () {
     // Promotions
     Route::resource('promotions', PromotionController::class);
 
-    // Reviews // code 
+    // Reviews
     Route::get('reviews', [ReviewController::class, 'index'])->name('reviews.index');
     Route::patch('reviews/{review}/hide', [ReviewController::class, 'hide'])->name('reviews.hide');
 });
