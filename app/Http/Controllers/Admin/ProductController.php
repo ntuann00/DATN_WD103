@@ -138,3 +138,4 @@ class ProductController extends Controller
         return redirect()->route('admin.products.index')->with('success', 'Xoá sản phẩm thành công!');
     }
 }
+resources/views/user/products/product-detail.blade.php
