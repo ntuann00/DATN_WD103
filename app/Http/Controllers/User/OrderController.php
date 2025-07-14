@@ -34,11 +34,10 @@ class OrderController extends Controller
                     ->first();
 
         // 4. Lấy items hoặc dùng Collection rỗng
-        // $cartItems = $cart ? $cart->cartDetails : collect();
         $items = $cart ? $cart->cartDetails : collect();
 
         // 5. Tính tổng tiền hàng dựa trên variant->price
-        // $total = $cartItems->sum(function($row) {
+
         $total = $items->sum(function($row) {
                     $variant = $row->product->variant;
                     // $price   = $variant ? $variant->price : 0;
