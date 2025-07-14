@@ -37,14 +37,13 @@
                             <span>Không có ảnh</span>
                         @endif
                     </td>
-                    </td>
                     <td>{{ $product->category->name ?? 'Không có danh mục'  }}</td>
                     <td>{{ $product->status ? 'Còn hàng' : 'Hết hàng' }}</td>
                     <td>
-                        <a href="{{ route('products.edit', $product->id) }}" class="btn btn-sm btn-warning">Sửa</a>
-                        <a href="{{ route('products.show', $product->id) }}" class="btn btn-sm btn-secondary">Chi tiết</a>
+                        <a href="{{ route('admin.products.edit', $product->id) }}" class="btn btn-sm btn-warning">Sửa</a>
+                        <a href="{{ route('admin.products.show', $product->id) }}" class="btn btn-sm btn-secondary">Chi tiết</a>
 
-                        <form action="{{ route('products.destroy', $product->id) }}" method="POST" style="display:inline-block;" onsubmit="return confirm('Bạn chắc chắn muốn xóa sản phẩm này?')">
+                        <form action="{{ route('admin.products.destroy', $product->id) }}" method="POST" style="display:inline-block;" onsubmit="return confirm('Bạn chắc chắn muốn xóa sản phẩm này?')">
                             @csrf
                             @method('DELETE')
                             <button type="submit" class="btn btn-sm btn-danger">Xóa</button>

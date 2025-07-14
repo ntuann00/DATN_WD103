@@ -96,6 +96,16 @@
             </a>
         </li>
 
+        <!-- 💬 Quản lý bình luận -->
+        <li class="{{ request()->is('admin/reviews*') ? 'mm-active' : '' }}">
+            <a href="{{ route('admin.reviews.index') }}" aria-expanded="false">
+                <div class="icon_menu">
+                    <img src="{{ asset('admins/assets/img/menu-icon/comments.svg') }}" alt>
+                </div>
+                <span>Bình luận</span>
+            </a>
+        </li>
+
         <!-- Pages -->
         <li>
             <a class="has-arrow" href="#" aria-expanded="false">

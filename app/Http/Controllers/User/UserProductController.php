@@ -3,107 +3,141 @@
 namespace App\Http\Controllers\User;
 
 use App\Http\Controllers\Controller;
-use App\Models\Cart;
-use App\Models\Cart_detail;
+use App\Models\Product;
 use App\Models\Product_variant;
+use App\Models\Review;
 use Illuminate\Http\Request;
-use Illuminate\Support\Facades\Auth;
-use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Session;
 
 class UserProductController extends Controller
 {
     /**
-     * Thêm sản phẩm vào giỏ hàng (dùng database)
+     * Hiển thị danh sách sản phẩm (nếu có)
      */
-   public function addToCart(Request $request)
-{
-    if (!Auth::check()) {
-        return redirect()->route('login')
-            ->with('error', 'Bạn cần đăng nhập để thêm sản phẩm vào giỏ.');
+    public function index()
+    {
+        //
     }
-
-    // ✅ Lấy variant ID từ form
-    $variantId = $request->input('variant_id');
-    $variant = Product_variant::with('product')->findOrFail($variantId);
-    $product = $variant->product;
-
-    $qty = max(1, (int)$request->input('quantity', 1));
-
-    $cart = Cart::firstOrCreate(
-        ['user_id' => Auth::id()],
-        ['user_id' => Auth::id()]
-    );
-
-    $detail = $cart->cartDetails()
-        ->where('product_id', $product->id)
-        ->where('product_variant_id', $variant->id)
-        ->first();
-
-    if ($detail) {
-        $detail->increment('quantity', $qty);
-    } else {
-        $cart->cartDetails()->create([
-            'product_id' => $product->id,
-            'product_variant_id' => $variant->id,
-            'quantity' => $qty,
-        ]);
-    }
-
-    return redirect()->back()->with('success', 'Đã thêm sản phẩm vào giỏ hàng!');
-}
-
 
     /**
-     * Hiển thị trang giỏ hàng (dữ liệu từ DB)
+     * Thêm sản phẩm vào giỏ hàng
+     */
+    public function addToCart(Request $request, $variantId)
+    {
+        $variant = Product_variant::findOrFail($variantId);
+        $product = $variant->product;
+        $qty = max(1, (int)$request->input('quantity', 1));
+
+        $cart = $request->session()->get('cart', []);
+
+        if (isset($cart[$variantId])) {
+            $cart[$variantId]['quantity'] += $qty;
+        } else {
+            $cart[$variantId] = [
+                'name'     => $product->name,
+                'sku'      => $variant->sku,
+                'price'    => $variant->price,
+                'image'    => $product->image,
+                'quantity' => $qty,
+            ];
+        }
+
+        $request->session()->put('cart', $cart);
+
+        return redirect()->back()->with('success', 'Sản phẩm đã được thêm vào giỏ hàng!');
+    }
+
+    /**
+     * Hiển thị giỏ hàng
      */
     public function cart()
     {
-        $cart = Cart::with([
-            'cartDetails.variant.attributeValues.attribute', // load biến thể và thuộc tính
-            'cartDetails.product'
-        ])->where('user_id', Auth::id())->latest()->first();
-
-        $items = $cart ? $cart->cartDetails : collect();
-        return view('user.cart.cart', compact('items'));
+        $cart = Session::get('cart', []);
+        return view('user.cart.cart', compact('cart'));
     }
 
     /**
-     * Cập nhật số lượng từng item trong giỏ
+     * Xóa sản phẩm khỏi giỏ hàng
+     */
+    public function removeFromCart($id)
+    {
+        $cart = session()->get('cart', []);
+
+        if (isset($cart[$id])) {
+            unset($cart[$id]);
+        }
+
+        session()->forget('cart');
+        if (!empty($cart)) {
+            session()->put('cart', $cart);
+        }
+
+        return redirect()->back()->with('success', 'Đã xóa sản phẩm khỏi giỏ hàng!');
+    }
+
+    /**
+     * Cập nhật số lượng sản phẩm trong giỏ hàng
      */
     public function updateCart(Request $request)
     {
-        foreach ($request->input('quantities', []) as $detailId => $qty) {
-            $detail = Cart_detail::find($detailId);
-            if ($detail && $detail->cart->user_id === Auth::id()) {
-                $detail->update([
-                    'quantity' => max(1, (int)$qty),
-                ]);
+        $cart = session()->get('cart', []);
+
+        foreach ($request->input('quantities') as $id => $quantity) {
+            if (isset($cart[$id])) {
+                $cart[$id]['quantity'] = max(1, (int)$quantity);
             }
         }
-        return back()->with('success', 'Giỏ hàng đã được cập nhật!');
+
+        session()->put('cart', $cart);
+        return redirect()->back()->with('success', 'Giỏ hàng đã được cập nhật!');
     }
 
     /**
-     * Xóa 1 item khỏi giỏ
-     */
-    public function removeFromCart($detailId)
-    {
-        $detail = Cart_detail::find($detailId);
-        if ($detail && $detail->cart->user_id === Auth::id()) {
-            $detail->delete();
-        }
-        return back()->with('success', 'Đã xóa sản phẩm khỏi giỏ hàng!');
-    }
-
-    /**
-     * Xóa toàn bộ giỏ hàng của user
+     * Xóa toàn bộ giỏ hàng
      */
     public function clearCart()
     {
-        Cart_detail::whereHas('cart', function ($q) {
-            $q->where('user_id', Auth::id());
-        })->delete();
-
-        return back()->with('success', 'Đã xóa toàn bộ giỏ hàng!');
+        session()->forget('cart');
+        return redirect()->back()->with('success', 'Đã xóa toàn bộ giỏ hàng!');
     }
+
+    /**
+     * Kiểm tra bình luận có chứa từ tục không
+     */
+    private function containsBadWords($text)
+    {
+        $bannedWords = ['đm', 'lồn', 'ngu', 'vãi', 'xxx', 'quảng cáo', 'chết'];
+        foreach ($bannedWords as $word) {
+            if (stripos($text, $word) !== false) {
+                return true;
+            }
+        }
+        return false;
+    }
+
+    /**
+     * Hiển thị chi tiết sản phẩm cùng với bình luận sạch
+     */
+    public function show($id)
+    {
+        $product = Product::with([
+            'variants.images',
+            'variants.variantValues.attributeValue.attribute'
+        ])->findOrFail($id);
+
+        $reviews = Review::where('product_id', $id)
+            ->latest()
+            ->get()
+            ->filter(function ($review) {
+                return !$this->containsBadWords($review->comment);
+            });
+
+        return view('user.pages.product_detail', compact('product', 'reviews'));
+    }
+
+    public function create() {}
+    public function store(Request $request) {}
+    public function edit(string $id) {}
+    public function update(Request $request, string $id) {}
+    public function destroy(string $id) {}
 }
