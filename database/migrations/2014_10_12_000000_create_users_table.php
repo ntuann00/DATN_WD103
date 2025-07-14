@@ -12,24 +12,24 @@ return new class extends Migration
     public function up(): void
     {
         Schema::create('users', function (Blueprint $table) {
-            $table->id();
-            $table->string('name');
-            $table->string('phone')->nullable();
-            $table->string('email')->unique();
-            $table->string('img')->nullable(); // ảnh đại diện
-            $table->date('birthday')->nullable();
-            $table->string('password');
-            $table->enum('gender', ['male', 'female'])->nullable();
+    $table->id();
+    $table->string('name');
+    $table->string('phone')->nullable();
+    $table->string('email')->unique();
+    $table->string('img')->nullable(); // ảnh đại diện
+    $table->date('birthday')->nullable();
+    $table->string('password');
+    $table->enum('gender', ['male', 'female'])->nullable();
 
-            // FK
-            $table->unsignedBigInteger('role_id')->nullable();
-            $table->boolean('status')->default(true); // true = active, false = inactive
-            
-            $table->timestamps();
+    // FK: KHÔNG nullable + ràng buộc chặt
+    $table->unsignedBigInteger('role_id');
+    $table->boolean('status')->default(true);
+    
+    $table->timestamps();
 
-            // relationship
-            $table->foreign('role_id')->references('id')->on('roles')->onDelete('set null');
-        });
+    $table->foreign('role_id')->references('id')->on('roles')->onDelete('restrict');
+});
+
     }
 
     /**

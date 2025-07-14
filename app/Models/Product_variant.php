@@ -9,7 +9,7 @@ class Product_variant extends Model
 {
     use HasFactory;
 
-    protected $fillable = ['product_id', 'sku', 'color', 'capacity', 'scent', 'texture'];
+    protected $fillable = ['product_id', 'sku', 'price', 'quantity'];
 
     public function product()
     {
@@ -24,5 +24,23 @@ class Product_variant extends Model
     public function images()
     {
         return $this->hasMany(Product_image::class, 'product_variant_id');
+    }
+    public function values()
+    {
+        // thứ tự: RelatedModel, foreign_key_on_related_table, local_key
+        return $this->hasMany(
+            Product_variant_value::class,
+            'variant_id', // đúng với cột trong product_variant_values
+            'id'
+        );
+    }
+    public function attributeValues()
+    {
+        return $this->belongsToMany(
+            AttributeValue::class,
+            'product_variant_values',     // bảng trung gian
+            'variant_id',                 // foreign key đến Product_variant
+            'attribute_value_id'          // foreign key đến Attribute_value
+        );
     }
 }

@@ -25,7 +25,7 @@ class ProfileController extends Controller
             'name' => 'required|string|max:255',
             // 'email' => 'required|email|max:255',
             'phone' => 'required|string|max:15',
-            'gender' => 'required|in:male,female', // Đúng với select form của vợ
+            'gender' => 'required|in:male,female', 
             'img' => 'nullable|image|max:2048',
         ]);
 

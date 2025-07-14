@@ -2,6 +2,7 @@
 
 namespace Database\Seeders;
 
+use App\Models\AttributeValue;
 use App\Models\Product;
 use App\Models\Product_variant;
 use Illuminate\Database\Console\Seeds\WithoutModelEvents;
@@ -15,20 +16,21 @@ class ProductVariantSeeder extends Seeder
      */
     public function run(): void
     {
-        $faker    = Faker::create();
+        $faker = Faker::create();
         $products = Product::all();
 
-        foreach ($products as $product) {
-            foreach (range(1, 2) as $i) {
-                Product_variant::create([
-                    'product_id' => $product->id,
-                    'sku'        => strtoupper($faker->bothify('SKU-###??')),
-                    'color'      => $faker->safeColorName,
-                    'capacity'   => $faker->randomElement(['30ml', '50ml', '100ml', '200ml']),
-                    'scent'      => $faker->randomElement(['Lavender', 'Vanilla', 'Citrus', 'Mint']),
-                    'texture'    => $faker->randomElement(['Smooth', 'Matte', 'Glossy', 'Rough']),
-                ]);
-            }
-        }
+       foreach ($products as $product) {
+    foreach (range(1, 2) as $i) {
+        // Lấy 1 attribute_value ngẫu nhiên
+        $randomAttrValue = AttributeValue::inRandomOrder()->first();
+
+        Product_variant::create([
+            'product_id'         => $product->id,
+            'sku'                => strtoupper($faker->bothify('SKU-###??')),
+            'price'              => $faker->randomFloat(2, 100000, 999999),
+            'attribute_value_id' => $randomAttrValue->id,
+        ]);
+    }
+}
     }
 }

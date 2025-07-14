@@ -17,14 +17,14 @@ return new class extends Migration
             // FK
             $table->unsignedBigInteger('product_id');
             $table->string('sku')->unique();
-            $table->string('color')->nullable();
-            $table->string('capacity')->nullable();
-            $table->string('scent')->nullable();
-            $table->string('texture')->nullable();
+            $table->decimal('price', 15, 2);
+            $table->unsignedBigInteger('attribute_value_id');
+
             $table->timestamps();
 
             // relationship
             $table->foreign('product_id')->references('id')->on('products')->onDelete('cascade');
+            $table->foreign('attribute_value_id')->references('id')->on('attribute_values')->onDelete('cascade');
         });
     }
 
