@@ -102,7 +102,7 @@ Route::middleware(['auth', 'check.role'])->group(function () {
     // Promotions
     Route::resource('promotions', PromotionController::class);
 
-    // Reviews 
+    // Reviews // code 
     Route::get('reviews', [ReviewController::class, 'index'])->name('reviews.index');
     Route::patch('reviews/{review}/hide', [ReviewController::class, 'hide'])->name('reviews.hide');
 });
