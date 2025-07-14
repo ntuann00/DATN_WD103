@@ -91,9 +91,47 @@
                                     <del>{{ number_format($variant->price, 0, ',', '.') }}</del>
                                 </p>
                             </div>
-                            <form action="{{ route('cart.add', $variant->id) }}" method="POST">
+
+                            <form action="{{ route('cart.add') }}" method="POST">
                                 @csrf
+                                <input type="hidden" name="variant_id" value="{{ $variant->id }}">
+                               
                                 <div class="quantity-color-area">
+
+
+                                    <ul class="color-list"
+                                        style="display: flex; gap: 8px; list-style: none; padding: 0; outline: none; box-shadow: none;">
+                                        @foreach ($attributeGroups as $attrName => $values)
+                                            <div class="attribute-group" style="margin-bottom: 12px;">
+                                                <label class="attribute-label"
+                                                    style="font-weight: bold; display: block; margin-bottom: 6px;">
+                                                    {{ $attrName }}
+                                                </label>
+                                                <div class="attribute-values"
+                                                    style="display: flex; flex-wrap: wrap; gap: 10px;">
+                                                    @foreach ($values as $value)
+                                                        <input type="radio"
+                                                            name="attribute[{{ $value->attribute_id }}]"
+                                                            value="{{ $value->id }}" id="attr_{{ $value->id }}"
+                                                            class="btn-check" required>
+
+                                                        <label for="attr_{{ $value->id }}"
+                                                            class="btn btn-outline-dark"
+                                                            style="min-width: 70px; text-align: center;">
+                                                            {{ $value->value }}
+                                                            <br>
+                                                        </label>
+                                                        <br>
+                                                    @endforeach
+                                                </div>
+                                            </div>
+                                        @endforeach
+
+                                    </ul>
+
+                                </div>
+
+                                 <div class="quantity-color-area">
                                     <div class="quantity-color">
                                         <h6 class="widget-title">Quantity</h6>
                                         <div class="quantity-counter">
@@ -103,44 +141,7 @@
                                             <a href="#" class="quantity__plus"><i class='bx bx-plus'></i></a>
                                         </div>
                                     </div>
-
-                                    <ul class="color-list"
-                                        style="display: flex; gap: 8px; list-style: none; padding: 0; outline: none; box-shadow: none;">
-                                        @foreach ($Product->variants as $variant)
-                                            @php
-                                                $colorAttr = $variant->attributeValues->firstWhere(
-                                                    'attribute.name',
-                                                    'Color',
-                                                );
-
-                                                $colorMap = [
-                                                    'Red' => '#ff0000',
-                                                    'Green' => '#00ff00',
-                                                    'Black' => '#000000',
-                                                    'White' => '#ffffff',
-                                                    'Purple' => '#800080',
-                                                    'Blue' => '#0000ff',
-                                                ];
-
-                                                $hex = $colorMap[$colorAttr->value ?? ''] ?? '#ccc';
-                                            @endphp
-
-                                            @if ($colorAttr)
-                                                <li style="position: relative;">
-                                                    <input type="radio" name="variant_id" value="{{ $variant->id }}"
-                                                        id="variant_{{ $variant->id }}"
-                                                        style="opacity: 0; position: absolute;" required>
-                                                    <label for="variant_{{ $variant->id }}"
-                                                        title="{{ $colorAttr->value }}"
-                                                        style="display: inline-block; width: 30px; height: 30px; border-radius: 4px; border: 2px solid transparent; background-color: {{ $hex }}; cursor: pointer;">
-                                                    </label>
-                                                </li>
-                                            @endif
-                                        @endforeach
-                                    </ul>
-
                                 </div>
-
                                 <div class="shop-details-btn">
                                     <a href="{{ route('cart.add', $variant->id) }}" class="primary-btn1 hover-btn3">*Buy
                                         Now*</a>
