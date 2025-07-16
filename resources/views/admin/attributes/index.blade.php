@@ -2,7 +2,6 @@
 
 @section('content')
     <div class="container">
-        
         <h1>Danh sách thuộc tính</h1>
 
         @if (session('success'))
@@ -22,29 +21,20 @@
                 @foreach ($attributes as $attribute)
                     <tr>
                         <td>{{ $attribute->id }}</td>
-                       <td>
-                       <a href="{{ route('attributes.show', $attribute->id) }}" style="color: black;">{{ $attribute->name }}</a>
-
-                
-            </td>
                         <td>
-                            {{-- <!-- Nút toggle hiện biến thể con -->
-                            <button class="btn btn-info btn-sm" onclick="toggleChild({{ $attribute->id }})">
-                                ({{ $attribute->values_count }})
-                            </button> --}}
-                            {{ $attribute->values_count }}
-
-
-                            
+                            <a href="{{ route('admin.attributes.show', $attribute->id) }}" style="color: black;">
+                                {{ $attribute->name }}
+                            </a>
                         </td>
-                        <td><a href="{{ route('attributes.edit', $attribute->id) }}" class="btn btn-sm btn-warning">Sửa</a>
+                        <td>{{ $attribute->values_count }}</td>
+                        <td>
+                            <a href="{{ route('admin.attributes.edit', $attribute->id) }}" class="btn btn-sm btn-warning">Sửa</a>
                         </td>
-
                     </tr>
 
                     <!-- Dòng ẩn chứa danh sách biến thể con -->
                     <tr id="children-{{ $attribute->id }}" style="display: none;">
-                        <td colspan="3">
+                        <td colspan="4">
                             @if ($attribute->values->count())
                                 <ul>
                                     @foreach ($attribute->values as $val)
@@ -58,7 +48,6 @@
                     </tr>
                 @endforeach
             </tbody>
-
         </table>
 
         {{ $attributes->links() }}

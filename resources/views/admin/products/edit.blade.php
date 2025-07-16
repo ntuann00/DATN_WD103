@@ -8,7 +8,7 @@
         <div class="alert alert-success">{{ session('success') }}</div>
     @endif
 
-    <form method="POST" action="{{ route('products.update', $product->id) }}" enctype="multipart/form-data">
+    <form method="POST" action="{{ route('admin.products.update', $product->id) }}" enctype="multipart/form-data">
         @csrf
         @method('PUT')
 
@@ -45,7 +45,6 @@
         @foreach($product->variants as $variant)
         <div class="card mb-4">
             <div class="card-body">
-
                 <input type="hidden" name="variants[{{ $variant->id }}][id]" value="{{ $variant->id }}">
 
                 <div class="mb-2">
@@ -87,13 +86,12 @@
                                     <img src="{{ asset($image->image_url) }}" width="100" class="img-thumbnail mb-1">
 
                                     {{-- Nút xoá ảnh --}}
-                                    <form method="POST" action="{{ route('product-images.destroy', $image->id) }}"
+                                    <form method="POST" action="{{ route('admin.product-images.destroy', $image->id) }}"
                                           style="position: absolute; top: 0; right: 0;"
                                           onsubmit="return confirm('Bạn có chắc muốn xoá ảnh này?')">
                                         @csrf
                                         @method('DELETE')
                                         <button type="submit" class="btn btn-danger btn-sm p-1" style="font-size: 12px;">
-                                            ✖
                                         </button>
                                     </form>
                                 </div>
@@ -107,7 +105,6 @@
                     <label>Thêm ảnh mới:</label>
                     <input type="file" name="variant_images[{{ $variant->id }}][]" multiple class="form-control">
                 </div>
-
             </div>
         </div>
         @endforeach
