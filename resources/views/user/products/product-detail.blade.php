@@ -33,21 +33,89 @@
                         <input type="text" name="quantity" value="1" class="form-control text-center" readonly>
                         <button type="button" class="btn btn-outline-secondary increment">+</button>
                     </div>
-                    <button type="submit" class="btn btn-success">
-                        <i class="bi bi-cart-plus me-1"></i> Thêm vào giỏ hàng
-                    </button>
-                </form>
-                @else
-                <a href="{{ route('login') }}" class="btn btn-primary mb-4">Đăng nhập để mua hàng</a>
-                @endauth
-            @else
-                <div class="alert alert-warning">Sản phẩm hiện không có biến thể.</div>
-            @endif
 
-            <h5 class="mt-4">Mô tả sản phẩm</h5>
-            <p>{{ $Product->description }}</p>
-        </div>
-    </div>
+                    <div class="col-lg-6">
+                        <div class="shop-details-content">
+                            <h1>{{ $Product->name }}</h1>
+                            <div class="rating-review">
+                                <div class="rating">
+                                    <div class="star">
+                                        <i class="bi bi-star-fill"></i>
+                                        <i class="bi bi-star-fill"></i>
+                                        <i class="bi bi-star-fill"></i>
+                                        <i class="bi bi-star-fill"></i>
+                                        <i class="bi bi-star-fill"></i>
+                                    </div>
+                                    <p>{{ $Product->comment }}</p>
+                                </div>
+                            </div>
+                            <p>{{ $Product->description }}</p>
+                            <div class="price-area">
+                                <p class="price">{{ number_format($variant->price, 0, ',', '.') }}Đ
+                                    <del>{{ number_format($variant->price, 0, ',', '.') }}</del>
+                                </p>
+                            </div>
+
+                            <form action="{{ route('cart.add') }}" method="POST">
+                                @csrf
+                                <input type="hidden" name="variant_id" value="{{ $variant->id }}">
+                                <div class="quantity-color-area">
+
+
+                                    <ul class="color-list"
+                                        style="display: flex; gap: 8px; list-style: none; padding: 0; outline: none; box-shadow: none;">
+                                        @foreach ($attributeGroups as $attrName => $values)
+                                            <div class="attribute-group" style="margin-bottom: 12px;">
+                                                <label class="attribute-label"
+                                                    style="font-weight: bold; display: block; margin-bottom: 6px;">
+                                                    {{ $attrName }}
+                                                </label>
+                                                <div class="attribute-values"
+                                                    style="display: flex; flex-wrap: wrap; gap: 10px;">
+                                                    @foreach ($values as $value)
+                                                        <input type="radio"
+                                                            name="attribute[{{ $value->attribute_id }}]"
+                                                            value="{{ $value->id }}" id="attr_{{ $value->id }}"
+                                                            class="btn-check" required>
+
+                                                        <label for="attr_{{ $value->id }}"
+                                                            class="btn btn-outline-dark"
+                                                            style="min-width: 70px; text-align: center;">
+                                                            {{ $value->value }}
+                                                            <br>
+                                                        </label>
+                                                        <br>
+                                                    @endforeach
+                                                </div>
+                                            </div>
+                                        @endforeach
+
+                                    </ul>
+
+                                </div>
+
+                                 <div class="quantity-color-area">
+                                    <div class="quantity-color">
+                                        <h6 class="widget-title">Quantity</h6>
+                                        <div class="quantity-counter">
+                                            <a href="#" class="quantity__minus"><i class='bx bx-minus'></i></a>
+                                            <input name="quantity" type="number" class="quantity__input" value="1"
+                                                min="1">
+                                            <a href="#" class="quantity__plus"><i class='bx bx-plus'></i></a>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="shop-details-btn">
+                                    <a href="{{ route('cart.add', $variant->id) }}" class="primary-btn1 hover-btn3">*Buy
+                                        Now*</a>
+                                    <form action="{{ route('cart.add', $variant->id) }}" method="post">
+                                        @csrf
+                                        <button type="submit" class="primary-btn1 style-3 hover-btn4">*Add to
+                                            Cart*</button>
+                                    </form>
+                                </div>
+                            </form>
+
 
     {{-- Mô tả và đánh giá --}}
     <div class="shop-details-description mt-5" id="reviews">
