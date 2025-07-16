@@ -95,7 +95,6 @@
                             <form action="{{ route('cart.add') }}" method="POST">
                                 @csrf
                                 <input type="hidden" name="variant_id" value="{{ $variant->id }}">
-                               
                                 <div class="quantity-color-area">
 
 
