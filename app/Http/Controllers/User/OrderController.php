@@ -3,11 +3,14 @@
 namespace App\Http\Controllers\User;
 
 use App\Http\Controllers\Controller;
+use App\Models\Address;
 use App\Models\Cart;
+use App\Models\Cart_detail;
 use App\Models\Discount;
 use App\Models\Order;
 use App\Models\Promotion;
 use App\Models\Order_detail;
+use App\Models\Payment;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 
@@ -22,69 +25,79 @@ class OrderController extends Controller
                 ->with('error', 'Bạn cần đăng nhập để đặt hàng.');
         }
 
-        // 2. Tính phí ship
-        $province    = $request->input('province', Auth::user()->province);
-        $normalized  = strtolower($province);
-        $shippingFee = in_array($normalized, ['ha noi','hà nội']) ? 0 : 30000;
+        // 2. Mặc định phí ship = 30.000 đ
+        $shippingFee = 30000;
 
-        // 3. Lấy cart mới nhất của user cùng pivot → product → variant
-        $cart = Cart::with('cartDetails.product.variant')
-                    ->where('user_id', Auth::id())
-                    ->latest('id')
-                    ->first();
+        // 3. Lấy giỏ hàng và chi tiết sản phẩm
+        $cart = Cart::with('cartDetails.variant', 'cartDetails.product')
+            ->where('user_id', Auth::id())
+            ->latest('id')
+            ->first();
 
-        // 4. Lấy items hoặc dùng Collection rỗng
-        // $cartItems = $cart ? $cart->cartDetails : collect();
-        $items = $cart ? $cart->cartDetails : collect();
+        $items = $cart?->cartDetails ?? collect();
+        if ($items->isEmpty()) {
+            return back()->with('error', 'Giỏ hàng của bạn đang trống.');
+        }
 
-        // 5. Tính tổng tiền hàng dựa trên variant->price
-        // $total = $cartItems->sum(function($row) {
-        $total = $items->sum(function($row) {
-                    $variant = $row->product->variant;
-                    // $price   = $variant ? $variant->price : 0;
-                    return ($variant ? $variant->price : 0) * $row->quantity;
-                })
-                + $shippingFee;
+        // 4. Tính tổng tiền sản phẩm
+        $total = $items->sum(function ($row) {
+            $price = $row->variant ? (float) $row->variant->price : 0;
+            return $price * $row->quantity;
+        });
 
-        // return view('user.orders.index', compact(
-        //     'cartItems', 'shippingFee', 'total'
-        // ));
+        // 5. Cộng thêm phí ship
+        $total += $shippingFee;
+
+        // 6. Lấy danh sách phương thức thanh toán
+        $payments = Payment::all();
+
+        // 7. Trả dữ liệu về view
         return view('user.orders.index', [
-            'cartItems'   => $items,
+            'cartItems' => $items,
             'shippingFee' => $shippingFee,
-            'total'       => $total,
+            'total' => $total,
+            'payments' => $payments
         ]);
     }
 
     public function store(Request $request)
     {
+
+        if ($request->has('quantities')) {
+            foreach ($request->quantities as $detailId => $qty) {
+                $detail = Cart_detail::find($detailId);
+                if ($detail && $detail->cart->user_id === Auth::id()) {
+                    $detail->update([
+                        'quantity' => max(1, (int) $qty),
+                    ]);
+                }
+            }
+        }
         // 1. Validate input
         $request->validate([
-            'name'           => 'required|string',
-            'phone'          => 'required',
-            'province'       => 'required',
-            'district'       => 'required',
-            'address_detail' => 'required',
-            'payment_method' => 'required|in:cod,visa',
-            'voucher_id'     => 'nullable|exists:discounts,id',
+            'name' => 'required|string',
+            'phone' => 'required',
+            'address' => 'required|string',
+            'address_id' => 'nullable|exists:addresses,id',
+            'payment_id' => 'required|exists:payments,id',
         ]);
 
         // 2. Tính phí ship
         $province = strtolower($request->province);
-        $shipping = in_array($province, ['ha noi','hà nội']) ? 0 : 30000;
+        $shipping = in_array($province, ['ha noi', 'hà nội']) ? 0 : 30000;
 
         // 3. Lấy cart + pivot → product → variant
-        $cart = Cart::with('cartDetails.product.variant')
-                    ->where('user_id', Auth::id())
-                    ->latest('id')
-                    ->first();
+        $cart = Cart::with('cartDetails.product.variants')
+            ->where('user_id', Auth::id())
+            ->latest('id')
+            ->first();
 
         // $cartItems = $cart ? $cart->cartDetails : collect();
         $items = $cart ? $cart->cartDetails : collect();
 
         // 4. Tính subtotal dựa trên variant->price
         // $subtotal = $cartItems->sum(function($row) {
-        $subtotal = $items->sum(function($row) {
+        $subtotal = $items->sum(function ($row) {
             $variant = $row->product->variant;
             // $price   = $variant ? $variant->price : 0;
             // return $price * $row->quantity;
@@ -104,32 +117,48 @@ class OrderController extends Controller
         $total = $subtotal + $shipping - $discountAmount;
 
         // 7. Tạo Order
+        $address = new Address();
+        $address->user_id = Auth::id();
+        $address->address = $request->address;
+        $address->save();
         $order = Order::create([
-            'user_id'        => Auth::id(),
-            'name'           => $request->name,
-            'phone'          => $request->phone,
-            'address_id' => $request->address_id,
+            'user_id'    => Auth::id(),
+            'name'       => $request->name,
             'payment_id' => $request->payment_id,
-            // 'shipping_fee'   => $shipping,
-            'discount'       => $discountAmount,
-            'total'          => $total,
+            'status_id' => 1,
+            'description' => $request->description,
+            'address_id' => $address->id,
+            'phone'      => $request->phone,
+            'total'      => $total,
+
+
         ]);
 
-        // 8. Tạo Order_detail: price lấy từ variant->price
-        // foreach ($cartItems as $row) {
         foreach ($items as $row) {
-            $variant   = $row->product->variant;
+            $variant = $row->product->variants->first();
             $unitPrice = $variant ? $variant->price : 0;
+            $quantity  = $row->quantity;
+            $itemTotal = $unitPrice * $quantity;
+        //    dd($variant?->id);
+
+//         dd([
+//     'order_id' => $order->id,
+//     'product_id' => $row->product->id,
+//     'product_variant_id' => $variant?->id,
+//     'quantity' => $quantity,
+//     'price' => $unitPrice,
+//     'total' => $itemTotal,
+// ]);
 
             Order_detail::create([
                 'order_id'   => $order->id,
                 'product_id' => $row->product->id,
-                'variant_id' => $variant ? $variant->id : null,
+                'product_variant_id' => $variant?->id,
+                'quantity'   => $quantity,
                 'price'      => $unitPrice,
-                'quantity'   => $row->quantity,
+                'total'      => $itemTotal,
             ]);
         }
-
         // 9. Xóa pivot để giỏ trống
         if ($cart) {
             $cart->cartDetails()->delete();
