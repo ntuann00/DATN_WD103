@@ -17,7 +17,8 @@ use App\Http\Controllers\Admin\ProductController;
 use App\Http\Controllers\Admin\ProductImageController;
 use App\Http\Controllers\Admin\AdminOrderController;
 use App\Http\Controllers\Admin\PromotionController;
-use Illuminate\Support\Facades\DB;
+use App\Http\Controllers\Admin\ReviewController;
+
 
 // ================== Public Routes ===================
 Route::get('/', [HomeController::class, 'index'])->name('home');
@@ -57,7 +58,6 @@ Route::middleware('auth')->group(function () {
     Route::get('/cart', [UserProductController::class, 'cart'])->name('cart.view');
     Route::post('/cart/update', [UserProductController::class, 'updateCart'])->name('cart.update');
     Route::post('/add-to-cart', [UserProductController::class, 'addToCart'])->name('cart.add');
-
     Route::post('/cart/remove/{productId}', [UserProductController::class, 'removeFromCart'])->name('cart.remove');
     Route::post('/cart/clear', [UserProductController::class, 'clearCart'])->name('cart.clear');
 
@@ -70,8 +70,8 @@ Route::middleware('auth')->group(function () {
 });
 
 // ========== Admin Routes ==========
-Route::middleware(['auth', 'check.role'])->group(function () {
-    Route::get('/admin', [AdminController::class, 'index'])->name('admin');
+Route::prefix('admin')->middleware(['auth', 'check.role'])->name('admin.')->group(function () {
+    Route::get('/', [AdminController::class, 'index'])->name('dashboard');
 
     // Categories
     Route::resource('categories', CategoryController::class);
@@ -97,6 +97,8 @@ Route::middleware(['auth', 'check.role'])->group(function () {
 
     // Promotions
     Route::resource('promotions', PromotionController::class);
+
+    // Reviews
+    Route::get('reviews', [ReviewController::class, 'index'])->name('reviews.index');
+    Route::patch('reviews/{review}/hide', [ReviewController::class, 'hide'])->name('reviews.hide');
 });
-
-
