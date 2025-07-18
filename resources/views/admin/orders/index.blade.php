@@ -23,7 +23,7 @@
                 <td>{{ $order->orderDetails->sum('quantity') }}</td>
                 <td>{{ number_format($order->orderDetails->sum(fn($d) => $d->price * $d->quantity), 0, ',', '.') }} đ</td>
                 <td>
-                    <a href="{{ route('admin.orders.show', $order->id) }}" class="btn btn-info btn-sm">Xem</a>
+                    <a href="{{ route('orders.show', $order->id) }}" class="btn btn-info btn-sm">Xem</a>
                 </td>
             </tr>
             @endforeach
