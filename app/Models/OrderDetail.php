@@ -6,6 +6,7 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use App\Models\Order;
 use App\Models\Product;
+use App\Models\Product_variant;
 
 class OrderDetail extends Model
 {

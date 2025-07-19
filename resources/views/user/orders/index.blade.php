@@ -89,7 +89,8 @@ Total raw: {{ $total }}
                                 <label>Phương thức thanh toán:</label>
                                 <select name="payment_id" required>
                                     @foreach ($payments as $payment)
-                                        <option value="{{ $payment->id }}">
+                                        <option value="{{ $payment->id }}"
+                                            {{ old('payment_id') == $payment->id ? 'selected' : '' }}>
                                             {{ $payment->name }}
                                         </option>
                                     @endforeach

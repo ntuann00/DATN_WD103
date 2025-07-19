@@ -46,7 +46,7 @@ class UserController extends BaseController
 
         User::create($validated);
 
-        return redirect()->route('users.index')->with('success', 'Tạo người dùng thành công!');
+        return redirect()->route('admin.users.index')->with('success', 'Tạo người dùng thành công!');
     }
 
     public function show($id)
@@ -92,7 +92,7 @@ class UserController extends BaseController
 
         $user->update($validated);
 
-        return redirect()->route('users.index')->with('success', 'Cập nhật người dùng thành công!');
+        return redirect()->route('admin.users.index')->with('success', 'Cập nhật người dùng thành công!');
     }
 
     public function toggleStatus($id)
@@ -100,12 +100,12 @@ class UserController extends BaseController
         $user = User::findOrFail($id);
 
         if ($user->role && $user->role->name === 'admin') {
-            return redirect()->route('users.index')->with('error', 'Không thể khóa tài khoản quản trị viên.');
+            return redirect()->route('admin.users.index')->with('error', 'Không thể khóa tài khoản quản trị viên.');
         }
 
         $user->status = $user->status == 1 ? 0 : 1;
         $user->save();
 
-        return redirect()->route('users.index')->with('success', 'Đã cập nhật trạng thái tài khoản.');
+        return redirect()->route('admin.users.index')->with('success', 'Đã cập nhật trạng thái tài khoản.');
     }
 }
