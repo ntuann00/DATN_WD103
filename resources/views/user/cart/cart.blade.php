@@ -113,12 +113,20 @@
 
     <!-- Script tăng giảm số lượng ngay trên view -->
     <script>
+        function autoUpdateCart() {
+            // Tự động submit form sau 0.5s để tránh gửi quá nhanh
+            setTimeout(() => {
+                document.querySelector('form[action="{{ route('cart.update') }}"]').submit();
+            }, 500);
+        }
+
         document.querySelectorAll('.increment').forEach(btn => {
             btn.addEventListener('click', () => {
                 const id = btn.dataset.id;
                 const input = document.querySelector(`input[name="quantities[${id}]"]`);
                 input.value = parseInt(input.value) + 1;
                 updateLineTotal(id);
+                autoUpdateCart(); // 👈 Gọi cập nhật
             });
         });
 
@@ -129,25 +137,20 @@
                 if (parseInt(input.value) > 1) {
                     input.value = parseInt(input.value) - 1;
                     updateLineTotal(id);
+                    autoUpdateCart(); // 👈 Gọi cập nhật
                 }
             });
         });
 
-        // Cập nhật tiền từng dòng
         function updateLineTotal(id) {
             const row = document.querySelector(`tr[data-id="${id}"]`);
             const price = parseFloat(row.dataset.price);
             const quantity = parseInt(document.querySelector(`input[name="quantities[${id}]"]`).value);
             const total = price * quantity;
-
-            // Cập nhật hiển thị tiền dòng
             row.querySelector('.line-total').textContent = total.toLocaleString('vi-VN') + '₫';
-
-            // Cập nhật tổng tiền giỏ hàng
             updateGrandTotal();
         }
 
-        // Cập nhật tổng tiền toàn giỏ hàng
         function updateGrandTotal() {
             let grandTotal = 0;
             document.querySelectorAll('tr[data-id]').forEach(row => {
@@ -156,9 +159,9 @@
                 grandTotal += price * quantity;
             });
 
-            // Cập nhật hiển thị
             document.querySelector('.grand-total').textContent = grandTotal.toLocaleString('vi-VN') + '₫';
         }
     </script>
+
 
 @endsection

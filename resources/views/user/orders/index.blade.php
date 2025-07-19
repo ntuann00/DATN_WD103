@@ -33,6 +33,11 @@
                                 <input id="addressInput" type="text" name="address" placeholder="VD: Hà Nội"
                                     value="{{ old('address', auth()->user()->address ?? '') }}" required>
                             </div>
+                            <div class="form-inner mb-3">
+                                <label for="description">Mô tả đơn hàng:</label>
+                                <textarea name="description" id="description" class="form-control" rows="3"
+                                    placeholder="Ví dụ: Giao giờ hành chính, sản phẩm dễ vỡ, giao sớm giúp...">{{ old('description') }}</textarea>
+                            </div>
                         </div>
 
                         <!-- Thông tin đơn hàng -->
@@ -55,7 +60,10 @@
                                         {{-- <pre>{{ dd($item) }}</pre> --}}
                                         <p>
                                             <strong>{{ $item->product->name }}</strong><br>
-                                            Biến thể: {{ $variant ? $variant->sku : 'Không có' }}<br>
+
+                                            @foreach ($variant->attributeValues as $attrVal)
+                                                {{ $attrVal->attribute->name }}: {{ $attrVal->value }}<br>
+                                            @endforeach
                                             Số lượng: {{ $item->quantity }}<br>
                                             Đơn giá: {{ number_format($price, 0, ',', '.') }} đ<br>
                                             Thành tiền: {{ number_format($price * $item->quantity, 0, ',', '.') }} đ

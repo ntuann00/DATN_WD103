@@ -83,8 +83,8 @@ class OrderController extends Controller
         ]);
 
         // 2. Tính phí ship
-        $province = strtolower($request->province);
-        $shipping = in_array($province, ['ha noi', 'hà nội']) ? 0 : 30000;
+        $address = strtolower($request->address);
+        $shipping = str_contains($address, 'hà nội') || str_contains($address, 'ha noi') ? 0 : 30000;
 
         // 3. Lấy cart + pivot → product → variant
         $cart = Cart::with('cartDetails.product.variants')
@@ -96,11 +96,8 @@ class OrderController extends Controller
         $items = $cart ? $cart->cartDetails : collect();
 
         // 4. Tính subtotal dựa trên variant->price
-        // $subtotal = $cartItems->sum(function($row) {
         $subtotal = $items->sum(function ($row) {
-            $variant = $row->product->variant;
-            // $price   = $variant ? $variant->price : 0;
-            // return $price * $row->quantity;
+            $variant = $row->variant;
             return ($variant ? $variant->price : 0) * $row->quantity;
         });
 
@@ -139,16 +136,16 @@ class OrderController extends Controller
             $unitPrice = $variant ? $variant->price : 0;
             $quantity  = $row->quantity;
             $itemTotal = $unitPrice * $quantity;
-        //    dd($variant?->id);
+            //    dd($variant?->id);
 
-//         dd([
-//     'order_id' => $order->id,
-//     'product_id' => $row->product->id,
-//     'product_variant_id' => $variant?->id,
-//     'quantity' => $quantity,
-//     'price' => $unitPrice,
-//     'total' => $itemTotal,
-// ]);
+            //         dd([
+            //     'order_id' => $order->id,
+            //     'product_id' => $row->product->id,
+            //     'product_variant_id' => $variant?->id,
+            //     'quantity' => $quantity,
+            //     'price' => $unitPrice,
+            //     'total' => $itemTotal,
+            // ]);
 
             Order_detail::create([
                 'order_id'   => $order->id,
