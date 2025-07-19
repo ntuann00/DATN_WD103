@@ -9,7 +9,7 @@
                         <img src="{{ asset('user/assets/img/home2/newsletter-top-right-vector.png')}}" alt="" class="top-right">
                         <img src="{{ asset('user/assets/img/home2/newsletter-bottom-right-vector.png')}}" alt="" class="bottom-right">
                         <div class="newsletter-content">
-                            <h2>Sign up to our newsletter for all the latest Offer & discounts.</h2>
+                            <h2>Sign up to our newsletter for all the latest Offer & promotions.</h2>
                             <form>
                                 <div class="from-inner">
                                     <input type="email" placeholder="Email Address">

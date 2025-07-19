@@ -24,6 +24,7 @@ class OrderDetailSeeder extends Seeder
 
             // Chọn 2 sản phẩm ngẫu nhiên để thêm vào mỗi đơn hàng
             foreach ($products->random(2) as $product) {
+                 $variant = $product->variants->first();
                 $quantity = rand(1, 3);
                 $price = $product->price ?? $faker->randomFloat(2, 50000, 1000000); // fallback giá trị nếu ko có
                 $subtotal = $price * $quantity;
@@ -31,6 +32,7 @@ class OrderDetailSeeder extends Seeder
                 Order_detail::create([
                     'order_id'  => $order->id,
                     'product_id'=> $product->id,
+                    'product_variant_id' => $variant->id,
                     'quantity'  => $quantity,
                     'price'     => $price,
                     'total'     => $subtotal,

@@ -81,7 +81,7 @@
 
     {{-- Nút quay lại --}}
     <div class="mt-4 text-center">
-        <a href="{{ route('admin.orders.index') }}" class="btn btn-secondary">
+        <a href="{{ route('orders.index') }}" class="btn btn-secondary">
             ← Quay lại danh sách đơn hàng
         </a>
     </div>

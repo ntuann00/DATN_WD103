@@ -3,7 +3,7 @@
 @section('content')
 <div class="container">
     <h2>Danh sách mã giảm giá</h2>
-    <a href="{{ route('admin.discounts.create') }}" class="btn btn-primary mb-3">Thêm mã giảm giá</a>
+    <a href="{{ route('admin.promotions.create') }}" class="btn btn-primary mb-3">Thêm mã giảm giá</a>
     <table class="table table-bordered">
         <thead>
             <tr>
@@ -17,35 +17,35 @@
             </tr>
         </thead>
         <tbody>
-            @foreach($discounts as $discount)
+            @foreach($promotions as $Promotion)
                 <tr>
-                    <td>{{ $discount->id }}</td>
-                    <td>{{ $discount->code }}</td>
+                    <td>{{ $Promotion->id }}</td>
+                    <td>{{ $Promotion->code }}</td>
                     <td>
-                        @if($discount->discount_type === 'amount')
+                        @if($Promotion->discount_type === 'amount')
                             Giảm theo số tiền
-                        @elseif($discount->discount_type === 'percent')
+                        @elseif($Promotion->discount_type === 'percent')
                             Giảm theo phần trăm
                         @else
                             Không rõ
                         @endif
                     </td>
                     <td>
-                        @if($discount->discount_type === 'percent')
-                            {{ $discount->discount_value }}%
+                        @if($Promotion->discount_type === 'percent')
+                            {{ $Promotion->discount_value }}%
                         @else
-                            {{ number_format($discount->discount_value, 0, ',', '.') }} đ
+                            {{ number_format($Promotion->discount_value, 0, ',', '.') }} đ
                         @endif
                     </td>
-                    <td>{{ $discount->quantity }}</td>
+                    <td>{{ $Promotion->quantity }}</td>
                     <td>
-                        {{ \Carbon\Carbon::parse($discount->start_date)->format('d/m/Y') }}
+                        {{ \Carbon\Carbon::parse($Promotion->start_date)->format('d/m/Y') }}
                         đến
-                        {{ \Carbon\Carbon::parse($discount->end_date)->format('d/m/Y') }}
+                        {{ \Carbon\Carbon::parse($Promotion->end_date)->format('d/m/Y') }}
                     </td>
                     <td>
-                        <a href="{{ route('admin.discounts.edit', $discount->id) }}" class="btn btn-sm btn-warning">Sửa</a>
-                        <form action="{{ route('admin.discounts.destroy', $discount->id) }}" method="POST" style="display:inline-block;">
+                        <a href="{{ route('admin.promotions.edit', $Promotion->id) }}" class="btn btn-sm btn-warning">Sửa</a>
+                        <form action="{{ route('admin.promotions.destroy', $Promotion->id) }}" method="POST" style="display:inline-block;">
                             @csrf @method('DELETE')
                             <button onclick="return confirm('Xác nhận xóa?')" class="btn btn-sm btn-danger">Xóa</button>
                         </form>

@@ -6,6 +6,7 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use App\Models\Order;
 use App\Models\Product;
+use App\Models\Product_variant;
 
 class OrderDetail extends Model
 {
@@ -16,8 +17,10 @@ class OrderDetail extends Model
     protected $fillable = [
         'order_id',
         'product_id',
+        'product_variant_id',
         'quantity',
         'price',
+        'total',
     ];
 
     // Mỗi chi tiết đơn hàng thuộc về một đơn hàng
@@ -27,11 +30,14 @@ class OrderDetail extends Model
     }
 
     // Mỗi chi tiết đơn hàng thuộc về một sản phẩm
- 
 
- public function product()
-{
-    return $this->belongsTo(Product::class);
-}
 
+    public function product()
+    {
+        return $this->belongsTo(Product::class);
+    }
+    public function productVariant()
+    {
+        return $this->belongsTo(Product_variant::class, 'product_variant_id');
+    }
 }

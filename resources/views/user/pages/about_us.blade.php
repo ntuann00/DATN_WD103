@@ -397,7 +397,6 @@
     </div>
     <!-- End Beauty Article section -->
 
-
    <!-- Star Gift section section -->
     <div class="gift-section">
         <img src="assets/img/home1/gift-card-img1.png" alt="" class="gift-img1">

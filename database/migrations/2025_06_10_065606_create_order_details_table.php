@@ -17,6 +17,7 @@ return new class extends Migration
             // FK
             $table->unsignedBigInteger('order_id');
             $table->unsignedBigInteger('product_id');
+            $table->unsignedBigInteger('product_variant_id')->nullable();
 
             $table->integer('quantity')->default(1);
             $table->decimal('price', 10, 2)->default(0); // đơn giá tại thời điểm đặt
@@ -26,6 +27,7 @@ return new class extends Migration
             // relationship
             $table->foreign('order_id')->references('id')->on('orders')->onDelete('cascade');
             $table->foreign('product_id')->references('id')->on('products')->onDelete('cascade');
+            $table->foreign('product_variant_id')->references('id')->on('product_variants')->nullOnDelete();
         });
     }
 

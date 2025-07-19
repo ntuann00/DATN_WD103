@@ -11,7 +11,7 @@
             <p>Chúc quý khách một ngày tốt lành</p>
 
             <div class="mt-4">
-                <a href="{{ route('order.index') }}" class="btn btn-outline-secondary me-2">Xem chi tiết đơn hàng</a>
+                <a href="{{ route('profile') }}" class="btn btn-outline-secondary me-2">Xem chi tiết đơn hàng</a>
                 <a href="{{ route('u.product') }}" class="btn btn-warning text-white">Tiếp tục mua hàng</a>
             </div>
         </div>

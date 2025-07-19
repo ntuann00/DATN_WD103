@@ -13,6 +13,10 @@ class Product extends Model
     {
         return $this->hasMany(Product_variant::class, 'product_id', 'id');
     }
+    public function variant()
+    {
+        return $this->belongsTo(Product_variant::class, 'productVariant_id','id');
+    }
 
     public function category()
     {
