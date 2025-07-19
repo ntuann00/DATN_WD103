@@ -288,7 +288,7 @@
                                                                                 style="height:180px; object-fit:cover;">
                                                                             <div class="card-body d-flex flex-column">
                                                                                 <h6 class="card-title">
-                                                                                    {{ \Illuminate\Support\Str::limit($item->name, 30) }}
+                                                                                    {{Str::limit($item->name, 30) }}
                                                                                 </h6>
                                                                                 <p class="text-danger fw-bold mt-auto">
                                                                                     {{ number_format($relVariant->price, 0, ',', '.') }}₫
