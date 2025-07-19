@@ -15,18 +15,13 @@ class Order extends Model
     protected $fillable = [
         'user_id',
         'name',
+        'payment_id',
         'status_id',
         'description',
         'address_id',
         'phone',
         'total',
-        'email',
-        'province',
-        'district',
-        'address_detail',
-        'payment_method',
-        'shipping_fee',
-        'promotion', // dùng đúng với cột bạn tạo trong migration
+        
     ];
 
     public function orderDetails()
