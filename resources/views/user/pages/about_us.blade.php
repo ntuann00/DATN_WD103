@@ -1,26 +1,13 @@
 @extends('user.layouts.app')
 
 @section('content')
-<!-- Start Breadcrumb Section -->
-    <div class="breadcrumb-section">
-        <div class="container">
-            <nav aria-label="breadcrumb">
-                <ol class="breadcrumb">
-                  <li class="breadcrumb-item"><a href="index.html">Home</a></li>
-                  <li class="breadcrumb-item active" aria-current="page">About Us</li>
-                </ol>
-              </nav>
-        </div>
-    </div>
-    <!-- End Breadcrumb Section section -->
-
     <!-- Start About Us Banner Section -->
     <div class="about-us-banner mt-110  mb-110">
         <div class="container">
             <div class="row">
                 <div class="col-12">
                     <div class="about-us-thumb hover-img mb-60">
-                        <img src="assets/img/inner-page/about-us-banner-img.png" alt="">
+                        <img src="{{ asset('user/assets/img/inner-page/about-us-banner-img.png')}}" alt="">
                     </div>
                 </div>
             </div>
@@ -51,7 +38,7 @@
             <div class="row">
                 <div class="col-12">
                     <div class="about-video-thumb">
-                        <img src="assets/img/inner-page/about-video-bg.png" alt="">
+                        <img src="{{ asset('user/assets/img/inner-page/about-video-bg.png')}}" alt="">
                         <a data-fancybox="popup-video" href="https://www.youtube.com/watch?v=u31qwQUeGuM"><i class="bi bi-play-fill"></i></a>
                     </div>
                 </div>
@@ -74,49 +61,49 @@
                                 <div class="swiper-slide">
                                      <div class="brand-icon">
                                         <a href="shop-list.html">
-                                            <img src="assets/img/home1/brand-logo1.png" alt="">
+                                            <img src="{{ asset('user/assets/img/home1/brand-logo1.png')}}" alt="">
                                         </a>
                                      </div>
                                 </div>
                                 <div class="swiper-slide">
                                      <div class="brand-icon">
                                         <a href="shop-list.html">
-                                            <img src="assets/img/home1/brand-logo2.png" alt="">
+                                            <img src="{{ asset('user/assets/img/home1/brand-logo2.png')}}" alt="">
                                         </a>
                                      </div>
                                 </div>
                                 <div class="swiper-slide">
                                      <div class="brand-icon">
                                         <a href="shop-list.html">
-                                            <img src="assets/img/home1/brand-logo3.png" alt="">
+                                            <img src="{{ asset('user/assets/img/home1/brand-logo3.png')}}" alt="">
                                         </a>
                                      </div>
                                 </div>
                                 <div class="swiper-slide">
                                      <div class="brand-icon">
                                         <a href="shop-list.html">
-                                            <img src="assets/img/home1/brand-logo4.png" alt="">
+                                            <img src="{{ asset('user/assets/img/home1/brand-logo4.png')}}" alt="">
                                         </a>
                                      </div>
                                 </div>
                                 <div class="swiper-slide">
                                      <div class="brand-icon">
                                         <a href="shop-list.html">
-                                            <img src="assets/img/home1/brand-logo5.png" alt="">
+                                            <img src="{{ asset('user/assets/img/home1/brand-logo5.png')}}" alt="">
                                         </a>
                                      </div>
                                 </div>
                                 <div class="swiper-slide">
                                      <div class="brand-icon">
                                         <a href="shop-list.html">
-                                            <img src="assets/img/home1/brand-logo6.png" alt="">
+                                            <img src="{{ asset('user/assets/img/home1/brand-logo6.png')}}" alt="">
                                         </a>
                                      </div>
                                 </div>
                                 <div class="swiper-slide">
                                      <div class="brand-icon">
                                         <a href="shop-list.html">
-                                            <img src="assets/img/home1/brand-logo7.png" alt="">
+                                            <img src="{{ asset('user/assets/img/home1/brand-logo7.png')}}" alt="">
                                         </a>
                                      </div>
                                 </div>
@@ -136,7 +123,7 @@
                 <div class="row align-items-center justify-content-center g-0 gy-4">
                     <div class="col-lg-6">
                         <div class="makeup-img hover-img">
-                            <img src="assets/img/home1/makeup-img1.png" alt="">
+                            <img src="{{ asset('user/assets/img/home1/makeup-img1.png')}}" alt="">
                         </div>
                     </div>
                     <div class="col-lg-6">
@@ -159,7 +146,7 @@
                 </div>
                 <div class="col-lg-6 order-lg-2 order-1">
                     <div class="makeup-img hover-img">
-                        <img src="assets/img/home1/makeup-img2.png" alt="">
+                        <img src="{{ asset('user/assets/img/home1/makeup-img2.png')}}" alt="">
                     </div>
                 </div>
             </div>
@@ -203,7 +190,7 @@
                                         <div class="say-about-card-bottom">
                                             <div class="author-area">
                                                 <div class="author-img">
-                                                    <img src="assets/img/home2/testimonial-author-img1.png" alt="">
+                                                    <img src="{{ asset('user/assets/img/home2/testimonial-author-img1.png')}}" alt="">
                                                 </div>
                                                 <div class="author">
                                                     <h5>Jayden Carter</h5>
@@ -238,7 +225,7 @@
                                         <div class="say-about-card-bottom">
                                             <div class="author-area">
                                                 <div class="author-img">
-                                                    <img src="assets/img/home2/testimonial-author-img2.png" alt="">
+                                                    <img src="{{ asset('user/assets/img/home2/testimonial-author-img2.png')}}" alt="">
                                                 </div>
                                                 <div class="author">
                                                     <h5>Colton Roman</h5>
@@ -273,7 +260,7 @@
                                         <div class="say-about-card-bottom">
                                             <div class="author-area">
                                                 <div class="author-img">
-                                                    <img src="assets/img/home2/testimonial-author-img3.png" alt="">
+                                                    <img src="{{ asset('user/assets/img/home2/testimonial-author-img3.png')}}" alt="">
                                                 </div>
                                                 <div class="author">
                                                     <h5>Lincoln Miles</h5>
@@ -320,7 +307,7 @@
                                         <a href="blog-grid.html">20 July, 2023</a>
                                     </div>
                                     <a href="blog-details.html" class="article-card-img hover-img">
-                                        <img src="assets/img/home1/article-img1.png" alt="">
+                                        <img src="{{ asset('user/assets/img/home1/article-img1.png')}}" alt="">
                                     </a>
                                 </div>
                                 <div class="article-card-content">
@@ -347,7 +334,7 @@
                             <div class="article-card">
                                 <div class="article-image">
                                     <a href="blog-details.html" class="article-card-img hover-img">
-                                        <img src="assets/img/home1/article-img2.png" alt="">
+                                        <img src="{{ asset('user/assets/img/home1/article-img2.png')}}" alt="">
                                     </a>
                                     <div class="blog-date">
                                         <a href="blog-grid.html">25 July, 2023</a>
@@ -379,7 +366,7 @@
                     <div class="article-card">
                         <div class="article-image">
                             <a href="blog-details.html" class="article-card-img hover-img">
-                                <img src="assets/img/home1/article-img3.png" alt="">
+                                <img src="{{ asset('user/assets/img/home1/article-img3.png')}}" alt="">
                             </a>
                             <div class="blog-date">
                                 <a href="blog-grid.html">10 June, 2023</a>
@@ -410,29 +397,6 @@
     </div>
     <!-- End Beauty Article section -->
 
-    <!-- Star Newsletter section -->
-    <div class="newsletter-section mb-110">
-        <div class="container">
-            <div class="row">
-                <div class="col-lg-12">
-                    <div class="newsletter-banner hover-img">
-                        <div class="newsletter-content">
-                            <h2>Sign up to our newsletter for all the latest Offer & discounts.</h2>
-                            <form>
-                                <div class="from-inner">
-                                    <input type="email" placeholder="Email Address">
-                                    <div class="from-arrow">
-                                        <i class="bi bi-arrow-right"></i>
-                                    </div>
-                                </div>
-                            </form>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>
-    <!-- End Newsletter section -->
 
    <!-- Star Gift section section -->
     <div class="gift-section">

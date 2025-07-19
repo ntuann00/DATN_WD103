@@ -2,7 +2,7 @@
     <div class="testimonial-section mb-110">
         <div class="container">
             <div class="section-title3">
-                <h3>What The are say <span>About us</span></h3>
+                <h3>Họ thấy sao về <span>chúng tôi</span></h3>
                 <div class="slider-btn2">
                     <div class="testimonial-prev-btn">
                         <i class='bx bxs-chevron-left'></i>
@@ -26,12 +26,12 @@
                                             <i class="bi bi-star-fill"></i>
                                             <i class="bi bi-star-fill"></i>
                                         </div>
-                                        <p>“I cannot express enough how satisfied I am with the web development services provided by Egens Lab. From the initial consultation to the final delivery, they have exceeded my expectations in every aspect.”</p>
+                                        <p>“Tôi thực sự không thể diễn tả hết sự hài lòng của mình với dịch vụ phát triển web của 5beauty. Từ buổi tư vấn đầu tiên cho đến khi bàn giao sản phẩm cuối cùng, họ đã vượt xa mong đợi của tôi ở mọi khía cạnh.”</p>
                                     </div>
                                     <div class="testimonial-bottom">
                                         <div class="author-area">
-                                            <h5>Mateo Daniel</h5>
-                                            <p>Customer</p>
+                                            <h5>Nguyễn Minh Tuấn</h5>
+                                            <p>Khách hàng</p>
                                         </div>
                                         <div class="testimonial-qoute">
                                             <svg xmlns="http://www.w3.org/2000/svg" width="74" height="51" viewBox="0 0 74 51">
@@ -42,14 +42,9 @@
                                               </svg>
                                         </div>
                                         <div class="date-and-time">
-                                            <p>May 9, 2023</p>
+                                            <p>May 9, 2025</p>
                                             <span>10.30 PM</span>
                                         </div>
-                                    </div>
-                                </div>
-                                <div class="author-img-and-rating">
-                                    <div class="author-img">
-                                        <img src="{{ asset('user/assets/img/home2/testimonial-author-img1.png')}}" alt="">
                                     </div>
                                 </div>
                             </div>
@@ -63,12 +58,12 @@
                                             <i class="bi bi-star-fill"></i>
                                             <i class="bi bi-star-fill"></i>
                                         </div>
-                                        <p>“I cannot express enough how satisfied I am with the web development services provided by Egens Lab. From the initial consultation to the final delivery, they have exceeded my expectations in every aspect.”</p>
+                                        <p>“Website được thiết kế chuyên nghiệp, giao diện thân thiện với người dùng và tốc độ tải trang rất nhanh, mang lại trải nghiệm tuyệt vời cho người truy cập.”</p>
                                     </div>
                                     <div class="testimonial-bottom">
                                         <div class="author-area">
-                                            <h5>Galib Alvez</h5>
-                                            <p>Customer</p>
+                                            <h5>Nguyễn Tiến Hoàng</h5>
+                                            <p>Khách hàng</p>
                                         </div>
                                         <div class="testimonial-qoute">
                                             <svg xmlns="http://www.w3.org/2000/svg" width="74" height="51" viewBox="0 0 74 51">
@@ -79,14 +74,9 @@
                                               </svg>
                                         </div>
                                         <div class="date-and-time">
-                                            <p>May 9, 2023</p>
+                                            <p>July 23, 2025</p>
                                             <span>10.30 PM</span>
                                         </div>
-                                    </div>
-                                </div>
-                                <div class="author-img-and-rating">
-                                    <div class="author-img">
-                                        <img src="{{ asset('user/assets/img/home2/testimonial-author-img2.png')}}" alt="">
                                     </div>
                                 </div>
                             </div>
@@ -100,12 +90,12 @@
                                             <i class="bi bi-star-fill"></i>
                                             <i class="bi bi-star-fill"></i>
                                         </div>
-                                        <p>“I cannot express enough how satisfied I am with the web development services provided by Egens Lab. From the initial consultation to the final delivery, they have exceeded my expectations in every aspect.”</p>
+                                        <p>“Đội ngũ phát triển luôn sẵn sàng hỗ trợ và phản hồi nhanh chóng khi có yêu cầu thay đổi hay thắc mắc. Nhờ sự chuyên nghiệp và tận tâm đó, website không chỉ đáp ứng nhu cầu hiện tại mà còn sẵn sàng mở rộng trong tương lai.”</p>
                                     </div>
                                     <div class="testimonial-bottom">
                                         <div class="author-area">
-                                            <h5>David Beckham</h5>
-                                            <p>Customer</p>
+                                            <h5>Hoàng Văn Mạnh</h5>
+                                            <p>Khách Hàng</p>
                                         </div>
                                         <div class="testimonial-qoute">
                                             <svg xmlns="http://www.w3.org/2000/svg" width="74" height="51" viewBox="0 0 74 51">
@@ -116,14 +106,9 @@
                                               </svg>
                                         </div>
                                         <div class="date-and-time">
-                                            <p>May 9, 2023</p>
-                                            <span>10.30 PM</span>
+                                            <p>May 11, 2025</p>
+                                            <span>22.30 PM</span>
                                         </div>
-                                    </div>
-                                </div>
-                                <div class="author-img-and-rating">
-                                    <div class="author-img">
-                                        <img src="{{ asset('user/assets/img/home2/testimonial-author-img3.png')}}" alt="">
                                     </div>
                                 </div>
                             </div>
@@ -137,7 +122,7 @@
                                             <i class="bi bi-star-fill"></i>
                                             <i class="bi bi-star-fill"></i>
                                         </div>
-                                        <p>“I cannot express enough how satisfied I am with the web development services provided by Egens Lab. From the initial consultation to the final delivery, they have exceeded my expectations in every aspect.”</p>
+                                        <p>“Website có bố cục rõ ràng, dễ sử dụng và tối ưu tốt. Nội dung được trình bày hợp lý, giúp người dùng dễ dàng tìm thấy thông tin cần thiết.”</p>
                                     </div>
                                     <div class="testimonial-bottom">
                                         <div class="author-area">
@@ -153,14 +138,9 @@
                                               </svg>
                                         </div>
                                         <div class="date-and-time">
-                                            <p>May 9, 2023</p>
-                                            <span>10.30 PM</span>
+                                            <p>May 1, 2025</p>
+                                            <span>11.00 PM</span>
                                         </div>
-                                    </div>
-                                </div>
-                                <div class="author-img-and-rating">
-                                    <div class="author-img">
-                                        <img src="{{ asset('user/assets/img/home2/testimonial-author-img4.png')}}" alt="">
                                     </div>
                                 </div>
                             </div>

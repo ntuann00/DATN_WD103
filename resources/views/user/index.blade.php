@@ -26,9 +26,6 @@
 <!-- our brand -->
 @include('user.layouts.brand-section')
 
-<!-- nhận gửi tt mới tới mail ??? -->
-@include('user.layouts.newletter')
-
 <!-- review -->
 @include('user.layouts.review-section')
 

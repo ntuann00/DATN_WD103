@@ -35,16 +35,17 @@ Route::get('/product/{id}', [HomeController::class, 'product_detail'])->name('u.
 Route::get('/category/{id}', [HomeController::class, 'category_product'])->name('u.category_product');
 
 Route::get('/newproduct', [HomeController::class, 'new_product'])->name('u.new_product');
+Route::get('/about_us', [HomeController::class, 'about_us'])->name('u.about_us');
+
 Route::get('/brand', [HomeController::class, 'brand'])->name('u.brand');
 Route::get('/checkout', [HomeController::class, 'checkout'])->name('u.checkout');
-Route::get('/about_us', [HomeController::class, 'about_us'])->name('u.about_us');
 Route::get('/blog', [HomeController::class, 'blog'])->name('u.blog');
 Route::get('/blog/1', [HomeController::class, 'blog_detail'])->name('u.blog_detail');
 Route::get('/faq', [HomeController::class, 'faq'])->name('u.faq');
-Route::get('/contact', [HomeController::class, 'contact'])->name('u.contact');
 Route::get('/account', [HomeController::class, 'account'])->name('u.account');
-Route::get('/login', [HomeController::class, 'login'])->name('u.login');
-Route::get('/register', [HomeController::class, 'register'])->name('u.register');
+
+Route::get('/contact', [HomeController::class, 'contact'])->name('u.contact');
+
 
 // Đăng ký và đăng nhập
 Route::get('/register', [AuthController::class, 'showRegisterForm'])->name('register');
@@ -63,6 +64,8 @@ Route::middleware('auth')->group(function () {
     Route::get('/repassword', [ProfileController::class, 'showPassword'])->name('repassword');
     Route::post('/repassword', [ProfileController::class, 'updatePassword'])->name('repassword.update');
 
+    // purchase history (lịch sử mua hàng)
+    Route::get('/puchasehistory', [HomeController::class, 'purchasehistory'])->name('purchasehistory');
 
     //cart
     Route::get('/cart', [UserProductController::class, 'cart'])->name('cart.view');

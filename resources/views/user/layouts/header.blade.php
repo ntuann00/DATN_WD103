@@ -145,15 +145,18 @@
 
                 <!-- start page section -->
                 <li class="menu-item-has-children">
-                    <a href="#" class="drop-down">Pages</a><i class="bi bi-plus dropdown-icon"></i>
+                    <a href="#" class="drop-down">Trang khác</a><i class="bi bi-plus dropdown-icon"></i>
                     <ul class="sub-menu">
                         <li>
-                            <a href="{{ route('u.about_us') }}">About Us</a>
+                            <a href="{{ route('u.about_us') }}">Về chúng tôi</a>
                         </li>
                         <li>
                             <a href="{{ route('u.faq') }}">FaQ</a>
                         </li>
                         <li>
+                            <a href="{{ route('u.contact') }}">Liên hệ với chúng tôi</a>
+                        </li>
+                        <!-- <li>
                             <a href="{{ route('u.blog') }}">Blog</a>
                         </li>
                         <li>
@@ -165,7 +168,7 @@
                         </li>
                         <li>
                             <a href="{{ route('register') }}">Register</a>
-                        </li>
+                        </li> -->
 
                     </ul>
                 </li>
@@ -359,7 +362,7 @@
                                 <a class="dropdown-item" href="#">🛒 Giỏ hàng</a>
                             </li>
                             <li>
-                                <a class="dropdown-item" href="#">📦 Lịch sử mua hàng</a>
+                                <a class="dropdown-item" href="{{route('purchasehistory')}}">📦 Lịch sử mua hàng</a>
                             </li>
 
                             {{-- ✅ Nếu là admin thì hiện thêm "Quản trị" --}}

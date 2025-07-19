@@ -9,8 +9,8 @@
                             <img src="{{ asset('user/assets/img/home2/banner-2-left-img.png')}}" alt="">
                         </div>
                         <div class="banner-2-left-content">
-                            <h2>Up to <strong>40%</strong> off All Makeup</h2> <!-- title -->
-                            <a href="shop-list.html" class="primary-btn3 hover-btn5">Shop Now</a>
+                            <h2>Giảm lên tới <strong>40%</strong> mỹ phẩm tuỳ chọn</h2> <!-- title -->
+                            <a href="shop-list.html" class="primary-btn3 hover-btn5">mua ngay</a>
                         </div>
                     </div>
                 </div>
@@ -26,10 +26,10 @@
                                 <div class="swiper-slide">
                                     <div class="banner-2-right-img-bg" style="background-image: url({{asset('user/assets/img/home2/banner-right-bg-img1.png')}});">
                                         <div class="banner-2-right-content">
-                                            <h1>Makeup Package <span>Under</span><strong>$25</strong></h1>
-                                            <p>Whatever your summer looks like, bring yourown heat with up to 25% off Lumin Brand.</p>
+                                            <h1>Bộ trang điểm <span>Dưới</span><strong>300.000đ</strong></h1>
+                                            <p>Hè nóng, 5beauty còn nóng hơn với giảm giá 25%</p>
                                             <!-- shop button -->
-                                            <a href="#" class="primary-btn3 black-bg hover-btn5 hover-white">Shop Now</a>
+                                            <a href="#" class="primary-btn3 black-bg hover-btn5 hover-white">Mua sắm ngay</a>
                                         </div>
                                     </div>
                                 </div>

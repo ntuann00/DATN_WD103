@@ -9,6 +9,10 @@
      <link href="{{ asset('user/assets/css/bootstrap.min.css')}}" rel="stylesheet">
      <!-- Bootstrap Icon CSS -->
      <link href="{{ asset('user/assets/css/bootstrap-icons.css')}}" rel="stylesheet">
+     
+     <!-- font Playfair Display -->
+     <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400..900;1,400..900&display=swap" rel="stylesheet">
+     
      <!-- Fontawesome all CSS -->
      <link href="{{ asset('user/assets/css/all.min.css')}}" rel="stylesheet">
      <link href="{{ asset('user/assets/css/nice-select.css')}}" rel="stylesheet">
@@ -28,9 +32,15 @@
      <link rel="stylesheet" href="{{ asset('user/assets/css/style.css')}}">
     <title>5 Beauty - Beauty & Cosmetics</title>
     <link rel="icon" href="{{ asset('user/assets/img/sm-logo.svg')}}" type="image/gif">
+
+    <style>
+        body {
+            font-family: 'Playfair Display', serif;
+        }
+    </style>
 </head>
 
-<body class="style-2">
+<body class="style-2 ">
     @include('user.layouts.header')
     
     @yield('content') {{-- nội dung index sẽ hiển thị ở đây --}}
