@@ -39,12 +39,8 @@ class HomeController extends BaseController
 
     public function index(){
         $FProducts = Product::with(['category', 'variants'])->latest()->take(8)->get();
-
         $Tsell=Product::with(['category', 'variants'])->inRandomOrder()->take(8)->get();
-
         $Cate=Category::inRandomOrder()->take(6)->get();
-
-
 
         return view('user.index', compact('FProducts','Tsell','Cate'));
     }

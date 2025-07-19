@@ -254,8 +254,9 @@
             </div>
             <!-- end search-box -->
 
-            <div class="dropdown">
-                <!-- cart button -->
+
+            <!-- cart -->
+            <!-- <div class="dropdown">
                 <button type="button" class="modal-btn header-cart-btn">
                     <svg width="18" height="18" viewBox="0 0 18 18" xmlns="http://www.w3.org/2000/svg">
                         <path
@@ -263,12 +264,10 @@
                         <path
                             d="M8.99951 7.71427C6.49237 7.71427 4.49951 5.72141 4.49951 3.21427C4.49951 2.82855 4.75665 2.57141 5.14237 2.57141C5.52808 2.57141 5.78523 2.82855 5.78523 3.21427C5.78523 5.01427 7.19951 6.42855 8.99951 6.42855C10.7995 6.42855 12.2138 5.01427 12.2138 3.21427C12.2138 2.82855 12.4709 2.57141 12.8567 2.57141C13.2424 2.57141 13.4995 2.82855 13.4995 3.21427C13.4995 5.72141 11.5067 7.71427 8.99951 7.71427Z" />
                     </svg>
-                    <span>01</span> <!-- number in cart -->
+                    <span>01</span>
                 </button>
-                <!-- cart button -->
-
+                
                 <div class="cart-menu">
-                    <!-- cart-item -->
                     <div class="cart-body">
                         <ul>
                             <li class="single-item">
@@ -276,7 +275,6 @@
                                     <div class="item-img">
                                         <img src="{{ asset('user/assets/img/home1/cart-img-1.png') }}"
                                             alt="">
-                                        <!-- hình -->
                                     </div>
                                     <div class="content-and-quantity">
                                         <div class="content">
@@ -284,7 +282,7 @@
                                                 class="price-and-btn d-flex align-items-center justify-content-between">
                                                 <span>giá <del>$giảm</del></span>
                                                 <button class="close-btn">
-                                                    <i class="bi bi-x"></i> <!-- phim x -->
+                                                    <i class="bi bi-x"></i>
                                                 </button>
                                             </div>
                                             <p><a href="#">Tên sản phẩm</a><i
@@ -303,19 +301,13 @@
                             </li>
                         </ul>
                     </div>
-                    <!-- end cart-item -->
 
                     <div class="cart-footer">
-
-                        <!-- star cart price -->
                         <div class="pricing-area">
                             <ul class="total">
                                 <li><span>Tổng :</span><span>.Đ</span></li>
                             </ul>
                         </div>
-                        <!-- end cart price  -->
-
-                        <!-- cart-button  -->
                         <div class="footer-button">
                             <ul>
                                 <li><a class="primary-btn1 hover-btn4" href="{{ route('u.product') }}">Mua sắm
@@ -327,7 +319,7 @@
 
                     </div>
                 </div>
-            </div>
+            </div> -->
             <!-- end-cart -->
 
 
