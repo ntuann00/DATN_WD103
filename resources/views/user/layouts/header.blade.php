@@ -125,14 +125,11 @@
                     <!-- link -->
                 </li>
                 <!-- end contact dropmenu -->
-                <!-- start contact dropmenu -->
-                <li class="menu-item-has-children position-inherit">
 
+                <!-- <li class="menu-item-has-children position-inherit">
                     <a href="{{ route('u.brand') }}" class="drop-down"> Thương hiệu *</a><i
                         class="bi bi-plus dropdown-icon"></i>
-                    <!-- link -->
-                </li>
-                <!-- end contact dropmenu -->
+                </li> -->
 
                 <!-- start contact dropmenu -->
                 <li class="menu-item-has-children position-inherit">
@@ -152,9 +149,6 @@
                         </li>
                         <li>
                             <a href="{{ route('u.faq') }}">FaQ</a>
-                        </li>
-                        <li>
-                            <a href="{{ route('u.contact') }}">Liên hệ với chúng tôi</a>
                         </li>
                         <!-- <li>
                             <a href="{{ route('u.blog') }}">Blog</a>
