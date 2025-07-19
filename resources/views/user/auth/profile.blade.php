@@ -192,58 +192,68 @@
                                 <h3>My Order</h3>
                             </div>
 
-                            <!-- table -->
+                            <h3 class="mb-4">Đơn hàng của bạn</h3>
                             <div class="table-wrapper">
                                 <table class="eg-table order-table table mb-0">
                                     <thead>
                                         <tr>
                                             <th>Image</th>
-                                            <th>Order ID</th>
-                                            <th>Product Details</th>
-                                            <th>price</th>
-                                            <th>Status</th>
+                                            <th>Mã đơn</th>
+                                            <th>Sản phẩm</th>
+                                            <th>Số lượng</th>
+                                            <th>Giá</th>
+                                            <th>Tổng tiền</th>
+                                            <th>Ghi chú</th>
+                                            <th>Hình thức thanh toán</th>
+                                            <th>Trạng thái</th>
                                         </tr>
                                     </thead>
                                     <tbody>
-                                        <tr>
-                                            <td data-label="Image"><img alt="image"
-                                                    src="assets/img/inner-page/whistlist-img1.png" class="img-fluid">
-                                            </td>
-                                            <td data-label="Order ID">#4ce345c3e</td>
-                                            <td data-label="Product Details">Eau De Blue Perfume</td>
-                                            <td data-label="price">$40.00</td>
-                                            <td data-label="Status" class="text-green">Shipped</td>
-                                        </tr>
-                                        <tr>
-                                            <td data-label="Image"><img alt="image"
-                                                    src="assets/img/inner-page/whistlist-img2.png" class="img-fluid">
-                                            </td>
-                                            <td data-label="Order ID">#4ce3533e</td>
-                                            <td data-label="Product Details">Smooth Makeup Box</td>
-                                            <td data-label="price">$25.00</td>
-                                            <td data-label="Status" class="text-red">Pending</td>
-                                        </tr>
-                                        <tr>
-                                            <td data-label="Image"><img alt="image"
-                                                    src="assets/img/inner-page/whistlist-img3.png" class="img-fluid">
-                                            </td>
-                                            <td data-label="Order ID">#8ce3533e</td>
-                                            <td data-label="Product Details">Modern Red Lipstick </td>
-                                            <td data-label="price">$32.00</td>
-                                            <td data-label="Status" class="text-red">Pending</td>
-                                        </tr>
-                                        <tr>
-                                            <td data-label="Image"><img alt="image"
-                                                    src="assets/img/inner-page/whistlist-img4.png" class="img-fluid">
-                                            </td>
-                                            <td data-label="Order ID">#8ce3533e</td>
-                                            <td data-label="Product Details">New Botanical Shampoo</td>
-                                            <td data-label="price">$27.00</td>
-                                            <td data-label="Status" class="text-green">Shipped</td>
-                                        </tr>
+                                        @forelse ($orders as $order)
+                                            @foreach ($order->orderDetails as $detail)
+                                                <tr>
+                                                    <td>
+                                                        <img src="{{ $detail->product->image_url ?? 'default.jpg' }}"
+                                                            alt="image" width="60">
+                                                    </td>
+                                                    <td>#{{ str_pad($order->id, 6, '0', STR_PAD_LEFT) }}</td>
+
+                                                    <td>
+                                                        {{ $detail->product->name }}
+                                                        @if ($detail->productVariant)
+                                                            <br>
+                                                            @foreach ($detail->productVariant->attributeValues as $attrVal)
+                                                                @if (strtolower($attrVal->attribute->name) === 'color')
+                                                                    <small>{{ $attrVal->attribute->name }}:
+                                                                        {{ $attrVal->value }}</small><br>
+                                                                @endif
+                                                            @endforeach
+                                                        @endif
+                                                    </td>
+
+                                                    <td>{{ $detail->quantity }}</td>
+                                                    <td>{{ number_format($detail->price, 0, ',', '.') }} đ</td>
+                                                    <td>{{ number_format($detail->total, 0, ',', '.') }} đ</td>
+
+                                                    <td>{{ $order->description ?? 'Không có ghi chú' }}</td>
+
+                                                    <td>{{ $order->payment?->name ?? '---' }}</td>
+
+                                                    <td
+                                                        class="{{ $order->status?->slug === 'pending' ? 'text-red' : 'text-green' }}">
+                                                        {{ $order->status?->name ?? 'Không xác định' }}
+                                                    </td>
+                                                </tr>
+                                            @endforeach
+                                        @empty
+                                            <tr>
+                                                <td colspan="9" class="text-center">Bạn chưa có đơn hàng nào.</td>
+                                            </tr>
+                                        @endforelse
                                     </tbody>
                                 </table>
                             </div>
+
 
                             <!-- pagination area -->
                             <div class="table-pagination">

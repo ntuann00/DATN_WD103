@@ -21,7 +21,7 @@ class Order extends Model
         'address_id',
         'phone',
         'total',
-        
+
     ];
 
     public function orderDetails()
@@ -37,5 +37,13 @@ class Order extends Model
     public function address()
     {
         return $this->belongsTo(Address::class);
+    }
+    public function status()
+    {
+        return $this->belongsTo(Status::class, 'status_id');
+    }
+    public function payment()
+    {
+        return $this->belongsTo(Payment::class, 'payment_id');
     }
 }

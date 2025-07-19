@@ -84,7 +84,9 @@ class OrderController extends Controller
 
         // 2. Tính phí ship
         $address = strtolower($request->address);
-        $shipping = in_array($address, ['ha noi', 'hà nội']) ? 0 : 30000;
+
+        $shipping = str_contains($address, 'hà nội') || str_contains($address, 'ha noi') ? 0 : 30000;
+
 
         // 3. Lấy cart + pivot → product → variant
         $cart = Cart::with('cartDetails.variant', 'cartDetails.product')
@@ -94,6 +96,9 @@ class OrderController extends Controller
 
         // $cartItems = $cart ? $cart->cartDetails : collect();
         $items = $cart ? $cart->cartDetails : collect();
+
+
+        // 4. Tính subtotal dựa trên variant->price
 
         // 4. Tính tống tiền
         $subtotal = $items->sum(function ($row) {
