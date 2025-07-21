@@ -48,7 +48,7 @@
                                             })
                                             ->join('<br>');
                                     }
-                                    // @dd($variant->attributeValues)
+
                                 @endphp
                                 <tr>
                                 <tr data-id="{{ $detail->id }}" data-price="{{ $unitPrice }}">
@@ -58,7 +58,12 @@
                                     </td>
                                     <td class="text-start">
                                         <strong>{{ $product->name }}</strong><br>
-                                        <small>{!! $variantDesc !!}</small>
+                                        <small>{!! nl2br($variantDesc) !!}</small>
+                                        {{-- <pre>
+@php
+    dd($variant->attributeValues->pluck('attribute.name', 'value'));
+@endphp
+</pre> --}}
                                     </td>
                                     <td style="width:160px;">
                                         <div class="input-group justify-content-center">

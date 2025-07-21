@@ -220,15 +220,16 @@
 
                                                     <td>
                                                         {{ $detail->product->name }}
-                                                        @if ($detail->productVariant)
-                                                            <br>
-                                                            @foreach ($detail->productVariant->attributeValues as $attrVal)
-                                                                @if (strtolower($attrVal->attribute->name) === 'color')
-                                                                    <small>{{ $attrVal->attribute->name }}:
-                                                                        {{ $attrVal->value }}</small><br>
-                                                                @endif
-                                                            @endforeach
-                                                        @endif
+                                                        @php
+                                                            $displayed = [];
+                                                        @endphp
+
+                                                        @foreach ($detail->productVariant->attributeValues as $attrVal)
+                                                            @if (!in_array($attrVal->attribute->name, $displayed))
+                                                                {{ $attrVal->attribute->name }}: {{ $attrVal->value }}<br>
+                                                                @php $displayed[] = $attrVal->attribute->name; @endphp
+                                                            @endif
+                                                        @endforeach
                                                     </td>
 
                                                     <td>{{ $detail->quantity }}</td>

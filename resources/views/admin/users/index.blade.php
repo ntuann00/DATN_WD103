@@ -21,7 +21,7 @@
         @endif
 
         
-        <a href="{{ route('admin.users.create') }}" class="btn btn-primary mb-3">+ Thêm người dùng</a>
+        <a href="{{ route('users.create') }}" class="btn btn-primary mb-3">+ Thêm người dùng</a>
 
 <div style="overflow-x: auto;">
         <table class="table" >

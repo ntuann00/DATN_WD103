@@ -79,6 +79,7 @@ Route::middleware(['auth', 'check.role'])->group(function () {
     // Attributes
     Route::resource('attributes', AttributeController::class)->except(['show']);
     Route::get('/attributes/{id}/show', [AttributeController::class, 'show'])->name('attributes.show');
+    Route::put('/attributeValues/{attributeValue}', [AttributeValueController::class, 'update'])->name('attributeValues.update');
 
     // Attribute Values
     Route::resource('attributeValues', AttributeValueController::class);
