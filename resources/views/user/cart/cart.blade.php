@@ -38,14 +38,19 @@
                                     $grandTotal += $lineTotal;
 
                                     // Lấy mô tả thuộc tính (VD: Màu: Đỏ, Size: M)
-                                    $variantDesc =
-                                        $variant && $variant->attributeValues->isNotEmpty()
-                                            ? $variant->attributeValues
-                                                ->map(function ($attrVal) {
-                                                    return $attrVal->attribute->name . ': ' . $attrVal->value;
-                                                })
-                                                ->join(', ')
-                                            : '-';
+
+                                    $variantDesc = '-';
+                                    if ($variant && $variant->attributeValues->isNotEmpty()) {
+                                        $variantDesc = $variant->attributeValues
+                                            ->map(function ($attrVal) {
+                                                // Kiểm tra tồn tại để tránh lỗi nếu thiếu attribute
+                                                $attrName = $attrVal->attribute->name ?? '';
+                                                return $attrName . ': ' . $attrVal->value;
+                                            })
+                                            ->join('<br>');
+                                    }
+
+
                                 @endphp
                                 <tr>
                                 <tr data-id="{{ $detail->id }}" data-price="{{ $unitPrice }}">
@@ -55,8 +60,11 @@
                                     </td>
                                     <td class="text-start">
                                         <strong>{{ $product->name }}</strong><br>
-                                        <small>SKU: {{ $variant->sku ?? '-' }}</small><br>
-                                        <small>{{ $variantDesc }}</small>
+
+                                        <small>{!! nl2br($variantDesc) !!}</small>
+                              
+
+
                                     </td>
                                     <td style="width:160px;">
                                         <div class="input-group justify-content-center">

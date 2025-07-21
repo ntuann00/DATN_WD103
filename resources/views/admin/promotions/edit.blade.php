@@ -4,7 +4,7 @@
 <div class="container mt-4">
     <h2>Sửa mã giảm giá</h2>
 
-    <form action="{{ route('admin.promotions.update', $promotion->id) }}" method="POST">
+    <form action="{{ route('promotions.update', $promotion->id) }}" method="POST">
         @csrf
         @method('PUT')
 
@@ -63,7 +63,7 @@
         </div>
 
         <button type="submit" class="btn btn-success">Cập nhật</button>
-        <a href="{{ route('admin.promotions.index') }}" class="btn btn-secondary">Quay lại</a>
+        <a href="{{ route('promotions.index') }}" class="btn btn-secondary">Quay lại</a>
     </form>
 </div>
 @endsection

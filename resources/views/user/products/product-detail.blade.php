@@ -97,19 +97,17 @@
                                 <input type="hidden" name="variant_id" value="{{ $variant->id }}">
 
                                 <div class="quantity-color-area">
+                                    @foreach ($attributeGroups as $attrName => $values)
+                                        <div class="attribute-group" style="margin-bottom: 16px;">
+                                            <label class="attribute-label"
+                                                style="font-weight: bold; display: block; margin-bottom: 6px;">
+                                                {{ $attrName }}
+                                            </label>
 
-
-                                    <ul class="color-list"
-                                        style="display: flex; gap: 8px; list-style: none; padding: 0; outline: none; box-shadow: none;">
-                                        @foreach ($attributeGroups as $attrName => $values)
-                                            <div class="attribute-group" style="margin-bottom: 12px;">
-                                                <label class="attribute-label"
-                                                    style="font-weight: bold; display: block; margin-bottom: 6px;">
-                                                    {{ $attrName }}
-                                                </label>
-                                                <div class="attribute-values"
-                                                    style="display: flex; flex-wrap: wrap; gap: 10px;">
-                                                    @foreach ($values as $value)
+                                            <ul class="color-list"
+                                                style="display: flex; gap: 8px; list-style: none; padding: 0;">
+                                                @foreach ($values as $value)
+                                                    <li>
                                                         <input type="radio"
                                                             name="attribute[{{ $value->attribute_id }}]"
                                                             value="{{ $value->id }}" id="attr_{{ $value->id }}"
@@ -119,16 +117,12 @@
                                                             class="btn btn-outline-dark"
                                                             style="min-width: 70px; text-align: center;">
                                                             {{ $value->value }}
-                                                            <br>
                                                         </label>
-                                                        <br>
-                                                    @endforeach
-                                                </div>
-                                            </div>
-                                        @endforeach
-
-                                    </ul>
-
+                                                    </li>
+                                                @endforeach
+                                            </ul>
+                                        </div>
+                                    @endforeach
                                 </div>
 
                                 <div class="quantity-color-area">

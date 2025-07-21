@@ -3,7 +3,7 @@
 @section('content')
 <div class="container">
     <h2>Danh sách mã giảm giá</h2>
-    <a href="{{ route('admin.promotions.create') }}" class="btn btn-primary mb-3">Thêm mã giảm giá</a>
+    <a href="{{ route('promotions.create') }}" class="btn btn-primary mb-3">Thêm mã giảm giá</a>
     <table class="table table-bordered">
         <thead>
             <tr>
@@ -44,8 +44,8 @@
                         {{ \Carbon\Carbon::parse($Promotion->end_date)->format('d/m/Y') }}
                     </td>
                     <td>
-                        <a href="{{ route('admin.promotions.edit', $Promotion->id) }}" class="btn btn-sm btn-warning">Sửa</a>
-                        <form action="{{ route('admin.promotions.destroy', $Promotion->id) }}" method="POST" style="display:inline-block;">
+                        <a href="{{ route('promotions.edit', $Promotion->id) }}" class="btn btn-sm btn-warning">Sửa</a>
+                        <form action="{{ route('promotions.destroy', $Promotion->id) }}" method="POST" style="display:inline-block;">
                             @csrf @method('DELETE')
                             <button onclick="return confirm('Xác nhận xóa?')" class="btn btn-sm btn-danger">Xóa</button>
                         </form>
