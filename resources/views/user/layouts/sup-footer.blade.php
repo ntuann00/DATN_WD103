@@ -18,8 +18,8 @@
                                 </svg>
                             </div>
                             <div class="banner-footer-content">
-                                <h5>Fast Delivery</h5>
-                                <p>Delivery in 24 hours max!</p>
+                                <h5>Giao hàng nhanh chóng</h5>
+                                <p>Thời gian giao hàng tối đa 24h!</p>
                             </div>
                         </div>
                     </div>
@@ -36,8 +36,8 @@
                                 </svg>
                             </div>
                             <div class="banner-footer-content">
-                                <h5>Safe Payment</h5>
-                                <p>100% secure payment</p>
+                                <h5>Thanh toán an toàn</h5>
+                                <p>100% Bảo mật thông tin thanh toán</p>
                             </div>
                         </div>
                     </div>
@@ -54,8 +54,8 @@
                                 </svg>
                             </div>
                             <div class="banner-footer-content">
-                                <h5>Online Promotion</h5>
-                                <p>Add multi-buy Promotion </p>
+                                <h5>Giảm giá</h5>
+                                <p>Ưu đã tràn ngập đợi bạn </p>
                             </div>
                         </div>
                     </div>
@@ -74,8 +74,8 @@
                                 </svg>
                             </div>
                             <div class="banner-footer-content">
-                                <h5>Help Center</h5>
-                                <p>Dedicated 24/7 Support</p>
+                                <h5>Hỗ trợ tận tình</h5>
+                                <p>Đội ngũ hỗ trợ sẵn sàng 24/7</p>
                             </div>
                         </div>
                     </div>

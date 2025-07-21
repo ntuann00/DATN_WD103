@@ -5,10 +5,10 @@
                 <div class="row g-lg-4 gy-5 justify-content-center">
                     <div class="col-lg-3 col-md-4 col-sm-6 d-flex align-items-center">
                         <div class="footer-widget pr-25">
-                            <h3>Join Our Newsletter & Get 30% Off?</h3>
+                            <h3>Nhận những thông tin mới nhất từ chúng tôi  </h3>
                             <form>
                                 <div class="from-inner">
-                                    <input type="email" placeholder="Email Address chua nhan">
+                                    <input type="email" placeholder="Email của bạn *">
                                     <div class="from-arrow">
                                         <svg xmlns="http://www.w3.org/2000/svg" width="18" height="11" viewBox="0 0 18 11">
                                             <path
@@ -24,35 +24,32 @@
                     <div class="col-lg-2 col-md-4 col-sm-6 d-flex justify-content-lg-start justify-content-sm-end">
                         <div class="footer-widget">
                             <div class="widget-title">
-                                <h5>Support</h5>
+                                <h5>Hỗ trợ</h5>
                             </div>
                             <ul class="widget-list">
-                                <li><a href="{{ route('u.contact') }}">Help & Contact Us</a></li>
-                                <li><a href="{{ route('u.contact') }}">Return & Refunds</a></li>
-                                <li><a href="{{ route('u.contact') }}">Online Stores</a></li>
-                                <li><a href="{{ route('u.contact') }}">Privacy Policy</a></li>
-                                <li><a href="{{ route('u.account') }}">Profile</a></li>
+                                <li><a href="{{ route('u.contact') }}">Hỗ trợ </a></li>
+                                <li><a href="{{ route('u.contact') }}">Đổi & Trả</a></li>
+                                <li><a href="{{ route('u.faq') }}">Chính sách</a></li>
+                                <li><a href="{{ route('profile') }}">Tài khoản</a></li>
                             </ul>
                         </div>
                     </div>
                     <div class="col-lg-2 col-md-4 col-sm-6 d-flex justify-content-lg-center justify-content-md-end">
                         <div class="footer-widget">
                             <div class="widget-title">
-                                <h5>Company</h5>
+                                <h5>Chúng tôi</h5>
                             </div>
                             <ul class="widget-list">
-                                <li><a href="{{ route('u.contact') }}l">What we do</a></li>
-                                <li><a href="{{ route('u.contact') }}">Gift Offers</a></li>
-                                <li><a href="{{ route('u.contact') }}">Latest Posts</a></li>
-                                <li><a href="{{ route('u.contact') }}">F.A.Q</a></li>
-                                <li><a href="{{ route('u.contact') }}">Our Brand</a></li>
+                                <li><a href="{{ route('u.about_us') }}">Mục tiêu</a></li>
+                                <li><a href="{{ route('u.faq') }}">F.A.Q</a></li>
+                                <li><a href="{{ route('u.faq') }}">Câu hỏi thường gặp</a></li>
                             </ul>
                         </div>
                     </div>
-                    <div class="col-lg-2 col-md-4 col-sm-6 d-flex justify-content-lg-center justify-content-md-start justify-content-sm-end">
+                    <!-- <div class="col-lg-2 col-md-4 col-sm-6 d-flex justify-content-lg-center justify-content-md-start justify-content-sm-end">
                         <div class="footer-widget">
                             <div class="widget-title">
-                                <h5>Category</h5>
+                                <h5>Danh mục</h5>
                             </div>
                             <ul class="widget-list">
                                 <li><a href="{{ route('u.contact') }}">Bath & Body</a></li>
@@ -62,7 +59,7 @@
                                 <li><a href="{{ route('u.contact') }}">Fragrance</a></li>
                             </ul>
                         </div>
-                    </div>
+                    </div> -->  
                     <div class="col-lg-3 col-md-4 col-sm-6 d-flex justify-content-lg-end justify-content-md-center">
                         <div class="footer-widget">
                             <div class="widget-title style-2">
@@ -70,7 +67,7 @@
                             </div>
                             <p>Các phương thức thanh toán được hỗ trợ.</p>
                             <div class="payment-gateway">
-                                <p>Secured Payment Gateways</p>
+                                <p>Phương thức thanh toán bảo mật.</p>
                                 <div class="icons">
                                     <img src="{{ asset('user/assets/img/home1/icon/visa.png')}}" alt="">
                                     <img src="{{ asset('user/assets/img/home1/icon/mastercard.png')}}" alt="">

@@ -38,6 +38,7 @@
                                     $grandTotal += $lineTotal;
 
                                     // Lấy mô tả thuộc tính (VD: Màu: Đỏ, Size: M)
+
                                     $variantDesc = '-';
                                     if ($variant && $variant->attributeValues->isNotEmpty()) {
                                         $variantDesc = $variant->attributeValues
@@ -49,6 +50,7 @@
                                             ->join('<br>');
                                     }
 
+
                                 @endphp
                                 <tr>
                                 <tr data-id="{{ $detail->id }}" data-price="{{ $unitPrice }}">
@@ -58,12 +60,11 @@
                                     </td>
                                     <td class="text-start">
                                         <strong>{{ $product->name }}</strong><br>
+
                                         <small>{!! nl2br($variantDesc) !!}</small>
-                                        {{-- <pre>
-@php
-    dd($variant->attributeValues->pluck('attribute.name', 'value'));
-@endphp
-</pre> --}}
+                              
+
+
                                     </td>
                                     <td style="width:160px;">
                                         <div class="input-group justify-content-center">
@@ -102,7 +103,7 @@
                 </div>
 
                 <div class="d-flex justify-content-between mt-3">
-
+                  
                     <form action="{{ route('cart.clear') }}" method="POST"
                         onsubmit="return confirm('Bạn có chắc muốn xóa toàn bộ giỏ hàng?');">
                         @csrf

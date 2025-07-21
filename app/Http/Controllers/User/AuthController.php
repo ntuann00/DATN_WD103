@@ -91,7 +91,7 @@ class AuthController extends BaseController
             $role = Auth::User()->role_id;
 
             if ($role === 1) {
-                return redirect()->route('admin')->with('success', 'Đăng nhập thành công với quyền Admin!');
+                return redirect()->route('admin.dashboard')->with('success', 'Đăng nhập thành công với quyền Admin!');
             } else {
                 return redirect()->route('home')->with('success', 'Đăng nhập thành công!');
             }

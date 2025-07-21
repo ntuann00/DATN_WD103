@@ -25,6 +25,7 @@ class Product_variant extends Model
     {
         return $this->hasMany(Product_image::class, 'product_variant_id');
     }
+
     public function values()
     {
         // thứ tự: RelatedModel, foreign_key_on_related_table, local_key
@@ -35,12 +36,12 @@ class Product_variant extends Model
         );
     }
     public function attributeValues()
-{
-    return $this->belongsToMany(
-        AttributeValue::class,
-        'product_variant_values',
-        'variant_id',
-        'attribute_value_id'
-    )->with('attribute'); 
-}
+    {
+        return $this->belongsToMany(
+            AttributeValue::class,
+            'product_variant_values',     // bảng trung gian
+            'variant_id',                 // foreign key đến Product_variant
+            'attribute_value_id'          // foreign key đến Attribute_value
+        );
+    }
 }
