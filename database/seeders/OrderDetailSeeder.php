@@ -17,31 +17,36 @@ class OrderDetailSeeder extends Seeder
     public function run(): void
     {
         $faker    = Faker::create();
-        $products = Product::all();
+        $products = Product::has('variants')->get();
 
         foreach (Order::all() as $order) {
             $total = 0;
 
-            // Chọn 2 sản phẩm ngẫu nhiên để thêm vào mỗi đơn hàng
             foreach ($products->random(2) as $product) {
-                 $variant = $product->variants->first();
+                $variant = $product->variants->first();
+
+                // Nếu không có variant thì bỏ qua
+                if (!$variant) {
+                    continue;
+                }
+
                 $quantity = rand(1, 3);
-                $price = $product->price ?? $faker->randomFloat(2, 50000, 1000000); // fallback giá trị nếu ko có
+                $price = $variant->price;
                 $subtotal = $price * $quantity;
 
                 Order_detail::create([
-                    'order_id'  => $order->id,
-                    'product_id'=> $product->id,
+                    'order_id'           => $order->id,
+                    'product_id'         => $product->id,
                     'product_variant_id' => $variant->id,
-                    'quantity'  => $quantity,
-                    'price'     => $price,
-                    'total'     => $subtotal,
+                    'quantity'           => $quantity,
+                    'price'              => $price,
+                    'total'              => $subtotal,
                 ]);
 
                 $total += $subtotal;
             }
 
-            // Cập nhật lại tổng tiền đơn hàng
+            // Cập nhật lại tổng tiền đơn hàng cho từng order
             $order->update([
                 'total' => $total
             ]);

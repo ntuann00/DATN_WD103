@@ -94,7 +94,7 @@
 
                             <form action="{{ route('cart.add') }}" method="POST">
                                 @csrf
-                                <input type="hidden" name="variant_id" value="{{ $variant->id }}">
+                                <input type="hidden" name="product_id" value="{{ $Product->id }}">
 
                                 <div class="quantity-color-area">
                                     @foreach ($attributeGroups as $attrName => $values)
@@ -108,18 +108,18 @@
                                                 style="display: flex; gap: 8px; list-style: none; padding: 0;">
                                                 @foreach ($values as $value)
                                                     <li>
-                                                        <input type="radio"
-                                                            name="attribute[{{ $value->attribute_id }}]"
+                                                        <input type="radio" name="attribute[{{ $attrName }}]"
                                                             value="{{ $value->id }}" id="attr_{{ $value->id }}"
-                                                            class="btn-check" required>
-
-                                                        <label for="attr_{{ $value->id }}"
-                                                            class="btn btn-outline-dark"
-                                                            style="min-width: 70px; text-align: center;">
+                                                            data-value="{{ $value->value }}"
+                                                            data-attribute="{{ $attrName }}"
+                                                            class="btn-check attribute-input" required>
+                                                        <label class="btn btn-outline-primary"
+                                                            for="attr_{{ $value->id }}">
                                                             {{ $value->value }}
                                                         </label>
                                                     </li>
                                                 @endforeach
+
                                             </ul>
                                         </div>
                                     @endforeach
@@ -332,4 +332,85 @@
                                         });
                                     });
                                 </script>
+
+                                <script>
+                                    document.addEventListener('DOMContentLoaded', function() {
+                                        const inputs = document.querySelectorAll('.attribute-input');
+                                        const attributeQuantity = @json($attributeQuantity); // { "White-S-": 10, "White-M-": 0, ... }
+
+                                        const allAttributes = {}; // { Color: Set(), Size: Set(), ... }
+
+                                        // Gom tất cả thuộc tính
+                                        inputs.forEach(input => {
+                                            const attr = input.dataset.attribute;
+                                            const val = input.dataset.value;
+
+                                            if (!allAttributes[attr]) allAttributes[attr] = new Set();
+                                            allAttributes[attr].add(val);
+
+                                            input.addEventListener('change', handleChange);
+                                        });
+
+                                        function handleChange() {
+                                            const selected = {};
+
+                                            // Lấy các thuộc tính đang được chọn
+                                            Object.keys(allAttributes).forEach(attr => {
+                                                const checked = document.querySelector(
+                                                    `.attribute-input[data-attribute="${attr}"]:checked`);
+                                                if (checked) selected[attr] = checked.dataset.value;
+                                            });
+
+                                            // Reset tất cả trước
+                                            inputs.forEach(input => {
+                                                input.disabled = false;
+                                                input.classList.remove('text-muted', 'unselectable');
+                                            });
+
+                                            const selectedAttrKeys = Object.keys(selected);
+                                            if (selectedAttrKeys.length === 0) return;
+
+                                            // Khi chọn 1 thuộc tính, kiểm tra tổ hợp có hợp lệ với các thuộc tính còn lại
+                                            const selectedAttr = selectedAttrKeys[0];
+                                            const selectedValue = selected[selectedAttr];
+
+                                            const remainingAttrs = Object.keys(allAttributes).filter(attr => attr !== selectedAttr);
+
+                                            remainingAttrs.forEach(attr => {
+                                                allAttributes[attr].forEach(option => {
+                                                    const selector =
+                                                        `.attribute-input[data-attribute="${attr}"][data-value="${option}"]`;
+                                                    const input = document.querySelector(selector);
+                                                    if (!input) return;
+
+                                                    const comboKeyParts = [selectedValue, option];
+                                                    const comboKey = comboKeyParts.join('-') + '-';
+
+                                                    const quantity = attributeQuantity[comboKey];
+
+                                                    if (!quantity || quantity <= 0) {
+                                                        input.disabled = true;
+                                                        input.classList.add('text-muted', 'unselectable');
+
+                                                        // Nếu đang được chọn mà bị loại => bỏ chọn
+                                                        if (input.checked) input.checked = false;
+                                                    }
+                                                });
+                                            });
+                                        }
+
+                                        // CSS để làm mờ và không thể click
+                                        const style = document.createElement('style');
+                                        style.textContent = `
+        .text-muted {
+            opacity: 0.4 !important;
+        }
+        .unselectable {
+            pointer-events: none !important;
+        }
+    `;
+                                        document.head.appendChild(style);
+                                    });
+                                </script>
+
                             @endsection

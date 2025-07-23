@@ -17,9 +17,6 @@ class AttributeValueSeeder extends Seeder
         $values = [
             'Color'    => ['Red', 'Blue', 'Green', 'Black', 'White'],
             'Size'     => ['S', 'M', 'L', 'XL'],
-            'Material' => ['Cotton', 'Polyester', 'Leather'],
-            'Weight'   => ['0.5kg', '1kg', '1.5kg'],
-            'Length'   => ['30cm', '50cm', '70cm'],
         ];
 
         foreach ($values as $attributeName => $attributeValues) {

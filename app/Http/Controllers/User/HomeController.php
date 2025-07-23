@@ -4,7 +4,7 @@ namespace App\Http\Controllers\User;
 
 use App\Models\Role;
 use App\Models\Product;
-use App\Models\Product_variant;
+
 use App\Models\Product_variant_value;
 use App\Models\User;
 use App\Models\Category;
@@ -73,35 +73,53 @@ class HomeController extends BaseController
         return view('user.products.list-product', compact('Products'));
     }
 
-   public function product_detail($id)
-{
-    // Lấy sản phẩm + biến thể + giá trị thuộc tính
-    $Product = Product::with([
-        'variants.attributeValues.attribute'
-    ])->findOrFail($id);
+    public function product_detail($id)
+    {
+        // Lấy sản phẩm + biến thể + giá trị thuộc tính
+        $Product = Product::with([
+            'variants.attributeValues.attribute'
+        ])->findOrFail($id);
 
-    $variant = $Product->variants->first();
 
-    // Gợi ý 4 sản phẩm khác
-    $Related = Product::has('variants')
-        ->with('variants.attributeValues.attribute')
-        ->where('id', '!=', $id)
-        ->inRandomOrder()
-        ->take(4)
-        ->get();
+        // Gợi ý 4 sản phẩm khác
+        $Related = Product::has('variants')
+            ->with('variants.attributeValues.attribute')
+            ->where('id', '!=', $id)
+            ->inRandomOrder()
+            ->take(4)
+            ->get();
 
-    // Tạo nhóm thuộc tính từ tất cả các variants
-    $attributeGroups = [];
+        // Tạo nhóm thuộc tính từ tất cả các variants
+        $attributeGroups = [];
+        $attributeQuantity = [];
 
-    foreach ($Product->variants as $variant) {
-        foreach ($variant->attributeValues as $attrValue) {
-            $attrName = $attrValue->attribute->name;
-            $attributeGroups[$attrName][$attrValue->id] = $attrValue; // gán object AttributeValue
+        foreach ($Product->variants as $variant) {
+            $attributeCombinationAB = '';
+            $attributeCombinationBA = '';
+
+            foreach ($variant->attributeValues as $attrValue) {
+                $attrName = $attrValue->attribute->name;
+                $attributeGroups[$attrName][$attrValue->id] = $attrValue;
+
+                $attributeCombinationAB .= $attrValue->value . '-';
+                $attributeCombinationBA = $attrValue->value . '-' . $attributeCombinationBA;
+            }
+
+            $attributeQuantity[$attributeCombinationAB] = $variant->quantity;
+            $attributeQuantity[$attributeCombinationBA] = $variant->quantity;
         }
-    }
 
-    return view('user.products.product-detail', compact('Product', 'Related', 'variant', 'attributeGroups'));
-}
+        $countAttribute = count($attributeGroups);
+
+        return view('user.products.product-detail', compact([
+            'Product',
+            'Related',
+            'variant',
+            'attributeGroups',
+            'attributeQuantity',
+            'countAttribute'
+        ]));
+    }
 
 
 

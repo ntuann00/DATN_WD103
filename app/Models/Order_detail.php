@@ -22,6 +22,6 @@ class Order_detail extends Model
     }
      public function productVariant()
     {
-        return $this->belongsTo(Product_variant::class);
+        return $this->belongsTo(ProductVariant::class);
     }
 }

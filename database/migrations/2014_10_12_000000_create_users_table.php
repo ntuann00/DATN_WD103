@@ -14,14 +14,14 @@ return new class extends Migration
         Schema::create('users', function (Blueprint $table) {
     $table->id();
     $table->string('name');
-    $table->string('phone')->nullable();
+    $table->string('phone');
     $table->string('email')->unique();
     $table->string('img')->nullable(); // ảnh đại diện
-    $table->date('birthday')->nullable();
+    $table->date('birthday');
     $table->string('password');
-    $table->enum('gender', ['male', 'female'])->nullable();
+    $table->enum('gender', ['male', 'female']);
 
-    // FK: KHÔNG nullable + ràng buộc chặt
+    // FK: KHÔN ràng buộc chặt
     $table->unsignedBigInteger('role_id');
     $table->boolean('status')->default(true);
     

@@ -6,7 +6,7 @@ use App\Http\Controllers\Controller;
 use App\Models\Attribute;
 use App\Models\Category;
 use App\Models\Product;
-use App\Models\Product_variant;
+use App\Models\ProductVariant;
 use App\Models\Product_variant_value;
 use Illuminate\Http\Request;
 
@@ -35,22 +35,27 @@ class ProductController extends Controller
     /**
      * Store a newly created resource in storage.
      */
-    public function store(Request $request)
-    {
-        // ✅ 1. Tạo sản phẩm
-        $product = Product::create([
-            'name' => $request->input('name'),
-            'description' => $request->input('description'),
-            'category_id' => $request->input('category_id'),
-            'brand' => $request->input('brand')
-        ]);
+   public function store(Request $request)
+{
+    // ✅ 1. Tạo sản phẩm
+   $product = Product::create([
+    'name' => $request->input('name'),
+    'productVariant_id' => $request->input('productVariant_id') ?? null,
+    'category_id' => $request->input('category_id'),
+    'attribute_id' => $request->input('attribute_id') ?? null, // có thể null
+    'promotion_id' => $request->input('promotion_id') ?? null, // có thể null
+    'brand' => $request->input('brand'),
+    'description' => $request->input('description'),
+    'status' => $request->input('status', true),
+    
+]);
 
-        // ✅ 2. Lặp qua từng biến thể
-        foreach ($request->input('variants', []) as $index => $variantData) {
-            // Bỏ qua biến thể trống
-            if (empty($variantData['sku']) || empty($variantData['price'])) {
-                continue;
-            }
+    // ✅ 2. Lặp qua từng biến thể
+    foreach ($request->input('variants', []) as $index => $variantData) {
+        // Bỏ qua biến thể trống
+        if (empty($variantData['sku']) || empty($variantData['price'])) {
+            continue;
+        }
 
         // 2.1. Tạo biến thể
         $variant = $product->variants()->create([
@@ -79,14 +84,14 @@ class ProductController extends Controller
                 $variant->images()->create([
                     'image_url' => 'storage/' . $path,
                     'alt_text' => $variant->sku . ' - ảnh ' . ($imgIndex + 1),
-                    'sort_order' => $imgIndex + 1
+                    'sort_order' => $imgIndex + 1,
                 ]);
             }
         }
     }
 
     return redirect()->route('products.index')->with('success', 'Thêm sản phẩm thành công!');
-    }
+}
 
     /**
      * Display the specified resource.
@@ -128,7 +133,7 @@ class ProductController extends Controller
 
         // ✅ Lặp qua từng biến thể được gửi từ form
         foreach ($request->variants as $variantId => $variantData) {
-            $variant = Product_variant::find($variantId);
+            $variant = ProductVariant::find($variantId);
 
             if ($variant) {
                 // ✅ Cập nhật thông tin biến thể

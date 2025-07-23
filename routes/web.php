@@ -67,6 +67,8 @@ Route::middleware('auth')->group(function () {
     Route::get('/order/success', function () {
         return view('user.orders.order_success');
     })->name('order.success');
+    Route::post('/checkout-selected', [OrderController::class, 'checkoutSelected'])->name('checkout.selected');
+
 });
 
 // ========== Admin Routes ==========
