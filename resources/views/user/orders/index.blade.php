@@ -72,10 +72,7 @@
                                     @endforeach
                                     <p>Phí ship: <span id="shippingFee">{{ number_format($shippingFee, 0, ',', '.') }}
                                             đ</span></p>
-                                    {{-- <pre>
-Shipping: {{ gettype($shippingFee) }} - {{ $shippingFee }}
-Total raw: {{ $total }}
-</pre> --}}
+
                                     <p><strong>Tổng cộng:</strong>
                                         <span id="totalAmount">
                                             {{ number_format($total, 0, ',', '.') }} đ
@@ -109,26 +106,5 @@ Total raw: {{ $total }}
         </div>
     </div>
 
-    <!-- Script tự động tính phí ship và cập nhật tổng -->
-    {{-- <script>
-        (() => {
-            const addressInput = document.getElementById('addressInput');
-            const shippingFeeEl = document.getElementById('shippingFee');
-            const totalAmountEl = document.getElementById('totalAmount');
 
-            // Lấy tổng tiền ban đầu đã render (bao gồm 30k ship mặc định)
-            const originalTotal = Number(totalAmountEl.innerText.replace(/[^\d]/g, ''));
-            const baseTotal = originalTotal - 30000; // loại bỏ phí ship mặc định
-
-            if (addressInput && shippingFeeEl && totalAmountEl) {
-                addressInput.addEventListener('input', function() {
-                    const prov = this.value.toLowerCase().normalize("NFD").replace(/[\u0300-\u036f]/g, "");
-                    const fee = prov.includes('ha noi') ? 0 : 30000;
-
-                    shippingFeeEl.innerText = fee.toLocaleString('vi-VN') + ' đ';
-                    totalAmountEl.innerText = (baseTotal + fee).toLocaleString('vi-VN') + ' đ';
-                });
-            }
-        })();
-    </script> --}}
 @endsection

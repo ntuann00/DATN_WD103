@@ -38,6 +38,8 @@ class UserProductController extends Controller
             ->first(); // Hoặc get() nếu muốn lấy nhiều
 
         $qty = max(1, (int)$request->input('quantity', 1));
+        $qty = min($qty, $variant->quantity);
+        // dd($qty);
 
         $cart = Cart::firstOrCreate(
             ['user_id' => Auth::id()],
@@ -49,6 +51,12 @@ class UserProductController extends Controller
             ->where('product_variant_id', $variant->id)
             ->first();
 
+        $existingQty = $detail ? $detail->quantity : 0;
+        $totalQty = $existingQty + $qty;
+
+        if ($totalQty > $variant->quantity) {
+            return redirect()->back()->with('error', 'Sản phẩm trong kho không đủ số lượng bạn muốn mua ! Vui lòng kiếm tra lại !');
+        }
         if ($detail) {
             $detail->increment('quantity', $qty);
         } else {
@@ -82,15 +90,21 @@ class UserProductController extends Controller
      */
     public function updateCart(Request $request)
     {
-        foreach ($request->input('quantities', []) as $detailId => $qty) {
-            $detail = Cart_detail::find($detailId);
-            if ($detail && $detail->cart->user_id === Auth::id()) {
+        $detail = Cart_detail::find($request->id);
+        if ($detail && $detail->cart->user_id === Auth::id()) {
+            if ($request->status == 'decrement') {
+                if ($detail->quantity > 1) {
+                    $detail->update([
+                        'quantity' => $detail->quantity - 1,
+                    ]);
+                }
+            } else {
                 $detail->update([
-                    'quantity' => max(1, (int)$qty),
+                    'quantity' => max(1, (int) $request->quantities),
                 ]);
             }
         }
-        return back()->with('success', 'Giỏ hàng đã được cập nhật!');
+        return response()->json(['message' => 'Cập nhật thành công']);
     }
 
     /**
@@ -102,7 +116,10 @@ class UserProductController extends Controller
         if ($detail && $detail->cart->user_id === Auth::id()) {
             $detail->delete();
         }
-        return back()->with('success', 'Đã xóa sản phẩm khỏi giỏ hàng!');
+
+        // Gửi session flash như bình thường
+        session()->flash('success', 'Đã xóa sản phẩm khỏi giỏ hàng!');
+        return response()->json(['reload' => true]);
     }
 
     /**

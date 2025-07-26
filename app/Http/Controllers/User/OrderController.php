@@ -97,13 +97,17 @@ class OrderController extends Controller
         $shipping = str_contains($address, 'hà nội') || str_contains($address, 'ha noi') ? 0 : 30000;
 
         // 3. Lấy cart + pivot → product → variant
-        $cart = Cart::with('cartDetails.product.variants')
-            ->where('user_id', Auth::id())
-            ->latest('id')
-            ->first();
+        $selectedIds = $request->input('selected_items', []);
 
-        // $cartItems = $cart ? $cart->cartDetails : collect();
-        $items = $cart ? $cart->cartDetails : collect();
+        
+        if (empty($selectedIds)) {
+            return back()->with('error', 'Vui lòng chọn ít nhất 1 sản phẩm để đặt hàng.');
+        }
+
+        $items = Cart_detail::with(['product.variants', 'variant'])
+            ->whereIn('id', $selectedIds)
+            ->whereHas('cart', fn($q) => $q->where('user_id', Auth::id()))
+            ->get();
 
 
         // 4. Tính subtotal dựa trên variant->price
@@ -141,8 +145,9 @@ class OrderController extends Controller
         ]);
 
         $data = [];
+
         foreach ($items as $row) {
-            $variant = $row->product->variants->first();
+            $variant = $row->variant;
             $unitPrice = $variant ? $variant->price : 0;
             $quantity  = $row->quantity;
             $itemTotal = $unitPrice * $quantity;
@@ -176,9 +181,7 @@ class OrderController extends Controller
         Order_detail::insert($data);
 
         // 9. Xóa pivot để giỏ trống
-        if ($cart) {
-            $cart->cartDetails()->delete();
-        }
+        Cart_detail::whereIn('id', $selectedIds)->delete();
 
         return redirect()
             ->route('order.success')

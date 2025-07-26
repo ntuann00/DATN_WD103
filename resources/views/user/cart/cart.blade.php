@@ -9,7 +9,7 @@
         @endif
 
         @if ($items->isNotEmpty())
-            <form action="{{ route('cart.update') }}" method="POST">
+            <form action="{{ route('order.index') }}" method="GET" id="checkoutSelectedForm">
                 @csrf
                 <div class="table-responsive shadow-sm">
                     <table class="table table-bordered align-middle text-center">
@@ -29,7 +29,7 @@
                             @foreach ($items as $detail)
                                 @php
                                     $product = $detail->product;
-                                    $variant = $detail->variant; // 👈 Sửa đúng quan hệ từ cart_detail
+                                    $variant = $detail->variant; // 👈Sửa đúng quan hệ từ cart_detail
 
                                     // Giá lấy từ biến thể nếu có, ngược lại fallback về product
                                     $unitPrice = $variant?->price ?? $product->price;
@@ -86,10 +86,10 @@
 
 
                                     <td>
-                                        <form action="{{ route('cart.remove', $detail->id) }}" method="POST">
-                                            @csrf
-                                            <button type="submit" class="btn btn-danger btn-sm">Xóa</button>
-                                        </form>
+                                        <button type="button" class="btn btn-danger btn-sm btn-remove-item"
+                                            data-id="{{ $detail->id }}">
+                                            Xóa
+                                        </button>
                                     </td>
                                 </tr>
                             @endforeach
@@ -104,31 +104,31 @@
                         </tfoot>
                     </table>
                 </div>
-
-
-                <div class="d-flex justify-content-between mt-3">
-
-
-                    <form action="{{ route('cart.clear') }}" method="POST"
-                        onsubmit="return confirm('Bạn có chắc muốn xóa toàn bộ giỏ hàng?');">
+                <div class="mt-3 d-flex gap-2">
+                    <!-- Form mua hàng -->
+                    <form action="{{ route('order.index') }}" method="GET" id="checkoutSelectedForm"
+                        class="d-inline-block">
                         @csrf
-                        <button type="submit" class="btn btn-danger btn-lg" name="action" value="delete">🗑 Xóa toàn bộ
-                            giỏ hàng</button>
-                    </form>
-                    <form action="{{ route('order.index') }}" method="GET" id="checkoutSelectedForm">
-                        <input type="hidden" name="selected_items" id="selected_items_input">
                         <button type="submit" class="btn btn-success btn-lg">🛒 Mua hàng</button>
                     </form>
+
+                    <!-- Form xóa giỏ hàng -->
+                    <form action="{{ route('cart.clear') }}" method="POST"
+                        onsubmit="return confirm('Bạn có chắc muốn xóa toàn bộ giỏ hàng?');" class="d-inline-block">
+                        @csrf
+                        <button type="submit" class="btn btn-danger btn-lg" name="action" value="delete">
+                            🗑 Xóa toàn bộ giỏ hàng
+                        </button>
+                    </form>
                 </div>
-            </form>
-        @else
-            <div class="alert alert-warning text-center">🛒 Giỏ hàng của bạn đang trống!</div>
+            @else
+                <div class="alert alert-warning text-center">🛒 Giỏ hàng của bạn đang trống!</div>
         @endif
     </div>
 
-    </div>
 
     <!-- Script tăng giảm và checkbox -->
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
     <script>
         function autoUpdateCart() {
             setTimeout(() => {
@@ -143,6 +143,7 @@
                 input.value = parseInt(input.value) + 1;
                 updateLineTotal(id);
                 autoUpdateCart();
+                updateQuantity(id, input.value);
             });
         });
 
@@ -154,9 +155,24 @@
                     input.value = parseInt(input.value) - 1;
                     updateLineTotal(id);
                     autoUpdateCart();
+                    updateQuantity(id, input.value, 'decrement');
                 }
             });
         });
+
+        function updateQuantity(id, quantity, status = 'increment') {
+            $.ajax({
+                url: '{{ route('cart.update') }}',
+                method: 'POST',
+                data: {
+                    _token: '{{ csrf_token() }}',
+                    id: id,
+                    status: status,
+                    quantities: parseInt(quantity)
+                },
+                success: function(response) {}
+            })
+        }
 
         function updateLineTotal(id) {
             const row = document.querySelector(`tr[data-id="${id}"]`);
@@ -180,6 +196,29 @@
         // Check/uncheck all
         document.getElementById('selectAll').addEventListener('change', function() {
             document.querySelectorAll('.item-checkbox').forEach(cb => cb.checked = this.checked);
+        });
+
+        $(document).ready(function() {
+            $('.btn-remove-item').on('click', function() {
+                if (!confirm('Bạn có chắc muốn xóa sản phẩm này?')) return;
+
+                const detailId = $(this).data('id');
+
+                $.ajax({
+                    url: '/cart/remove/' + detailId, // đúng route GET/POST
+                    method: 'POST',
+                    data: {
+                        _token: '{{ csrf_token() }}',
+                    },
+                    success: function(response) {
+                        // Ví dụ: reload trang hoặc xóa dòng HTML tương ứng
+                        location.reload(); // hoặc dùng $(...).remove();
+                    },
+                    error: function(xhr) {
+                        alert('Đã xảy ra lỗi. Vui lòng thử lại.');
+                    }
+                });
+            });
         });
     </script>
 @endsection
