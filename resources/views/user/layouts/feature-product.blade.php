@@ -3,9 +3,9 @@
          <div class="container">
 
             <div class="section-title3">
-                <h3>Sản phẩm <span>Mới lên kệ</span> </h3>
+                <h3>Featured <span>Product</span> </h3>
                 <div class="view-all">
-                    <a href="{{ route('u.product') }}">Xem tất cả
+                    <a href="{{ route('u.product') }}">View All Product
                         <svg width="33" height="13" viewBox="0 0 33 13" xmlns="http://www.w3.org/2000/svg">
                             <path
                                 d="M25.5083 7.28L0.491206 7.25429C0.36093 7.25429 0.23599 7.18821 0.143871 7.0706C0.0517519 6.95299 0 6.79347 0 6.62714C0 6.46081 0.0517519 6.3013 0.143871 6.18369C0.23599 6.06607 0.36093 6 0.491206 6L25.5088 6.02571C25.6391 6.02571 25.764 6.09179 25.8561 6.2094C25.9482 6.32701 26 6.48653 26 6.65286C26 6.81919 25.9482 6.9787 25.8561 7.09631C25.764 7.21393 25.6386 7.28 25.5083 7.28Z" />
@@ -23,7 +23,7 @@
                 <div class="col-xl-3 col-lg-4 col-sm-6">
                      <div class="product-card2">
                         <div class="batch">
-                            <span>Mới</span>
+                            <span>NEW</span>
                             <!-- <span>-15%</span> -->
                         </div>
                         <div class="product-card-img">
@@ -52,15 +52,16 @@
                         </div>
                         <div class="product-card-content">
                             <!-- danh muc -->
-                            <p><a href="{{ route('u.product_detail',$product->id) }}">{{ $product->category->name }}</a></p> 
+                            <p><a href="{{ route('u.product_detail',$product->id) }}">Crystal Gleam</a></p> 
                             <!-- san pham -->
                             <h6><a href="{{ route('u.product_detail',$product->id) }}" class="hover-underline">{{$product->name}}</a></h6>
-                            <span>
-                            @foreach ($product->variants as $variant)
-                                <p>Giá: {{ number_format($variant->price) }} VNĐ</p> @break
-                            @endforeach
-                            </span>
-                            
+                            <span>$150.00 <del>$200.00</del></span>
+                            <ul class="product-size">
+                                <li>250 ml</li>
+                                <li>500 ml</li>
+                                <li>1000 ml</li>
+                                <li>1500 ml</li>
+                            </ul>
                         </div>
                     </div>
                 </div>

@@ -8,7 +8,7 @@
         <div class="alert alert-success">{{ session('success') }}</div>
     @endif
 
-    <form method="POST" action="{{ route('admin.products.store') }}" enctype="multipart/form-data">
+    <form method="POST" action="{{ route('products.store') }}" enctype="multipart/form-data">
         @csrf
 
         {{-- Thông tin sản phẩm --}}

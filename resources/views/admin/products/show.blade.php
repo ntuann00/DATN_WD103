@@ -28,14 +28,14 @@
 
                 {{-- Ảnh đại diện --}}
                 @if($variant->images->count())
-                    <div class="d-flex flex-wrap gap-2">
-                        @foreach($variant->images as $image)
-                            <img src="{{ asset($image->image_url) }}" width="100" class="img-thumbnail">
-                        @endforeach
-                    </div>
-                @else
-                    <p class="text-muted">Không có ảnh cho biến thể này.</p>
-                @endif
+                <div class="d-flex flex-wrap gap-2">
+                    @foreach($variant->images as $image)
+                        <img src="{{ asset($image->image_url) }}" width="100" class="img-thumbnail">
+                    @endforeach
+                </div>
+            @else
+                <p class="text-muted">Không có ảnh cho biến thể này.</p>
+            @endif
 
                 {{-- Danh sách giá trị thuộc tính --}}
                 @if($variant->variantValues->count())
@@ -52,6 +52,6 @@
         </div>
     @endforeach
 
-    <a href="{{ route('admin.products.index') }}" class="btn btn-secondary mt-4">← Quay lại danh sách</a>
+    <a href="{{ route('products.index') }}" class="btn btn-secondary mt-4">← Quay lại danh sách</a>
 </div>
 @endsection

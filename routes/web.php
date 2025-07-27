@@ -17,8 +17,7 @@ use App\Http\Controllers\Admin\ProductController;
 use App\Http\Controllers\Admin\ProductImageController;
 use App\Http\Controllers\Admin\AdminOrderController;
 use App\Http\Controllers\Admin\PromotionController;
-use App\Http\Controllers\Admin\ReviewController;
-
+use Illuminate\Support\Facades\DB;
 
 // ================== Public Routes ===================
 Route::get('/', [HomeController::class, 'index'])->name('home');
@@ -27,17 +26,16 @@ Route::get('/product', [HomeController::class, 'product'])->name('u.product');
 Route::get('/product/{id}', [HomeController::class, 'product_detail'])->name('u.product_detail');
 Route::get('/category/{id}', [HomeController::class, 'category_product'])->name('u.category_product');
 Route::get('/newproduct', [HomeController::class, 'new_product'])->name('u.new_product');
-Route::get('/about_us', [HomeController::class, 'about_us'])->name('u.about_us');
-
 Route::get('/brand', [HomeController::class, 'brand'])->name('u.brand');
 Route::get('/checkout', [HomeController::class, 'checkout'])->name('u.checkout');
+Route::get('/about_us', [HomeController::class, 'about_us'])->name('u.about_us');
 Route::get('/blog', [HomeController::class, 'blog'])->name('u.blog');
 Route::get('/blog/1', [HomeController::class, 'blog_detail'])->name('u.blog_detail');
 Route::get('/faq', [HomeController::class, 'faq'])->name('u.faq');
-Route::get('/account', [HomeController::class, 'account'])->name('u.account');
-
 Route::get('/contact', [HomeController::class, 'contact'])->name('u.contact');
-
+Route::get('/account', [HomeController::class, 'account'])->name('u.account');
+Route::get('/login', [HomeController::class, 'login'])->name('u.login');
+Route::get('/register', [HomeController::class, 'register'])->name('u.register');
 
 // ========== Auth Routes ==========
 Route::get('/register', [AuthController::class, 'showRegisterForm'])->name('register');
@@ -55,14 +53,11 @@ Route::middleware('auth')->group(function () {
     Route::get('/repassword', [ProfileController::class, 'showPassword'])->name('repassword');
     Route::post('/repassword', [ProfileController::class, 'updatePassword'])->name('repassword.update');
 
-
-    // purchase history (lịch sử mua hàng)
-    Route::get('/puchasehistory', [HomeController::class, 'purchasehistory'])->name('purchasehistory');
-
     // Cart
     Route::get('/cart', [UserProductController::class, 'cart'])->name('cart.view');
     Route::post('/cart/update', [UserProductController::class, 'updateCart'])->name('cart.update');
     Route::post('/add-to-cart', [UserProductController::class, 'addToCart'])->name('cart.add');
+
     Route::post('/cart/remove/{productId}', [UserProductController::class, 'removeFromCart'])->name('cart.remove');
     Route::post('/cart/clear', [UserProductController::class, 'clearCart'])->name('cart.clear');
 
@@ -72,11 +67,13 @@ Route::middleware('auth')->group(function () {
     Route::get('/order/success', function () {
         return view('user.orders.order_success');
     })->name('order.success');
+    Route::post('/checkout-selected', [OrderController::class, 'checkoutSelected'])->name('checkout.selected');
+
 });
 
 // ========== Admin Routes ==========
-Route::prefix('admin')->middleware(['auth', 'check.role'])->name('admin.')->group(function () {
-    Route::get('/', [AdminController::class, 'index'])->name('dashboard');
+Route::middleware(['auth', 'check.role'])->group(function () {
+    Route::get('/admin', [AdminController::class, 'index'])->name('admin');
 
     // Categories
     Route::resource('categories', CategoryController::class);
@@ -103,8 +100,6 @@ Route::prefix('admin')->middleware(['auth', 'check.role'])->name('admin.')->grou
 
     // Promotions
     Route::resource('promotions', PromotionController::class);
-
-    // Reviews
-    Route::get('reviews', [ReviewController::class, 'index'])->name('reviews.index');
-    Route::patch('reviews/{review}/hide', [ReviewController::class, 'hide'])->name('reviews.hide');
 });
+
+

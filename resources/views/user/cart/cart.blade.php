@@ -15,6 +15,7 @@
                     <table class="table table-bordered align-middle text-center">
                         <thead class="table-secondary">
                             <tr>
+                                <th><input type="checkbox" id="selectAll"></th>
                                 <th>Ảnh</th>
                                 <th>Tên sản phẩm</th>
                                 <th>Số lượng</th>
@@ -28,7 +29,7 @@
                             @foreach ($items as $detail)
                                 @php
                                     $product = $detail->product;
-                                    $variant = $detail->variant; // 👈 Sửa đúng quan hệ từ cart_detail
+                                    $variant = $detail->variant; // 👈Sửa đúng quan hệ từ cart_detail
 
                                     // Giá lấy từ biến thể nếu có, ngược lại fallback về product
                                     $unitPrice = $variant?->price ?? $product->price;
@@ -38,7 +39,6 @@
                                     $grandTotal += $lineTotal;
 
                                     // Lấy mô tả thuộc tính (VD: Màu: Đỏ, Size: M)
-
                                     $variantDesc = '-';
                                     if ($variant && $variant->attributeValues->isNotEmpty()) {
                                         $variantDesc = $variant->attributeValues
@@ -50,21 +50,24 @@
                                             ->join('<br>');
                                     }
 
-
                                 @endphp
-                                <tr>
                                 <tr data-id="{{ $detail->id }}" data-price="{{ $unitPrice }}">
+                                    <td>
+                                        <input type="checkbox" class="item-checkbox" name="selected_items[]"
+                                            value="{{ $detail->id }}">
+                                    </td>
                                     <td>
                                         <img src="{{ asset($product->image) }}" alt="{{ $product->name }}"
                                             class="img-thumbnail border-0" style="max-width:60px;">
                                     </td>
                                     <td class="text-start">
                                         <strong>{{ $product->name }}</strong><br>
-
                                         <small>{!! nl2br($variantDesc) !!}</small>
-                              
-
-
+                                        {{-- <pre>
+@php
+    dd($variant->attributeValues->pluck('attribute.name', 'value'));
+@endphp
+</pre> --}}
                                     </td>
                                     <td style="width:160px;">
                                         <div class="input-group justify-content-center">
@@ -93,7 +96,7 @@
                         </tbody>
                         <tfoot class="table-light">
                             <tr>
-                                <td colspan="4" class="text-end fw-bold">Tổng tiền:</td>
+                                <td colspan="5" class="text-end fw-bold">Tổng tiền:</td>
                                 <td colspan="2" class="fw-bold text-danger grand-total">
                                     {{ number_format($grandTotal, 0, ',', '.') }}₫
                                 </td>
@@ -102,14 +105,20 @@
                     </table>
                 </div>
 
+
                 <div class="d-flex justify-content-between mt-3">
-                  
+
+
                     <form action="{{ route('cart.clear') }}" method="POST"
                         onsubmit="return confirm('Bạn có chắc muốn xóa toàn bộ giỏ hàng?');">
                         @csrf
-                        <button type="submit" class="btn btn-danger btn-lg">🗑 Xóa toàn bộ giỏ hàng</button>
+                        <button type="submit" class="btn btn-danger btn-lg" name="action" value="delete">🗑 Xóa toàn bộ
+                            giỏ hàng</button>
                     </form>
-                    <a href="{{ route('order.index') }}" class="btn btn-success btn-lg">Mua hàng</a>
+                    <form action="{{ route('order.index') }}" method="GET" id="checkoutSelectedForm">
+                        <input type="hidden" name="selected_items" id="selected_items_input">
+                        <button type="submit" class="btn btn-success btn-lg">🛒 Mua hàng</button>
+                    </form>
                 </div>
             </form>
         @else
@@ -117,12 +126,13 @@
         @endif
     </div>
 
-    <!-- Script tăng giảm số lượng ngay trên view -->
+    </div>
+
+    <!-- Script tăng giảm và checkbox -->
     <script>
         function autoUpdateCart() {
-            // Tự động submit form sau 0.5s để tránh gửi quá nhanh
             setTimeout(() => {
-                document.querySelector('form[action="{{ route('cart.update') }}"]').submit();
+                document.querySelector('form[action="{{ route('cart.update') }}"]')?.submit();
             }, 500);
         }
 
@@ -132,7 +142,7 @@
                 const input = document.querySelector(`input[name="quantities[${id}]"]`);
                 input.value = parseInt(input.value) + 1;
                 updateLineTotal(id);
-                autoUpdateCart(); // 👈 Gọi cập nhật
+                autoUpdateCart();
             });
         });
 
@@ -143,7 +153,7 @@
                 if (parseInt(input.value) > 1) {
                     input.value = parseInt(input.value) - 1;
                     updateLineTotal(id);
-                    autoUpdateCart(); // 👈 Gọi cập nhật
+                    autoUpdateCart();
                 }
             });
         });
@@ -164,10 +174,12 @@
                 const quantity = parseInt(row.querySelector('.quantity-input').value);
                 grandTotal += price * quantity;
             });
-
             document.querySelector('.grand-total').textContent = grandTotal.toLocaleString('vi-VN') + '₫';
         }
+
+        // Check/uncheck all
+        document.getElementById('selectAll').addEventListener('change', function() {
+            document.querySelectorAll('.item-checkbox').forEach(cb => cb.checked = this.checked);
+        });
     </script>
-
-
 @endsection

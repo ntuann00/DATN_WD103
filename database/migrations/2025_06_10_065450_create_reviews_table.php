@@ -18,7 +18,7 @@ return new class extends Migration
             $table->unsignedBigInteger('user_id');
             $table->unsignedBigInteger('product_id');
             $table->tinyInteger('rating')->unsigned()->default(5); // từ 1 đến 5
-            $table->text('comment')->nullable();
+            $table->text('comment');
             $table->timestamps();
 
             // relationship

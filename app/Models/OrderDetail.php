@@ -6,7 +6,6 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use App\Models\Order;
 use App\Models\Product;
-use App\Models\Product_variant;
 
 class OrderDetail extends Model
 {
@@ -38,6 +37,6 @@ class OrderDetail extends Model
     }
     public function productVariant()
     {
-        return $this->belongsTo(Product_variant::class, 'product_variant_id');
+        return $this->belongsTo(ProductVariant::class, 'product_variant_id');
     }
 }

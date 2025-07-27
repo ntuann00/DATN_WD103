@@ -16,20 +16,20 @@ return new class extends Migration
             $table->string('name');
 
             // FK
-            $table->unsignedBigInteger('productVariant_id')->nullable();
-            $table->unsignedBigInteger('category_id')->nullable();
-            $table->unsignedBigInteger('attribute_id')->nullable();
+            $table->unsignedBigInteger('productVariant_id');
+            $table->unsignedBigInteger('category_id');
+            $table->unsignedBigInteger('attribute_id');
             $table->unsignedBigInteger('promotion_id')->nullable();
 
-            $table->string('brand')->nullable();
-            $table->text('description')->nullable();
+            $table->string('brand');
+            $table->text('description');
             $table->boolean('status')->default(true); // true: active, false: inactive
             $table->timestamps();
 
             // relationship
-            // $table->foreign('productVariant_id')->references('id')->on('product_variants')->onDelete('set null');
-            $table->foreign('category_id')->references('id')->on('categories')->onDelete('set null');
-            $table->foreign('attribute_id')->references('id')->on('attributes')->onDelete('set null');
+            // $table->foreign('productVariant_id')->references('id')->on('product_variants')->onDelete('cascade');
+            $table->foreign('category_id')->references('id')->on('categories')->onDelete('cascade');
+            $table->foreign('attribute_id')->references('id')->on('attributes')->onDelete('cascade');
             $table->foreign('promotion_id')->references('id')->on('promotions')->onDelete('set null');
         });
     }

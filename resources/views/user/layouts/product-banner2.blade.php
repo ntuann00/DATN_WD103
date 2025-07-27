@@ -12,8 +12,8 @@
                                             <img src="{{ asset('user/assets/img/home2/product-banner-img1.png')}}" alt="">
                                         </div>
                                         <div class="product-banner-content"> 
-                                            <h2>Hãy thử sản phẩm mới cho gương mặt của bạn.</h2>
-                                            <a href="{{route('u.product')}}" class="primary-btn3 black-bg hover-btn5 hover-white">Chọn ngay</a>
+                                            <h2>Try fresh product for your face.</h2>
+                                            <a href="shop-list.html" class="primary-btn3 black-bg hover-btn5 hover-white">Shop Now</a>
                                         </div>
                                         <div class="product-banner-right-img">
                                             <img src="{{ asset('user/assets/img/home2/product-banner-img2.png')}}" alt="">
@@ -26,8 +26,8 @@
                                             <img src="{{ asset('user/assets/img/home2/product-banner-img4.png')}}" alt="">
                                         </div>
                                         <div class="product-banner-content"> 
-                                            <h2>Tinh chất phục hồi làn da cho tươi mới</h2>
-                                            <a href="{{route('u.product')}}" class="primary-btn3 black-bg hover-btn5 hover-white">Lựa Ngay</a>
+                                            <h2>Refreshing Skin Revival Elixir</h2>
+                                            <a href="shop-list.html" class="primary-btn3 black-bg hover-btn5 hover-white">Shop Now</a>
                                         </div>
                                         <div class="product-banner-right-img">
                                             <img src="{{ asset('user/assets/img/home2/product-banner-img3.png')}}" alt="">
@@ -40,8 +40,8 @@
                                             <img src="{{ asset('user/assets/img/home2/product-banner-img5.png')}}" alt="">
                                         </div>
                                         <div class="product-banner-content"> 
-                                            <h2>Serum tái tạo da mặt</h2>
-                                            <a href="{{route('u.product')}}" class="primary-btn3 black-bg hover-btn5 hover-white">Sắm nào</a>
+                                            <h2>Renewing Facial Awakening Serum</h2>
+                                            <a href="shop-list.html" class="primary-btn3 black-bg hover-btn5 hover-white">Shop Now</a>
                                         </div>
                                         <div class="product-banner-right-img">
                                             <img src="{{ asset('user/assets/img/home2/product-banner-img6.png')}}" alt="">

@@ -31,7 +31,7 @@ class Cart_detail extends Model
 
     public function variant()
 {
-    return $this->belongsTo(Product_variant::class, 'product_variant_id', 'id')
+    return $this->belongsTo(ProductVariant::class, 'product_variant_id', 'id')
                 ->with('attributeValues'); 
 }
 }

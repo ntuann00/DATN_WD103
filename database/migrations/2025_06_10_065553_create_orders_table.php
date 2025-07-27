@@ -17,20 +17,20 @@ return new class extends Migration
             // FK
             $table->unsignedBigInteger('user_id');
             $table->string('name');
-            $table->unsignedBigInteger('payment_id')->nullable();
-            $table->unsignedBigInteger('status_id')->nullable();
-            $table->text('description')->nullable();
-            $table->unsignedBigInteger('address_id')->nullable();
+            $table->unsignedBigInteger('payment_id');
+            $table->unsignedBigInteger('status_id');
+            $table->text('description');
+            $table->unsignedBigInteger('address_id');
 
-            $table->string('phone')->nullable();
+            $table->string('phone');
             $table->decimal('total', 12, 2)->default(0.00);
             $table->timestamps();
 
             //relationship
             $table->foreign('user_id')->references('id')->on('users')->onDelete('cascade');
-            $table->foreign('payment_id')->references('id')->on('payments')->onDelete('set null');
-            $table->foreign('status_id')->references('id')->on('statuses')->onDelete('set null');
-            $table->foreign('address_id')->references('id')->on('addresses')->onDelete('set null');
+            $table->foreign('payment_id')->references('id')->on('payments')->onDelete('cascade');
+            $table->foreign('status_id')->references('id')->on('statuses')->onDelete('cascade');
+            $table->foreign('address_id')->references('id')->on('addresses')->onDelete('cascade');
         });
     }
 

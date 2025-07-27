@@ -15,7 +15,7 @@
         </div>
     @endif
 
-    <form action="{{ route('admin.users.store') }}" method="POST" enctype="multipart/form-data">
+    <form action="{{ route('users.store') }}" method="POST" enctype="multipart/form-data">
         @csrf
 
         <div class="mb-3">
@@ -53,16 +53,16 @@
         </div>
 
         <div class="mb-3">
-            <label for="role_id">Vai trò:</label>
-            <select name="role_id" class="form-control">
-                <option value="">-- Chọn vai trò --</option>
-                @foreach ($roles as $role)
-                    <option value="{{ $role->id }}" {{ old('role_id') == $role->id ? 'selected' : '' }}>
-                        {{ $role->name }}
-                    </option>
-                @endforeach
-            </select>
-        </div>
+    <label for="role_id">Vai trò:</label>
+    <select name="role_id" class="form-control">
+        <option value="">-- Chọn vai trò --</option>
+        @foreach ($roles as $role)
+            <option value="{{ $role->id }}" {{ old('role_id') == $role->id ? 'selected' : '' }}>
+                {{ $role->name }}
+            </option>
+        @endforeach
+    </select>
+</div>
 
         <div class="mb-3">
             <label for="status">Trạng thái:</label>
@@ -78,7 +78,7 @@
         </div>
 
         <button type="submit" class="btn btn-success">Lưu</button>
-        <a href="{{ route('admin.users.index') }}" class="btn btn-secondary">Quay lại</a>
+        <a href="{{ route('users.index') }}" class="btn btn-secondary">Quay lại</a>
     </form>
 </div>
 @endsection

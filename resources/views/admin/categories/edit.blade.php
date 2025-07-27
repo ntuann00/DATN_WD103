@@ -13,7 +13,7 @@
                 </div>
 
                 <div class="card-body">
-                    {{-- Hiển thị lỗi validation --}}
+                    <!-- Hiển thị lỗi validation -->
                     @if ($errors->any())
                         <div class="alert alert-danger">
                             <ul class="mb-0">
@@ -24,54 +24,38 @@
                         </div>
                     @endif
 
-                    {{-- Form chỉnh sửa --}}
-                    <form action="{{ route('admin.categories.update', $category->id) }}" method="POST">
+                    <!-- Form chỉnh sửa -->
+                    <form action="{{ route('categories.update', $category->id) }}" method="POST">
                         @csrf
                         @method('PUT')
 
                         <div class="mb-3">
                             <label for="name" class="form-label">Tên danh mục</label>
-                            <input
-                                type="text"
-                                name="name"
-                                id="name"
-                                class="form-control @error('name') is-invalid @enderror"
-                                value="{{ old('name', $category->name) }}"
-                                required
-                            >
+                            <input type="text" name="name" id="name" class="form-control @error('name') is-invalid @enderror" value="{{ old('name', $category->name) }}" required>
                             @error('name')
                                 <div class="invalid-feedback">{{ $message }}</div>
                             @enderror
                         </div>
-
                         <div class="mb-3">
                             <label for="description" class="form-label">Mô tả</label>
-                            <input
-                                type="text"
-                                name="description"
-                                id="description"
-                                class="form-control @error('description') is-invalid @enderror"
-                                value="{{ old('description', $category->description) }}"
-                                required
-                            >
-                            @error('description')
+                            <input type="text" name="description" id="description" class="form-control @error('description') is-invalid @enderror" value="{{ old('description', $category->description) }}" required>
+                            @error('categories_name')
                                 <div class="invalid-feedback">{{ $message }}</div>
                             @enderror
                         </div>
 
-                        <div class="mb-3">
-                            <label for="status" class="form-label">Trạng thái</label>
-                            <select name="status" id="status" class="form-control @error('status') is-invalid @enderror">
-                                <option value="active" {{ old('status', $category->status) == 'active' ? 'selected' : '' }}>Hiển thị</option>
-                                <option value="inactive" {{ old('status', $category->status) == 'inactive' ? 'selected' : '' }}>Ẩn</option>
-                            </select>
-                            @error('status')
-                                <div class="invalid-feedback">{{ $message }}</div>
-                            @enderror
-                        </div>
-
+                      <div class="mb-3">
+                <label for="status" class="form-label">Trạng thái</label>
+                <select name="status" class="form-control">
+                    <option value="active" {{ $category->status == 'active' ? 'selected' : '' }}> Active</option>
+                    <option value="inactive" {{ $category->status == 'inactive' ? 'selected' : '' }}>Inactive</option>
+                </select>
+                @error('status')
+                    <div class="text-danger">{{ $message }}</div>
+                @enderror
+            </div>
                         <div class="d-flex justify-content-between">
-                            <a href="{{ route('admin.categories.index') }}" class="btn btn-secondary">
+                            <a href="{{ route('categories.index') }}" class="btn btn-secondary">
                                 <i class="bi bi-arrow-left"></i> Quay lại
                             </a>
                             <button type="submit" class="btn btn-primary">
