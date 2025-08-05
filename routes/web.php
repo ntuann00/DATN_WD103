@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\VNPayController;
 use Illuminate\Support\Facades\Route;
 
 use App\Http\Controllers\User\HomeController;
@@ -67,8 +68,18 @@ Route::middleware('auth')->group(function () {
     Route::get('/order/success', function () {
         return view('user.orders.order_success');
     })->name('order.success');
+<<<<<<< Updated upstream
     Route::post('/checkout-selected', [OrderController::class, 'checkoutSelected'])->name('checkout.selected');
 
+=======
+    Route::get('/order/fail', function () {
+        return view('user.vnpay.vnpay_fail');
+    })->name('order.fail');
+    Route::post('/checkout-selected', [OrderController::class, 'checkoutSelected'])->name('checkout.selected');
+    Route::post('/orders/{id}/cancel', [OrderController::class, 'cancel'])->name('orders.cancel');
+    Route::post('/orders/{id}/return', [OrderController::class, 'return'])->name('orders.return');
+    Route::get('/orders/{id}/return', [OrderController::class, 'return'])->name('orders.return');
+>>>>>>> Stashed changes
 });
 
 // ========== Admin Routes ==========
@@ -97,9 +108,18 @@ Route::middleware(['auth', 'check.role'])->group(function () {
     // Orders
     Route::get('/orders', [AdminOrderController::class, 'index'])->name('orders.index');
     Route::get('/orders/{id}', [AdminOrderController::class, 'show'])->name('orders.show');
+    Route::put('/orders/{id}/status', [AdminOrderController::class, 'updateStatus'])->name('orders.updateStatus');
+
 
     // Promotions
     Route::resource('promotions', PromotionController::class);
 });
 
 
+<<<<<<< Updated upstream
+=======
+
+//vn-pay
+Route::post('/vnpay/payment', [VNPayController::class, 'create'])->name('vnpay.payment');
+Route::get('/vnpay-return', [VNPayController::class, 'vnpayReturn'])->name('vnpay.return');
+>>>>>>> Stashed changes

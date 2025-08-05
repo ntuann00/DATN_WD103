@@ -18,6 +18,7 @@ class Order extends Model
         'payment_id',
         'status_id',
         'description',
+        'cancel_reason',
         'address_id',
         'phone',
         'total',

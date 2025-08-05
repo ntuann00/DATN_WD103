@@ -30,12 +30,16 @@ class ProductSeeder extends Seeder
         foreach (range(1, 20) as $i) {
             Product::create([
                 'name'            => ucfirst($faker->unique()->words(2, true)),
+<<<<<<< Updated upstream
                 'productVariant_id'  => count($productVariantIds) > 0 ? $faker->randomElement($productVariantIds) : 1,
+=======
+>>>>>>> Stashed changes
                 'category_id'     => $faker->randomElement($categoryIds),
                 'attribute_id'    => $faker->randomElement($attributeIds),
                 'promotion_id'    => $faker->randomElement($promotionIds),
                 'brand'           => $faker->company,
                 'description'     => $faker->paragraph,
+               
                 'status' => $faker->randomElement([1, 0]), // 1 = active, 0 = inactive
             ]);
         }

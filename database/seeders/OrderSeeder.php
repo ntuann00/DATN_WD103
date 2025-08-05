@@ -41,6 +41,7 @@ class OrderSeeder extends Seeder
                 'phone'       => $user->phone ?? $faker->phoneNumber,
                 'total'       => 0, // sẽ cập nhật lại sau
                 'description' => $faker->sentence,
+                 'cancel_reason' => $faker->paragraph,
             ]);
 
             // Gán sản phẩm vào đơn hàng

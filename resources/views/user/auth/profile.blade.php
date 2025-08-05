@@ -203,6 +203,7 @@
                                             <th>Số lượng</th>
                                             <th>Giá</th>
                                             <th>Tổng tiền</th>
+                                            <th>Trạng thái</th>
                                             <th>Ghi chú</th>
                                             <th>Hình thức thanh toán</th>
                                             <th>Trạng thái</th>
@@ -232,6 +233,8 @@
                                                     <td>{{ number_format($detail->price, 0, ',', '.') }} đ</td>
                                                     <td>{{ number_format($detail->total, 0, ',', '.') }} đ</td>
 
+                                                    <td>{{ $order->status_payment == 0 ? 'Chưa thanh toán' : 'Thanh toán thành công' }}</td>
+
                                                     <td>{{ $order->description ?? 'Không có ghi chú' }}</td>
 
                                                     <td>{{ $order->payment?->name ?? '---' }}</td>
@@ -240,6 +243,33 @@
                                                         class="{{ $order->status?->slug === 'pending' ? 'text-red' : 'text-green' }}">
                                                         {{ $order->status?->name ?? 'Không xác định' }}
                                                     </td>
+                                                    <td>
+                                                        @if ($order->status_id == 7)
+                                                            <!-- Đơn đã giao thành công -->
+                                                            <button class="btn btn-warning btn-sm" data-bs-toggle="modal"
+                                                                data-bs-target="#returnModal{{ $order->id }}">
+                                                                Hoàn hàng
+                                                            </button>
+                                                        @elseif (!in_array($order->status_id, [5, 6, 8, 9]))
+                                                            <!-- Đơn chưa giao và chưa bị hủy hoặc hoàn -->
+                                                            <button type="button" class="btn btn-sm btn-danger"
+                                                                data-bs-toggle="modal"
+                                                                data-bs-target="#cancelModal{{ $order->id }}">
+                                                                Hủy đơn
+                                                            </button>
+                                                        @endif
+                                                    </td>
+                                                    {{-- <td>
+                                                        @if ($order->status_id != 5 && $order->status_id != 6)
+                                                            <!-- Nút mở modal -->
+                                                            <button type="button" class="btn btn-sm btn-danger"
+                                                                data-bs-toggle="modal"
+                                                                data-bs-target="#cancelModal{{ $order->id }}">
+                                                                Hủy đơn
+                                                            </button>
+                                                        @endif
+                                                    </td> --}}
+
                                                 </tr>
                                             @endforeach
                                         @empty
@@ -249,6 +279,7 @@
                                         @endforelse
                                     </tbody>
                                 </table>
+
                             </div>
 
 
@@ -288,5 +319,65 @@
                 </div>
             </div>
         </div>
+
     </div>
+    @foreach ($orders as $order)
+        <!-- Modal hủy đơn hàng -->
+        <div class="modal fade" id="cancelModal{{ $order->id }}" tabindex="-1"
+            aria-labelledby="cancelLabel{{ $order->id }}" aria-hidden="true">
+            <div class="modal-dialog">
+                <form action="{{ route('orders.cancel', $order->id) }}" method="POST">
+                    @csrf
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <h5 class="modal-title" id="cancelLabel{{ $order->id }}">Hủy đơn hàng
+                                #{{ $order->id }}</h5>
+                            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Đóng"></button>
+                        </div>
+                        <div class="modal-body">
+                            <label for="cancel_reason">Nhập lý do hủy:</label>
+                            <textarea name="cancel_reason" class="form-control" rows="4" required></textarea>
+                        </div>
+                        <div class="modal-footer">
+                            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Đóng</button>
+                            <button type="submit" class="btn btn-danger">Xác nhận hủy</button>
+                        </div>
+                    </div>
+                </form>
+            </div>
+        </div>
+
+
+        <!-- Modal hoàn hàng -->
+        <div class="modal fade" id="returnModal{{ $order->id }}" tabindex="-1"
+            aria-labelledby="returnLabel{{ $order->id }}" aria-hidden="true">
+            <div class="modal-dialog">
+                <form action="{{ route('orders.return', $order->id) }}" method="POST">
+                    @csrf
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <h5 class="modal-title" id="returnLabel{{ $order->id }}">Hoàn hàng đơn
+                                {{ $order->id }}</h5>
+                            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Đóng"></button>
+                        </div>
+                        <div class="modal-body">
+                            <label for="return_reason">Nhập lý do hoàn hàng:</label>
+                            <textarea name="return_reason" class="form-control" rows="4" required></textarea>
+                        </div>
+                        <div class="modal-footer">
+                            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Đóng</button>
+                            <button type="submit" class="btn btn-warning">Xác nhận hoàn hàng</button>
+                        </div>
+                    </div>
+                </form>
+            </div>
+        </div>
+    @endforeach
+    <script>
+        document.querySelectorAll('.btn-cancel').forEach(button => {
+            button.addEventListener('click', function() {
+                document.querySelector('.cancel-form').style.display = 'block';
+            });
+        });
+    </script>
 @endsection

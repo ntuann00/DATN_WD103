@@ -2,6 +2,11 @@
 
 @section('content')
     <div class="container py-5">
+        @if (session('error'))
+    <div class="alert alert-danger">
+        {{ session('error') }}
+    </div>
+@endif
         {{-- Tiêu đề --}}
         {{-- <pre>{{ dd($Product->variants) }}</pre> --}}
 
@@ -402,6 +407,7 @@
                                         // CSS để làm mờ và không thể click
                                         const style = document.createElement('style');
                                         style.textContent = `
+<<<<<<< Updated upstream
                                                     .text-muted {
                                                         opacity: 0.4 !important;
                                                     }
@@ -409,6 +415,15 @@
                                                         pointer-events: none !important;
                                                     }
                                                 `;
+=======
+        .text-muted {
+            opacity: 0.4 !important;
+        }
+        .unselectable {
+            pointer-events: none !important;
+        }
+    `;
+>>>>>>> Stashed changes
                                         document.head.appendChild(style);
                                     });
                                 </script>
