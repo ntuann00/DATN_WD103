@@ -19,7 +19,7 @@ class Product extends Model
         // thêm các trường khác nếu có trong form hoặc bảng DB
     ];
 
-    
+
     public function variants()
     {
         return $this->hasMany(ProductVariant::class, 'product_id', 'id');
@@ -34,6 +34,10 @@ class Product extends Model
     {
         return $this->belongsTo(Promotion::class);
     }
+    public function images()
+{
+    return $this->hasMany(ProductImage::class, 'product_id');
+}
 }
 
 
