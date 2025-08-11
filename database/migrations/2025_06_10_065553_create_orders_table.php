@@ -19,8 +19,10 @@ return new class extends Migration
             $table->string('name');
             $table->unsignedBigInteger('payment_id');
             $table->unsignedBigInteger('status_id');
-            $table->text('description');
+
+            $table->text('description')->nullable();
             $table->unsignedBigInteger('address_id');
+            $table->text('cancel_reason')->nullable();
 
             $table->string('phone');
             $table->decimal('total', 12, 2)->default(0.00);

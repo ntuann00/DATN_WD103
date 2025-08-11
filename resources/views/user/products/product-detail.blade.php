@@ -2,7 +2,8 @@
 
 @section('content')
     <div class="container py-5">
-        @if(session('error'))
+        @if (session('error'))
+
     <div class="alert alert-danger">
         {{ session('error') }}
     </div>
@@ -36,6 +37,56 @@
                                     @endforeach
                                 @endforeach
 
+                                <div class="tab-pane fade show active" id="view-pills-img1" role="tabpanel">
+                                    <div class="shop-details-tab-img">
+                                        <img src="{{ asset('user/assets/img/inner-page/shop-details-tab-img1.png') }}"
+                                            alt="">
+                                    </div>
+                                </div>
+                                <div class="tab-pane fade" id="view-pills-img2" role="tabpanel">
+                                    <div class="shop-details-tab-img">
+                                        <img src="{{ $Product->image }}"
+                                            alt="">
+                                    </div>
+                                </div>
+                                <div class="tab-pane fade" id="view-pills-img3" role="tabpanel">
+                                    <div class="shop-details-tab-img">
+                                        <img src="{{ asset('user/assets/img/inner-page/shop-details-tab-img3.png') }}"
+                                            alt="">
+                                    </div>
+                                </div>
+                                <div class="tab-pane fade" id="view-pills-img4" role="tabpanel">
+                                    <div class="shop-details-tab-img">
+                                        <img src="{{ asset('user/assets/img/inner-page/shop-details-tab-img4.png') }}"
+                                            alt="">
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="nav nav-pills" id="view-tab" role="tablist" aria-orientation="vertical">
+                                <button class="nav-link active" id="view-pills-img1-tab" data-bs-toggle="pill"
+                                    data-bs-target="#view-pills-img1" type="button" role="tab"
+                                    aria-controls="view-pills-img1" aria-selected="true">
+                                    <img src="{{ asset('user/assets/img/inner-page/shop-details-nav-img1.png') }}"
+                                        alt="">
+                                </button>
+                                <button class="nav-link" id="view-pills-img2-tab" data-bs-toggle="pill"
+                                    data-bs-target="#view-pills-img2" type="button" role="tab"
+                                    aria-controls="view-pills-img2" aria-selected="false">
+                                    <img src="{{ asset('user/assets/img/inner-page/shop-details-nav-img2.png') }}"
+                                        alt="">
+                                </button>
+                                <button class="nav-link" id="view-pills-img3-tab" data-bs-toggle="pill"
+                                    data-bs-target="#view-pills-img3" type="button" role="tab"
+                                    aria-controls="view-pills-img3" aria-selected="false">
+                                    <img src="{{ asset('user/assets/img/inner-page/shop-details-nav-img3.png') }}"
+                                        alt="">
+                                </button>
+                                <button class="nav-link" id="view-pills-img4-tab" data-bs-toggle="pill"
+                                    data-bs-target="#view-pills-img4" type="button" role="tab"
+                                    aria-controls="view-pills-img4" aria-selected="false">
+                                    <img src="{{ asset('user/assets/img/inner-page/shop-details-nav-img4.png') }}"
+                                        alt="">
+                                </button>
 
                             </div>
 
@@ -388,13 +439,16 @@
                                         // CSS để làm mờ và không thể click
                                         const style = document.createElement('style');
                                         style.textContent = `
-                                                    .text-muted {
-                                                        opacity: 0.4 !important;
-                                                    }
-                                                    .unselectable {
-                                                        pointer-events: none !important;
-                                                    }
-                                                `;
+
+
+        .text-muted {
+            opacity: 0.4 !important;
+        }
+        .unselectable {
+            pointer-events: none !important;
+        }
+    `;
+
                                         document.head.appendChild(style);
                                     });
                                 </script>

@@ -1,6 +1,8 @@
 <?php
 
+
 namespace App\Http\Controllers\User;
+
 
 use App\Http\Controllers\Controller;
 use App\Models\Cart;
@@ -11,6 +13,7 @@ use App\Models\ProductVariant;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
+
 
 class UserProductController extends Controller
 {
@@ -23,6 +26,7 @@ class UserProductController extends Controller
             return redirect()->route('login')
                 ->with('error', 'Bạn cần đăng nhập để thêm sản phẩm vào giỏ.');
         }
+
 
         // ✅ Lấy variant ID từ form
         $attributeValues = $request->input('attribute'); // mảng [5, 8] chẳng hạn
@@ -37,8 +41,8 @@ class UserProductController extends Controller
             ->with('attributeValues') // Nếu cần xem thêm
             ->first(); // Hoặc get() nếu muốn lấy nhiều
 
-        $qty = max(1, (int)$request->input('quantity', 1));
-        $qty = min($qty, $variant->quantity);
+        $rawQty = (int)$request->input('quantity', 1);
+       $qty = max(1, $rawQty);
         // dd($qty);
 
         $cart = Cart::firstOrCreate(
@@ -71,7 +75,8 @@ class UserProductController extends Controller
     }
 
 
-    /**
+
+
      * Hiển thị trang giỏ hàng (dữ liệu từ DB)
      */
     public function cart()
@@ -81,9 +86,11 @@ class UserProductController extends Controller
             'cartDetails.product'
         ])->where('user_id', Auth::id())->latest()->first();
 
+
         $items = $cart ? $cart->cartDetails : collect();
         return view('user.cart.cart', compact('items'));
     }
+
 
     /**
      * Cập nhật số lượng từng item trong giỏ
@@ -91,21 +98,48 @@ class UserProductController extends Controller
     public function updateCart(Request $request)
     {
         $detail = Cart_detail::find($request->id);
+        $variant = $detail->variant;
+
         if ($detail && $detail->cart->user_id === Auth::id()) {
             if ($request->status == 'decrement') {
                 if ($detail->quantity > 1) {
                     $detail->update([
                         'quantity' => $detail->quantity - 1,
                     ]);
+                    return response()->json([
+                        'status' => 'success',
+                        'message' => 'Đã giảm số lượng',
+                    ]);
                 }
             } else {
+                $newQty = (int) $request->quantities;
+
+                if ($newQty > $variant->quantity) {
+                    return response()->json([
+                        'status' => 'error',
+                        'message' => 'Số lượng yêu cầu vượt quá tồn kho!',
+                    ]);
+                }
+
                 $detail->update([
-                    'quantity' => max(1, (int) $request->quantities),
+                    'quantity' => $newQty,
+                ]);
+                return response()->json([
+                    'status' => 'success',
+                    'message' => 'Đã cập nhật số lượng',
                 ]);
             }
         }
-        return response()->json(['message' => 'Cập nhật thành công']);
+
+        // ❌ Trường hợp không hợp lệ
+        return response()->json([
+            'status' => 'error',
+            'message' => 'Không thể cập nhật sản phẩm',
+        ]);
+
     }
+
+
 
     /**
      * Xóa 1 item khỏi giỏ
@@ -117,10 +151,14 @@ class UserProductController extends Controller
             $detail->delete();
         }
 
+
         // Gửi session flash như bình thường
         session()->flash('success', 'Đã xóa sản phẩm khỏi giỏ hàng!');
         return response()->json(['reload' => true]);
     }
+
+
+
 
     /**
      * Xóa toàn bộ giỏ hàng của user
