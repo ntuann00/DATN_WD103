@@ -19,15 +19,11 @@ class ProductController extends Controller
      */
     public function index()
     {
-<<<<<<< Updated upstream
         // $products = Product::with(['category', 'variants'])->latest()->paginate(5);
         // return view('admin.products.index', compact('products'));
         $products = Product::with(['images','variants.images','category'])
                        ->latest()
-                       ->paginate(15);
-=======
-        $products = Product::with(['category', 'variants'])->latest()->paginate(5);
->>>>>>> Stashed changes
+                       ->paginate(8);
         return view('admin.products.index', compact('products'));
     }
 
@@ -45,7 +41,6 @@ class ProductController extends Controller
     /**
      * Store a newly created resource in storage.
      */
-<<<<<<< Updated upstream
 //    public function store(Request $request)
 // {
 //     // ✅ 1. Tạo sản phẩm
@@ -123,55 +118,17 @@ class ProductController extends Controller
                     'image_url' => 'storage/' . $path,
                     'alt_text'  => $product->name . ' - ảnh ' . ($i + 1),
                     'sort_order'=> $i + 1,
-=======
-   public function store(Request $request)
-{
-    // ✅ 1. Tạo sản phẩm
-   $product = Product::create([
-    'name' => $request->input('name'),
-    'productVariant_id' => $request->input('productVariant_id') ,
-    'category_id' => $request->input('category_id'),
-    'attribute_id' => $request->input('attribute_id') ?? null, // có thể null
-    'promotion_id' => $request->input('promotion_id') ?? null, // có thể null
-    'brand' => $request->input('brand'),
-    'description' => $request->input('description'),
-    'status' => $request->input('status', true),
-    
-]);
-
-    // ✅ 2. Lặp qua từng biến thể
-    foreach ($request->input('variants', []) as $index => $variantData) {
-        // Bỏ qua biến thể trống
-        if (empty($variantData['sku']) || empty($variantData['price'])) {
-            continue;
-        }
-
-        // 2.1. Tạo biến thể
-        $variant = $product->variants()->create([
-            'sku' => $variantData['sku'],
-            'price' => $variantData['price'],
-            'quantity' => $variantData['quantity'] ?? 0,
-        ]);
-
-        // 2.2. Lưu giá trị thuộc tính con
-        foreach ($variantData['attributes'] ?? [] as $attributeId => $attributeValueId) {
-            if ($attributeValueId) {
-                Product_variant_value::create([
-                    'variant_id' => $variant->id,
-                    'attribute_value_id' => $attributeValueId,
->>>>>>> Stashed changes
                 ]);
             }
         }
 
-<<<<<<< Updated upstream
         // 3. Xử lý variants
         $variants = $request->input('variants', []);
         if (empty($variants)) {
             // Không có biến thể con: tạo mặc định từ form cơ bản
             $product->variants()->create([
                 'sku'      => $request->input('sku'),
-                'price'    => $request->input('price'),
+                'price'    => $request->input('price', 0),
                 'quantity' => $request->input('stock', 0),
             ]);
         } else {
@@ -195,83 +152,6 @@ class ProductController extends Controller
                         ]);
                     }
                 }
-=======
-        // 2.3. Xử lý ảnh upload (nếu có)
-        if ($request->hasFile("variant_images.$index")) {
-            $images = $request->file("variant_images.$index");
-
-            foreach ($images as $imgIndex => $image) {
-                $path = $image->store('products', 'public');
-
-                $variant->images()->create([
-                    'image_url' => 'storage/' . $path,
-                    'alt_text' => $variant->sku . ' - ảnh ' . ($imgIndex + 1),
-                    'sort_order' => $imgIndex + 1,
-                ]);
-            }
-        }
-    }
-
-    return redirect()->route('products.index')->with('success', 'Thêm sản phẩm thành công!');
-}
-
-    /**
-     * Display the specified resource.
-     */
-    public function show(string $id)
-    {
-        $product = Product::with([
-            'variants.images', // Lấy ảnh cho từng biến thể
-            'variants.variantValues.attributeValue.attribute' // Nếu bạn muốn show thuộc tính như Size, Màu
-        ])->findOrFail($id);
-        return view('admin.products.show', compact('product'));
-    }
-
-    /**
-     * Show the form for editing the specified resource.
-     */
-    public function edit(string $id)
-    {
-        $product = Product::with(['category', 'variants.images', 'variants.variantValues.attributeValue.attribute'])->findOrFail($id);
-        $categories = Category::all();
-
-        return view('admin.products.edit', compact('product', 'categories'));
-    }
-
-    /**
-     * Update the specified resource in storage.
-     */
-    public function update(Request $request, string $id)
-    {
-        $product = Product::findOrFail($id);
-
-    // ✅ Cập nhật thông tin sản phẩm gốc
-        $product->update($request->only([
-            'name',
-            'description',
-            'category_id',
-            'brand'
-        ]));
-
-        // ✅ Lặp qua từng biến thể được gửi từ form
-        foreach ($request->variants as $variantId => $variantData) {
-            $variant = ProductVariant::find($variantId);
-
-            if ($variant) {
-                // ✅ Cập nhật thông tin biến thể
-                $variant->update([
-                    'sku' => $variantData['sku'],
-                    'price' => $variantData['price'],
-                    'quantity' => $variantData['quantity']
-                ]);
-
-                // ✅ Kiểm tra và xử lý ảnh mới (nếu có) cho biến thể này
-                if ($request->hasFile("variant_images.$variantId")) {
-                    $images = $request->file("variant_images.$variantId");
-
-                    foreach ($images as $index => $image) {
-                        $path = $image->store('products', 'public');
->>>>>>> Stashed changes
 
                 // Lưu ảnh variant (variant-level) vào cột product_variant_id
                 if ($request->hasFile("variant_images.$index")) {
@@ -292,7 +172,6 @@ class ProductController extends Controller
     }
 
     /**
-<<<<<<< Updated upstream
      * Display the specified resource.
      */
     public function show(string $id)
@@ -463,10 +342,6 @@ class ProductController extends Controller
      * Remove the specified resource from storage.
      */
 
-=======
-     * Remove the specified resource from storage.
-     */
->>>>>>> Stashed changes
     public function destroy(string $id)
     {
         $product = Product::findOrFail($id);

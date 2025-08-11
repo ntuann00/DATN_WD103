@@ -68,10 +68,7 @@ Route::middleware('auth')->group(function () {
     Route::get('/order/success', function () {
         return view('user.orders.order_success');
     })->name('order.success');
-<<<<<<< Updated upstream
-    Route::post('/checkout-selected', [OrderController::class, 'checkoutSelected'])->name('checkout.selected');
 
-=======
     Route::get('/order/fail', function () {
         return view('user.vnpay.vnpay_fail');
     })->name('order.fail');
@@ -79,8 +76,7 @@ Route::middleware('auth')->group(function () {
     Route::post('/orders/{id}/cancel', [OrderController::class, 'cancel'])->name('orders.cancel');
     Route::post('/orders/{id}/return', [OrderController::class, 'return'])->name('orders.return');
     Route::get('/orders/{id}/return', [OrderController::class, 'return'])->name('orders.return');
->>>>>>> Stashed changes
-});
+
 
 // ========== Admin Routes ==========
 Route::middleware(['auth', 'check.role'])->group(function () {
@@ -116,10 +112,8 @@ Route::middleware(['auth', 'check.role'])->group(function () {
 });
 
 
-<<<<<<< Updated upstream
-=======
+
 
 //vn-pay
 Route::post('/vnpay/payment', [VNPayController::class, 'create'])->name('vnpay.payment');
 Route::get('/vnpay-return', [VNPayController::class, 'vnpayReturn'])->name('vnpay.return');
->>>>>>> Stashed changes

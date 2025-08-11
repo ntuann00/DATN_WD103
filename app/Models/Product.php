@@ -18,10 +18,7 @@ class Product extends Model
         'status',
         // thêm các trường khác nếu có trong form hoặc bảng DB
     ];
-<<<<<<< Updated upstream
 
-=======
->>>>>>> Stashed changes
 
     
     public function variants()

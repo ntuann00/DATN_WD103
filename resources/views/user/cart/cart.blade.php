@@ -104,29 +104,12 @@
                         </tfoot>
                     </table>
                 </div>
-<<<<<<< Updated upstream
-
-
-                <div class="d-flex justify-content-between mt-3">
-
-
-                    <form action="{{ route('cart.clear') }}" method="POST"
-                        onsubmit="return confirm('Bạn có chắc muốn xóa toàn bộ giỏ hàng?');">
-                        @csrf
-                        <button type="submit" class="btn btn-danger btn-lg" name="action" value="delete">🗑 Xóa toàn bộ
-                            giỏ hàng</button>
-                    </form>
-                    <form action="{{ route('order.index') }}" method="GET" id="checkoutSelectedForm">
-                        <input type="hidden" name="selected_items" id="selected_items_input">
-                        <button type="submit" class="btn btn-success btn-lg">🛒 Mua hàng</button>
-                    </form>
-=======
-                {{-- Nút mua hàng & xóa --}}
+                     {{-- Nút mua hàng & xóa --}}
                 <div class="d-flex justify-content-between mt-3 gap-2">
                     <button type="submit" class="btn btn-success btn-lg">🛒 Mua hàng</button>
->>>>>>> Stashed changes
                 </div>
             </form>
+        
 
             {{-- Form xóa giỏ hàng giữ riêng --}}
             <form action="{{ route('cart.clear') }}" method="POST"
@@ -141,18 +124,17 @@
         @endif
     </div>
 
-<<<<<<< Updated upstream
+
     </div>
 
     <!-- Script tăng giảm và checkbox -->
-=======
 
     <!-- Script tăng giảm và checkbox -->
     <!-- Toastr CSS -->
     <link href="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.css" rel="stylesheet">
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.js"></script>
->>>>>>> Stashed changes
+
     <script>
         function autoUpdateCart() {
             setTimeout(() => {
@@ -164,11 +146,7 @@
             btn.addEventListener('click', () => {
                 const id = btn.dataset.id;
                 const input = document.querySelector(`input[name="quantities[${id}]"]`);
-<<<<<<< Updated upstream
-                input.value = parseInt(input.value) + 1;
-                updateLineTotal(id);
-                autoUpdateCart();
-=======
+
                 const currentValue = parseInt(input.value);
                 const newValue = currentValue + 1;
 
@@ -179,7 +157,7 @@
                     updateLineTotal(id);
                     autoUpdateCart();
                 });
->>>>>>> Stashed changes
+
             });
         });
 
@@ -198,15 +176,15 @@
                     input.value = newValue;
                     updateLineTotal(id);
                     autoUpdateCart();
-<<<<<<< Updated upstream
-                }
-=======
+
                 });
->>>>>>> Stashed changes
             });
         });
 
+
+
         function updateQuantity(id, quantity, status = 'increment', onFail = null, onSuccess = null) {
+
             $.ajax({
                 url: '{{ route('cart.update') }}',
                 method: 'POST',
@@ -216,6 +194,7 @@
                     status: status,
                     quantities: parseInt(quantity)
                 },
+
                 success: function(response) {
                     if (response.status == 'success') {
                         toastr.success(response.message, 'Thành công');
@@ -228,6 +207,7 @@
                     toastr.error('Lỗi kết nối server.', 'Lỗi');
                 }
             });
+
         }
 
         function updateLineTotal(id) {
@@ -253,14 +233,16 @@
         document.getElementById('selectAll').addEventListener('change', function() {
             document.querySelectorAll('.item-checkbox').forEach(cb => cb.checked = this.checked);
         });
-<<<<<<< Updated upstream
-=======
+
+
+
 
         $(document).ready(function() {
             $('.btn-remove-item').on('click', function() {
                 if (!confirm('Bạn có chắc muốn xóa sản phẩm này?')) return;
 
                 const detailId = $(this).data('id');
+
 
                 $.ajax({
                     url: '/cart/remove/' + detailId, // đúng route GET/POST
@@ -278,6 +260,6 @@
                 });
             });
         });
->>>>>>> Stashed changes
+
     </script>
 @endsection

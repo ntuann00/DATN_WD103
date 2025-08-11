@@ -1,8 +1,5 @@
 <?php
-<<<<<<< Updated upstream
-=======
 
->>>>>>> Stashed changes
 
 namespace App\Http\Controllers\User;
 
@@ -16,10 +13,7 @@ use App\Models\ProductVariant;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
-<<<<<<< Updated upstream
-=======
 
->>>>>>> Stashed changes
 
 class UserProductController extends Controller
 {
@@ -33,24 +27,13 @@ class UserProductController extends Controller
                 ->with('error', 'Bạn cần đăng nhập để thêm sản phẩm vào giỏ.');
         }
 
-<<<<<<< Updated upstream
+
         // ✅ Lấy variant ID từ form
         $attributeValues = $request->input('attribute'); // mảng [5, 8] chẳng hạn
 
         $product = Product::where('id', $request->input('product_id'))
             ->first();
 
-=======
-
-        // ✅ Lấy variant ID từ form
-        $attributeValues = $request->input('attribute'); // mảng [5, 8] chẳng hạn
-
-
-        $product = Product::where('id', $request->input('product_id'))
-            ->first();
-
-
->>>>>>> Stashed changes
         $variant = ProductVariant::where('product_id', $request->input('product_id'))
             ->whereHas('attributeValues', function ($query) use ($attributeValues) {
                 $query->whereIn('attribute_value_id', $attributeValues);
@@ -58,43 +41,26 @@ class UserProductController extends Controller
             ->with('attributeValues') // Nếu cần xem thêm
             ->first(); // Hoặc get() nếu muốn lấy nhiều
 
-<<<<<<< Updated upstream
-        $qty = max(1, (int)$request->input('quantity', 1));
-=======
         $rawQty = (int)$request->input('quantity', 1);
-        $qty = max(1, $rawQty);
+       $qty = max(1, $rawQty);
         // dd($qty);
-
->>>>>>> Stashed changes
 
         $cart = Cart::firstOrCreate(
             ['user_id' => Auth::id()],
             ['user_id' => Auth::id()]
         );
 
-<<<<<<< Updated upstream
-=======
-
->>>>>>> Stashed changes
         $detail = $cart->cartDetails()
             ->where('product_id', $product->id)
             ->where('product_variant_id', $variant->id)
             ->first();
 
-<<<<<<< Updated upstream
-=======
-
         $existingQty = $detail ? $detail->quantity : 0;
         $totalQty = $existingQty + $qty;
-        // dd([
-        //     'tổng cần mua' => $totalQty,
-        //     'tồn kho' => $variant->quantity
-        // ]);
 
         if ($totalQty > $variant->quantity) {
-            return redirect()->back()->with('error', 'Sản phẩm trong kho chỉ còn ' . $variant->quantity . ' sản phẩm. Vui lòng chọn số lượng phù hợp');
+            return redirect()->back()->with('error', 'Sản phẩm trong kho không đủ số lượng bạn muốn mua ! Vui lòng kiếm tra lại !');
         }
->>>>>>> Stashed changes
         if ($detail) {
             $detail->increment('quantity', $qty);
         } else {
@@ -105,20 +71,12 @@ class UserProductController extends Controller
             ]);
         }
 
-<<<<<<< Updated upstream
-=======
-
->>>>>>> Stashed changes
         return redirect()->back()->with('success', 'Đã thêm sản phẩm vào giỏ hàng!');
     }
 
 
-<<<<<<< Updated upstream
-=======
 
 
->>>>>>> Stashed changes
-    /**
      * Hiển thị trang giỏ hàng (dữ liệu từ DB)
      */
     public function cart()
@@ -128,34 +86,17 @@ class UserProductController extends Controller
             'cartDetails.product'
         ])->where('user_id', Auth::id())->latest()->first();
 
-<<<<<<< Updated upstream
-=======
 
->>>>>>> Stashed changes
         $items = $cart ? $cart->cartDetails : collect();
         return view('user.cart.cart', compact('items'));
     }
 
-<<<<<<< Updated upstream
-=======
 
->>>>>>> Stashed changes
     /**
      * Cập nhật số lượng từng item trong giỏ
      */
     public function updateCart(Request $request)
     {
-<<<<<<< Updated upstream
-        foreach ($request->input('quantities', []) as $detailId => $qty) {
-            $detail = Cart_detail::find($detailId);
-            if ($detail && $detail->cart->user_id === Auth::id()) {
-                $detail->update([
-                    'quantity' => max(1, (int)$qty),
-                ]);
-            }
-        }
-        return back()->with('success', 'Giỏ hàng đã được cập nhật!');
-=======
         $detail = Cart_detail::find($request->id);
         $variant = $detail->variant;
 
@@ -195,7 +136,7 @@ class UserProductController extends Controller
             'status' => 'error',
             'message' => 'Không thể cập nhật sản phẩm',
         ]);
->>>>>>> Stashed changes
+
     }
 
 
@@ -209,11 +150,6 @@ class UserProductController extends Controller
         if ($detail && $detail->cart->user_id === Auth::id()) {
             $detail->delete();
         }
-<<<<<<< Updated upstream
-        return back()->with('success', 'Đã xóa sản phẩm khỏi giỏ hàng!');
-    }
-
-=======
 
 
         // Gửi session flash như bình thường
@@ -222,7 +158,8 @@ class UserProductController extends Controller
     }
 
 
->>>>>>> Stashed changes
+
+
     /**
      * Xóa toàn bộ giỏ hàng của user
      */
@@ -232,10 +169,6 @@ class UserProductController extends Controller
             $q->where('user_id', Auth::id());
         })->delete();
 
-<<<<<<< Updated upstream
-=======
-
->>>>>>> Stashed changes
         return back()->with('success', 'Đã xóa toàn bộ giỏ hàng!');
     }
 }

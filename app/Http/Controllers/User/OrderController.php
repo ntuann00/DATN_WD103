@@ -46,11 +46,8 @@ class OrderController extends Controller
 
         // 3. Lấy giỏ hàng và chi tiết sản phẩm
         $cart = Cart::with([
-<<<<<<< Updated upstream
-            'cartDetails.variant.attributeValues.attribute', // load biến thể và thuộc tính
-=======
+
             'cartDetails.variant.attributeValues.attribute',
->>>>>>> Stashed changes
             'cartDetails.product'
         ])
             ->where('user_id', Auth::id())
@@ -122,12 +119,7 @@ class OrderController extends Controller
         $shipping = str_contains($address, 'hà nội') || str_contains($address, 'ha noi') ? 0 : 30000;
 
         // 3. Lấy cart + pivot → product → variant
-<<<<<<< Updated upstream
-        $cart = Cart::with('cartDetails.product.variants')
-            ->where('user_id', Auth::id())
-            ->latest('id')
-            ->first();
-=======
+
         $selectedIds = $request->input('selected_items', []);
 
         if (empty($selectedIds)) {
@@ -152,9 +144,9 @@ class OrderController extends Controller
             'cartDetails.product.variants',
             'cartDetails.variant',
         ]);
->>>>>>> Stashed changes
 
         $items = $cart ? $cart->cartDetails : collect();
+
 
         // 4. Tính subtotal dựa trên variant->price
         $subtotal = $items->sum(function ($row) {
@@ -191,13 +183,10 @@ class OrderController extends Controller
         ]);
 
         $data = [];
+
+
         foreach ($items as $row) {
-<<<<<<< Updated upstream
-            $variant = $row->product->variants->first();
-=======
-            $variant = $row->variant;
-            // $variant = $row->product->variants->first();
->>>>>>> Stashed changes
+            $variant = $row->variant
             $unitPrice = $variant ? $variant->price : 0;
             $quantity  = $row->quantity;
             $itemTotal = $unitPrice * $quantity;
@@ -222,25 +211,13 @@ class OrderController extends Controller
                 'created_at' => now(),
                 'updated_at' => now(),
             ];
-<<<<<<< Updated upstream
-        }
+
 
         if (empty($data)) {
             return redirect()->route('order.index')->with('error', 'Chưa có sản phẩm nào trong giỏ hàng!');
-        }
 
-        Order_detail::insert($data);
-
-        // 9. Xóa pivot để giỏ trống
-        if ($cart) {
-            $cart->cartDetails()->delete();
-=======
->>>>>>> Stashed changes
         }
-
-        if (empty($data)) {
-            return redirect()->route('order.index')->with('error', 'Chưa có sản phẩm nào trong giỏ hàng!');
-        }
+  
 
         // 8. Tạo order_details
         OrderDetail::insert($data);
@@ -339,6 +316,23 @@ class OrderController extends Controller
         } catch (\Throwable $th) {
             return redirect()->back()->with('error', 'Có lỗi xảy ra, vui lòng thử lại!');
         }
+    }
+    public function checkoutSelected(Request $request)
+    {
+        $selectedIds = $request->input('selected_items', []);
+
+        if (empty($selectedIds)) {
+            return redirect()->route('cart.view')->with('error', 'Vui lòng chọn ít nhất một sản phẩm để mua.');
+        }
+
+        $cartDetails = Cart_detail::whereIn('id', $selectedIds)
+            ->whereHas('cart', function ($query) {
+                $query->where('user_id', Auth::id());
+            })
+            ->with(['product', 'variant'])
+            ->get();
+
+        return view('user.orders.checkout', compact('cartDetails'));
     }
     public function checkoutSelected(Request $request)
     {
