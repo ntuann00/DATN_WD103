@@ -9,12 +9,13 @@
         @endif
 
         @if ($items->isNotEmpty())
-            <form action="{{ route('cart.update') }}" method="POST">
+            <form action="{{ route('order.index') }}" method="GET" id="checkoutSelectedForm">
                 @csrf
                 <div class="table-responsive shadow-sm">
                     <table class="table table-bordered align-middle text-center">
                         <thead class="table-secondary">
                             <tr>
+                                <th><input type="checkbox" id="selectAll"></th>
                                 <th>Ảnh</th>
                                 <th>Tên sản phẩm</th>
                                 <th>Số lượng</th>
@@ -28,7 +29,7 @@
                             @foreach ($items as $detail)
                                 @php
                                     $product = $detail->product;
-                                    $variant = $detail->variant; // 👈 Sửa đúng quan hệ từ cart_detail
+                                    $variant = $detail->variant; // 👈Sửa đúng quan hệ từ cart_detail
 
                                     // Giá lấy từ biến thể nếu có, ngược lại fallback về product
                                     $unitPrice = $variant?->price ?? $product->price;
@@ -38,25 +39,35 @@
                                     $grandTotal += $lineTotal;
 
                                     // Lấy mô tả thuộc tính (VD: Màu: Đỏ, Size: M)
-                                    $variantDesc =
-                                        $variant && $variant->attributeValues->isNotEmpty()
-                                            ? $variant->attributeValues
-                                                ->map(function ($attrVal) {
-                                                    return $attrVal->attribute->name . ': ' . $attrVal->value;
-                                                })
-                                                ->join(', ')
-                                            : '-';
+                                    $variantDesc = '-';
+                                    if ($variant && $variant->attributeValues->isNotEmpty()) {
+                                        $variantDesc = $variant->attributeValues
+                                            ->map(function ($attrVal) {
+                                                // Kiểm tra tồn tại để tránh lỗi nếu thiếu attribute
+                                                $attrName = $attrVal->attribute->name ?? '';
+                                                return $attrName . ': ' . $attrVal->value;
+                                            })
+                                            ->join('<br>');
+                                    }
+
                                 @endphp
-                                <tr>
                                 <tr data-id="{{ $detail->id }}" data-price="{{ $unitPrice }}">
+                                    <td>
+                                        <input type="checkbox" class="item-checkbox" name="selected_items[]"
+                                            value="{{ $detail->id }}">
+                                    </td>
                                     <td>
                                         <img src="{{ asset($product->image) }}" alt="{{ $product->name }}"
                                             class="img-thumbnail border-0" style="max-width:60px;">
                                     </td>
                                     <td class="text-start">
                                         <strong>{{ $product->name }}</strong><br>
-                                        <small>SKU: {{ $variant->sku ?? '-' }}</small><br>
-                                        <small>{{ $variantDesc }}</small>
+                                        <small>{!! nl2br($variantDesc) !!}</small>
+                                        {{-- <pre>
+@php
+    dd($variant->attributeValues->pluck('attribute.name', 'value'));
+@endphp
+</pre> --}}
                                     </td>
                                     <td style="width:160px;">
                                         <div class="input-group justify-content-center">
@@ -65,7 +76,7 @@
                                             <input type="text" name="quantities[{{ $detail->id }}]"
                                                 value="{{ $detail->quantity }}"
                                                 class="form-control text-center quantity-input" style="max-width:50px;"
-                                                readonly>
+                                                data-old="{{ $detail->quantity }}" readonly>
                                             <button type="button" class="btn btn-outline-secondary btn-sm increment"
                                                 data-id="{{ $detail->id }}">+</button>
                                         </div>
@@ -75,17 +86,17 @@
 
 
                                     <td>
-                                        <form action="{{ route('cart.remove', $detail->id) }}" method="POST">
-                                            @csrf
-                                            <button type="submit" class="btn btn-danger btn-sm">Xóa</button>
-                                        </form>
+                                        <button type="button" class="btn btn-danger btn-sm btn-remove-item"
+                                            data-id="{{ $detail->id }}">
+                                            Xóa
+                                        </button>
                                     </td>
                                 </tr>
                             @endforeach
                         </tbody>
                         <tfoot class="table-light">
                             <tr>
-                                <td colspan="4" class="text-end fw-bold">Tổng tiền:</td>
+                                <td colspan="5" class="text-end fw-bold">Tổng tiền:</td>
                                 <td colspan="2" class="fw-bold text-danger grand-total">
                                     {{ number_format($grandTotal, 0, ',', '.') }}₫
                                 </td>
@@ -93,30 +104,60 @@
                         </tfoot>
                     </table>
                 </div>
-
-                <div class="d-flex justify-content-between mt-3">
-                  
-                    <form action="{{ route('cart.clear') }}" method="POST"
-                        onsubmit="return confirm('Bạn có chắc muốn xóa toàn bộ giỏ hàng?');">
-                        @csrf
-                        <button type="submit" class="btn btn-danger btn-lg">🗑 Xóa toàn bộ giỏ hàng</button>
-                    </form>
-                    <a href="{{ route('order.index') }}" class="btn btn-success btn-lg">Mua hàng</a>
+                     {{-- Nút mua hàng & xóa --}}
+                <div class="d-flex justify-content-between mt-3 gap-2">
+                    <button type="submit" class="btn btn-success btn-lg">🛒 Mua hàng</button>
                 </div>
+            </form>
+        
+
+            {{-- Form xóa giỏ hàng giữ riêng --}}
+            <form action="{{ route('cart.clear') }}" method="POST"
+                onsubmit="return confirm('Bạn có chắc muốn xóa toàn bộ giỏ hàng?');" class="d-inline-block mt-2">
+                @csrf
+                <button type="submit" class="btn btn-danger btn-lg" name="action" value="delete">
+                    🗑 Xóa toàn bộ giỏ hàng
+                </button>
             </form>
         @else
             <div class="alert alert-warning text-center">🛒 Giỏ hàng của bạn đang trống!</div>
         @endif
     </div>
 
-    <!-- Script tăng giảm số lượng ngay trên view -->
+
+    </div>
+
+    <!-- Script tăng giảm và checkbox -->
+
+    <!-- Script tăng giảm và checkbox -->
+    <!-- Toastr CSS -->
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.css" rel="stylesheet">
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.js"></script>
+
     <script>
+        function autoUpdateCart() {
+            setTimeout(() => {
+                document.querySelector('form[action="{{ route('cart.update') }}"]')?.submit();
+            }, 500);
+        }
+
         document.querySelectorAll('.increment').forEach(btn => {
             btn.addEventListener('click', () => {
                 const id = btn.dataset.id;
                 const input = document.querySelector(`input[name="quantities[${id}]"]`);
-                input.value = parseInt(input.value) + 1;
-                updateLineTotal(id);
+
+                const currentValue = parseInt(input.value);
+                const newValue = currentValue + 1;
+
+                updateQuantity(id, newValue, 'increment', () => {
+                    toastr.error('Không thể tăng số lượng', 'Lỗi');
+                }, () => {
+                    input.value = newValue;
+                    updateLineTotal(id);
+                    autoUpdateCart();
+                });
+
             });
         });
 
@@ -124,28 +165,60 @@
             btn.addEventListener('click', () => {
                 const id = btn.dataset.id;
                 const input = document.querySelector(`input[name="quantities[${id}]"]`);
-                if (parseInt(input.value) > 1) {
-                    input.value = parseInt(input.value) - 1;
+                const currentValue = parseInt(input.value);
+                if (currentValue <= 1) return;
+
+                const newValue = currentValue - 1;
+
+                updateQuantity(id, newValue, 'decrement', () => {
+                    toastr.error('Không thể giảm số lượng', 'Lỗi');
+                }, () => {
+                    input.value = newValue;
                     updateLineTotal(id);
-                }
+                    autoUpdateCart();
+
+                });
             });
         });
 
-        // Cập nhật tiền từng dòng
+
+
+        function updateQuantity(id, quantity, status = 'increment', onFail = null, onSuccess = null) {
+
+            $.ajax({
+                url: '{{ route('cart.update') }}',
+                method: 'POST',
+                data: {
+                    _token: '{{ csrf_token() }}',
+                    id: id,
+                    status: status,
+                    quantities: parseInt(quantity)
+                },
+
+                success: function(response) {
+                    if (response.status == 'success') {
+                        toastr.success(response.message, 'Thành công');
+                        if (onSuccess) onSuccess();
+                    } else if (response.status == 'error') {
+                        toastr.error(response.message, 'Lỗi');
+                    }
+                },
+                error: function() {
+                    toastr.error('Lỗi kết nối server.', 'Lỗi');
+                }
+            });
+
+        }
+
         function updateLineTotal(id) {
             const row = document.querySelector(`tr[data-id="${id}"]`);
             const price = parseFloat(row.dataset.price);
             const quantity = parseInt(document.querySelector(`input[name="quantities[${id}]"]`).value);
             const total = price * quantity;
-
-            // Cập nhật hiển thị tiền dòng
             row.querySelector('.line-total').textContent = total.toLocaleString('vi-VN') + '₫';
-
-            // Cập nhật tổng tiền giỏ hàng
             updateGrandTotal();
         }
 
-        // Cập nhật tổng tiền toàn giỏ hàng
         function updateGrandTotal() {
             let grandTotal = 0;
             document.querySelectorAll('tr[data-id]').forEach(row => {
@@ -153,10 +226,40 @@
                 const quantity = parseInt(row.querySelector('.quantity-input').value);
                 grandTotal += price * quantity;
             });
-
-            // Cập nhật hiển thị
             document.querySelector('.grand-total').textContent = grandTotal.toLocaleString('vi-VN') + '₫';
         }
-    </script>
 
+        // Check/uncheck all
+        document.getElementById('selectAll').addEventListener('change', function() {
+            document.querySelectorAll('.item-checkbox').forEach(cb => cb.checked = this.checked);
+        });
+
+
+
+
+        $(document).ready(function() {
+            $('.btn-remove-item').on('click', function() {
+                if (!confirm('Bạn có chắc muốn xóa sản phẩm này?')) return;
+
+                const detailId = $(this).data('id');
+
+
+                $.ajax({
+                    url: '/cart/remove/' + detailId, // đúng route GET/POST
+                    method: 'POST',
+                    data: {
+                        _token: '{{ csrf_token() }}',
+                    },
+                    success: function(response) {
+                        // Ví dụ: reload trang hoặc xóa dòng HTML tương ứng
+                        location.reload(); // hoặc dùng $(...).remove();
+                    },
+                    error: function(xhr) {
+                        alert('Đã xảy ra lỗi. Vui lòng thử lại.');
+                    }
+                });
+            });
+        });
+
+    </script>
 @endsection

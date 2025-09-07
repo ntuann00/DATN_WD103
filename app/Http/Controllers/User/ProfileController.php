@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\User;
 
 use App\Http\Controllers\Controller;
+use App\Models\Order;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
@@ -14,6 +15,7 @@ class ProfileController extends Controller
     public function edit()
     {
         $user = auth()->user();
+        
         return view('user.users.edit', compact('user'));
     }
     public function update(Request $request)
@@ -46,9 +48,18 @@ class ProfileController extends Controller
             $user->img = $request->file('img')->store('img', 'public');
         }
         $user->save();
+          $orders = Order::with([
+            'orderDetails.product',
+            'orderDetails.productVariant.attributeValues.attribute',
+            'payment',
+            'status'
+        ])
+            ->where('user_id', $user->id)
+            ->orderByDesc('id')
+            ->get();
 
         // return redirect()->route('profile')->with('success', 'Cập nhật hồ sơ thành công!');
-        return view('user.auth.profile', compact('user'));
+        return view('user.auth.profile', compact('user', 'orders'));
     }
 
     public function showPassword()

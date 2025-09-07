@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\VNPayController;
 use Illuminate\Support\Facades\Route;
 
 use App\Http\Controllers\User\HomeController;
@@ -17,8 +18,7 @@ use App\Http\Controllers\Admin\ProductController;
 use App\Http\Controllers\Admin\ProductImageController;
 use App\Http\Controllers\Admin\AdminOrderController;
 use App\Http\Controllers\Admin\PromotionController;
-use App\Http\Controllers\Admin\ReviewController;
-
+use Illuminate\Support\Facades\DB;
 
 // ================== Public Routes ===================
 Route::get('/', [HomeController::class, 'index'])->name('home');
@@ -58,6 +58,7 @@ Route::middleware('auth')->group(function () {
     Route::get('/cart', [UserProductController::class, 'cart'])->name('cart.view');
     Route::post('/cart/update', [UserProductController::class, 'updateCart'])->name('cart.update');
     Route::post('/add-to-cart', [UserProductController::class, 'addToCart'])->name('cart.add');
+
     Route::post('/cart/remove/{productId}', [UserProductController::class, 'removeFromCart'])->name('cart.remove');
     Route::post('/cart/clear', [UserProductController::class, 'clearCart'])->name('cart.clear');
 
@@ -67,11 +68,19 @@ Route::middleware('auth')->group(function () {
     Route::get('/order/success', function () {
         return view('user.orders.order_success');
     })->name('order.success');
-});
+
+    Route::get('/order/fail', function () {
+        return view('user.vnpay.vnpay_fail');
+    })->name('order.fail');
+    Route::post('/checkout-selected', [OrderController::class, 'checkoutSelected'])->name('checkout.selected');
+    Route::post('/orders/{id}/cancel', [OrderController::class, 'cancel'])->name('orders.cancel');
+    Route::post('/orders/{id}/return', [OrderController::class, 'return'])->name('orders.return');
+    Route::get('/orders/{id}/return', [OrderController::class, 'return'])->name('orders.return');
+
 
 // ========== Admin Routes ==========
-Route::prefix('admin')->middleware(['auth', 'check.role'])->name('admin.')->group(function () {
-    Route::get('/', [AdminController::class, 'index'])->name('dashboard');
+Route::middleware(['auth', 'check.role'])->group(function () {
+    Route::get('/admin', [AdminController::class, 'index'])->name('admin');
 
     // Categories
     Route::resource('categories', CategoryController::class);
@@ -79,6 +88,7 @@ Route::prefix('admin')->middleware(['auth', 'check.role'])->name('admin.')->grou
     // Attributes
     Route::resource('attributes', AttributeController::class)->except(['show']);
     Route::get('/attributes/{id}/show', [AttributeController::class, 'show'])->name('attributes.show');
+    Route::put('/attributeValues/{attributeValue}', [AttributeValueController::class, 'update'])->name('attributeValues.update');
 
     // Attribute Values
     Route::resource('attributeValues', AttributeValueController::class);
@@ -94,11 +104,16 @@ Route::prefix('admin')->middleware(['auth', 'check.role'])->name('admin.')->grou
     // Orders
     Route::get('/orders', [AdminOrderController::class, 'index'])->name('orders.index');
     Route::get('/orders/{id}', [AdminOrderController::class, 'show'])->name('orders.show');
+    Route::put('/orders/{id}/status', [AdminOrderController::class, 'updateStatus'])->name('orders.updateStatus');
+
 
     // Promotions
     Route::resource('promotions', PromotionController::class);
-
-    // Reviews
-    Route::get('reviews', [ReviewController::class, 'index'])->name('reviews.index');
-    Route::patch('reviews/{review}/hide', [ReviewController::class, 'hide'])->name('reviews.hide');
 });
+
+
+
+
+//vn-pay
+Route::post('/vnpay/payment', [VNPayController::class, 'create'])->name('vnpay.payment');
+Route::get('/vnpay-return', [VNPayController::class, 'vnpayReturn'])->name('vnpay.return');

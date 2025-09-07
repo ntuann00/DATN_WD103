@@ -16,8 +16,10 @@ class OrderDetail extends Model
     protected $fillable = [
         'order_id',
         'product_id',
+        'product_variant_id',
         'quantity',
         'price',
+        'total',
     ];
 
     // Mỗi chi tiết đơn hàng thuộc về một đơn hàng
@@ -27,11 +29,14 @@ class OrderDetail extends Model
     }
 
     // Mỗi chi tiết đơn hàng thuộc về một sản phẩm
- 
 
- public function product()
-{
-    return $this->belongsTo(Product::class);
-}
 
+    public function product()
+    {
+        return $this->belongsTo(Product::class);
+    }
+    public function productVariant()
+    {
+        return $this->belongsTo(ProductVariant::class, 'product_variant_id');
+    }
 }

@@ -44,7 +44,6 @@
     </div>
 </div>
 
-
+@push('scripts')
 
 @include('admin.layouts.footer')
-@stack('page-js')

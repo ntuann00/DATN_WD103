@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers\User;
 
+use App\Models\Order;
 use App\Models\User;
 
 use Illuminate\Foundation\Auth\Access\AuthorizesRequests;
@@ -90,7 +91,7 @@ class AuthController extends BaseController
             $role = Auth::User()->role_id;
 
             if ($role === 1) {
-                return redirect()->route('admin.dashboard')->with('success', 'Đăng nhập thành công với quyền Admin!');
+                return redirect()->route('admin')->with('success', 'Đăng nhập thành công với quyền Admin!');
             } else {
                 return redirect()->route('home')->with('success', 'Đăng nhập thành công!');
             }
@@ -111,6 +112,17 @@ class AuthController extends BaseController
     public function profile()
     {
         $user = auth()->user();
-        return view('user.auth.profile', compact('user'));
+
+        $orders = Order::with([
+            'orderDetails.product',
+            'orderDetails.productVariant.attributeValues.attribute',
+            'payment',
+            'status'
+        ])
+            ->where('user_id', $user->id)
+            ->orderByDesc('id')
+            ->get();
+
+        return view('user.auth.profile', compact('user', 'orders'));
     }
 }

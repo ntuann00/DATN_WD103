@@ -192,58 +192,96 @@
                                 <h3>My Order</h3>
                             </div>
 
-                            <!-- table -->
+                            <h3 class="mb-4">Đơn hàng của bạn</h3>
                             <div class="table-wrapper">
                                 <table class="eg-table order-table table mb-0">
                                     <thead>
                                         <tr>
                                             <th>Image</th>
-                                            <th>Order ID</th>
-                                            <th>Product Details</th>
-                                            <th>price</th>
-                                            <th>Status</th>
+                                            <th>Mã đơn</th>
+                                            <th>Sản phẩm</th>
+                                            <th>Số lượng</th>
+                                            <th>Giá</th>
+                                            <th>Tổng tiền</th>
+                                            <th>Trạng thái</th>
+                                            <th>Ghi chú</th>
+                                            <th>Hình thức thanh toán</th>
+                                            <th>Trạng thái</th>
                                         </tr>
                                     </thead>
                                     <tbody>
-                                        <tr>
-                                            <td data-label="Image"><img alt="image"
-                                                    src="assets/img/inner-page/whistlist-img1.png" class="img-fluid">
-                                            </td>
-                                            <td data-label="Order ID">#4ce345c3e</td>
-                                            <td data-label="Product Details">Eau De Blue Perfume</td>
-                                            <td data-label="price">$40.00</td>
-                                            <td data-label="Status" class="text-green">Shipped</td>
-                                        </tr>
-                                        <tr>
-                                            <td data-label="Image"><img alt="image"
-                                                    src="assets/img/inner-page/whistlist-img2.png" class="img-fluid">
-                                            </td>
-                                            <td data-label="Order ID">#4ce3533e</td>
-                                            <td data-label="Product Details">Smooth Makeup Box</td>
-                                            <td data-label="price">$25.00</td>
-                                            <td data-label="Status" class="text-red">Pending</td>
-                                        </tr>
-                                        <tr>
-                                            <td data-label="Image"><img alt="image"
-                                                    src="assets/img/inner-page/whistlist-img3.png" class="img-fluid">
-                                            </td>
-                                            <td data-label="Order ID">#8ce3533e</td>
-                                            <td data-label="Product Details">Modern Red Lipstick </td>
-                                            <td data-label="price">$32.00</td>
-                                            <td data-label="Status" class="text-red">Pending</td>
-                                        </tr>
-                                        <tr>
-                                            <td data-label="Image"><img alt="image"
-                                                    src="assets/img/inner-page/whistlist-img4.png" class="img-fluid">
-                                            </td>
-                                            <td data-label="Order ID">#8ce3533e</td>
-                                            <td data-label="Product Details">New Botanical Shampoo</td>
-                                            <td data-label="price">$27.00</td>
-                                            <td data-label="Status" class="text-green">Shipped</td>
-                                        </tr>
+                                        @forelse ($orders as $order)
+                                            @foreach ($order->orderDetails as $detail)
+                                                <tr>
+                                                    <td>
+                                                        <img src="{{ $detail->product->image_url ?? 'default.jpg' }}"
+                                                            alt="image" width="60">
+                                                    </td>
+                                                    <td>#{{ str_pad($order->id, 6, '0', STR_PAD_LEFT) }}</td>
+
+                                                    <td>
+                                                        {{ $detail->product->name }}
+                                                        @php
+                                                            $displayed = [];
+                                                        @endphp
+                                                        @foreach ($detail->productVariant->attributeValues as $attrVal)
+                                                            {{ $attrVal->attribute->name }}: {{ $attrVal->value }}<br>
+                                                        @endforeach
+                                                    </td>
+
+                                                    <td>{{ $detail->quantity }}</td>
+                                                    <td>{{ number_format($detail->price, 0, ',', '.') }} đ</td>
+                                                    <td>{{ number_format($detail->total, 0, ',', '.') }} đ</td>
+
+                                                    <td>{{ $order->status_payment == 0 ? 'Chưa thanh toán' : 'Thanh toán thành công' }}</td>
+
+                                                    <td>{{ $order->description ?? 'Không có ghi chú' }}</td>
+
+                                                    <td>{{ $order->payment?->name ?? '---' }}</td>
+
+                                                    <td
+                                                        class="{{ $order->status?->slug === 'pending' ? 'text-red' : 'text-green' }}">
+                                                        {{ $order->status?->name ?? 'Không xác định' }}
+                                                    </td>
+                                                    <td>
+                                                        @if ($order->status_id == 7)
+                                                            <!-- Đơn đã giao thành công -->
+                                                            <button class="btn btn-warning btn-sm" data-bs-toggle="modal"
+                                                                data-bs-target="#returnModal{{ $order->id }}">
+                                                                Hoàn hàng
+                                                            </button>
+                                                        @elseif (!in_array($order->status_id, [5, 6, 8, 9]))
+                                                            <!-- Đơn chưa giao và chưa bị hủy hoặc hoàn -->
+                                                            <button type="button" class="btn btn-sm btn-danger"
+                                                                data-bs-toggle="modal"
+                                                                data-bs-target="#cancelModal{{ $order->id }}">
+                                                                Hủy đơn
+                                                            </button>
+                                                        @endif
+                                                    </td>
+                                                    {{-- <td>
+                                                        @if ($order->status_id != 5 && $order->status_id != 6)
+                                                            <!-- Nút mở modal -->
+                                                            <button type="button" class="btn btn-sm btn-danger"
+                                                                data-bs-toggle="modal"
+                                                                data-bs-target="#cancelModal{{ $order->id }}">
+                                                                Hủy đơn
+                                                            </button>
+                                                        @endif
+                                                    </td> --}}
+
+                                                </tr>
+                                            @endforeach
+                                        @empty
+                                            <tr>
+                                                <td colspan="9" class="text-center">Bạn chưa có đơn hàng nào.</td>
+                                            </tr>
+                                        @endforelse
                                     </tbody>
                                 </table>
+
                             </div>
+
 
                             <!-- pagination area -->
                             <div class="table-pagination">
@@ -281,5 +319,65 @@
                 </div>
             </div>
         </div>
+
     </div>
+    @foreach ($orders as $order)
+        <!-- Modal hủy đơn hàng -->
+        <div class="modal fade" id="cancelModal{{ $order->id }}" tabindex="-1"
+            aria-labelledby="cancelLabel{{ $order->id }}" aria-hidden="true">
+            <div class="modal-dialog">
+                <form action="{{ route('orders.cancel', $order->id) }}" method="POST">
+                    @csrf
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <h5 class="modal-title" id="cancelLabel{{ $order->id }}">Hủy đơn hàng
+                                #{{ $order->id }}</h5>
+                            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Đóng"></button>
+                        </div>
+                        <div class="modal-body">
+                            <label for="cancel_reason">Nhập lý do hủy:</label>
+                            <textarea name="cancel_reason" class="form-control" rows="4" required></textarea>
+                        </div>
+                        <div class="modal-footer">
+                            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Đóng</button>
+                            <button type="submit" class="btn btn-danger">Xác nhận hủy</button>
+                        </div>
+                    </div>
+                </form>
+            </div>
+        </div>
+
+
+        <!-- Modal hoàn hàng -->
+        <div class="modal fade" id="returnModal{{ $order->id }}" tabindex="-1"
+            aria-labelledby="returnLabel{{ $order->id }}" aria-hidden="true">
+            <div class="modal-dialog">
+                <form action="{{ route('orders.return', $order->id) }}" method="POST">
+                    @csrf
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <h5 class="modal-title" id="returnLabel{{ $order->id }}">Hoàn hàng đơn
+                                {{ $order->id }}</h5>
+                            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Đóng"></button>
+                        </div>
+                        <div class="modal-body">
+                            <label for="return_reason">Nhập lý do hoàn hàng:</label>
+                            <textarea name="return_reason" class="form-control" rows="4" required></textarea>
+                        </div>
+                        <div class="modal-footer">
+                            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Đóng</button>
+                            <button type="submit" class="btn btn-warning">Xác nhận hoàn hàng</button>
+                        </div>
+                    </div>
+                </form>
+            </div>
+        </div>
+    @endforeach
+    <script>
+        document.querySelectorAll('.btn-cancel').forEach(button => {
+            button.addEventListener('click', function() {
+                document.querySelector('.cancel-form').style.display = 'block';
+            });
+        });
+    </script>
 @endsection
