@@ -48,3 +48,4 @@
 
 @include('admin.layouts.footer')
 @stack('page-js')
+@stack('scripts')

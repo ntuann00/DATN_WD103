@@ -14,6 +14,7 @@
                                     <th>Đơn giá</th>
                                     <th>Số lượng</th>
                                     <th>Tổng</th>
+                                    <th>Trạng thái</th>
                                     <th>Thao tác</th>
                                 </tr>
                             </thead>
@@ -31,7 +32,6 @@
                                     <!-- tên sp -->
                                     <td data-label="Product" class="table-product">
                                         <div class="product-img">
-                                            <img src="assets/img/inner-page/whistlist-img1.png" alt="">
                                             <!-- hình ảnh -->
                                         </div>
                                         <div class="product-content">
@@ -60,6 +60,12 @@
                                         {{ number_format(($product->price ?? 0) * $detail->quantity) }}.đ
                                     </td>
 
+                                    <!-- trạng thái -->
+                                    <td data-label="Status">
+                                        {{ $order->status_id}}
+                                        <!-- số là gì nhỉ -->
+                                    </td>
+
                                     <!-- thao tác -->
                                     <td>
                                         <div class="d-grid gap-2">
@@ -71,7 +77,6 @@
                                             class="link-info link-offset-2 link-underline-opacity-25 link-underline-opacity-100-hover">
                                             đánh giá</a>
 
-                                            <a href="{{ route('u.contact') }}" 
                                             class="link-dark link-offset-2 link-underline-opacity-25 link-underline-opacity-100-hover">
                                             trả hàng/hoàn tiền</a>
                                         </div>

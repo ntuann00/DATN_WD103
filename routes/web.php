@@ -18,6 +18,7 @@ use App\Http\Controllers\Admin\ProductImageController;
 use App\Http\Controllers\Admin\AdminOrderController;
 use App\Http\Controllers\Admin\PromotionController;
 use App\Http\Controllers\Admin\ReviewController;
+use App\Http\Controllers\Admin\RefundController;
 
 
 // ================== Public Routes ===================
@@ -58,6 +59,8 @@ Route::middleware('auth')->group(function () {
 
     // purchase history (lịch sử mua hàng)
     Route::get('/puchasehistory', [HomeController::class, 'purchasehistory'])->name('purchasehistory');
+    Route::get('/refund/{id}', [HomeController::class, 'refund'])->name('refund');
+    Route::post('/save_refund/{id}', [HomeController::class, 'save_refund'])->name('save_refund');
 
     // Cart
     Route::get('/cart', [UserProductController::class, 'cart'])->name('cart.view');
@@ -106,4 +109,9 @@ Route::prefix('admin')->middleware(['auth', 'check.role'])->name('admin.')->grou
     // Reviews
     Route::get('reviews', [ReviewController::class, 'index'])->name('reviews.index');
     Route::patch('reviews/{review}/hide', [ReviewController::class, 'hide'])->name('reviews.hide');
+
+    // Refund
+    Route::get('refund', [RefundController::class, 'index'])->name('refund.index');
+    Route::get('refund/{id}', [RefundController::class, 'detail'])->name('refund.detail');
+    Route::post('refund/{id}', [RefundController::class, 'update'])->name('refund.update');
 });

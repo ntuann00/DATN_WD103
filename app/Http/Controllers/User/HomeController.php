@@ -8,6 +8,8 @@ use App\Models\Product_variant;
 use App\Models\Product_variant_value;
 use App\Models\User;
 use App\Models\Category;
+use App\Models\Refund;
+use App\Models\Refund_info;
 use App\Models\Order;
 use App\Models\OrderDetail;
 use Illuminate\Http\Request;
@@ -66,7 +68,6 @@ class HomeController extends BaseController
     {
         $Products = Product::orderBy('created_at', 'desc')->paginate(20);
         return view('user.products.list-product', compact('Products'));
-
     }
 
    public function product_detail($id)
@@ -110,10 +111,6 @@ class HomeController extends BaseController
 
     public function purchasehistory(){
         $userId = auth()->id(); // user id
-        // $orderId = Order::where('user_id', "{$userId}")->value('id') ; // order id của user
-        // $orderDetailId = OrderDetail::where('id', "{$orderId}")->value('product_id') ; // lấy id sản phẩm và số lượng từ orderdetail theo id order
-        // $BProducts = product::where('id', "{$orderDetailId}")->get(); // lấy ra sản phẩm của orderdetail
-
         // Lấy tất cả đơn hàng của user
         $orders = Order::where('user_id', $userId)->get();
         // Lấy danh sách order_id từ các đơn hàng
@@ -129,7 +126,61 @@ class HomeController extends BaseController
         $variants = Product_variant::whereIn('id', $variantIds)->get();
 
         return view('user.users.purchasehistory', compact('orders', 'orderDetails', 'products','variants'));
-    }   
+    }
+
+    public function refund($id)
+    {
+        // id đang lấy là order id. cần order detail
+        $det_id = DB::table('order_details')->where('id',$id)->value('order_id');
+        $id_pro_det = DB::table('order_details')->where('id',$id)->value('product_id');
+        // $det_id= OrderDetail::pluck('order_id');
+        // $id_pro_det= OrderDetail::pluck('product_id');
+        // orderdetail
+        $Detail = OrderDetail::find($det_id);
+        $Order = Order::find($id);
+        $Product = Product::where('id', $id_pro_det)->first();
+        // dd($Detail,$Product);
+        return view('user.users.refund',compact('Detail','Product','Order'));
+    }
+
+    public function save_refund(Request $request,$id){
+        $userId = auth()->id(); // user id
+
+        $validated = $request->validate([
+            'reason'      => 'required|string|max:255',
+            'description' => 'nullable|string|max:255',
+        ]);
+        $validated['user_id'] = $userId;
+        $validated['order_id'] = $id;
+        // Refund::create($validated);
+
+        $refund = Refund::create($validated);
+
+        $validatedInfo = $request->validate([
+        'bank'        => 'nullable|string|max:255',
+        'bank_number' => 'nullable|string|max:255',
+        'bank_holder' => 'nullable|string|max:255',
+        ]);
+        $validatedInfo['refund_id'] = $refund->id;
+
+        Refund_info::create($validatedInfo);
+
+        return redirect()->route('refund',$id)->with('success', 'Gửi yêu cầu thành công!');
+        // dd($userId,$reason,$description,$stk,$bank,$holder_name,$id);
+    }
+
+    public function store(Request $request)
+    {
+        $validated = $request->validate([
+            'name' => 'required|string|max:255',
+            'description' => 'nullable|string',
+            'status' => 'required|in:active,inactive',
+        ]);
+
+        Category::create($validated);
+
+        return redirect()->route('admin.categories.index')->with('success', 'Thêm mới thành công!');
+    }
 
     public function account()
     {
