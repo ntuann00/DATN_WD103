@@ -32,6 +32,7 @@
                                     <!-- tên sp -->
                                     <td data-label="Product" class="table-product">
                                         <div class="product-img">
+                                            <img src="assets/img/inner-page/whistlist-img1.png" alt="hình ảnh sản phẩm">
                                             <!-- hình ảnh -->
                                         </div>
                                         <div class="product-content">
@@ -77,6 +78,7 @@
                                             class="link-info link-offset-2 link-underline-opacity-25 link-underline-opacity-100-hover">
                                             đánh giá</a>
 
+                                            <a href="{{ route('refund',$order->id) }}" 
                                             class="link-dark link-offset-2 link-underline-opacity-25 link-underline-opacity-100-hover">
                                             trả hàng/hoàn tiền</a>
                                         </div>
