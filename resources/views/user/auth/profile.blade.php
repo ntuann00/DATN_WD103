@@ -210,35 +210,96 @@
                                         </tr>
                                     </thead>
                                     <tbody>
+
+
+
                                         @forelse ($orders as $order)
-                                            @foreach ($order->orderDetails as $detail)
-                                                <tr>
-                                                    <td>
-                                                        <img src="{{ $detail->product->image_url ?? 'default.jpg' }}"
-                                                            alt="image" width="60">
-                                                    </td>
-                                                    <td>#{{ str_pad($order->id, 6, '0', STR_PAD_LEFT) }}</td>
+    @foreach ($order->orderDetails as $detail)
+        <tr>
+            <td>
+                <img src="{{ $detail->product->image_url ?? 'default.jpg' }}" alt="image" width="60">
+            </td>
+            <td>#{{ str_pad($order->id, 6, '0', STR_PAD_LEFT) }}</td>
+            <td>
+                {{ $detail->product->name }}
+                @foreach ($detail->productVariant->attributeValues as $attrVal)
+                    {{ $attrVal->attribute->name }}: {{ $attrVal->value }}<br>
+                @endforeach
+            </td>
+            <td>{{ $detail->quantity }}</td>
+            <td>{{ number_format($detail->price, 0, ',', '.') }} đ</td>
+            <td>{{ number_format($order->total, 0, ',', '.') }} đ</td>
+            <td>{{ $order->status_payment == 0 ? 'Chưa thanh toán' : 'Thanh toán thành công' }}</td>
+            <td>{{ $order->description ?? 'Không có ghi chú' }}</td>
+            <td>{{ $order->payment?->name ?? '---' }}</td>
+            <td class="{{ $order->status?->slug === 'pending' ? 'text-red' : 'text-green' }}">
+                {{ $order->status?->name ?? 'Không xác định' }}
+            </td>
 
-                                                    <td>
-                                                        {{ $detail->product->name }}
-                                                        @php
-                                                            $displayed = [];
-                                                        @endphp
-                                                        @foreach ($detail->productVariant->attributeValues as $attrVal)
-                                                            {{ $attrVal->attribute->name }}: {{ $attrVal->value }}<br>
-                                                        @endforeach
-                                                    </td>
+            <td>
+                {{-- Chỉ hiện nút khi admin đã cập nhật "Giao hàng thành công" --}}
+                @if ($order->status_id == 7) 
+                    <form method="POST" action="{{ route('orders.confirm', $order->id) }}">
+                        @csrf
+                        <button type="submit" class="btn btn-success btn-sm">
+                            Đã nhận hàng
+                        </button>
+                    </form>
+                @endif
+            </td>
+        </tr>
 
-                                                    <td>{{ $detail->quantity }}</td>
-                                                    <td>{{ number_format($detail->price, 0, ',', '.') }} đ</td>
-                                                    <td>{{ number_format($detail->total, 0, ',', '.') }} đ</td>
+        {{-- Modal form đánh giá sản phẩm --}}
+        <div class="modal fade" id="reviewModal{{ $order->id }}" tabindex="-1">
+            <div class="modal-dialog">
+                <div class="modal-content">
+                    <form method="POST" action="{{ route('orders.review.submit', $order->id) }}">
+                        @csrf
+                        <div class="modal-header">
+                            <h5 class="modal-title">Đánh giá sản phẩm</h5>
+                            <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+                        </div>
+                        <div class="modal-body">
+                            <input type="hidden" name="product_id" value="{{ $detail->product->id }}">
+                            
+                            <label for="rating">Đánh giá:</label>
+                            <select name="rating" class="form-select" required>
+                                <option value="5">5 sao</option>
+                                <option value="4">4 sao</option>
+                                <option value="3">3 sao</option>
+                                <option value="2">2 sao</option>
+                                <option value="1">1 sao</option>
+                            </select>
 
+                            <textarea name="comment" class="form-control mt-2" required placeholder="Nhập bình luận..."></textarea>
+                        </div>
+                        <div class="modal-footer">
+                            <button type="submit" class="btn btn-primary">Gửi đánh giá</button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+
+    @endforeach
+@empty
+    <tr>
+        <td colspan="11" class="text-center">Bạn chưa có đơn hàng nào.</td>
+    </tr>
+@endforelse
+
+
+
+
+<<<<<<< HEAD
                                                     <td>{{ $order->status_payment == 0 ? 'Chưa thanh toán' : 'Thanh toán thành công' }}</td>
 
                                                     <td>{{ $order->description ?? 'Không có ghi chú' }}</td>
+=======
+>>>>>>> 7a02eb7 (Cap nhat code nhanhcuahoang)
 
-                                                    <td>{{ $order->payment?->name ?? '---' }}</td>
 
+<<<<<<< HEAD
                                                     <td
                                                         class="{{ $order->status?->slug === 'pending' ? 'text-red' : 'text-green' }}">
                                                         {{ $order->status?->name ?? 'Không xác định' }}
@@ -277,6 +338,8 @@
                                                 <td colspan="9" class="text-center">Bạn chưa có đơn hàng nào.</td>
                                             </tr>
                                         @endforelse
+=======
+>>>>>>> 7a02eb7 (Cap nhat code nhanhcuahoang)
                                     </tbody>
                                 </table>
 

@@ -35,10 +35,17 @@ class Product extends Model
     {
         return $this->belongsTo(Promotion::class);
     }
+<<<<<<< HEAD
     public function images()
 {
     return $this->hasMany(ProductImage::class, 'product_id');
 }
+=======
+     public function images()
+    {
+        return $this->hasMany(ProductImage::class, 'product_id');
+    }
+>>>>>>> 7a02eb7 (Cap nhat code nhanhcuahoang)
 }
 
 

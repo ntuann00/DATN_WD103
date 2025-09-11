@@ -4824,7 +4824,11 @@ header.style-2 .nav-right::after {
 @media (max-width: 1199px) {
     .product-view-modal .modal-dialog .modal-content .modal-body .shop-details-top-section .shop-details-img .nav-pills {
         position: relative;
+<<<<<<< HEAD
         flex-direction: row;
+=======
+        flex-direction: column;
+>>>>>>> 7a02eb7 (Cap nhat code nhanhcuahoang)
         justify-content: center;
         left: unset;
         top: unset;

@@ -31,8 +31,10 @@ class UserProductController extends Controller
         // ✅ Lấy variant ID từ form
         $attributeValues = $request->input('attribute'); // mảng [5, 8] chẳng hạn
 
+
         $product = Product::where('id', $request->input('product_id'))
             ->first();
+
 
         $variant = ProductVariant::where('product_id', $request->input('product_id'))
             ->whereHas('attributeValues', function ($query) use ($attributeValues) {
@@ -42,24 +44,44 @@ class UserProductController extends Controller
             ->first(); // Hoặc get() nếu muốn lấy nhiều
 
         $rawQty = (int)$request->input('quantity', 1);
+<<<<<<< HEAD
        $qty = max(1, $rawQty);
         // dd($qty);
+=======
+        $qty = max(1, $rawQty);
+        // dd($qty);
+
+>>>>>>> 7a02eb7 (Cap nhat code nhanhcuahoang)
 
         $cart = Cart::firstOrCreate(
             ['user_id' => Auth::id()],
             ['user_id' => Auth::id()]
         );
 
+
         $detail = $cart->cartDetails()
             ->where('product_id', $product->id)
             ->where('product_variant_id', $variant->id)
             ->first();
 
+<<<<<<< HEAD
         $existingQty = $detail ? $detail->quantity : 0;
         $totalQty = $existingQty + $qty;
 
         if ($totalQty > $variant->quantity) {
             return redirect()->back()->with('error', 'Sản phẩm trong kho không đủ số lượng bạn muốn mua ! Vui lòng kiếm tra lại !');
+=======
+
+        $existingQty = $detail ? $detail->quantity : 0;
+        $totalQty = $existingQty + $qty;
+        // dd([
+        //     'tổng cần mua' => $totalQty,
+        //     'tồn kho' => $variant->quantity
+        // ]);
+
+        if ($totalQty > $variant->quantity) {
+            return redirect()->back()->with('error', 'Sản phẩm trong kho chỉ còn ' . $variant->quantity . ' sản phẩm. Vui lòng chọn số lượng phù hợp');
+>>>>>>> 7a02eb7 (Cap nhat code nhanhcuahoang)
         }
         if ($detail) {
             $detail->increment('quantity', $qty);
@@ -71,12 +93,17 @@ class UserProductController extends Controller
             ]);
         }
 
+
         return redirect()->back()->with('success', 'Đã thêm sản phẩm vào giỏ hàng!');
     }
 
 
 
 
+<<<<<<< HEAD
+=======
+    /**
+>>>>>>> 7a02eb7 (Cap nhat code nhanhcuahoang)
      * Hiển thị trang giỏ hàng (dữ liệu từ DB)
      */
     public function cart()
@@ -136,7 +163,10 @@ class UserProductController extends Controller
             'status' => 'error',
             'message' => 'Không thể cập nhật sản phẩm',
         ]);
+<<<<<<< HEAD
 
+=======
+>>>>>>> 7a02eb7 (Cap nhat code nhanhcuahoang)
     }
 
 
@@ -158,8 +188,11 @@ class UserProductController extends Controller
     }
 
 
+<<<<<<< HEAD
 
 
+=======
+>>>>>>> 7a02eb7 (Cap nhat code nhanhcuahoang)
     /**
      * Xóa toàn bộ giỏ hàng của user
      */
@@ -168,6 +201,7 @@ class UserProductController extends Controller
         Cart_detail::whereHas('cart', function ($q) {
             $q->where('user_id', Auth::id());
         })->delete();
+
 
         return back()->with('success', 'Đã xóa toàn bộ giỏ hàng!');
     }

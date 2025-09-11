@@ -77,6 +77,7 @@ class HomeController extends BaseController
     {
         // Lấy sản phẩm + biến thể + giá trị thuộc tính
         $Product = Product::with([
+            'images',
             'variants.attributeValues.attribute'
         ])->findOrFail($id);
 

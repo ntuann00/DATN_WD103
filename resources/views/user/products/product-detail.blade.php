@@ -3,13 +3,21 @@
 @section('content')
     <div class="container py-5">
         @if (session('error'))
+<<<<<<< HEAD
 
     <div class="alert alert-danger">
         {{ session('error') }}
     </div>
 @endif
+=======
+            <div class="alert alert-danger">
+                {{ session('error') }}
+            </div>
+        @endif
+>>>>>>> 7a02eb7 (Cap nhat code nhanhcuahoang)
         {{-- Tiêu đề --}}
-        {{-- <pre>{{ dd($Product->variants) }}</pre> --}}
+        {{--
+        <pre>{{ dd($Product->variants) }}</pre> --}}
 
         {{-- <h2 class="mb-4 text-center fw-bold">{{ $Product->name }}</h2> --}}
 
@@ -23,7 +31,10 @@
                     <div class="col-lg-6">
                         <div class="shop-details-img">
                             <div class="tab-content" id="view-tabContent">
+<<<<<<< HEAD
 
+=======
+>>>>>>> 7a02eb7 (Cap nhat code nhanhcuahoang)
                                 @foreach ($Product->variants as $variant)
                                     @foreach ($variant->images as $image)
                                         <div class="tab-pane fade {{ $loop->first && $loop->parent->first ? 'show active' : '' }}"
@@ -36,11 +47,14 @@
                                         </div>
                                     @endforeach
                                 @endforeach
+<<<<<<< HEAD
 
                                 <div class="tab-pane fade show active" id="view-pills-img1" role="tabpanel">
+=======
+                                {{-- <div class="tab-pane fade" id="view-pills-img2" role="tabpanel">
+>>>>>>> 7a02eb7 (Cap nhat code nhanhcuahoang)
                                     <div class="shop-details-tab-img">
-                                        <img src="{{ asset('user/assets/img/inner-page/shop-details-tab-img1.png') }}"
-                                            alt="">
+                                        <img src="{{ asset('uploads/products/' . $Product->image) }}" alt="Product Image">
                                     </div>
                                 </div>
                                 <div class="tab-pane fade" id="view-pills-img2" role="tabpanel">
@@ -60,34 +74,42 @@
                                         <img src="{{ asset('user/assets/img/inner-page/shop-details-tab-img4.png') }}"
                                             alt="">
                                     </div>
-                                </div>
+                                </div> --}}
                             </div>
                             <div class="nav nav-pills" id="view-tab" role="tablist" aria-orientation="vertical">
-                                <button class="nav-link active" id="view-pills-img1-tab" data-bs-toggle="pill"
+                                @foreach ($Product->variants as $variant)
+                                    @foreach ($variant->images as $image)
+                                         <button class="nav-link active" id="view-pills-img1-tab" data-bs-toggle="pill"
                                     data-bs-target="#view-pills-img1" type="button" role="tab"
                                     aria-controls="view-pills-img1" aria-selected="true">
-                                    <img src="{{ asset('user/assets/img/inner-page/shop-details-nav-img1.png') }}"
-                                        alt="">
-                                </button>
-                                <button class="nav-link" id="view-pills-img2-tab" data-bs-toggle="pill"
+
+                                            <img src="{{ asset($image->image_url) }}" alt="{{ $image->alt_text }}" width="60px">
+                                        </button>
+                                    @endforeach
+                                @endforeach
+
+                                {{-- <button class="nav-link" id="view-pills-img2-tab" data-bs-toggle="pill"
                                     data-bs-target="#view-pills-img2" type="button" role="tab"
                                     aria-controls="view-pills-img2" aria-selected="false">
-                                    <img src="{{ asset('user/assets/img/inner-page/shop-details-nav-img2.png') }}"
-                                        alt="">
+                                    <img src="{{ asset('user/assets/img/inner-page/shop-details-nav-img2.png') }}" alt="">
                                 </button>
                                 <button class="nav-link" id="view-pills-img3-tab" data-bs-toggle="pill"
                                     data-bs-target="#view-pills-img3" type="button" role="tab"
                                     aria-controls="view-pills-img3" aria-selected="false">
-                                    <img src="{{ asset('user/assets/img/inner-page/shop-details-nav-img3.png') }}"
-                                        alt="">
+                                    <img src="{{ asset('user/assets/img/inner-page/shop-details-nav-img3.png') }}" alt="">
                                 </button>
                                 <button class="nav-link" id="view-pills-img4-tab" data-bs-toggle="pill"
                                     data-bs-target="#view-pills-img4" type="button" role="tab"
                                     aria-controls="view-pills-img4" aria-selected="false">
+<<<<<<< HEAD
                                     <img src="{{ asset('user/assets/img/inner-page/shop-details-nav-img4.png') }}"
                                         alt="">
                                 </button>
 
+=======
+                                    <img src="{{ asset('user/assets/img/inner-page/shop-details-nav-img4.png') }}" alt="">
+                                </button> --}}
+>>>>>>> 7a02eb7 (Cap nhat code nhanhcuahoang)
                             </div>
 
                         </div>
@@ -150,11 +172,9 @@
                                                     <li>
                                                         <input type="radio" name="attribute[{{ $attrName }}]"
                                                             value="{{ $value->id }}" id="attr_{{ $value->id }}"
-                                                            data-value="{{ $value->value }}"
-                                                            data-attribute="{{ $attrName }}"
+                                                            data-value="{{ $value->value }}" data-attribute="{{ $attrName }}"
                                                             class="btn-check attribute-input" required>
-                                                        <label class="btn btn-outline-primary"
-                                                            for="attr_{{ $value->id }}">
+                                                        <label class="btn btn-outline-primary" for="attr_{{ $value->id }}">
                                                             {{ $value->value }}
                                                         </label>
                                                     </li>
@@ -171,8 +191,7 @@
                                         <h6 class="widget-title">Quantity</h6>
                                         <div class="quantity-counter">
                                             <a href="#" class="quantity__minus"><i class='bx bx-minus'></i></a>
-                                            <input name="quantity" type="number" class="quantity__input" value="1"
-                                                min="1">
+                                            <input name="quantity" type="number" class="quantity__input" value="1" min="1">
                                             <a href="#" class="quantity__plus"><i class='bx bx-plus'></i></a>
                                         </div>
                                     </div>
@@ -190,6 +209,7 @@
                         </div>
 
                         <div class="product-info">
+<<<<<<< HEAD
                             <ul class="product-info-list">
                                 <li><span>Số lượng</span>{{ $variant->quantity }}</li>
                                 <li> <span>SKU:</span> 9852410</li>
@@ -197,8 +217,12 @@
                                 <li> <span>Category:</span> <a href="shop-slider.html">Body</a>, <a
                                         href="shop-slider.html">Face</a></li>
                             </ul>
+=======
+
+>>>>>>> 7a02eb7 (Cap nhat code nhanhcuahoang)
                         </div>
                         <ul class="product-shipping-delivers">
+                            <p>Số lượng sản phẩm : {{ $variant->quantity }}</p>
                             <li class="product-shipping">
                                 <svg xmlns="http://www.w3.org/2000/svg" width="25" height="25" viewBox="0 0 55 32">
                                     <path
@@ -230,7 +254,7 @@
                                 <p>Delivers in: 3-7 Working Days <a href="#">Shipping &amp; Return</a></p>
                             </li>
                         </ul>
-                        <div class="compare-wishlist-area">
+                        {{-- <div class="compare-wishlist-area">
                             <ul>
                                 <li>
                                     <a href="whistlist.html">
@@ -247,7 +271,7 @@
                                     </a>
                                 </li>
                             </ul>
-                        </div>
+                        </div> --}}
                     </div>
                 </div>
             </div>
@@ -268,11 +292,11 @@
                                     data-bs-target="#nav-description" type="button" role="tab"
                                     aria-controls="nav-description" aria-selected="true">Recomment</button>
                                 <button class="nav-link" id="nav-add-info-tab" data-bs-toggle="tab"
-                                    data-bs-target="#nav-add-info" type="button" role="tab"
-                                    aria-controls="nav-add-info" aria-selected="false">Additional Information</button>
+                                    data-bs-target="#nav-add-info" type="button" role="tab" aria-controls="nav-add-info"
+                                    aria-selected="false">Additional Information</button>
                                 <button class="nav-link" id="nav-reviews-tab" data-bs-toggle="tab"
-                                    data-bs-target="#nav-reviews" type="button" role="tab"
-                                    aria-controls="nav-reviews" aria-selected="false">Reviews (15)</button>
+                                    data-bs-target="#nav-reviews" type="button" role="tab" aria-controls="nav-reviews"
+                                    aria-selected="false">Reviews (15)</button>
                             </div>
                         </nav>
                     </div>
@@ -304,8 +328,8 @@
                                                                     $path = $item->image;
                                                                     $img =
                                                                         $path && file_exists(public_path($path))
-                                                                            ? asset($path)
-                                                                            : 'https://product.hstatic.net/1000006063/product/3ce_blush_lighter_atf_-_02_b483e7c8fa3b4c12b167fbade4e7537d_1024x1024.jpg';
+                                                                        ? asset($path)
+                                                                        : 'https://product.hstatic.net/1000006063/product/3ce_blush_lighter_atf_-_02_b483e7c8fa3b4c12b167fbade4e7537d_1024x1024.jpg';
                                                                 @endphp
                                                                 @if (!$relVariant)
                                                                     @continue
@@ -314,13 +338,12 @@
                                                                     <a href="{{ route('u.product_detail', $item->id) }}"
                                                                         class="text-decoration-none text-dark">
                                                                         <div class="card h-100 shadow-sm">
-                                                                            <img src="{{ $img }}"
-                                                                                class="card-img-top"
+                                                                            <img src="{{ $img }}" class="card-img-top"
                                                                                 alt="{{ $item->name }}"
                                                                                 style="height:180px; object-fit:cover;">
                                                                             <div class="card-body d-flex flex-column">
                                                                                 <h6 class="card-title">
-                                                                                    {{ \Illuminate\Support\Str::limit($item->name, 30) }}
+                                                                                    {{ Str::limit($item->name, 30) }}
                                                                                 </h6>
                                                                                 <p class="text-danger fw-bold mt-auto">
                                                                                     {{ number_format($relVariant->price, 0, ',', '.') }}₫
@@ -371,7 +394,7 @@
                                 </script>
 
                                 <script>
-                                    document.addEventListener('DOMContentLoaded', function() {
+                                    document.addEventListener('DOMContentLoaded', function () {
                                         const inputs = document.querySelectorAll('.attribute-input');
                                         const attributeQuantity = @json($attributeQuantity); // { "White-S-": 10, "White-M-": 0, ... }
 
@@ -439,6 +462,7 @@
                                         // CSS để làm mờ và không thể click
                                         const style = document.createElement('style');
                                         style.textContent = `
+<<<<<<< HEAD
 
 
         .text-muted {
@@ -449,8 +473,17 @@
         }
     `;
 
+=======
+            .text-muted {
+                opacity: 0.4 !important;
+            }
+            .unselectable {
+                pointer-events: none !important;
+            }
+        `;
+>>>>>>> 7a02eb7 (Cap nhat code nhanhcuahoang)
                                         document.head.appendChild(style);
                                     });
                                 </script>
 
-                            @endsection
+@endsection

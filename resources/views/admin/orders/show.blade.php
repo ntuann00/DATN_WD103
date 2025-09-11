@@ -35,6 +35,7 @@
             <h5 class="mb-0">🛒 Sản phẩm trong đơn</h5>
 
             {{-- Cập nhật trạng thái --}}
+<<<<<<< HEAD
             <form method="POST" action="{{ route('orders.updateStatus', $order->id) }}" class="d-flex align-items-center gap-2">
                 @csrf
                 @method('PUT')
@@ -50,6 +51,24 @@
                 </select>
                 <button type="submit" class="btn btn-sm btn-success">Cập nhật</button>
             </form>
+=======
+<form method="POST" action="{{ route('orders.updateStatus', $order->id) }}" class="d-flex align-items-center gap-2">
+    @csrf
+    @method('PUT')
+    <label for="status_id" class="mb-0 fw-bold">Trạng thái:</label>
+    <select name="status_id" id="status_id" class="form-select form-select-sm w-auto">
+        @foreach($statuses as $status)
+            @if ($status->id >= $order->status_id)
+                <option value="{{ $status->id }}" {{ $order->status_id == $status->id ? 'selected' : '' }}>
+                    {{ $status->name }}
+                </option>
+            @endif
+        @endforeach
+    </select>
+    <button type="submit" class="btn btn-sm btn-success">Cập nhật</button>
+</form>
+
+>>>>>>> 7a02eb7 (Cap nhat code nhanhcuahoang)
         </div>
         <div class="card-body p-0">
             <div class="table-responsive">
