@@ -29,8 +29,8 @@
                 <span>Quản lí danh mục</span>
             </a>
             <ul>
-                <li><a href="{{ route('admin.categories.index') }}">Danh sách danh mục</a></li>
-                <li><a href="{{ route('admin.categories.create') }}">Thêm mới danh mục</a></li>
+                <li><a href="{{ route('categories.index') }}">Danh sách danh mục</a></li>
+                <li><a href="{{ route('categories.create') }}">Thêm mới danh mục</a></li>
             </ul>
         </li>
 
@@ -43,8 +43,8 @@
                 <span>Quản lí thuộc tính</span>
             </a>
             <ul>
-                <li><a href="{{ route('admin.attributes.index') }}">Danh sách thuộc tính</a></li>
-                <li><a href="{{ route('admin.attributes.create') }}">Thêm mới thuộc tính</a></li>
+                <li><a href="{{ route('attributes.index') }}">Danh sách thuộc tính</a></li>
+                <li><a href="{{ route('attributes.create') }}">Thêm mới thuộc tính</a></li>
             </ul>
         </li>
 
@@ -57,7 +57,7 @@
                 <span>Quản lí khách hàng</span>
             </a>
             <ul>
-                <li><a href="{{ route('admin.users.index') }}">Danh sách khách hàng</a></li>
+                <li><a href="{{ route('users.index') }}">Danh sách khách hàng</a></li>
                 <li><a href="#">Thêm mới khách hàng</a></li>
             </ul>
         </li>
@@ -71,14 +71,14 @@
                 <span>Quản lí sản phẩm</span>
             </a>
             <ul>
-                <li><a href="{{ route('admin.products.index') }}">Danh sách sản phẩm</a></li>
-                <li><a href="{{ route('admin.products.create') }}">Thêm mới sản phẩm</a></li>
+                <li><a href="{{ route('products.index') }}">Danh sách sản phẩm</a></li>
+                <li><a href="{{ route('products.create') }}">Thêm mới sản phẩm</a></li>
             </ul>
         </li>
 
         <!-- 🛒 Lịch sử đơn hàng -->
         <li class="{{ request()->is('admin/orders*') ? 'mm-active' : '' }}">
-            <a href="{{ route('admin.orders.index') }}" aria-expanded="false">
+            <a href="{{ route('orders.index') }}" aria-expanded="false">
                 <div class="icon_menu">
                     <img src="{{ asset('admins/assets/img/menu-icon/16.svg')}}" alt>
                 </div>
@@ -88,7 +88,7 @@
 
         <!-- 🎟️ Mã giảm giá -->
         <li class="{{ request()->is('admin/promotions*') ? 'mm-active' : '' }}">
-            <a href="{{ route('admin.promotions.index') }}" aria-expanded="false">
+            <a href="{{ route('promotions.index') }}" aria-expanded="false">
                 <div class="icon_menu">
                     <i class="ti-tag"></i>
                 </div>
@@ -96,15 +96,32 @@
             </a>
         </li>
 
-        <!-- 💬 Quản lý bình luận -->
-        <li class="{{ request()->is('admin/reviews*') ? 'mm-active' : '' }}">
-            <a href="{{ route('admin.reviews.index') }}" aria-expanded="false">
-                <div class="icon_menu">
-                    <img src="{{ asset('admins/assets/img/menu-icon/comments.svg') }}" alt>
-                </div>
-                <span>Bình luận</span>
-            </a>
-        </li>
+
+
+        <li>
+    <a href="{{ route('admin.reviews.index') }}" class="nav-link">
+        <i class="bi bi-chat-dots"></i>
+        <span>Quản lí bình luận</span>
+    </a>
+</li>
+
+
+
+<!-- 📊 Thống kê -->
+<li class="{{ request()->is('admin/statistics*') ? 'mm-active' : '' }}">
+    <a href="{{ route('admin.statistics') }}" aria-expanded="false">
+        <div class="icon_menu">
+            <img src="{{ asset('admins/assets/img/menu-icon/16.svg')}}" alt>
+        </div>
+        <span>Thống kê</span>
+    </a>
+</li>
+
+
+
+
+             
+
 
         <!-- Quản lý đơn hoàn hàng/hoàn tiền -->
         <li class="{{ request()->is('admin/refund*') ? 'mm-active' : '' }}">

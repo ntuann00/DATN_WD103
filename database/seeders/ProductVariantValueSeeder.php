@@ -3,8 +3,8 @@
 namespace Database\Seeders;
 
 use App\Models\AttributeValue;
-use App\Models\Product_variant;
 use App\Models\Product_variant_value;
+use App\Models\ProductVariant;
 use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 use Illuminate\Database\Seeder;
 
@@ -15,7 +15,7 @@ class ProductVariantValueSeeder extends Seeder
      */
     public function run(): void
     {
-        $variants = Product_variant::all();
+        $variants = ProductVariant::all();
 
         foreach ($variants as $variant) {
             // Lấy ngẫu nhiên 2 giá trị thuộc tính để gán cho mỗi biến thể

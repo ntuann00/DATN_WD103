@@ -47,7 +47,9 @@
                                 <label>Đơn hàng:</label>
                                 <div class="order-summary p-3 border rounded bg-light">
                                     @foreach ($cartItems as $item)
+                                       <input type="hidden" name="selected_items[]" value="{{ $item->id }}">
                                         @php
+
                                             $variant = $item->variant; // dùng quan hệ variant() trong CartDetail
                                             $price = $variant ? $variant->price : 0;
                                         @endphp
@@ -55,8 +57,8 @@
                                             value="{{ $item->product->id }}">
                                         <input type="hidden" name="items[{{ $loop->index }}][variant_id]"
                                             value="{{ $variant?->id }}">
-                                        <input type="hidden" name="items[{{ $loop->index }}][quantity]"
-                                            value="{{ $item->quantity }}">
+                                        <input type="hidden" name="quantities[{{ $item->id }}]" value="{{ $item->quantity }}">
+
                                         {{-- <pre>{{ dd($item) }}</pre> --}}
                                         <p>
                                             <strong>{{ $item->product->name }}</strong><br>
@@ -70,13 +72,9 @@
                                         </p>
                                         <hr>
                                     @endforeach
-
                                     <p>Phí ship: <span id="shippingFee">{{ number_format($shippingFee, 0, ',', '.') }}
                                             đ</span></p>
-                                    {{-- <pre>
-Shipping: {{ gettype($shippingFee) }} - {{ $shippingFee }}
-Total raw: {{ $total }}
-</pre> --}}
+
                                     <p><strong>Tổng cộng:</strong>
                                         <span id="totalAmount">
                                             {{ number_format($total, 0, ',', '.') }} đ
@@ -89,8 +87,7 @@ Total raw: {{ $total }}
                                 <label>Phương thức thanh toán:</label>
                                 <select name="payment_id" required>
                                     @foreach ($payments as $payment)
-                                        <option value="{{ $payment->id }}"
-                                            {{ old('payment_id') == $payment->id ? 'selected' : '' }}>
+                                        <option value="{{ $payment->id }}">
                                             {{ $payment->name }}
                                         </option>
                                     @endforeach
@@ -111,26 +108,5 @@ Total raw: {{ $total }}
         </div>
     </div>
 
-    <!-- Script tự động tính phí ship và cập nhật tổng -->
-    {{-- <script>
-        (() => {
-            const addressInput = document.getElementById('addressInput');
-            const shippingFeeEl = document.getElementById('shippingFee');
-            const totalAmountEl = document.getElementById('totalAmount');
 
-            // Lấy tổng tiền ban đầu đã render (bao gồm 30k ship mặc định)
-            const originalTotal = Number(totalAmountEl.innerText.replace(/[^\d]/g, ''));
-            const baseTotal = originalTotal - 30000; // loại bỏ phí ship mặc định
-
-            if (addressInput && shippingFeeEl && totalAmountEl) {
-                addressInput.addEventListener('input', function() {
-                    const prov = this.value.toLowerCase().normalize("NFD").replace(/[\u0300-\u036f]/g, "");
-                    const fee = prov.includes('ha noi') ? 0 : 30000;
-
-                    shippingFeeEl.innerText = fee.toLocaleString('vi-VN') + ' đ';
-                    totalAmountEl.innerText = (baseTotal + fee).toLocaleString('vi-VN') + ' đ';
-                });
-            }
-        })();
-    </script> --}}
 @endsection

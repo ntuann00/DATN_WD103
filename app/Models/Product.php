@@ -8,14 +8,22 @@ use Illuminate\Database\Eloquent\Model;
 class Product extends Model
 {
     use HasFactory;
+     protected $fillable = [
+        'name',
+        'category_id',
+        'attribute_id',
+        'promotion_id',
+        'brand',
+        'description',
+        'status',
+        // thêm các trường khác nếu có trong form hoặc bảng DB
+    ];
 
+
+    
     public function variants()
     {
-        return $this->hasMany(Product_variant::class, 'product_id', 'id');
-    }
-    public function variant()
-    {
-        return $this->belongsTo(Product_variant::class, 'productVariant_id','id');
+        return $this->hasMany(ProductVariant::class, 'product_id', 'id');
     }
 
     public function category()
@@ -27,6 +35,17 @@ class Product extends Model
     {
         return $this->belongsTo(Promotion::class);
     }
+<<<<<<< HEAD
+    public function images()
+{
+    return $this->hasMany(ProductImage::class, 'product_id');
+}
+=======
+     public function images()
+    {
+        return $this->hasMany(ProductImage::class, 'product_id');
+    }
+>>>>>>> 7a02eb7 (Cap nhat code nhanhcuahoang)
 }
 
 

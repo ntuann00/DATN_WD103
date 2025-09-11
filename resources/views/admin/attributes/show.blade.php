@@ -5,15 +5,11 @@
     <h2>Thuộc tính {{ $attribute->name }}</h2>
 
     @if ($attribute->values->count())
-        <form action="{{ route('attributeValues.update') }}" method="POST">
+        <form action="{{ route('attributeValues.update', $attribute->id) }}" method="POST">
             @csrf
             @method('PUT')
 
-nhanhcuahoang
-        <a href="{{ route('attributes.index') }}" class="btn btn-secondary mt-3">← Quay lại</a>
-        <a href="{{ route('attributeValues.create') }}" class="btn btn-secondary mt-3">Thêm giá trị</a>
-    </div>
-=======
+
             @foreach ($attribute->values as $val)
                 <div style="margin-bottom: 20px;">
                     <input type="hidden" name="values[{{ $val->id }}][id]" value="{{ $val->id }}">
@@ -30,5 +26,5 @@ nhanhcuahoang
     <a href="{{ route('attributes.index') }}" class="btn btn-secondary mt-3">← Quay lại</a>
     <a href="{{ route('attributeValues.create', ['attribute_id' => $attribute->id]) }}" class="btn btn-secondary mt-3">Thêm giá trị</a>
 </div>
- main
+
 @endsection

@@ -3,22 +3,25 @@
 namespace App\Http\Controllers\Admin;
 
 use App\Models\Attribute;
+use App\Models\AttributeValue;
+use Illuminate\Foundation\Auth\Access\AuthorizesRequests;
+use Illuminate\Foundation\Validation\ValidatesRequests;
 use Illuminate\Http\Request;
 use Illuminate\Routing\Controller as BaseController;
 
 class AttributeController extends BaseController
 {
+
     public function index()
     {
         $attributes = Attribute::with('values')->withCount('values')->latest()->paginate(3);
+      
         return view('admin.attributes.index', compact('attributes'));
     }
-
     public function create()
     {
         return view('admin.attributes.create');
     }
-
     public function store(Request $request)
     {
         $validated = $request->validate([
@@ -27,8 +30,9 @@ class AttributeController extends BaseController
 
         Attribute::create($validated);
 
-        return redirect()->route('admin.attributes.index')->with('success', 'Thêm mới thành công!');
+        return redirect()->route('attributes.index')->with('success', 'Thêm mới thành công!');
     }
+
 
     public function edit($id)
     {
@@ -45,12 +49,11 @@ class AttributeController extends BaseController
 
         $attribute->update($request->only('name'));
 
-        return redirect()->route('admin.attributes.index')->with('success', 'Cập nhật thành công!');
+        return redirect()->route('attributes.index')->with('success', 'Cập nhật thành công!');
     }
-
     public function show($id)
-    {
-        $attribute = Attribute::with('values')->findOrFail($id);
-        return view('admin.attributes.show', compact('attribute'));
-    }
+{
+    $attribute = Attribute::with('values')->findOrFail($id);
+    return view('admin.attributes.show', compact('attribute'));
+}
 }

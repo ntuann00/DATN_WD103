@@ -1,144 +1,208 @@
 <?php
-// sửa lại code 
+
 
 namespace App\Http\Controllers\User;
 
+
 use App\Http\Controllers\Controller;
+use App\Models\Cart;
+use App\Models\Cart_detail;
 use App\Models\Product;
 use App\Models\Product_variant;
-use App\Models\Review;
+use App\Models\ProductVariant;
 use Illuminate\Http\Request;
-use Illuminate\Support\Facades\Session;
+use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\DB;
+
 
 class UserProductController extends Controller
 {
     /**
-     * Hiển thị danh sách sản phẩm (nếu có)
+     * Thêm sản phẩm vào giỏ hàng (dùng database)
      */
-    public function index()
+    public function addToCart(Request $request)
     {
-        //
-    }
-
-    /**
-     * Thêm sản phẩm vào giỏ hàng
-     */
-    public function addToCart(Request $request, $variantId)
-    {
-        $variant = Product_variant::findOrFail($variantId);
-        $product = $variant->product;
-        $qty = max(1, (int)$request->input('quantity', 1));
-
-        $cart = $request->session()->get('cart', []);
-
-        if (isset($cart[$variantId])) {
-            $cart[$variantId]['quantity'] += $qty;
-        } else {
-            $cart[$variantId] = [
-                'name'     => $product->name,
-                'sku'      => $variant->sku,
-                'price'    => $variant->price,
-                'image'    => $product->image,
-                'quantity' => $qty,
-            ];
+        if (!Auth::check()) {
+            return redirect()->route('login')
+                ->with('error', 'Bạn cần đăng nhập để thêm sản phẩm vào giỏ.');
         }
 
-        $request->session()->put('cart', $cart);
 
-        return redirect()->back()->with('success', 'Sản phẩm đã được thêm vào giỏ hàng!');
+        // ✅ Lấy variant ID từ form
+        $attributeValues = $request->input('attribute'); // mảng [5, 8] chẳng hạn
+
+
+        $product = Product::where('id', $request->input('product_id'))
+            ->first();
+
+
+        $variant = ProductVariant::where('product_id', $request->input('product_id'))
+            ->whereHas('attributeValues', function ($query) use ($attributeValues) {
+                $query->whereIn('attribute_value_id', $attributeValues);
+            }, '=', count($attributeValues)) // Đảm bảo variant có đủ số lượng value
+            ->with('attributeValues') // Nếu cần xem thêm
+            ->first(); // Hoặc get() nếu muốn lấy nhiều
+
+        $rawQty = (int)$request->input('quantity', 1);
+<<<<<<< HEAD
+       $qty = max(1, $rawQty);
+        // dd($qty);
+=======
+        $qty = max(1, $rawQty);
+        // dd($qty);
+
+>>>>>>> 7a02eb7 (Cap nhat code nhanhcuahoang)
+
+        $cart = Cart::firstOrCreate(
+            ['user_id' => Auth::id()],
+            ['user_id' => Auth::id()]
+        );
+
+
+        $detail = $cart->cartDetails()
+            ->where('product_id', $product->id)
+            ->where('product_variant_id', $variant->id)
+            ->first();
+
+<<<<<<< HEAD
+        $existingQty = $detail ? $detail->quantity : 0;
+        $totalQty = $existingQty + $qty;
+
+        if ($totalQty > $variant->quantity) {
+            return redirect()->back()->with('error', 'Sản phẩm trong kho không đủ số lượng bạn muốn mua ! Vui lòng kiếm tra lại !');
+=======
+
+        $existingQty = $detail ? $detail->quantity : 0;
+        $totalQty = $existingQty + $qty;
+        // dd([
+        //     'tổng cần mua' => $totalQty,
+        //     'tồn kho' => $variant->quantity
+        // ]);
+
+        if ($totalQty > $variant->quantity) {
+            return redirect()->back()->with('error', 'Sản phẩm trong kho chỉ còn ' . $variant->quantity . ' sản phẩm. Vui lòng chọn số lượng phù hợp');
+>>>>>>> 7a02eb7 (Cap nhat code nhanhcuahoang)
+        }
+        if ($detail) {
+            $detail->increment('quantity', $qty);
+        } else {
+            $cart->cartDetails()->create([
+                'product_id' => $product->id,
+                'product_variant_id' => $variant->id,
+                'quantity' => $qty,
+            ]);
+        }
+
+
+        return redirect()->back()->with('success', 'Đã thêm sản phẩm vào giỏ hàng!');
     }
 
+
+
+
+<<<<<<< HEAD
+=======
     /**
-     * Hiển thị giỏ hàng
+>>>>>>> 7a02eb7 (Cap nhat code nhanhcuahoang)
+     * Hiển thị trang giỏ hàng (dữ liệu từ DB)
      */
     public function cart()
     {
-        $cart = Session::get('cart', []);
-        return view('user.cart.cart', compact('cart'));
+        $cart = Cart::with([
+            'cartDetails.variant.attributeValues.attribute', // load biến thể và thuộc tính
+            'cartDetails.product'
+        ])->where('user_id', Auth::id())->latest()->first();
+
+
+        $items = $cart ? $cart->cartDetails : collect();
+        return view('user.cart.cart', compact('items'));
     }
 
-    /**
-     * Xóa sản phẩm khỏi giỏ hàng
-     */
-    public function removeFromCart($id)
-    {
-        $cart = session()->get('cart', []);
-
-        if (isset($cart[$id])) {
-            unset($cart[$id]);
-        }
-
-        session()->forget('cart');
-        if (!empty($cart)) {
-            session()->put('cart', $cart);
-        }
-
-        return redirect()->back()->with('success', 'Đã xóa sản phẩm khỏi giỏ hàng!');
-    }
 
     /**
-     * Cập nhật số lượng sản phẩm trong giỏ hàng
+     * Cập nhật số lượng từng item trong giỏ
      */
     public function updateCart(Request $request)
     {
-        $cart = session()->get('cart', []);
+        $detail = Cart_detail::find($request->id);
+        $variant = $detail->variant;
 
-        foreach ($request->input('quantities') as $id => $quantity) {
-            if (isset($cart[$id])) {
-                $cart[$id]['quantity'] = max(1, (int)$quantity);
+        if ($detail && $detail->cart->user_id === Auth::id()) {
+            if ($request->status == 'decrement') {
+                if ($detail->quantity > 1) {
+                    $detail->update([
+                        'quantity' => $detail->quantity - 1,
+                    ]);
+                    return response()->json([
+                        'status' => 'success',
+                        'message' => 'Đã giảm số lượng',
+                    ]);
+                }
+            } else {
+                $newQty = (int) $request->quantities;
+
+                if ($newQty > $variant->quantity) {
+                    return response()->json([
+                        'status' => 'error',
+                        'message' => 'Số lượng yêu cầu vượt quá tồn kho!',
+                    ]);
+                }
+
+                $detail->update([
+                    'quantity' => $newQty,
+                ]);
+                return response()->json([
+                    'status' => 'success',
+                    'message' => 'Đã cập nhật số lượng',
+                ]);
             }
         }
 
-        session()->put('cart', $cart);
-        return redirect()->back()->with('success', 'Giỏ hàng đã được cập nhật!');
+        // ❌ Trường hợp không hợp lệ
+        return response()->json([
+            'status' => 'error',
+            'message' => 'Không thể cập nhật sản phẩm',
+        ]);
+<<<<<<< HEAD
+
+=======
+>>>>>>> 7a02eb7 (Cap nhat code nhanhcuahoang)
     }
 
+
+
     /**
-     * Xóa toàn bộ giỏ hàng
+     * Xóa 1 item khỏi giỏ
+     */
+    public function removeFromCart($detailId)
+    {
+        $detail = Cart_detail::find($detailId);
+        if ($detail && $detail->cart->user_id === Auth::id()) {
+            $detail->delete();
+        }
+
+
+        // Gửi session flash như bình thường
+        session()->flash('success', 'Đã xóa sản phẩm khỏi giỏ hàng!');
+        return response()->json(['reload' => true]);
+    }
+
+
+<<<<<<< HEAD
+
+
+=======
+>>>>>>> 7a02eb7 (Cap nhat code nhanhcuahoang)
+    /**
+     * Xóa toàn bộ giỏ hàng của user
      */
     public function clearCart()
     {
-        session()->forget('cart');
-        return redirect()->back()->with('success', 'Đã xóa toàn bộ giỏ hàng!');
+        Cart_detail::whereHas('cart', function ($q) {
+            $q->where('user_id', Auth::id());
+        })->delete();
+
+
+        return back()->with('success', 'Đã xóa toàn bộ giỏ hàng!');
     }
-
-    /**
-     * Kiểm tra bình luận có chứa từ tục không
-     */
-    private function containsBadWords($text)
-    {
-        $bannedWords = ['đm', 'lồn', 'ngu', 'vãi', 'xxx', 'quảng cáo', 'chết'];
-        foreach ($bannedWords as $word) {
-            if (stripos($text, $word) !== false) {
-                return true;
-            }
-        }
-        return false;
-    }
-
-    /**
-     * Hiển thị chi tiết sản phẩm cùng với bình luận sạch
-     */
-    public function show($id)
-    {
-        $product = Product::with([
-            'variants.images',
-            'variants.variantValues.attributeValue.attribute'
-        ])->findOrFail($id);
-
-        $reviews = Review::where('product_id', $id)
-            ->latest()
-            ->get()
-            ->filter(function ($review) {
-                return !$this->containsBadWords($review->comment);
-            });
-
-        return view('user.pages.product_detail', compact('product', 'reviews'));
-    }
-
-    public function create() {}
-    public function store(Request $request) {}
-    public function edit(string $id) {}
-    public function update(Request $request, string $id) {}
-    public function destroy(string $id) {}
 }

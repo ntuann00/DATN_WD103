@@ -4,14 +4,17 @@ namespace App\Http\Controllers\User;
 
 use App\Models\Role;
 use App\Models\Product;
-use App\Models\Product_variant;
+
 use App\Models\Product_variant_value;
 use App\Models\User;
 use App\Models\Category;
+<<<<<<< HEAD
+=======
 use App\Models\Refund;
 use App\Models\Refund_info;
 use App\Models\Order;
 use App\Models\OrderDetail;
+>>>>>>> origin/main
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Hash;
@@ -38,20 +41,27 @@ class HomeController extends BaseController
     //     return view('user.index', compact('FProducts','Fcate'));
 
     // }
+    public function index()
+    {
+        $FProducts = Product::with(['category', 'variants.values'])->orderBy('created_at', 'desc')->limit(8)->get();
+        return view('user.index', compact('FProducts'));
 
-    public function index(){
-        $FProducts = Product::with(['category', 'variants'])->latest()->take(8)->get();
-        $Tsell=Product::with(['category', 'variants'])->inRandomOrder()->take(8)->get();
-        $Cate=Category::inRandomOrder()->take(6)->get();
+        // $Products = Product::has('variants')
+        //                    ->with('variants')
+        //                    ->latest()       // order by created_at desc
+        //                    ->take(12)        // ví dụ lấy 8 sản phẩm nổi bật
+        //                    ->get();
 
-        return view('user.index', compact('FProducts','Tsell','Cate'));
+        // $Categorys = Category::all();
+
+        // return view('user.index', compact('Products','Categorys'));
+
     }
 
     public function brand()
     {
         return view('user.products.list-brand');
     }
-
 
     public function product()
     {
@@ -70,35 +80,54 @@ class HomeController extends BaseController
         return view('user.products.list-product', compact('Products'));
     }
 
-   public function product_detail($id)
-{
-    // Lấy sản phẩm + biến thể + giá trị thuộc tính
-    $Product = Product::with([
-        'variants.attributeValues.attribute'
-    ])->findOrFail($id);
+    public function product_detail($id)
+    {
+        // Lấy sản phẩm + biến thể + giá trị thuộc tính
+        $Product = Product::with([
+            'images',
+            'variants.attributeValues.attribute'
+        ])->findOrFail($id);
 
-    $variant = $Product->variants->first();
 
-    // Gợi ý 4 sản phẩm khác
-    $Related = Product::has('variants')
-        ->with('variants.attributeValues.attribute')
-        ->where('id', '!=', $id)
-        ->inRandomOrder()
-        ->take(4)
-        ->get();
+        // Gợi ý 4 sản phẩm khác
+        $Related = Product::has('variants')
+            ->with('variants.attributeValues.attribute')
+            ->where('id', '!=', $id)
+            ->inRandomOrder()
+            ->take(4)
+            ->get();
 
-    // Tạo nhóm thuộc tính từ tất cả các variants
-    $attributeGroups = [];
+        // Tạo nhóm thuộc tính từ tất cả các variants
+        $attributeGroups = [];
+        $attributeQuantity = [];
 
-    foreach ($Product->variants as $variant) {
-        foreach ($variant->attributeValues as $attrValue) {
-            $attrName = $attrValue->attribute->name;
-            $attributeGroups[$attrName][$attrValue->id] = $attrValue; // gán object AttributeValue
+        foreach ($Product->variants as $variant) {
+            $attributeCombinationAB = '';
+            $attributeCombinationBA = '';
+
+            foreach ($variant->attributeValues as $attrValue) {
+                $attrName = $attrValue->attribute->name;
+                $attributeGroups[$attrName][$attrValue->id] = $attrValue;
+
+                $attributeCombinationAB .= $attrValue->value . '-';
+                $attributeCombinationBA = $attrValue->value . '-' . $attributeCombinationBA;
+            }
+
+            $attributeQuantity[$attributeCombinationAB] = $variant->quantity;
+            $attributeQuantity[$attributeCombinationBA] = $variant->quantity;
         }
-    }
 
-    return view('user.products.product-detail', compact('Product', 'Related', 'variant', 'attributeGroups'));
-}
+        $countAttribute = count($attributeGroups);
+
+        return view('user.products.product-detail', compact([
+            'Product',
+            'Related',
+            'variant',
+            'attributeGroups',
+            'attributeQuantity',
+            'countAttribute'
+        ]));
+    }
 
 
 
@@ -108,6 +137,8 @@ class HomeController extends BaseController
         return view('user.products.list-product', compact('Products'));
     }
 
+<<<<<<< HEAD
+=======
 
     public function purchasehistory(){
         $userId = auth()->id(); // user id
@@ -182,6 +213,7 @@ class HomeController extends BaseController
         return redirect()->route('admin.categories.index')->with('success', 'Thêm mới thành công!');
     }
 
+>>>>>>> origin/main
     public function account()
     {
         return view('user.pages.my_account');

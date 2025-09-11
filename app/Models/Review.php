@@ -4,13 +4,15 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
-use App\Models\User;
-use App\Models\Product;
 
 class Review extends Model
 {
     use HasFactory;
 
+    // Bảng tương ứng
+    protected $table = 'reviews';
+
+    // Các cột có thể gán giá trị hàng loạt
     protected $fillable = [
         'user_id',
         'product_id',
@@ -18,15 +20,28 @@ class Review extends Model
         'comment',
     ];
 
-    // Quan hệ với người dùng (user)
+    // Quan hệ: 1 review thuộc về 1 user
     public function user()
     {
-        return $this->belongsTo(User::class, 'user_id');
+        return $this->belongsTo(User::class);
     }
 
-    // Quan hệ với sản phẩm (product)
+    // Quan hệ: 1 review thuộc về 1 product
     public function product()
     {
-        return $this->belongsTo(Product::class, 'product_id');
+        return $this->belongsTo(Product::class);
     }
+
+    public function getCleanCommentAttribute()
+{
+    $badWords = ['đm', 'vl', 'cmm', 'ngu']; // danh sách từ cấm
+    $comment = $this->comment;
+
+    foreach ($badWords as $word) {
+        $comment = str_ireplace($word, '***', $comment);
+    }
+
+    return $comment;
+}
+
 }

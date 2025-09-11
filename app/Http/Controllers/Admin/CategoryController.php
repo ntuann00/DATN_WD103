@@ -10,32 +10,32 @@ use Illuminate\Routing\Controller as BaseController;
 
 class CategoryController extends BaseController
 {
+
     public function index()
     {
         $categories = Category::paginate(3);
         return view('admin.categories.index', compact('categories'));
     }
-
     public function create()
     {
         return view('admin.categories.create');
     }
-
     public function store(Request $request)
-    {
-        $validated = $request->validate([
-            'name' => 'required|string|max:255',
-            'description' => 'nullable|string',
-            'status' => 'required|in:active,inactive',
-        ]);
+    { {
+            $validated = $request->validate([
+                'name' => 'required|string|max:255',
+                'description' => 'nullable|string',
+                'status' => 'required|in:active,inactive',
+            ]);
 
-        Category::create($validated);
+            Category::create($validated);
 
-        return redirect()->route('admin.categories.index')->with('success', 'Thêm mới thành công!');
+            return redirect()->route('categories.index')->with('success', 'Thêm mới thành công!');
+        }
     }
-
     public function show($id)
     {
+
         $category = Category::findOrFail($id);
         return view('admin.categories.show', compact('category'));
     }
@@ -57,14 +57,13 @@ class CategoryController extends BaseController
         $category = Category::findOrFail($id);
         $category->update($validated);
 
-        return redirect()->route('admin.categories.index')->with('success', 'Cập nhật thành công!');
+        return redirect()->route('categories.index')->with('success', 'Cập nhật thành công!');
     }
-
-    public function destroy($id)
-    {
-        $category = Category::findOrFail($id);
+    public function destroy($id) {
+                $category = Category::findOrFail($id);
         $category->delete();
 
-        return redirect()->route('admin.categories.index')->with('success', 'Xóa thành công!');
+        return redirect()->route('categories.index')->with('success', 'Xóa thành công!');
+
     }
 }

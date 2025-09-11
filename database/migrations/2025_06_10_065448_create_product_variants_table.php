@@ -9,7 +9,7 @@ return new class extends Migration
     /**
      * Run the migrations.
      */
-    public function up(): void
+     public function up(): void
     {
         Schema::create('product_variants', function (Blueprint $table) {
             $table->id();
@@ -18,13 +18,12 @@ return new class extends Migration
             $table->unsignedBigInteger('product_id');
             $table->string('sku')->unique();
             $table->decimal('price', 15, 2);
-            $table->unsignedBigInteger('attribute_value_id');
+            $table->integer('quantity')->default(0); // gợi ý thêm cột này
 
             $table->timestamps();
 
             // relationship
             $table->foreign('product_id')->references('id')->on('products')->onDelete('cascade');
-            $table->foreign('attribute_value_id')->references('id')->on('attribute_values')->onDelete('cascade');
         });
     }
 

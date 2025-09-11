@@ -19,11 +19,8 @@ class PaymentSeeder extends Seeder
         foreach (range(1, 5) as $i) {
             Payment::create([
                 'name' => $faker->randomElement([
-                    'Credit Card',
-                    'Cash on Delivery',
-                    'Momo Wallet',
-                    'Bank Transfer',
-                    'ZaloPay'
+                    'Thanh toán bằng tiền mặt',
+                    'Thanh toán VNPAY',
                 ]),
             ]);
         }
