@@ -16,9 +16,8 @@ return new class extends Migration
             $table->string('name');
 
             // FK
-            $table->unsignedBigInteger('productVariant_id');
             $table->unsignedBigInteger('category_id');
-            $table->unsignedBigInteger('attribute_id');
+            $table->unsignedBigInteger('attribute_id')->nullable();
             $table->unsignedBigInteger('promotion_id')->nullable();
 
             $table->string('brand');
@@ -29,7 +28,7 @@ return new class extends Migration
             // relationship
             // $table->foreign('productVariant_id')->references('id')->on('product_variants')->onDelete('cascade');
             $table->foreign('category_id')->references('id')->on('categories')->onDelete('cascade');
-            $table->foreign('attribute_id')->references('id')->on('attributes')->onDelete('cascade');
+            $table->foreign('attribute_id')->references('id')->on('attributes')->onDelete('set null');
             $table->foreign('promotion_id')->references('id')->on('promotions')->onDelete('set null');
         });
     }

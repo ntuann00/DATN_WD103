@@ -9,7 +9,7 @@
         @endif
 
         @if ($items->isNotEmpty())
-            <form action="{{ route('cart.update') }}" method="POST">
+            <form action="{{ route('order.index') }}" method="GET" id="checkoutSelectedForm">
                 @csrf
                 <div class="table-responsive shadow-sm">
                     <table class="table table-bordered align-middle text-center">
@@ -29,7 +29,7 @@
                             @foreach ($items as $detail)
                                 @php
                                     $product = $detail->product;
-                                    $variant = $detail->variant; // 👈 Sửa đúng quan hệ từ cart_detail
+                                    $variant = $detail->variant; // 👈Sửa đúng quan hệ từ cart_detail
 
                                     // Giá lấy từ biến thể nếu có, ngược lại fallback về product
                                     $unitPrice = $variant?->price ?? $product->price;
@@ -57,8 +57,16 @@
                                             value="{{ $detail->id }}">
                                     </td>
                                     <td>
-                                        <img src="{{ asset($product->image) }}" alt="{{ $product->name }}"
-                                            class="img-thumbnail border-0" style="max-width:60px;">
+
+                                        @if ($detail->variant->defaultImage)
+                                            <img src="{{ asset($detail->variant->defaultImage->path) }}"
+                                                alt="{{ $detail->variant->name }}" class="img-thumbnail border-0"
+                                                style="max-width:60px;">
+                                        @else
+                                            <img src="{{ asset($detail->variant->images->first()->image_url ?? 'images/no-image.png') }}"
+                                                alt="{{ $detail->variant->name }}" class="img-thumbnail border-0"
+                                                style="max-width:60px;">
+                                        @endif
                                     </td>
                                     <td class="text-start">
                                         <strong>{{ $product->name }}</strong><br>
@@ -76,7 +84,7 @@
                                             <input type="text" name="quantities[{{ $detail->id }}]"
                                                 value="{{ $detail->quantity }}"
                                                 class="form-control text-center quantity-input" style="max-width:50px;"
-                                                readonly>
+                                                data-old="{{ $detail->quantity }}" readonly>
                                             <button type="button" class="btn btn-outline-secondary btn-sm increment"
                                                 data-id="{{ $detail->id }}">+</button>
                                         </div>
@@ -86,10 +94,10 @@
 
 
                                     <td>
-                                        <form action="{{ route('cart.remove', $detail->id) }}" method="POST">
-                                            @csrf
-                                            <button type="submit" class="btn btn-danger btn-sm">Xóa</button>
-                                        </form>
+                                        <button type="button" class="btn btn-danger btn-sm btn-remove-item"
+                                            data-id="{{ $detail->id }}">
+                                            Xóa
+                                        </button>
                                     </td>
                                 </tr>
                             @endforeach
@@ -104,31 +112,28 @@
                         </tfoot>
                     </table>
                 </div>
-
-
-                <div class="d-flex justify-content-between mt-3">
-
-
-                    <form action="{{ route('cart.clear') }}" method="POST"
-                        onsubmit="return confirm('Bạn có chắc muốn xóa toàn bộ giỏ hàng?');">
-                        @csrf
-                        <button type="submit" class="btn btn-danger btn-lg" name="action" value="delete">🗑 Xóa toàn bộ
-                            giỏ hàng</button>
-                    </form>
-                    <form action="{{ route('order.index') }}" method="GET" id="checkoutSelectedForm">
-                        <input type="hidden" name="selected_items" id="selected_items_input">
-                        <button type="submit" class="btn btn-success btn-lg">🛒 Mua hàng</button>
-                    </form>
+                {{-- Nút mua hàng & xóa --}}
+                <div class="d-flex justify-content-between mt-3 gap-2">
+                    <button type="submit" class="btn btn-success btn-lg">🛒 Mua hàng</button>
                 </div>
+            </form>
+
+            {{-- Form xóa giỏ hàng giữ riêng --}}
+            <form action="{{ route('cart.clear') }}" method="POST"
+                onsubmit="return confirm('Bạn có chắc muốn xóa toàn bộ giỏ hàng?');" class="d-inline-block mt-2">
+                @csrf
+                <button type="submit" class="btn btn-danger btn-lg" name="action" value="delete">
+                    🗑 Xóa toàn bộ giỏ hàng
+                </button>
             </form>
         @else
             <div class="alert alert-warning text-center">🛒 Giỏ hàng của bạn đang trống!</div>
         @endif
     </div>
 
-    </div>
 
     <!-- Script tăng giảm và checkbox -->
+    <!-- Toastr CSS -->
     <script>
         function autoUpdateCart() {
             setTimeout(() => {
@@ -140,9 +145,16 @@
             btn.addEventListener('click', () => {
                 const id = btn.dataset.id;
                 const input = document.querySelector(`input[name="quantities[${id}]"]`);
-                input.value = parseInt(input.value) + 1;
-                updateLineTotal(id);
-                autoUpdateCart();
+                const currentValue = parseInt(input.value);
+                const newValue = currentValue + 1;
+
+                updateQuantity(id, newValue, 'increment', () => {
+                    toastr.error('Không thể tăng số lượng', 'Lỗi');
+                }, () => {
+                    input.value = newValue;
+                    updateLineTotal(id);
+                    autoUpdateCart();
+                });
             });
         });
 
@@ -150,13 +162,44 @@
             btn.addEventListener('click', () => {
                 const id = btn.dataset.id;
                 const input = document.querySelector(`input[name="quantities[${id}]"]`);
-                if (parseInt(input.value) > 1) {
-                    input.value = parseInt(input.value) - 1;
+                const currentValue = parseInt(input.value);
+                if (currentValue <= 1) return;
+
+                const newValue = currentValue - 1;
+
+                updateQuantity(id, newValue, 'decrement', () => {
+                    toastr.error('Không thể giảm số lượng', 'Lỗi');
+                }, () => {
+                    input.value = newValue;
                     updateLineTotal(id);
                     autoUpdateCart();
-                }
+                });
             });
         });
+
+        function updateQuantity(id, quantity, status = 'increment', onFail = null, onSuccess = null) {
+            $.ajax({
+                url: '{{ route('cart.update') }}',
+                method: 'POST',
+                data: {
+                    _token: '{{ csrf_token() }}',
+                    id: id,
+                    status: status,
+                    quantities: parseInt(quantity)
+                },
+                success: function(response) {
+                    if (response.status == 'success') {
+                        toastr.success(response.message, 'Thành công');
+                        if (onSuccess) onSuccess();
+                    } else if (response.status == 'error') {
+                        toastr.error(response.message, 'Lỗi');
+                    }
+                },
+                error: function() {
+                    toastr.error('Lỗi kết nối server.', 'Lỗi');
+                }
+            });
+        }
 
         function updateLineTotal(id) {
             const row = document.querySelector(`tr[data-id="${id}"]`);
@@ -180,6 +223,29 @@
         // Check/uncheck all
         document.getElementById('selectAll').addEventListener('change', function() {
             document.querySelectorAll('.item-checkbox').forEach(cb => cb.checked = this.checked);
+        });
+
+        $(document).ready(function() {
+            $('.btn-remove-item').on('click', function() {
+                if (!confirm('Bạn có chắc muốn xóa sản phẩm này?')) return;
+
+                const detailId = $(this).data('id');
+
+                $.ajax({
+                    url: '/cart/remove/' + detailId, // đúng route GET/POST
+                    method: 'POST',
+                    data: {
+                        _token: '{{ csrf_token() }}',
+                    },
+                    success: function(response) {
+                        // Ví dụ: reload trang hoặc xóa dòng HTML tương ứng
+                        location.reload(); // hoặc dùng $(...).remove();
+                    },
+                    error: function(xhr) {
+                        alert('Đã xảy ra lỗi. Vui lòng thử lại.');
+                    }
+                });
+            });
         });
     </script>
 @endsection

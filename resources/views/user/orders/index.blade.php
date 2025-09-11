@@ -47,7 +47,9 @@
                                 <label>Đơn hàng:</label>
                                 <div class="order-summary p-3 border rounded bg-light">
                                     @foreach ($cartItems as $item)
+                                       <input type="hidden" name="selected_items[]" value="{{ $item->id }}">
                                         @php
+
                                             $variant = $item->variant; // dùng quan hệ variant() trong CartDetail
                                             $price = $variant ? $variant->price : 0;
                                         @endphp
@@ -55,8 +57,8 @@
                                             value="{{ $item->product->id }}">
                                         <input type="hidden" name="items[{{ $loop->index }}][variant_id]"
                                             value="{{ $variant?->id }}">
-                                        <input type="hidden" name="items[{{ $loop->index }}][quantity]"
-                                            value="{{ $item->quantity }}">
+                                        <input type="hidden" name="quantities[{{ $item->id }}]" value="{{ $item->quantity }}">
+
                                         {{-- <pre>{{ dd($item) }}</pre> --}}
                                         <p>
                                             <strong>{{ $item->product->name }}</strong><br>
