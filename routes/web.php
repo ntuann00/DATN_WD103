@@ -22,6 +22,7 @@ use App\Http\Controllers\Admin\ProductImageController;
 use App\Http\Controllers\Admin\AdminOrderController;
 use App\Http\Controllers\Admin\PromotionController;
 use App\Http\Controllers\Admin\ReviewController;
+use App\Http\Controllers\Admin\RefundController;
 
 // ================== Public Routes ===================
 Route::get('/', [HomeController::class, 'index'])->name('home');
@@ -55,6 +56,15 @@ Route::middleware('auth')->group(function () {
     Route::get('/repassword', [ProfileController::class, 'showPassword'])->name('repassword');
     Route::post('/repassword', [ProfileController::class, 'updatePassword'])->name('repassword.update');
 
+<<<<<<< HEAD
+=======
+
+    // purchase history (lịch sử mua hàng)
+    Route::get('/puchasehistory', [HomeController::class, 'purchasehistory'])->name('purchasehistory');
+    Route::get('/refund/{id}', [HomeController::class, 'refund'])->name('refund');
+    Route::post('/save_refund/{id}', [HomeController::class, 'save_refund'])->name('save_refund');
+
+>>>>>>> origin/main
     // Cart
     Route::get('/cart', [UserProductController::class, 'cart'])->name('cart.view');
     Route::post('/cart/update', [UserProductController::class, 'updateCart'])->name('cart.update');
@@ -129,6 +139,7 @@ Route::middleware(['auth', 'check.role'])->group(function () {
     // Promotions
     Route::resource('promotions', PromotionController::class);
 
+<<<<<<< HEAD
 
     Route::get('/admin/reviews', [ReviewController::class, 'index'])->name('admin.reviews.index');
 
@@ -136,6 +147,16 @@ Route::middleware(['auth', 'check.role'])->group(function () {
     Route::get('/admin/statistics', [App\Http\Controllers\Admin\StatisticsController::class, 'index'])
     ->name('admin.statistics');
 
+=======
+    // Reviews
+    Route::get('reviews', [ReviewController::class, 'index'])->name('reviews.index');
+    Route::patch('reviews/{review}/hide', [ReviewController::class, 'hide'])->name('reviews.hide');
+
+    // Refund
+    Route::get('refund', [RefundController::class, 'index'])->name('refund.index');
+    Route::get('refund/{id}', [RefundController::class, 'detail'])->name('refund.detail');
+    Route::post('refund/{id}', [RefundController::class, 'update'])->name('refund.update');
+>>>>>>> origin/main
 });
 
 <<<<<<< HEAD

@@ -37,7 +37,7 @@
 
     @include('user.layouts.footer')
 </body>
-
+@stack('scripts')
 <!--  Main jQuery  -->
 <script data-cfasync="false" src="{{ asset('user/assets/js/email-decode.min.js')}}"></script>
 <script src="{{ asset('user/assets/js/jquery-3.6.0.min.js')}}   "></script>
@@ -47,6 +47,7 @@
 <!-- Fancybox JS -->
 <script src="{{ asset('user/assets/js/jquery.fancybox.min.js')}}"></script>
 <script src="{{ asset('user/assets/js/bootstrap.min.js')}}"></script>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
 <script src="{{ asset('user/assets/js/slick.js')}}"></script>
 <!-- Swiper slider JS -->
 <script src="{{ asset('user/assets/js/swiper-bundle.min.js')}}"></script>
