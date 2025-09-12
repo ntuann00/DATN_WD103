@@ -39,20 +39,9 @@ class OrderController extends Controller
             return redirect()->route('cart.view')->with('error', 'Vui lòng chọn ít nhất một sản phẩm để mua.');
         }
 
-
-        $selectedIds = $request->input('selected_items', []);
-
-        if (empty($selectedIds)) {
-            return redirect()->route('cart.view')->with('error', 'Vui lòng chọn ít nhất một sản phẩm để mua.');
-        }
-
-
         // 3. Lấy giỏ hàng và chi tiết sản phẩm
         $cart = Cart::with([
-<<<<<<< HEAD
 
-=======
->>>>>>> 7a02eb7 (Cap nhat code nhanhcuahoang)
             'cartDetails.variant.attributeValues.attribute',
             'cartDetails.product'
         ])
@@ -125,7 +114,6 @@ class OrderController extends Controller
         $shipping = str_contains($address, 'hà nội') || str_contains($address, 'ha noi') ? 0 : 30000;
 
         // 3. Lấy cart + pivot → product → variant
-<<<<<<< HEAD
 
         $selectedIds = $request->input('selected_items', []);
 
@@ -134,6 +122,7 @@ class OrderController extends Controller
         }
 
         session(['selected_items' => $selectedIds]);
+
 
         // $cart = Cart::with(['cartDetails' => function ($query) use ($selectedIds) {
         //     $query->whereIn('id', $selectedIds);
@@ -152,33 +141,6 @@ class OrderController extends Controller
             'cartDetails.variant',
         ]);
 
-=======
-        $selectedIds = $request->input('selected_items', []);
-
-        if (empty($selectedIds)) {
-            return back()->with('error', 'Vui lòng chọn ít nhất 1 sản phẩm để mua.');
-        }
-
-        session(['selected_items' => $selectedIds]);
-
-        // $cart = Cart::with(['cartDetails' => function ($query) use ($selectedIds) {
-        //     $query->whereIn('id', $selectedIds);
-        // }, 'cartDetails.product.variants'])
-        //     ->where('user_id', Auth::id())
-        //     ->latest('id')
-        //     ->first();
-        $cart = Cart::where('user_id', Auth::id())->latest('id')->first();
-
-        // 2. Load lại cartDetails kèm variant và product
-        $cart->load([
-            'cartDetails' => function ($query) use ($selectedIds) {
-                $query->whereIn('id', $selectedIds);
-            },
-            'cartDetails.product.variants',
-            'cartDetails.variant',
-        ]);
-
->>>>>>> 7a02eb7 (Cap nhat code nhanhcuahoang)
         $items = $cart ? $cart->cartDetails : collect();
 
         // 4. Tính subtotal dựa trên variant->price
@@ -219,12 +181,10 @@ class OrderController extends Controller
 
 
         foreach ($items as $row) {
-<<<<<<< HEAD
-            $variant = $row->variant
-=======
+
             $variant = $row->variant;
             // $variant = $row->product->variants->first();
->>>>>>> 7a02eb7 (Cap nhat code nhanhcuahoang)
+
             $unitPrice = $variant ? $variant->price : 0;
             $quantity  = $row->quantity;
             $itemTotal = $unitPrice * $quantity;
@@ -266,7 +226,6 @@ class OrderController extends Controller
             if ($cart) {
                 $cart->cartDetails()->whereIn('id', $selectedIds)->delete();
             }
-
             session()->forget('selected_items');
 
             return redirect()
@@ -274,7 +233,6 @@ class OrderController extends Controller
                 ->with('success', 'Đặt hàng thành công!');
         }
 
-<<<<<<< HEAD
         if ($request->payment_id == 5) {
             $request->merge([
                 'total' => $total,
@@ -355,123 +313,16 @@ class OrderController extends Controller
         } catch (\Throwable $th) {
             return redirect()->back()->with('error', 'Có lỗi xảy ra, vui lòng thử lại!');
         }
+
     }
-    public function checkoutSelected(Request $request)
-    {
-        $selectedIds = $request->input('selected_items', []);
+ 
 
-        if (empty($selectedIds)) {
-            return redirect()->route('cart.view')->with('error', 'Vui lòng chọn ít nhất một sản phẩm để mua.');
-        }
+    public function show($id)
+{
+    $order = Order::with(['orderDetails.product'])->findOrFail($id);
+    return view('orders.show', compact('order'));
+}
 
-        $cartDetails = Cart_detail::whereIn('id', $selectedIds)
-            ->whereHas('cart', function ($query) {
-                $query->where('user_id', Auth::id());
-            })
-            ->with(['product', 'variant'])
-            ->get();
-
-        return view('user.orders.checkout', compact('cartDetails'));
-=======
-        // 8. Tạo order_details
-        OrderDetail::insert($data);
-
-        // 9. Xử lý theo payment_id
-        if ($request->payment_id == 4) {
-            // Thanh toán COD: xoá sản phẩm đã mua trong giỏ
-            if ($cart) {
-                $cart->cartDetails()->whereIn('id', $selectedIds)->delete();
-            }
-
-            session()->forget('selected_items');
-
-            return redirect()
-                ->route('order.success')
-                ->with('success', 'Đặt hàng thành công!');
-        }
-
-        if ($request->payment_id == 5) {
-            $request->merge([
-                'total' => $total,
-                'order_id' => $order->id
-                // KHÔNG tạo order ở đây
-            ]);
-
-            $vnpay = new VNPayController();
-            return $vnpay->create($request); // chỉ truyền dữ liệu
-        }
-
-        return back()->with('error', 'Phương thức thanh toán không hợp lệ.');
->>>>>>> 7a02eb7 (Cap nhat code nhanhcuahoang)
-    }
-    // public function checkoutSelected(Request $request)
-    // {
-    //     $selectedIds = $request->input('selected_items', []);
-
-    //     if (empty($selectedIds)) {
-    //         return redirect()->route('cart.view')->with('error', 'Vui lòng chọn ít nhất một sản phẩm để mua.');
-    //     }
-
-    //     $cartDetails = Cart_detail::whereIn('id', $selectedIds)
-    //         ->whereHas('cart', function ($query) {
-    //             $query->where('user_id', Auth::id());
-    //         })
-    //         ->with(['product', 'variant'])
-    //         ->get();
-
-    //     return view('user.orders.checkout', compact('cartDetails'));
-    // }
-
-    public function cancel(Request $request, $id)
-    {
-        $request->validate([
-            'cancel_reason' => 'required|string|max:255',
-        ]);
-
-        $order = Order::where('user_id', auth()->id())->findOrFail($id);
-
-        if ($order->status_id >= 6) {
-            return back()->with('error', 'Không thể hủy đơn hàng đang giao hoặc đã giao.');
-        }
-
-        $order->status_id = 8; // 8 = Đã hủy
-        $order->cancel_reason = $request->cancel_reason; //  lưu lý do
-        $order->save();
-
-        return back()->with('success', 'Đơn hàng đã được hủy.');
-    }
-
-    // Hoàn hàng
-    public function return($id)
-    {
-        $order = Order::where('user_id', auth()->id())->findOrFail($id);
-
-        if ($order->status_id != 7) {
-            return back()->with('error', 'Chỉ hoàn hàng khi đơn đã được nhận.');
-        }
-
-        $order->status_id = 9;
-        $order->save();
-
-        return back()->with('success', 'Yêu cầu hoàn hàng đã được gửi.');
-    }
-
-    // tạo phương thwusc thanh toán
-
-    public function createPayment(Request $request)
-    {
-        try {
-            // Nếu dùng payment_id (4 = COD, 5 = VNPAY)
-            if ($request->payment_id == 5) {
-                $vnpay = new VNPayController();
-                return $vnpay->create($request);
-            }
-
-            return $this->store($request);
-        } catch (\Throwable $th) {
-            return redirect()->back()->with('error', 'Có lỗi xảy ra, vui lòng thử lại!');
-        }
-    }
 
 
        /**
@@ -536,4 +387,3 @@ class OrderController extends Controller
 
 
 
-}

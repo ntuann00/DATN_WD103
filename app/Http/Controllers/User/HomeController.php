@@ -65,18 +65,18 @@ class HomeController extends BaseController
 
     public function product()
     {
-        $Products = Product::paginate(20);
+        // $Products = Product::paginate(10);
         // Eager‐load relation 'variants' để có thể dùng $product->variants->first() trong view
         $Products = Product::has('variants')
             ->with('variants')
-            ->get();
+            ->paginate(10);  
         return view('user.products.list-product', compact('Products'));
     }
 
 
     public function new_product()
     {
-        $Products = Product::orderBy('created_at', 'desc')->paginate(20);
+        $Products = Product::orderBy('created_at', 'desc')->paginate(10);
         return view('user.products.list-product', compact('Products'));
     }
 

@@ -1,9 +1,7 @@
 @extends('user.layouts.app')
 
 @section('content')
-
-
-<!-- Star Shop List section -->
+    <!-- Star Shop List section -->
     <div class="filter-sidebar">
         <div class="sidebar-area">
             <div class="shop-widget mb-30">
@@ -11,15 +9,15 @@
                 <div class="range-wrap">
                     <div class="row">
                         <div class="col-sm-12">
-                        <form>
-                            <input type="hidden" name="min-value" value="">
-                            <input type="hidden" name="max-value" value="">
-                        </form>
+                            <form>
+                                <input type="hidden" name="min-value" value="">
+                                <input type="hidden" name="max-value" value="">
+                            </form>
                         </div>
                     </div>
                     <div class="row">
                         <div class="col-sm-12">
-                        <div id="slider-range"></div>
+                            <div id="slider-range"></div>
                         </div>
                     </div>
                     <div class="slider-labels">
@@ -104,31 +102,31 @@
             <div class="shop-widget">
                 <h5 class="shop-widget-title">Top Rated Product</h5>
                 <div class="top-product-widget mb-20">
-                     <div class="top-product-img">
-                         <a href="product-default.html"><img src="assets/img/inner-page/top-product1.png" alt=""></a>
-                     </div>
-                     <div class="top-product-content">
-                         <h6><a href="product-default.html">Estee Lauder new Body Lotion</a></h6>
-                         <span>$150.00 <del>$200.00</del></span>
-                     </div>
+                    <div class="top-product-img">
+                        <a href="product-default.html"><img src="assets/img/inner-page/top-product1.png" alt=""></a>
+                    </div>
+                    <div class="top-product-content">
+                        <h6><a href="product-default.html">Estee Lauder new Body Lotion</a></h6>
+                        <span>$150.00 <del>$200.00</del></span>
+                    </div>
                 </div>
                 <div class="top-product-widget mb-20">
-                     <div class="top-product-img">
+                    <div class="top-product-img">
                         <a href="product-default.html"><img src="assets/img/inner-page/top-product2.png" alt=""></a>
-                     </div>
-                     <div class="top-product-content">
-                         <h6><a href="product-default.html">Argan & Olive Nature organ Oil</a></h6>
-                         <span>$130.00 <del>$200.00</del></span>
-                     </div>
+                    </div>
+                    <div class="top-product-content">
+                        <h6><a href="product-default.html">Argan & Olive Nature organ Oil</a></h6>
+                        <span>$130.00 <del>$200.00</del></span>
+                    </div>
                 </div>
                 <div class="top-product-widget">
-                     <div class="top-product-img">
+                    <div class="top-product-img">
                         <a href="product-default.html"><img src="assets/img/inner-page/top-product3.png" alt=""></a>
-                     </div>
-                     <div class="top-product-content">
-                         <h6><a href="product-default.html">Char Pull black & gray Face Mask</a></h6>
-                         <span>$110.00 <del>$200.00</del></span>
-                     </div>
+                    </div>
+                    <div class="top-product-content">
+                        <h6><a href="product-default.html">Char Pull black & gray Face Mask</a></h6>
+                        <span>$110.00 <del>$200.00</del></span>
+                    </div>
                 </div>
             </div>
         </div>
@@ -147,14 +145,14 @@
                                 </g>
                             </svg>
                         </div>
-                         <span>Filters</span>
+                        <span>Filters</span>
                     </div>
                     <div class="selector">
                         <select>
                             <option>Mặc định</option>
                             <option>Giá từ thấp đến cao</option>
                             <option>Giá từ cao đến thấp</option>
-                          </select>
+                        </select>
                     </div>
                     <ul class="grid-view">
                         <li class="column-2">
@@ -187,20 +185,20 @@
                         <li class="column-4 active">
                             <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 20 20">
                                 <g clip-path="url(#clip0_1610_1453)">
-                                  <rect width="3.64741" height="3.64741" rx="1.8237"/>
-                                  <rect y="8.17627" width="3.64741" height="3.64741" rx="1.8237"/>
-                                  <rect y="16" width="3.64741" height="3.64741" rx="1.8237"/>
-                                  <rect x="5.31909" width="3.64741" height="3.64741" rx="1.8237"/>
-                                  <rect x="5.31909" y="8.17627" width="3.64741" height="3.64741" rx="1.8237"/>
-                                  <rect x="5.31909" y="16" width="3.64741" height="3.64741" rx="1.8237"/>
-                                  <rect x="10.6382" width="3.64741" height="3.64741" rx="1.8237"/>
-                                  <rect x="16.3525" width="3.64741" height="3.64741" rx="1.8237"/>
-                                  <rect x="10.6384" y="8.17627" width="3.64741" height="3.64741" rx="1.8237"/>
-                                  <rect x="16.3525" y="8.17627" width="3.64741" height="3.64741" rx="1.8237"/>
-                                  <rect x="10.6382" y="16" width="3.64741" height="3.64741" rx="1.8237"/>
-                                  <rect x="16.3525" y="16" width="3.64741" height="3.64741" rx="1.8237"/>
+                                    <rect width="3.64741" height="3.64741" rx="1.8237" />
+                                    <rect y="8.17627" width="3.64741" height="3.64741" rx="1.8237" />
+                                    <rect y="16" width="3.64741" height="3.64741" rx="1.8237" />
+                                    <rect x="5.31909" width="3.64741" height="3.64741" rx="1.8237" />
+                                    <rect x="5.31909" y="8.17627" width="3.64741" height="3.64741" rx="1.8237" />
+                                    <rect x="5.31909" y="16" width="3.64741" height="3.64741" rx="1.8237" />
+                                    <rect x="10.6382" width="3.64741" height="3.64741" rx="1.8237" />
+                                    <rect x="16.3525" width="3.64741" height="3.64741" rx="1.8237" />
+                                    <rect x="10.6384" y="8.17627" width="3.64741" height="3.64741" rx="1.8237" />
+                                    <rect x="16.3525" y="8.17627" width="3.64741" height="3.64741" rx="1.8237" />
+                                    <rect x="10.6382" y="16" width="3.64741" height="3.64741" rx="1.8237" />
+                                    <rect x="16.3525" y="16" width="3.64741" height="3.64741" rx="1.8237" />
                                 </g>
-                              </svg>
+                            </svg>
                         </li>
                     </ul>
                 </div>
@@ -209,14 +207,14 @@
                 <div class="row gy-4 mb-80 ">
                     <!-- single item -->
 
-                    @foreach($Products as $product)
+                    @foreach ($Products as $product)
                         @php
                             // Lấy variant đầu tiên (có thể null)
                             $variant = $product->variants->first();
                         @endphp
 
                         {{-- Nếu không có variant, bỏ qua luôn hoặc hiển thị message --}}
-                        @if(! $variant)
+                        @if (!$variant)
                             {{-- bỏ qua sản phẩm này --}}
                             @continue
                         @endif
@@ -225,24 +223,33 @@
                             <div class="product-card style-3 hover-btn">
                                 <div class="product-card-img">
                                     <a href="{{ route('u.product_detail', $product->id) }}">
-                                        {{-- <img src="{{ asset($product->image) }}" alt="{{ $product->name }}" class="img1"> --}}
-                                        <img src="https://product.hstatic.net/1000006063/product/3ce_blush_lighter_atf_-_02_b483e7c8fa3b4c12b167fbade4e7537d_1024x1024.jpg" alt="">
+                                        @php
+                                            $firstVariant = $product->variants->first();
+                                            $firstImage = $firstVariant?->images->first();
+                                        @endphp
+
+                                        @if ($firstImage)
+                                            <img src="{{ asset($firstImage->image_url) }}"
+                                                alt="{{ $firstImage->alt_text ?? $product->name }}" class="img1">
+                                        @else
+                                            <img src="{{ asset('images/no-image.png') }}" alt="{{ $product->name }}"
+                                                class="img1">
+                                        @endif
                                     </a>
                                     <div class="overlay">
                                         <div class="cart-area">
                                             @auth
-                                            <form action="{{ route('cart.add', $variant->id) }}" method="POST">
-                                                @csrf
-                                                <input type="hidden" name="quantity" value="1">
-                                                <button type="submit" class="hover-btn3 add-cart-btn">
-                                                    <i class="bi bi-bag-check"></i> Thêm vào giỏ
-                                                </button>
-                                            </form>
+                                                <form action="{{ route('cart.add', $variant->id) }}" method="POST">
+                                                    @csrf
+                                                    <input type="hidden" name="quantity" value="1">
+
+                                                </form>
                                             @else
-                                            <a href="{{ route('login') }}" class="btn btn-primary">Đăng nhập để thêm vào giỏ</a>
+                                                <a href="{{ route('login') }}" class="btn btn-primary">Đăng nhập để thêm vào
+                                                    giỏ</a>
                                             @endauth
                                         </div>
-                                    </div>
+                                    </div>+
                                 </div>
                                 <div class="product-card-content">
                                     <h6>
@@ -264,29 +271,34 @@
             </div>
             <nav class="shop-pagination">
                 <ul class="pagination-list">
-                    <li>
-                        <a href="#" class="shop-pagi-btn"><i class="bi bi-chevron-left"></i></a>
-                    </li>
-                    <li>
-                        <a href="#">1</a>
-                    </li>
-                    <li>
-                        <a href="#" class="active">2</a>
-                    </li>
-                    <li>
-                        <a href="#">3</a>
-                    </li>
-                    <li>
-                        <a href="#"><i class="bi bi-three-dots"></i></a>
-                    </li>
-                    <li>
-                        <a href="#">6</a>
-                    </li>
-                    <li>
-                        <a href="#" class="shop-pagi-btn"><i class="bi bi-chevron-right"></i></a>
-                    </li>
+                    {{-- Nút Previous --}}
+                    @if ($Products->onFirstPage())
+                        <li><span class="shop-pagi-btn disabled"><i class="bi bi-chevron-left"></i></span></li>
+                    @else
+                        <li><a href="{{ $Products->previousPageUrl() }}" class="shop-pagi-btn"><i
+                                    class="bi bi-chevron-left"></i></a></li>
+                    @endif
+
+                    {{-- Các số trang --}}
+                    @foreach ($Products->getUrlRange(1, $Products->lastPage()) as $page => $url)
+                        <li>
+                            <a href="{{ $url }}"
+                                class="{{ $page == $Products->currentPage() ? 'active' : '' }}">
+                                {{ $page }}
+                            </a>
+                        </li>
+                    @endforeach
+
+                    {{-- Nút Next --}}
+                    @if ($Products->hasMorePages())
+                        <li><a href="{{ $Products->nextPageUrl() }}" class="shop-pagi-btn"><i
+                                    class="bi bi-chevron-right"></i></a></li>
+                    @else
+                        <li><span class="shop-pagi-btn disabled"><i class="bi bi-chevron-right"></i></span></li>
+                    @endif
                 </ul>
             </nav>
+
         </div>
     </div>
 
@@ -301,7 +313,8 @@
             <div class="gift-wrapper">
                 <h5>BEAUTICO GIFT CARD</h5>
                 <div class="gift-card-content">
-                    <p>Whatever your summer looks like, bring your own heat with up to 25% off Lumin Brand.Pellentesque ipsum dui.</p>
+                    <p>Whatever your summer looks like, bring your own heat with up to 25% off Lumin Brand.Pellentesque
+                        ipsum dui.</p>
                 </div>
                 <a href="gift-card.html" class="primary-btn1 hover-btn3">*Shop Gift Cards*</a>
             </div>

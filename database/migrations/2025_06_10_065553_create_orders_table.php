@@ -19,10 +19,7 @@ return new class extends Migration
             $table->string('name');
             $table->unsignedBigInteger('payment_id');
             $table->unsignedBigInteger('status_id');
-<<<<<<< HEAD
 
-=======
->>>>>>> 7a02eb7 (Cap nhat code nhanhcuahoang)
             $table->text('description')->nullable();
             $table->unsignedBigInteger('address_id');
             $table->text('cancel_reason')->nullable();

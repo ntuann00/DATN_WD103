@@ -16,10 +16,7 @@ return new class extends Migration
             $table->string('name');
 
             // FK
-<<<<<<< HEAD
 
-=======
->>>>>>> 7a02eb7 (Cap nhat code nhanhcuahoang)
             $table->unsignedBigInteger('category_id');
             $table->unsignedBigInteger('attribute_id')->nullable();
             $table->unsignedBigInteger('promotion_id')->nullable();

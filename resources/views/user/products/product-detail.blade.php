@@ -3,18 +3,16 @@
 @section('content')
     <div class="container py-5">
         @if (session('error'))
-<<<<<<< HEAD
 
     <div class="alert alert-danger">
         {{ session('error') }}
     </div>
-@endif
-=======
+
             <div class="alert alert-danger">
                 {{ session('error') }}
             </div>
         @endif
->>>>>>> 7a02eb7 (Cap nhat code nhanhcuahoang)
+
         {{-- Tiêu đề --}}
         {{--
         <pre>{{ dd($Product->variants) }}</pre> --}}
@@ -31,14 +29,13 @@
                     <div class="col-lg-6">
                         <div class="shop-details-img">
                             <div class="tab-content" id="view-tabContent">
-<<<<<<< HEAD
 
-=======
->>>>>>> 7a02eb7 (Cap nhat code nhanhcuahoang)
                                 @foreach ($Product->variants as $variant)
                                     @foreach ($variant->images as $image)
                                         <div class="tab-pane fade {{ $loop->first && $loop->parent->first ? 'show active' : '' }}"
-                                            id="view-pills-img{{ $loop->parent->index }}-{{ $loop->index }}" role="tabpanel"
+                                            id="view-pills-img{{ $loop->parent->index }}-{{ $loop->index }}"
+                                            role="tabpanel"
+
                                             aria-labelledby="view-pills-img{{ $loop->parent->index }}-{{ $loop->index }}-tab">
 
                                             <div class="shop-details-tab-img">
@@ -47,12 +44,10 @@
                                         </div>
                                     @endforeach
                                 @endforeach
-<<<<<<< HEAD
 
-                                <div class="tab-pane fade show active" id="view-pills-img1" role="tabpanel">
-=======
                                 {{-- <div class="tab-pane fade" id="view-pills-img2" role="tabpanel">
->>>>>>> 7a02eb7 (Cap nhat code nhanhcuahoang)
+
+
                                     <div class="shop-details-tab-img">
                                         <img src="{{ asset('uploads/products/' . $Product->image) }}" alt="Product Image">
                                     </div>
@@ -76,14 +71,18 @@
                                     </div>
                                 </div> --}}
                             </div>
-                            <div class="nav nav-pills" id="view-tab" role="tablist" aria-orientation="vertical">
+
+                            <div class="nav nav-pills justify-content-center mt-2" id="view-tab" role="tablist"
+                                aria-orientation="horizontal">
                                 @foreach ($Product->variants as $variant)
                                     @foreach ($variant->images as $image)
-                                         <button class="nav-link active" id="view-pills-img1-tab" data-bs-toggle="pill"
-                                    data-bs-target="#view-pills-img1" type="button" role="tab"
-                                    aria-controls="view-pills-img1" aria-selected="true">
-
-                                            <img src="{{ asset($image->image_url) }}" alt="{{ $image->alt_text }}" width="60px">
+                                        <button class="nav-link {{ $loop->first ? 'active' : '' }}"
+                                            id="view-pills-img{{ $loop->index }}-tab" data-bs-toggle="pill"
+                                            data-bs-target="#view-pills-img{{ $loop->index }}" type="button"
+                                            role="tab" aria-controls="view-pills-img{{ $loop->index }}"
+                                            aria-selected="{{ $loop->first ? 'true' : 'false' }}">
+                                            <img src="{{ asset($image->image_url) }}" alt="{{ $image->alt_text }}"
+                                                width="60px">
                                         </button>
                                     @endforeach
                                 @endforeach
@@ -101,15 +100,17 @@
                                 <button class="nav-link" id="view-pills-img4-tab" data-bs-toggle="pill"
                                     data-bs-target="#view-pills-img4" type="button" role="tab"
                                     aria-controls="view-pills-img4" aria-selected="false">
-<<<<<<< HEAD
+
+                                    <img src="{{ asset('user/assets/img/inner-page/shop-details-nav-img4.png') }}" alt="">
+                                </button> --}}
+
                                     <img src="{{ asset('user/assets/img/inner-page/shop-details-nav-img4.png') }}"
                                         alt="">
                                 </button>
 
-=======
                                     <img src="{{ asset('user/assets/img/inner-page/shop-details-nav-img4.png') }}" alt="">
                                 </button> --}}
->>>>>>> 7a02eb7 (Cap nhat code nhanhcuahoang)
+
                             </div>
 
                         </div>
@@ -201,7 +202,7 @@
                                         Now*</a>
                                     <form action="{{ route('cart.add', $variant->id) }}" method="post">
                                         @csrf
-                                        <button type="submit" class="primary-btn1 style-3 hover-btn4">*Add to
+                                        <button type="submit" class="primary-btn1 style-3 hover-btn4 add-to-cart">*Add to
                                             Cart*</button>
                                     </form>
                                 </div>
@@ -209,18 +210,8 @@
                         </div>
 
                         <div class="product-info">
-<<<<<<< HEAD
-                            <ul class="product-info-list">
-                                <li><span>Số lượng</span>{{ $variant->quantity }}</li>
-                                <li> <span>SKU:</span> 9852410</li>
-                                <li> <span>Brand:</span> <a href="shop-4-columns.html">Chanel</a></li>
-                                <li> <span>Category:</span> <a href="shop-slider.html">Body</a>, <a
-                                        href="shop-slider.html">Face</a></li>
-                            </ul>
-=======
 
->>>>>>> 7a02eb7 (Cap nhat code nhanhcuahoang)
-                        </div>
+      </div>
                         <ul class="product-shipping-delivers">
                             <p>Số lượng sản phẩm : {{ $variant->quantity }}</p>
                             <li class="product-shipping">
@@ -462,18 +453,7 @@
                                         // CSS để làm mờ và không thể click
                                         const style = document.createElement('style');
                                         style.textContent = `
-<<<<<<< HEAD
 
-
-        .text-muted {
-            opacity: 0.4 !important;
-        }
-        .unselectable {
-            pointer-events: none !important;
-        }
-    `;
-
-=======
             .text-muted {
                 opacity: 0.4 !important;
             }
@@ -481,7 +461,7 @@
                 pointer-events: none !important;
             }
         `;
->>>>>>> 7a02eb7 (Cap nhat code nhanhcuahoang)
+
                                         document.head.appendChild(style);
                                     });
                                 </script>

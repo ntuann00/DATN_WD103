@@ -31,12 +31,8 @@ class AdminOrderController extends Controller
             'orderDetails.product.variants.variantValues'
         ])->findOrFail($id);
 
-<<<<<<< HEAD
-        $statuses = Status::all();
-=======
         // Lấy trạng thái theo thứ tự ID ASC
         $statuses = Status::orderBy('id', 'asc')->get();
->>>>>>> 7a02eb7 (Cap nhat code nhanhcuahoang)
 
         return view('admin.orders.show', compact('order', 'statuses'));
     }
@@ -50,14 +46,6 @@ class AdminOrderController extends Controller
 
         $order = Order::findOrFail($id);
         $newStatusId = (int) $request->status_id;
-<<<<<<< HEAD
-
-        // Ngăn không cho quay lại trạng thái trước đó
-        if ($newStatusId < $order->status_id) {
-            return redirect()->back()->with('error', '❌ Không thể quay lại trạng thái trước đó!');
-        }
-
-=======
         $currentStatusId = $order->status_id;
 
         // Danh sách trạng thái hợp lệ theo thứ tự
@@ -85,7 +73,6 @@ class AdminOrderController extends Controller
         }
 
         // Cập nhật trạng thái
->>>>>>> 7a02eb7 (Cap nhat code nhanhcuahoang)
         $order->status_id = $newStatusId;
         $order->save();
 

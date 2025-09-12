@@ -57,8 +57,16 @@
                                             value="{{ $detail->id }}">
                                     </td>
                                     <td>
-                                        <img src="{{ asset($product->image) }}" alt="{{ $product->name }}"
-                                            class="img-thumbnail border-0" style="max-width:60px;">
+
+                                        @if ($detail->variant->defaultImage)
+                                            <img src="{{ asset($detail->variant->defaultImage->path) }}"
+                                                alt="{{ $detail->variant->name }}" class="img-thumbnail border-0"
+                                                style="max-width:60px;">
+                                        @else
+                                            <img src="{{ asset($detail->variant->images->first()->image_url ?? 'images/no-image.png') }}"
+                                                alt="{{ $detail->variant->name }}" class="img-thumbnail border-0"
+                                                style="max-width:60px;">
+                                        @endif
                                     </td>
                                     <td class="text-start">
                                         <strong>{{ $product->name }}</strong><br>
@@ -104,19 +112,12 @@
                         </tfoot>
                     </table>
                 </div>
-<<<<<<< HEAD
-                     {{-- Nút mua hàng & xóa --}}
-=======
-                {{-- Nút mua hàng & xóa --}}
->>>>>>> 7a02eb7 (Cap nhat code nhanhcuahoang)
+
                 <div class="d-flex justify-content-between mt-3 gap-2">
                     <button type="submit" class="btn btn-success btn-lg">🛒 Mua hàng</button>
                 </div>
             </form>
-<<<<<<< HEAD
-        
-=======
->>>>>>> 7a02eb7 (Cap nhat code nhanhcuahoang)
+
 
             {{-- Form xóa giỏ hàng giữ riêng --}}
             <form action="{{ route('cart.clear') }}" method="POST"
@@ -131,25 +132,16 @@
         @endif
     </div>
 
-<<<<<<< HEAD
 
-    </div>
 
     <!-- Script tăng giảm và checkbox -->
+    <!-- Toastr CSS -->
 
-    <!-- Script tăng giảm và checkbox -->
-=======
-
-    <!-- Script tăng giảm và checkbox -->
->>>>>>> 7a02eb7 (Cap nhat code nhanhcuahoang)
     <!-- Toastr CSS -->
     <link href="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.css" rel="stylesheet">
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.js"></script>
-<<<<<<< HEAD
 
-=======
->>>>>>> 7a02eb7 (Cap nhat code nhanhcuahoang)
     <script>
         function autoUpdateCart() {
             setTimeout(() => {
@@ -161,10 +153,7 @@
             btn.addEventListener('click', () => {
                 const id = btn.dataset.id;
                 const input = document.querySelector(`input[name="quantities[${id}]"]`);
-<<<<<<< HEAD
 
-=======
->>>>>>> 7a02eb7 (Cap nhat code nhanhcuahoang)
                 const currentValue = parseInt(input.value);
                 const newValue = currentValue + 1;
 
@@ -175,10 +164,7 @@
                     updateLineTotal(id);
                     autoUpdateCart();
                 });
-<<<<<<< HEAD
 
-=======
->>>>>>> 7a02eb7 (Cap nhat code nhanhcuahoang)
             });
         });
 
@@ -197,22 +183,19 @@
                     input.value = newValue;
                     updateLineTotal(id);
                     autoUpdateCart();
-<<<<<<< HEAD
 
-=======
->>>>>>> 7a02eb7 (Cap nhat code nhanhcuahoang)
                 });
             });
         });
 
-<<<<<<< HEAD
+
+                });
+            });
+        });
 
 
         function updateQuantity(id, quantity, status = 'increment', onFail = null, onSuccess = null) {
 
-=======
-        function updateQuantity(id, quantity, status = 'increment', onFail = null, onSuccess = null) {
->>>>>>> 7a02eb7 (Cap nhat code nhanhcuahoang)
             $.ajax({
                 url: '{{ route('cart.update') }}',
                 method: 'POST',
@@ -222,10 +205,7 @@
                     status: status,
                     quantities: parseInt(quantity)
                 },
-<<<<<<< HEAD
 
-=======
->>>>>>> 7a02eb7 (Cap nhat code nhanhcuahoang)
                 success: function(response) {
                     if (response.status == 'success') {
                         toastr.success(response.message, 'Thành công');
@@ -238,10 +218,7 @@
                     toastr.error('Lỗi kết nối server.', 'Lỗi');
                 }
             });
-<<<<<<< HEAD
 
-=======
->>>>>>> 7a02eb7 (Cap nhat code nhanhcuahoang)
         }
 
         function updateLineTotal(id) {
@@ -268,22 +245,12 @@
             document.querySelectorAll('.item-checkbox').forEach(cb => cb.checked = this.checked);
         });
 
-<<<<<<< HEAD
-
-
-
-=======
->>>>>>> 7a02eb7 (Cap nhat code nhanhcuahoang)
         $(document).ready(function() {
             $('.btn-remove-item').on('click', function() {
                 if (!confirm('Bạn có chắc muốn xóa sản phẩm này?')) return;
 
                 const detailId = $(this).data('id');
 
-<<<<<<< HEAD
-
-=======
->>>>>>> 7a02eb7 (Cap nhat code nhanhcuahoang)
                 $.ajax({
                     url: '/cart/remove/' + detailId, // đúng route GET/POST
                     method: 'POST',
@@ -300,9 +267,6 @@
                 });
             });
         });
-<<<<<<< HEAD
 
-=======
->>>>>>> 7a02eb7 (Cap nhat code nhanhcuahoang)
     </script>
 @endsection

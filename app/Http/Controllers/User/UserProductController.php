@@ -44,14 +44,9 @@ class UserProductController extends Controller
             ->first(); // Hoặc get() nếu muốn lấy nhiều
 
         $rawQty = (int)$request->input('quantity', 1);
-<<<<<<< HEAD
-       $qty = max(1, $rawQty);
-        // dd($qty);
-=======
         $qty = max(1, $rawQty);
         // dd($qty);
 
->>>>>>> 7a02eb7 (Cap nhat code nhanhcuahoang)
 
         $cart = Cart::firstOrCreate(
             ['user_id' => Auth::id()],
@@ -64,13 +59,12 @@ class UserProductController extends Controller
             ->where('product_variant_id', $variant->id)
             ->first();
 
-<<<<<<< HEAD
         $existingQty = $detail ? $detail->quantity : 0;
         $totalQty = $existingQty + $qty;
 
         if ($totalQty > $variant->quantity) {
             return redirect()->back()->with('error', 'Sản phẩm trong kho không đủ số lượng bạn muốn mua ! Vui lòng kiếm tra lại !');
-=======
+
 
         $existingQty = $detail ? $detail->quantity : 0;
         $totalQty = $existingQty + $qty;
@@ -81,7 +75,6 @@ class UserProductController extends Controller
 
         if ($totalQty > $variant->quantity) {
             return redirect()->back()->with('error', 'Sản phẩm trong kho chỉ còn ' . $variant->quantity . ' sản phẩm. Vui lòng chọn số lượng phù hợp');
->>>>>>> 7a02eb7 (Cap nhat code nhanhcuahoang)
         }
         if ($detail) {
             $detail->increment('quantity', $qty);
@@ -97,13 +90,8 @@ class UserProductController extends Controller
         return redirect()->back()->with('success', 'Đã thêm sản phẩm vào giỏ hàng!');
     }
 
-
-
-
-<<<<<<< HEAD
-=======
     /**
->>>>>>> 7a02eb7 (Cap nhat code nhanhcuahoang)
+
      * Hiển thị trang giỏ hàng (dữ liệu từ DB)
      */
     public function cart()
@@ -163,10 +151,6 @@ class UserProductController extends Controller
             'status' => 'error',
             'message' => 'Không thể cập nhật sản phẩm',
         ]);
-<<<<<<< HEAD
-
-=======
->>>>>>> 7a02eb7 (Cap nhat code nhanhcuahoang)
     }
 
 
@@ -187,12 +171,6 @@ class UserProductController extends Controller
         return response()->json(['reload' => true]);
     }
 
-
-<<<<<<< HEAD
-
-
-=======
->>>>>>> 7a02eb7 (Cap nhat code nhanhcuahoang)
     /**
      * Xóa toàn bộ giỏ hàng của user
      */

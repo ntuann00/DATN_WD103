@@ -35,7 +35,7 @@
                                    <a href="{{ route('u.product_detail',$product->id) }}" class="add-cart-btn2 round hover-btn5">Chi tiết</a>
                                </div>
                            </div>
-                           <div class="view-and-favorite-area">
+                           {{-- <div class="view-and-favorite-area">
                                 <ul>
                                     <li>
                                         <a data-bs-toggle="modal" data-bs-target="#product-view">
@@ -48,20 +48,14 @@
                                         </a>
                                     </li>
                                 </ul>
-                           </div>
+                           </div> --}}
                         </div>
                         <div class="product-card-content">
                             <!-- danh muc -->
-                            <p><a href="{{ route('u.product_detail',$product->id) }}">Crystal Gleam</a></p> 
                             <!-- san pham -->
                             <h6><a href="{{ route('u.product_detail',$product->id) }}" class="hover-underline">{{$product->name}}</a></h6>
-                            <span>$150.00 <del>$200.00</del></span>
-                            <ul class="product-size">
-                                <li>250 ml</li>
-                                <li>500 ml</li>
-                                <li>1000 ml</li>
-                                <li>1500 ml</li>
-                            </ul>
+                            <span>{{$product->price}}</span>
+                            
                         </div>
                     </div>
                 </div>

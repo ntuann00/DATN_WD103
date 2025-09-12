@@ -56,15 +56,13 @@ Route::middleware('auth')->group(function () {
     Route::get('/repassword', [ProfileController::class, 'showPassword'])->name('repassword');
     Route::post('/repassword', [ProfileController::class, 'updatePassword'])->name('repassword.update');
 
-<<<<<<< HEAD
-=======
+
 
     // purchase history (lịch sử mua hàng)
     Route::get('/puchasehistory', [HomeController::class, 'purchasehistory'])->name('purchasehistory');
     Route::get('/refund/{id}', [HomeController::class, 'refund'])->name('refund');
     Route::post('/save_refund/{id}', [HomeController::class, 'save_refund'])->name('save_refund');
 
->>>>>>> origin/main
     // Cart
     Route::get('/cart', [UserProductController::class, 'cart'])->name('cart.view');
     Route::post('/cart/update', [UserProductController::class, 'updateCart'])->name('cart.update');
@@ -75,10 +73,11 @@ Route::middleware('auth')->group(function () {
     // Orders
     Route::get('/order', [OrderController::class, 'index'])->name('order.index');
     Route::post('/order', [OrderController::class, 'store'])->name('order.store');
-<<<<<<< HEAD
+
     Route::get('/order/success', function () {
         return view('user.orders.order_success');
     })->name('order.success');
+
 
     Route::get('/order/fail', function () {
         return view('user.vnpay.vnpay_fail');
@@ -88,10 +87,9 @@ Route::middleware('auth')->group(function () {
     Route::post('/orders/{id}/return', [OrderController::class, 'return'])->name('orders.return');
     Route::get('/orders/{id}/return', [OrderController::class, 'return'])->name('orders.return');
 
-=======
-    Route::get('/order/success', fn () => view('user.orders.order_success'))->name('order.success');
-    Route::get('/order/fail', fn () => view('user.vnpay.vnpay_fail'))->name('order.fail');
-    Route::post('/checkout-selected', [OrderController::class, 'checkoutSelected'])->name('checkout.selected');
+ư
+
+    Route::get('/orders/{id}', [OrderController::class, 'show'])->name('orders.show');
 
     // Các thao tác với đơn hàng
     Route::post('/orders/{id}/cancel', [OrderController::class, 'cancel'])->name('orders.cancel');
@@ -103,8 +101,7 @@ Route::middleware('auth')->group(function () {
     // ✅ Sau khi xác nhận nhận hàng => mở form bình luận
     Route::get('/orders/{id}/review', [OrderController::class, 'reviewForm'])->name('orders.review.form');
     Route::post('/orders/{id}/review', [OrderController::class, 'submitReview'])->name('orders.review.submit');
-});
->>>>>>> 7a02eb7 (Cap nhat code nhanhcuahoang)
+
 
 // ================== Admin Routes ===================
 Route::middleware(['auth', 'check.role'])->group(function () {
@@ -131,15 +128,12 @@ Route::middleware(['auth', 'check.role'])->group(function () {
     Route::get('/orders', [AdminOrderController::class, 'index'])->name('orders.index');
     Route::get('/orders/{id}', [AdminOrderController::class, 'show'])->name('orders.show');
     Route::put('/orders/{id}/status', [AdminOrderController::class, 'updateStatus'])->name('orders.updateStatus');
-<<<<<<< HEAD
 
-=======
->>>>>>> 7a02eb7 (Cap nhat code nhanhcuahoang)
 
     // Promotions
     Route::resource('promotions', PromotionController::class);
 
-<<<<<<< HEAD
+
 
     Route::get('/admin/reviews', [ReviewController::class, 'index'])->name('admin.reviews.index');
 
@@ -147,7 +141,6 @@ Route::middleware(['auth', 'check.role'])->group(function () {
     Route::get('/admin/statistics', [App\Http\Controllers\Admin\StatisticsController::class, 'index'])
     ->name('admin.statistics');
 
-=======
     // Reviews
     Route::get('reviews', [ReviewController::class, 'index'])->name('reviews.index');
     Route::patch('reviews/{review}/hide', [ReviewController::class, 'hide'])->name('reviews.hide');
@@ -156,16 +149,12 @@ Route::middleware(['auth', 'check.role'])->group(function () {
     Route::get('refund', [RefundController::class, 'index'])->name('refund.index');
     Route::get('refund/{id}', [RefundController::class, 'detail'])->name('refund.detail');
     Route::post('refund/{id}', [RefundController::class, 'update'])->name('refund.update');
->>>>>>> origin/main
-});
 
-<<<<<<< HEAD
+});
 
 
 
 //vn-pay
-=======
-// ================== VNPay ===================
->>>>>>> 7a02eb7 (Cap nhat code nhanhcuahoang)
+
 Route::post('/vnpay/payment', [VNPayController::class, 'create'])->name('vnpay.payment');
 Route::get('/vnpay-return', [VNPayController::class, 'vnpayReturn'])->name('vnpay.return');

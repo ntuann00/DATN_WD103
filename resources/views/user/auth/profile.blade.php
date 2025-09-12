@@ -288,58 +288,6 @@
     </tr>
 @endforelse
 
-
-
-
-<<<<<<< HEAD
-                                                    <td>{{ $order->status_payment == 0 ? 'Chưa thanh toán' : 'Thanh toán thành công' }}</td>
-
-                                                    <td>{{ $order->description ?? 'Không có ghi chú' }}</td>
-=======
->>>>>>> 7a02eb7 (Cap nhat code nhanhcuahoang)
-
-
-<<<<<<< HEAD
-                                                    <td
-                                                        class="{{ $order->status?->slug === 'pending' ? 'text-red' : 'text-green' }}">
-                                                        {{ $order->status?->name ?? 'Không xác định' }}
-                                                    </td>
-                                                    <td>
-                                                        @if ($order->status_id == 7)
-                                                            <!-- Đơn đã giao thành công -->
-                                                            <button class="btn btn-warning btn-sm" data-bs-toggle="modal"
-                                                                data-bs-target="#returnModal{{ $order->id }}">
-                                                                Hoàn hàng
-                                                            </button>
-                                                        @elseif (!in_array($order->status_id, [5, 6, 8, 9]))
-                                                            <!-- Đơn chưa giao và chưa bị hủy hoặc hoàn -->
-                                                            <button type="button" class="btn btn-sm btn-danger"
-                                                                data-bs-toggle="modal"
-                                                                data-bs-target="#cancelModal{{ $order->id }}">
-                                                                Hủy đơn
-                                                            </button>
-                                                        @endif
-                                                    </td>
-                                                    {{-- <td>
-                                                        @if ($order->status_id != 5 && $order->status_id != 6)
-                                                            <!-- Nút mở modal -->
-                                                            <button type="button" class="btn btn-sm btn-danger"
-                                                                data-bs-toggle="modal"
-                                                                data-bs-target="#cancelModal{{ $order->id }}">
-                                                                Hủy đơn
-                                                            </button>
-                                                        @endif
-                                                    </td> --}}
-
-                                                </tr>
-                                            @endforeach
-                                        @empty
-                                            <tr>
-                                                <td colspan="9" class="text-center">Bạn chưa có đơn hàng nào.</td>
-                                            </tr>
-                                        @endforelse
-=======
->>>>>>> 7a02eb7 (Cap nhat code nhanhcuahoang)
                                     </tbody>
                                 </table>
 
