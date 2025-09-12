@@ -16,6 +16,8 @@ use App\Models\OrderDetail;
 use App\Models\Payment;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use App\Models\Review;
+
 
 class OrderController extends Controller
 {
@@ -37,9 +39,9 @@ class OrderController extends Controller
             return redirect()->route('cart.view')->with('error', 'Vui lòng chọn ít nhất một sản phẩm để mua.');
         }
 
-
         // 3. Lấy giỏ hàng và chi tiết sản phẩm
         $cart = Cart::with([
+
             'cartDetails.variant.attributeValues.attribute',
             'cartDetails.product'
         ])
@@ -112,6 +114,7 @@ class OrderController extends Controller
         $shipping = str_contains($address, 'hà nội') || str_contains($address, 'ha noi') ? 0 : 30000;
 
         // 3. Lấy cart + pivot → product → variant
+
         $selectedIds = $request->input('selected_items', []);
 
         if (empty($selectedIds)) {
@@ -119,6 +122,7 @@ class OrderController extends Controller
         }
 
         session(['selected_items' => $selectedIds]);
+
 
         // $cart = Cart::with(['cartDetails' => function ($query) use ($selectedIds) {
         //     $query->whereIn('id', $selectedIds);
@@ -174,9 +178,13 @@ class OrderController extends Controller
         ]);
 
         $data = [];
+
+
         foreach ($items as $row) {
+
             $variant = $row->variant;
             // $variant = $row->product->variants->first();
+
             $unitPrice = $variant ? $variant->price : 0;
             $quantity  = $row->quantity;
             $itemTotal = $unitPrice * $quantity;
@@ -201,11 +209,13 @@ class OrderController extends Controller
                 'created_at' => now(),
                 'updated_at' => now(),
             ];
-        }
+
 
         if (empty($data)) {
             return redirect()->route('order.index')->with('error', 'Chưa có sản phẩm nào trong giỏ hàng!');
+
         }
+  
 
         // 8. Tạo order_details
         OrderDetail::insert($data);
@@ -216,7 +226,6 @@ class OrderController extends Controller
             if ($cart) {
                 $cart->cartDetails()->whereIn('id', $selectedIds)->delete();
             }
-
             session()->forget('selected_items');
 
             return redirect()
@@ -304,11 +313,77 @@ class OrderController extends Controller
         } catch (\Throwable $th) {
             return redirect()->back()->with('error', 'Có lỗi xảy ra, vui lòng thử lại!');
         }
+
     }
+ 
 
     public function show($id)
 {
     $order = Order::with(['orderDetails.product'])->findOrFail($id);
     return view('orders.show', compact('order'));
 }
+
+
+
+       /**
+     * Người dùng xác nhận đã nhận hàng → chuyển đến form review
+     */
+    public function confirmReceived($id)
+    {
+        $order = Order::where('id', $id)
+            ->where('user_id', Auth::id())
+            ->where('status_id', 7) // chỉ khi giao thành công
+            ->firstOrFail();
+
+        return redirect()->route('orders.review.form', $order->id);
+    }
+
+    /**
+     * Hiện form đánh giá
+     */
+    public function reviewForm($id)
+    {
+        $order = Order::where('id', $id)
+            ->where('user_id', Auth::id())
+            ->where('status_id', 7)
+            ->firstOrFail();
+
+        return view('user.orders.review', compact('order'));
+    }
+
+    /**
+     * Lưu đánh giá
+     */
+    public function submitReview(Request $request, $id)
+{
+    $request->validate([
+        'rating'  => 'required|integer|min:1|max:5',
+        'comment' => 'required|string|max:1000',
+    ]);
+
+    $order = Order::where('id', $id)
+        ->where('user_id', Auth::id())
+        ->where('status_id', 7) // giao hàng thành công
+        ->firstOrFail();
+
+    // Lấy danh sách sản phẩm trong đơn hàng
+    foreach ($order->orderDetails as $orderDetail) {
+        Review::create([
+            'user_id'    => Auth::id(),
+            'product_id' => $orderDetail->product_id, // ✅ gắn với sản phẩm
+            'rating'     => $request->rating,
+            'comment'    => $request->comment,
+        ]);
+    }
+
+
+      
+
+    return redirect()->route('order.index')
+    ->with('success', 'Cảm ơn bạn đã đánh giá sản phẩm!');
+
+
 }
+
+
+

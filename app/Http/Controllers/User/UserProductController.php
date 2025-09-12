@@ -59,6 +59,12 @@ class UserProductController extends Controller
             ->where('product_variant_id', $variant->id)
             ->first();
 
+        $existingQty = $detail ? $detail->quantity : 0;
+        $totalQty = $existingQty + $qty;
+
+        if ($totalQty > $variant->quantity) {
+            return redirect()->back()->with('error', 'Sản phẩm trong kho không đủ số lượng bạn muốn mua ! Vui lòng kiếm tra lại !');
+
 
         $existingQty = $detail ? $detail->quantity : 0;
         $totalQty = $existingQty + $qty;
@@ -84,10 +90,8 @@ class UserProductController extends Controller
         return redirect()->back()->with('success', 'Đã thêm sản phẩm vào giỏ hàng!');
     }
 
-
-
-
     /**
+
      * Hiển thị trang giỏ hàng (dữ liệu từ DB)
      */
     public function cart()
@@ -166,7 +170,6 @@ class UserProductController extends Controller
         session()->flash('success', 'Đã xóa sản phẩm khỏi giỏ hàng!');
         return response()->json(['reload' => true]);
     }
-
 
     /**
      * Xóa toàn bộ giỏ hàng của user

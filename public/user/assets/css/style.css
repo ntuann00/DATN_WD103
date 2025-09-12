@@ -4824,6 +4824,7 @@ header.style-2 .nav-right::after {
 @media (max-width: 1199px) {
     .product-view-modal .modal-dialog .modal-content .modal-body .shop-details-top-section .shop-details-img .nav-pills {
         position: relative;
+
         flex-direction: column;
         justify-content: center;
         left: unset;

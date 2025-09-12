@@ -112,11 +112,12 @@
                         </tfoot>
                     </table>
                 </div>
-                {{-- Nút mua hàng & xóa --}}
+
                 <div class="d-flex justify-content-between mt-3 gap-2">
                     <button type="submit" class="btn btn-success btn-lg">🛒 Mua hàng</button>
                 </div>
             </form>
+
 
             {{-- Form xóa giỏ hàng giữ riêng --}}
             <form action="{{ route('cart.clear') }}" method="POST"
@@ -132,8 +133,15 @@
     </div>
 
 
+
     <!-- Script tăng giảm và checkbox -->
     <!-- Toastr CSS -->
+
+    <!-- Toastr CSS -->
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.css" rel="stylesheet">
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.js"></script>
+
     <script>
         function autoUpdateCart() {
             setTimeout(() => {
@@ -145,6 +153,7 @@
             btn.addEventListener('click', () => {
                 const id = btn.dataset.id;
                 const input = document.querySelector(`input[name="quantities[${id}]"]`);
+
                 const currentValue = parseInt(input.value);
                 const newValue = currentValue + 1;
 
@@ -155,6 +164,7 @@
                     updateLineTotal(id);
                     autoUpdateCart();
                 });
+
             });
         });
 
@@ -173,11 +183,19 @@
                     input.value = newValue;
                     updateLineTotal(id);
                     autoUpdateCart();
+
                 });
             });
         });
 
+
+                });
+            });
+        });
+
+
         function updateQuantity(id, quantity, status = 'increment', onFail = null, onSuccess = null) {
+
             $.ajax({
                 url: '{{ route('cart.update') }}',
                 method: 'POST',
@@ -187,6 +205,7 @@
                     status: status,
                     quantities: parseInt(quantity)
                 },
+
                 success: function(response) {
                     if (response.status == 'success') {
                         toastr.success(response.message, 'Thành công');
@@ -199,6 +218,7 @@
                     toastr.error('Lỗi kết nối server.', 'Lỗi');
                 }
             });
+
         }
 
         function updateLineTotal(id) {
@@ -247,5 +267,6 @@
                 });
             });
         });
+
     </script>
 @endsection

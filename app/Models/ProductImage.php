@@ -10,6 +10,7 @@ class ProductImage extends Model
     use HasFactory;
   protected $table = 'product_images';
     protected $fillable = [
+
         'product_id',
         'product_variant_id',
         'image_url',
@@ -24,6 +25,7 @@ class ProductImage extends Model
     {
         return $this->belongsTo(ProductVariant::class, 'product_variant_id');
     }
+
     public function product()
     {
         return $this->belongsTo(Product::class, 'product_id');

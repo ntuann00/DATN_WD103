@@ -2,13 +2,16 @@
 
 use App\Http\Controllers\VNPayController;
 use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\VNPayController;
 
+// ================== User Controllers ===================
 use App\Http\Controllers\User\HomeController;
 use App\Http\Controllers\User\AuthController;
 use App\Http\Controllers\User\ProfileController;
 use App\Http\Controllers\User\UserProductController;
 use App\Http\Controllers\User\OrderController;
 
+// ================== Admin Controllers ==================
 use App\Http\Controllers\Admin\AdminController;
 use App\Http\Controllers\Admin\CategoryController;
 use App\Http\Controllers\Admin\AttributeController;
@@ -18,7 +21,8 @@ use App\Http\Controllers\Admin\ProductController;
 use App\Http\Controllers\Admin\ProductImageController;
 use App\Http\Controllers\Admin\AdminOrderController;
 use App\Http\Controllers\Admin\PromotionController;
-use Illuminate\Support\Facades\DB;
+use App\Http\Controllers\Admin\ReviewController;
+use App\Http\Controllers\Admin\RefundController;
 
 // ================== Public Routes ===================
 Route::get('/', [HomeController::class, 'index'])->name('home');
@@ -35,17 +39,15 @@ Route::get('/blog/1', [HomeController::class, 'blog_detail'])->name('u.blog_deta
 Route::get('/faq', [HomeController::class, 'faq'])->name('u.faq');
 Route::get('/contact', [HomeController::class, 'contact'])->name('u.contact');
 Route::get('/account', [HomeController::class, 'account'])->name('u.account');
-Route::get('/login', [HomeController::class, 'login'])->name('u.login');
-Route::get('/register', [HomeController::class, 'register'])->name('u.register');
 
-// ========== Auth Routes ==========
+// ================== Auth Routes ===================
 Route::get('/register', [AuthController::class, 'showRegisterForm'])->name('register');
 Route::post('/register', [AuthController::class, 'register']);
 Route::get('/login', [AuthController::class, 'showLoginForm'])->name('login');
 Route::post('/login', [AuthController::class, 'login']);
 Route::post('/logout', [AuthController::class, 'logout'])->name('logout');
 
-// ========== User Protected Routes ==========
+// ================== User Protected Routes ===================
 Route::middleware('auth')->group(function () {
     // Profile
     Route::get('/profile', [AuthController::class, 'profile'])->name('profile');
@@ -54,20 +56,29 @@ Route::middleware('auth')->group(function () {
     Route::get('/repassword', [ProfileController::class, 'showPassword'])->name('repassword');
     Route::post('/repassword', [ProfileController::class, 'updatePassword'])->name('repassword.update');
 
+
+
+    // purchase history (lịch sử mua hàng)
+    Route::get('/puchasehistory', [HomeController::class, 'purchasehistory'])->name('purchasehistory');
+    Route::get('/refund/{id}', [HomeController::class, 'refund'])->name('refund');
+    Route::post('/save_refund/{id}', [HomeController::class, 'save_refund'])->name('save_refund');
+
     // Cart
     Route::get('/cart', [UserProductController::class, 'cart'])->name('cart.view');
     Route::post('/cart/update', [UserProductController::class, 'updateCart'])->name('cart.update');
     Route::post('/add-to-cart', [UserProductController::class, 'addToCart'])->name('cart.add');
-
     Route::post('/cart/remove/{productId}', [UserProductController::class, 'removeFromCart'])->name('cart.remove');
     Route::post('/cart/clear', [UserProductController::class, 'clearCart'])->name('cart.clear');
 
     // Orders
     Route::get('/order', [OrderController::class, 'index'])->name('order.index');
     Route::post('/order', [OrderController::class, 'store'])->name('order.store');
+
     Route::get('/order/success', function () {
         return view('user.orders.order_success');
     })->name('order.success');
+
+
     Route::get('/order/fail', function () {
         return view('user.vnpay.vnpay_fail');
     })->name('order.fail');
@@ -76,23 +87,34 @@ Route::middleware('auth')->group(function () {
     Route::post('/orders/{id}/return', [OrderController::class, 'return'])->name('orders.return');
     Route::get('/orders/{id}/return', [OrderController::class, 'return'])->name('orders.return');
 
-    Route::get('/orders/{id}', [OrderController::class, 'show'])->name('orders.show');
-});
+ư
 
-// ========== Admin Routes ==========
+    Route::get('/orders/{id}', [OrderController::class, 'show'])->name('orders.show');
+
+    // Các thao tác với đơn hàng
+    Route::post('/orders/{id}/cancel', [OrderController::class, 'cancel'])->name('orders.cancel');
+    Route::match(['get','post'],'/orders/{id}/return', [OrderController::class, 'return'])->name('orders.return');
+
+    // ✅ Thêm route xác nhận đã nhận hàng
+    Route::post('/orders/{id}/confirm', [OrderController::class, 'confirmReceived'])->name('orders.confirm');
+
+    // ✅ Sau khi xác nhận nhận hàng => mở form bình luận
+    Route::get('/orders/{id}/review', [OrderController::class, 'reviewForm'])->name('orders.review.form');
+    Route::post('/orders/{id}/review', [OrderController::class, 'submitReview'])->name('orders.review.submit');
+
+
+// ================== Admin Routes ===================
 Route::middleware(['auth', 'check.role'])->group(function () {
     Route::get('/admin', [AdminController::class, 'index'])->name('admin');
 
     // Categories
     Route::resource('categories', CategoryController::class);
 
-    // Attributes
+    // Attributes + Values
     Route::resource('attributes', AttributeController::class)->except(['show']);
     Route::get('/attributes/{id}/show', [AttributeController::class, 'show'])->name('attributes.show');
-    Route::put('/attributeValues/{attributeValue}', [AttributeValueController::class, 'update'])->name('attributeValues.update');
-
-    // Attribute Values
     Route::resource('attributeValues', AttributeValueController::class);
+    Route::put('/attributeValues/{attributeValue}', [AttributeValueController::class, 'update'])->name('attributeValues.update');
 
     // Users
     Route::resource('users', UserController::class);
@@ -110,10 +132,29 @@ Route::middleware(['auth', 'check.role'])->group(function () {
 
     // Promotions
     Route::resource('promotions', PromotionController::class);
+
+
+
+    Route::get('/admin/reviews', [ReviewController::class, 'index'])->name('admin.reviews.index');
+
+    // Statistics
+    Route::get('/admin/statistics', [App\Http\Controllers\Admin\StatisticsController::class, 'index'])
+    ->name('admin.statistics');
+
+    // Reviews
+    Route::get('reviews', [ReviewController::class, 'index'])->name('reviews.index');
+    Route::patch('reviews/{review}/hide', [ReviewController::class, 'hide'])->name('reviews.hide');
+
+    // Refund
+    Route::get('refund', [RefundController::class, 'index'])->name('refund.index');
+    Route::get('refund/{id}', [RefundController::class, 'detail'])->name('refund.detail');
+    Route::post('refund/{id}', [RefundController::class, 'update'])->name('refund.update');
+
 });
 
 
 
 //vn-pay
+
 Route::post('/vnpay/payment', [VNPayController::class, 'create'])->name('vnpay.payment');
 Route::get('/vnpay-return', [VNPayController::class, 'vnpayReturn'])->name('vnpay.return');

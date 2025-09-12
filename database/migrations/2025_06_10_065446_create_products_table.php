@@ -16,6 +16,7 @@ return new class extends Migration
             $table->string('name');
 
             // FK
+
             $table->unsignedBigInteger('category_id');
             $table->unsignedBigInteger('attribute_id')->nullable();
             $table->unsignedBigInteger('promotion_id')->nullable();

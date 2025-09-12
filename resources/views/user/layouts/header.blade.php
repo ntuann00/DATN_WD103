@@ -100,7 +100,7 @@
                     </div>
                 </li>
 
-                <!-- end contact dropmenu -->
+
 
                 <!-- start contact dropmenu -->
                 <li class="menu-item-has-children position-inherit">
@@ -121,7 +121,9 @@
                         <li>
                             <a href="{{ route('u.faq') }}">FaQ</a>
                         </li>
+
                         <li>
+
                             <a href="{{ route('u.blog') }}">Blog</a>
                         </li>
                         <li>

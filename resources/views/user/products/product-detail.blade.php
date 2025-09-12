@@ -3,10 +3,16 @@
 @section('content')
     <div class="container py-5">
         @if (session('error'))
+
+    <div class="alert alert-danger">
+        {{ session('error') }}
+    </div>
+
             <div class="alert alert-danger">
                 {{ session('error') }}
             </div>
         @endif
+
         {{-- Tiêu đề --}}
         {{--
         <pre>{{ dd($Product->variants) }}</pre> --}}
@@ -23,11 +29,13 @@
                     <div class="col-lg-6">
                         <div class="shop-details-img">
                             <div class="tab-content" id="view-tabContent">
+
                                 @foreach ($Product->variants as $variant)
                                     @foreach ($variant->images as $image)
                                         <div class="tab-pane fade {{ $loop->first && $loop->parent->first ? 'show active' : '' }}"
                                             id="view-pills-img{{ $loop->parent->index }}-{{ $loop->index }}"
                                             role="tabpanel"
+
                                             aria-labelledby="view-pills-img{{ $loop->parent->index }}-{{ $loop->index }}-tab">
 
                                             <div class="shop-details-tab-img">
@@ -36,14 +44,17 @@
                                         </div>
                                     @endforeach
                                 @endforeach
+
                                 {{-- <div class="tab-pane fade" id="view-pills-img2" role="tabpanel">
+
+
                                     <div class="shop-details-tab-img">
                                         <img src="{{ asset('uploads/products/' . $Product->image) }}" alt="Product Image">
                                     </div>
                                 </div>
                                 <div class="tab-pane fade" id="view-pills-img2" role="tabpanel">
                                     <div class="shop-details-tab-img">
-                                        <img src="{{ asset('user/assets/img/inner-page/shop-details-tab-img2.png') }}"
+                                        <img src="{{ $Product->image }}"
                                             alt="">
                                     </div>
                                 </div>
@@ -60,6 +71,7 @@
                                     </div>
                                 </div> --}}
                             </div>
+
                             <div class="nav nav-pills justify-content-center mt-2" id="view-tab" role="tablist"
                                 aria-orientation="horizontal">
                                 @foreach ($Product->variants as $variant)
@@ -74,6 +86,7 @@
                                         </button>
                                     @endforeach
                                 @endforeach
+
                                 {{-- <button class="nav-link" id="view-pills-img2-tab" data-bs-toggle="pill"
                                     data-bs-target="#view-pills-img2" type="button" role="tab"
                                     aria-controls="view-pills-img2" aria-selected="false">
@@ -87,9 +100,37 @@
                                 <button class="nav-link" id="view-pills-img4-tab" data-bs-toggle="pill"
                                     data-bs-target="#view-pills-img4" type="button" role="tab"
                                     aria-controls="view-pills-img4" aria-selected="false">
+
                                     <img src="{{ asset('user/assets/img/inner-page/shop-details-nav-img4.png') }}" alt="">
                                 </button> --}}
+
+                                    <img src="{{ asset('user/assets/img/inner-page/shop-details-nav-img4.png') }}"
+                                        alt="">
+                                </button>
+
+                                    <img src="{{ asset('user/assets/img/inner-page/shop-details-nav-img4.png') }}" alt="">
+                                </button> --}}
+
                             </div>
+
+                        </div>
+                        <div class="nav " id="view-tab" role="tablist" aria-orientation="vertical">
+                            @foreach ($Product->variants as $variant)
+                                @foreach ($variant->images as $image)
+                                    <button class="nav-link"
+                                        id="view-pills-img{{ $loop->parent->index }}-{{ $loop->index }}-tab"
+                                        data-bs-toggle="pill"
+                                        data-bs-target="#view-pills-img{{ $loop->parent->index }}-{{ $loop->index }}"
+                                        type="button" role="tab"
+                                        aria-controls="view-pills-img{{ $loop->parent->index }}-{{ $loop->index }}"
+                                        aria-selected="false">
+
+                                        <img src="{{ asset($image->image_url) }}" alt="{{ $image->alt_text }}"
+                                            width="60px">
+                                    </button>
+                                @endforeach
+                            @endforeach
+
                         </div>
                     </div>
                     <div class="col-lg-6">
@@ -132,11 +173,9 @@
                                                     <li>
                                                         <input type="radio" name="attribute[{{ $attrName }}]"
                                                             value="{{ $value->id }}" id="attr_{{ $value->id }}"
-                                                            data-value="{{ $value->value }}"
-                                                            data-attribute="{{ $attrName }}"
+                                                            data-value="{{ $value->value }}" data-attribute="{{ $attrName }}"
                                                             class="btn-check attribute-input" required>
-                                                        <label class="btn btn-outline-primary"
-                                                            for="attr_{{ $value->id }}">
+                                                        <label class="btn btn-outline-primary" for="attr_{{ $value->id }}">
                                                             {{ $value->value }}
                                                         </label>
                                                     </li>
@@ -153,8 +192,7 @@
                                         <h6 class="widget-title">Quantity</h6>
                                         <div class="quantity-counter">
                                             <a href="#" class="quantity__minus"><i class='bx bx-minus'></i></a>
-                                            <input name="quantity" type="number" class="quantity__input" value="1"
-                                                min="1">
+                                            <input name="quantity" type="number" class="quantity__input" value="1" min="1">
                                             <a href="#" class="quantity__plus"><i class='bx bx-plus'></i></a>
                                         </div>
                                     </div>
@@ -168,14 +206,12 @@
                                             Cart*</button>
                                     </form>
                                 </div>
-                            </form>
-
 
                         </div>
 
                         <div class="product-info">
 
-                        </div>
+      </div>
                         <ul class="product-shipping-delivers">
                             <p>Số lượng sản phẩm : {{ $variant->quantity }}</p>
                             <li class="product-shipping">
@@ -247,11 +283,11 @@
                                     data-bs-target="#nav-description" type="button" role="tab"
                                     aria-controls="nav-description" aria-selected="true">Recomment</button>
                                 <button class="nav-link" id="nav-add-info-tab" data-bs-toggle="tab"
-                                    data-bs-target="#nav-add-info" type="button" role="tab"
-                                    aria-controls="nav-add-info" aria-selected="false">Additional Information</button>
+                                    data-bs-target="#nav-add-info" type="button" role="tab" aria-controls="nav-add-info"
+                                    aria-selected="false">Additional Information</button>
                                 <button class="nav-link" id="nav-reviews-tab" data-bs-toggle="tab"
-                                    data-bs-target="#nav-reviews" type="button" role="tab"
-                                    aria-controls="nav-reviews" aria-selected="false">Reviews (15)</button>
+                                    data-bs-target="#nav-reviews" type="button" role="tab" aria-controls="nav-reviews"
+                                    aria-selected="false">Reviews (15)</button>
                             </div>
                         </nav>
                     </div>
@@ -283,8 +319,8 @@
                                                                     $path = $item->image;
                                                                     $img =
                                                                         $path && file_exists(public_path($path))
-                                                                            ? asset($path)
-                                                                            : 'https://product.hstatic.net/1000006063/product/3ce_blush_lighter_atf_-_02_b483e7c8fa3b4c12b167fbade4e7537d_1024x1024.jpg';
+                                                                        ? asset($path)
+                                                                        : 'https://product.hstatic.net/1000006063/product/3ce_blush_lighter_atf_-_02_b483e7c8fa3b4c12b167fbade4e7537d_1024x1024.jpg';
                                                                 @endphp
                                                                 @if (!$relVariant)
                                                                     @continue
@@ -293,8 +329,7 @@
                                                                     <a href="{{ route('u.product_detail', $item->id) }}"
                                                                         class="text-decoration-none text-dark">
                                                                         <div class="card h-100 shadow-sm">
-                                                                            <img src="{{ $img }}"
-                                                                                class="card-img-top"
+                                                                            <img src="{{ $img }}" class="card-img-top"
                                                                                 alt="{{ $item->name }}"
                                                                                 style="height:180px; object-fit:cover;">
                                                                             <div class="card-body d-flex flex-column">
@@ -350,7 +385,7 @@
                                 </script>
 
                                 <script>
-                                    document.addEventListener('DOMContentLoaded', function() {
+                                    document.addEventListener('DOMContentLoaded', function () {
                                         const inputs = document.querySelectorAll('.attribute-input');
                                         const attributeQuantity = @json($attributeQuantity); // { "White-S-": 10, "White-M-": 0, ... }
 
@@ -418,6 +453,7 @@
                                         // CSS để làm mờ và không thể click
                                         const style = document.createElement('style');
                                         style.textContent = `
+
             .text-muted {
                 opacity: 0.4 !important;
             }
@@ -425,8 +461,9 @@
                 pointer-events: none !important;
             }
         `;
+
                                         document.head.appendChild(style);
                                     });
                                 </script>
 
-                            @endsection
+@endsection

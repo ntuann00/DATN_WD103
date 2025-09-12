@@ -210,79 +210,84 @@
                                         </tr>
                                     </thead>
                                     <tbody>
+
+
+
                                         @forelse ($orders as $order)
-                                            @foreach ($order->orderDetails as $detail)
-                                                <tr>
-                                                    <td>
-                                                        <img src="{{ $detail->product->image_url ?? 'default.jpg' }}"
-                                                            alt="image" width="60">
-                                                    </td>
-                                                    <td>#{{ str_pad($order->id, 6, '0', STR_PAD_LEFT) }}</td>
+    @foreach ($order->orderDetails as $detail)
+        <tr>
+            <td>
+                <img src="{{ $detail->product->image_url ?? 'default.jpg' }}" alt="image" width="60">
+            </td>
+            <td>#{{ str_pad($order->id, 6, '0', STR_PAD_LEFT) }}</td>
+            <td>
+                {{ $detail->product->name }}
+                @foreach ($detail->productVariant->attributeValues as $attrVal)
+                    {{ $attrVal->attribute->name }}: {{ $attrVal->value }}<br>
+                @endforeach
+            </td>
+            <td>{{ $detail->quantity }}</td>
+            <td>{{ number_format($detail->price, 0, ',', '.') }} đ</td>
+            <td>{{ number_format($order->total, 0, ',', '.') }} đ</td>
+            <td>{{ $order->status_payment == 0 ? 'Chưa thanh toán' : 'Thanh toán thành công' }}</td>
+            <td>{{ $order->description ?? 'Không có ghi chú' }}</td>
+            <td>{{ $order->payment?->name ?? '---' }}</td>
+            <td class="{{ $order->status?->slug === 'pending' ? 'text-red' : 'text-green' }}">
+                {{ $order->status?->name ?? 'Không xác định' }}
+            </td>
 
-                                                    <td>
-                                                        {{ $detail->product->name }}
-                                                        @php
-                                                            $displayed = [];
-                                                        @endphp
-                                                        @foreach ($detail->productVariant->attributeValues as $attrVal)
-                                                            {{ $attrVal->attribute->name }}: {{ $attrVal->value }}<br>
-                                                        @endforeach
-                                                    </td>
+            <td>
+                {{-- Chỉ hiện nút khi admin đã cập nhật "Giao hàng thành công" --}}
+                @if ($order->status_id == 7) 
+                    <form method="POST" action="{{ route('orders.confirm', $order->id) }}">
+                        @csrf
+                        <button type="submit" class="btn btn-success btn-sm">
+                            Đã nhận hàng
+                        </button>
+                    </form>
+                @endif
+            </td>
+        </tr>
 
-                                                    <td>{{ $detail->quantity }}</td>
-                                                    <td>{{ number_format($detail->price, 0, ',', '.') }} đ</td>
+        {{-- Modal form đánh giá sản phẩm --}}
+        <div class="modal fade" id="reviewModal{{ $order->id }}" tabindex="-1">
+            <div class="modal-dialog">
+                <div class="modal-content">
+                    <form method="POST" action="{{ route('orders.review.submit', $order->id) }}">
+                        @csrf
+                        <div class="modal-header">
+                            <h5 class="modal-title">Đánh giá sản phẩm</h5>
+                            <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+                        </div>
+                        <div class="modal-body">
+                            <input type="hidden" name="product_id" value="{{ $detail->product->id }}">
+                            
+                            <label for="rating">Đánh giá:</label>
+                            <select name="rating" class="form-select" required>
+                                <option value="5">5 sao</option>
+                                <option value="4">4 sao</option>
+                                <option value="3">3 sao</option>
+                                <option value="2">2 sao</option>
+                                <option value="1">1 sao</option>
+                            </select>
 
-                                                    <td>{{ number_format($order->total, 0, ',', '.') }} đ</td>
+                            <textarea name="comment" class="form-control mt-2" required placeholder="Nhập bình luận..."></textarea>
+                        </div>
+                        <div class="modal-footer">
+                            <button type="submit" class="btn btn-primary">Gửi đánh giá</button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
 
-                                                    <td>{{ $order->status_payment == 0 ? 'Chưa thanh toán' : ( $order->status_payment == 1 ? 'Thanh toán thành công' : 'Hoàn tiền') }}
-                                                    </td>
+    @endforeach
+@empty
+    <tr>
+        <td colspan="11" class="text-center">Bạn chưa có đơn hàng nào.</td>
+    </tr>
+@endforelse
 
-                                                    <td>{{ $order->description ?? 'Không có ghi chú' }}</td>
-
-                                                    <td>{{ $order->payment?->name ?? '---' }}</td>
-
-                                                    <td
-                                                        class="{{ $order->status?->slug === 'pending' ? 'text-red' : 'text-green' }}">
-                                                        {{ $order->status?->name ?? 'Không xác định' }}
-                                                    </td>
-                                                    <td>
-                                                        {{-- @if ($order->status_id == 7)
-                                                            <!-- Đơn đã giao thành công -->
-                                                            <button class="btn btn-warning btn-sm" data-bs-toggle="modal"
-                                                                data-bs-target="#returnModal{{ $order->id }}">
-                                                                Hoàn hàng
-                                                            </button>
-                                                        @elseif (!in_array($order->status_id, [5, 6, 8, 9]))
-                                                            <!-- Đơn chưa giao và chưa bị hủy hoặc hoàn -->
-                                                            <button type="button" class="btn btn-sm btn-danger"
-                                                                data-bs-toggle="modal"
-                                                                data-bs-target="#cancelModal{{ $order->id }}">
-                                                                Hủy đơn
-                                                            </button>
-                                                        @endif --}}
-                                                        <a href="{{ route('orders.show', $order->id) }}"
-                                                            class="btn btn-sm btn-info">
-                                                            Chi tiết đơn hàng
-                                                        </a>
-                                                    </td>
-                                                    {{-- <td>
-                                                        @if ($order->status_id != 5 && $order->status_id != 6)
-                                                            <!-- Nút mở modal -->
-                                                            <button type="button" class="btn btn-sm btn-danger"
-                                                                data-bs-toggle="modal"
-                                                                data-bs-target="#cancelModal{{ $order->id }}">
-                                                                Hủy đơn
-                                                            </button>
-                                                        @endif
-                                                    </td> --}}
-
-                                                </tr>
-                                            @endforeach
-                                        @empty
-                                            <tr>
-                                                <td colspan="9" class="text-center">Bạn chưa có đơn hàng nào.</td>
-                                            </tr>
-                                        @endforelse
                                     </tbody>
                                 </table>
 

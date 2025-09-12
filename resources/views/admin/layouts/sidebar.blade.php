@@ -96,6 +96,43 @@
             </a>
         </li>
 
+
+
+        <li>
+    <a href="{{ route('admin.reviews.index') }}" class="nav-link">
+        <i class="bi bi-chat-dots"></i>
+        <span>Quản lí bình luận</span>
+    </a>
+</li>
+
+
+
+<!-- 📊 Thống kê -->
+<li class="{{ request()->is('admin/statistics*') ? 'mm-active' : '' }}">
+    <a href="{{ route('admin.statistics') }}" aria-expanded="false">
+        <div class="icon_menu">
+            <img src="{{ asset('admins/assets/img/menu-icon/16.svg')}}" alt>
+        </div>
+        <span>Thống kê</span>
+    </a>
+</li>
+
+
+
+
+             
+
+
+        <!-- Quản lý đơn hoàn hàng/hoàn tiền -->
+        <li class="{{ request()->is('admin/refund*') ? 'mm-active' : '' }}">
+            <a href="{{ route('admin.refund.index') }}" aria-expanded="false">
+                <div class="icon_menu">
+                    <img src="{{ asset('admins/assets/img/menu-icon/2.svg') }}" alt>
+                </div>
+                <span>Hoàn hàng</span>
+            </a>
+        </li>
+
         <!-- Pages -->
         <li>
             <a class="has-arrow" href="#" aria-expanded="false">
