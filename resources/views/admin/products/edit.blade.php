@@ -15,7 +15,6 @@
         {{-- Thông tin sản phẩm cơ bản --}}
         <div class="card mb-4 shadow-sm">
             <div class="card-body">
-<<<<<<< Updated upstream
                 <div class="row g-3">
                     <div class="col-md-6">
                         <label class="form-label">Tên sản phẩm</label>
@@ -66,60 +65,6 @@
                         <div class="mt-2 d-flex flex-wrap gap-2">
                             @foreach($product->images as $img)
                                 <img src="{{ asset($img->image_url) }}" class="img-thumbnail" style="max-width:100px;">
-=======
-
-                <input type="hidden" name="variants[{{ $variant->id }}][id]" value="{{ $variant->id }}">
-
-                <div class="mb-2">
-                    <label>SKU</label>
-                    <input type="text" name="variants[{{ $variant->id }}][sku]" value="{{ $variant->sku }}" class="form-control">
-                </div>
-
-                <div class="mb-2">
-                    <label>Giá</label>
-                    <input type="number" name="variants[{{ $variant->id }}][price]" value="{{ $variant->price }}" class="form-control">
-                </div>
-
-                <div class="mb-2">
-                    <label>Số lượng</label>
-                    <input type="number" name="variants[{{ $variant->id }}][quantity]" value="{{ $variant->quantity }}" class="form-control">
-                </div>
-
-                {{-- Thuộc tính --}}
-                <div class="mb-2">
-                    <label>Thuộc tính:</label>
-                    <ul class="list-group list-group-flush">
-                        @foreach($variant->variantValues as $vv)
-                            <li class="list-group-item">
-                                <strong>{{ $vv->attributeValue->attribute->name ?? 'Không xác định' }}:</strong>
-                                {{ $vv->attributeValue->value ?? '-' }}
-                            </li>
-                        @endforeach
-                    </ul>
-                </div>
-
-                {{-- Ảnh hiện tại --}}
-                <div class="mb-3">
-                    <label>Ảnh của biến thể:</label><br>
-
-                    @if ($variant->images->count())
-                        <div class="d-flex flex-wrap gap-2 mb-2">
-                            @foreach ($variant->images as $image)
-                                <div style="position: relative; display: inline-block;">
-                                    <img src="{{ asset($image->image_url) }}" width="100" class="img-thumbnail mb-1">
-
-                                    {{-- Nút xoá ảnh --}}
-                                    <form method="POST" action="{{ route('product-images.destroy', $image->id) }}"
-                                          style="position: absolute; top: 0; right: 0;"
-                                          onsubmit="return confirm('Bạn có chắc muốn xoá ảnh này?')">
-                                        @csrf
-                                        @method('DELETE')
-                                        <button type="submit" class="btn btn-danger btn-sm p-1" style="font-size: 12px;">
-                                            ✖
-                                        </button>
-                                    </form>
-                                </div>
->>>>>>> Stashed changes
                             @endforeach
                         </div>
                     </div>

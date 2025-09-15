@@ -189,10 +189,6 @@
         });
 
 
-                });
-            });
-        });
-
 
         function updateQuantity(id, quantity, status = 'increment', onFail = null, onSuccess = null) {
 

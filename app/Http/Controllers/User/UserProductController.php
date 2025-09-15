@@ -65,7 +65,7 @@ class UserProductController extends Controller
         if ($totalQty > $variant->quantity) {
             return redirect()->back()->with('error', 'Sản phẩm trong kho không đủ số lượng bạn muốn mua ! Vui lòng kiếm tra lại !');
 
-
+        }
         $existingQty = $detail ? $detail->quantity : 0;
         $totalQty = $existingQty + $qty;
         // dd([
@@ -89,6 +89,7 @@ class UserProductController extends Controller
 
         return redirect()->back()->with('success', 'Đã thêm sản phẩm vào giỏ hàng!');
     }
+
 
     /**
 
@@ -184,3 +185,4 @@ class UserProductController extends Controller
         return back()->with('success', 'Đã xóa toàn bộ giỏ hàng!');
     }
 }
+

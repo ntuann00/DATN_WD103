@@ -69,7 +69,7 @@
                 <!-- end FACE dropmenu -->
 
                 <!-- start category dropmenu -->
-                <li class="menu-item-has-children position-inherit">
+                {{-- <li class="menu-item-has-children position-inherit">
                     <!-- link -->
                     <div class="mega-menu2"
                         style="background-image: url('{{ asset('user/assets/img/home1/megamenu2-bg1.png') }}');">
@@ -98,7 +98,7 @@
 
                         </div>
                     </div>
-                </li>
+                </li> --}}
 
 
 
@@ -234,7 +234,7 @@
                 </button>
                 <!-- cart button -->
 
-                <div class="cart-menu">
+                {{-- <div class="cart-menu">
                     <!-- cart-item -->
                     <div class="cart-body">
                         <ul>
@@ -295,7 +295,7 @@
                         </div>
 
                     </div>
-                </div>
+                </div> --}}
             </div>
             <!-- end-cart -->
 

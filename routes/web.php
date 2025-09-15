@@ -1,8 +1,6 @@
 <?php
 
-use App\Http\Controllers\VNPayController;
-use Illuminate\Support\Facades\Route;
-use App\Http\Controllers\VNPayController;
+
 
 // ================== User Controllers ===================
 use App\Http\Controllers\User\HomeController;
@@ -23,6 +21,8 @@ use App\Http\Controllers\Admin\AdminOrderController;
 use App\Http\Controllers\Admin\PromotionController;
 use App\Http\Controllers\Admin\ReviewController;
 use App\Http\Controllers\Admin\RefundController;
+use App\Http\Controllers\VNPayController;
+use Illuminate\Support\Facades\Route;
 
 // ================== Public Routes ===================
 Route::get('/', [HomeController::class, 'index'])->name('home');
@@ -87,7 +87,7 @@ Route::middleware('auth')->group(function () {
     Route::post('/orders/{id}/return', [OrderController::class, 'return'])->name('orders.return');
     Route::get('/orders/{id}/return', [OrderController::class, 'return'])->name('orders.return');
 
-ư
+
 
     Route::get('/orders/{id}', [OrderController::class, 'show'])->name('orders.show');
 
@@ -158,3 +158,4 @@ Route::middleware(['auth', 'check.role'])->group(function () {
 
 Route::post('/vnpay/payment', [VNPayController::class, 'create'])->name('vnpay.payment');
 Route::get('/vnpay-return', [VNPayController::class, 'vnpayReturn'])->name('vnpay.return');
+});
