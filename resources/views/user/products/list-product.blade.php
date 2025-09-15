@@ -249,7 +249,7 @@
                                                     giỏ</a>
                                             @endauth
                                         </div>
-                                    </div>+
+                                    </div>
                                 </div>
                                 <div class="product-card-content">
                                     <h6>

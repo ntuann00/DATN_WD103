@@ -211,58 +211,58 @@ class OrderController extends Controller
             ];
 
 
-        if (empty($data)) {
-            return redirect()->route('order.index')->with('error', 'Chưa có sản phẩm nào trong giỏ hàng!');
-
-        }
-  
-
-        // 8. Tạo order_details
-        OrderDetail::insert($data);
-
-        // 9. Xử lý theo payment_id
-        if ($request->payment_id == 4) {
-            // Thanh toán COD: xoá sản phẩm đã mua trong giỏ
-            if ($cart) {
-                $cart->cartDetails()->whereIn('id', $selectedIds)->delete();
+            if (empty($data)) {
+                return redirect()->route('order.index')->with('error', 'Chưa có sản phẩm nào trong giỏ hàng!');
             }
-            session()->forget('selected_items');
 
-            return redirect()
-                ->route('order.success')
-                ->with('success', 'Đặt hàng thành công!');
+
+            // 8. Tạo order_details
+            OrderDetail::insert($data);
+
+            // 9. Xử lý theo payment_id
+            if ($request->payment_id == 4) {
+                // Thanh toán COD: xoá sản phẩm đã mua trong giỏ
+                if ($cart) {
+                    $cart->cartDetails()->whereIn('id', $selectedIds)->delete();
+                }
+                session()->forget('selected_items');
+
+                return redirect()
+                    ->route('order.success')
+                    ->with('success', 'Đặt hàng thành công!');
+            }
+
+            if ($request->payment_id == 5) {
+                $request->merge([
+                    'total' => $total,
+                    'order_id' => $order->id
+                    // KHÔNG tạo order ở đây
+                ]);
+
+                $vnpay = new VNPayController();
+                return $vnpay->create($request); // chỉ truyền dữ liệu
+            }
+
+            return back()->with('error', 'Phương thức thanh toán không hợp lệ.');
         }
+        // public function checkoutSelected(Request $request)
+        // {
+        //     $selectedIds = $request->input('selected_items', []);
 
-        if ($request->payment_id == 5) {
-            $request->merge([
-                'total' => $total,
-                'order_id' => $order->id
-                // KHÔNG tạo order ở đây
-            ]);
+        //     if (empty($selectedIds)) {
+        //         return redirect()->route('cart.view')->with('error', 'Vui lòng chọn ít nhất một sản phẩm để mua.');
+        //     }
 
-            $vnpay = new VNPayController();
-            return $vnpay->create($request); // chỉ truyền dữ liệu
-        }
+        //     $cartDetails = Cart_detail::whereIn('id', $selectedIds)
+        //         ->whereHas('cart', function ($query) {
+        //             $query->where('user_id', Auth::id());
+        //         })
+        //         ->with(['product', 'variant'])
+        //         ->get();
 
-        return back()->with('error', 'Phương thức thanh toán không hợp lệ.');
+        //     return view('user.orders.checkout', compact('cartDetails'));
+        // }
     }
-    // public function checkoutSelected(Request $request)
-    // {
-    //     $selectedIds = $request->input('selected_items', []);
-
-    //     if (empty($selectedIds)) {
-    //         return redirect()->route('cart.view')->with('error', 'Vui lòng chọn ít nhất một sản phẩm để mua.');
-    //     }
-
-    //     $cartDetails = Cart_detail::whereIn('id', $selectedIds)
-    //         ->whereHas('cart', function ($query) {
-    //             $query->where('user_id', Auth::id());
-    //         })
-    //         ->with(['product', 'variant'])
-    //         ->get();
-
-    //     return view('user.orders.checkout', compact('cartDetails'));
-    // }
 
     public function cancel(Request $request, $id)
     {
@@ -313,19 +313,18 @@ class OrderController extends Controller
         } catch (\Throwable $th) {
             return redirect()->back()->with('error', 'Có lỗi xảy ra, vui lòng thử lại!');
         }
-
     }
- 
+
 
     public function show($id)
-{
-    $order = Order::with(['orderDetails.product'])->findOrFail($id);
-    return view('orders.show', compact('order'));
-}
+    {
+        $order = Order::with(['orderDetails.product'])->findOrFail($id);
+        return view('orders.show', compact('order'));
+    }
 
 
 
-       /**
+    /**
      * Người dùng xác nhận đã nhận hàng → chuyển đến form review
      */
     public function confirmReceived($id)
@@ -355,35 +354,31 @@ class OrderController extends Controller
      * Lưu đánh giá
      */
     public function submitReview(Request $request, $id)
-{
-    $request->validate([
-        'rating'  => 'required|integer|min:1|max:5',
-        'comment' => 'required|string|max:1000',
-    ]);
-
-    $order = Order::where('id', $id)
-        ->where('user_id', Auth::id())
-        ->where('status_id', 7) // giao hàng thành công
-        ->firstOrFail();
-
-    // Lấy danh sách sản phẩm trong đơn hàng
-    foreach ($order->orderDetails as $orderDetail) {
-        Review::create([
-            'user_id'    => Auth::id(),
-            'product_id' => $orderDetail->product_id, // ✅ gắn với sản phẩm
-            'rating'     => $request->rating,
-            'comment'    => $request->comment,
+    {
+        $request->validate([
+            'rating'  => 'required|integer|min:1|max:5',
+            'comment' => 'required|string|max:1000',
         ]);
+
+        $order = Order::where('id', $id)
+            ->where('user_id', Auth::id())
+            ->where('status_id', 7) // giao hàng thành công
+            ->firstOrFail();
+
+        // Lấy danh sách sản phẩm trong đơn hàng
+        foreach ($order->orderDetails as $orderDetail) {
+            Review::create([
+                'user_id'    => Auth::id(),
+                'product_id' => $orderDetail->product_id, // ✅ gắn với sản phẩm
+                'rating'     => $request->rating,
+                'comment'    => $request->comment,
+            ]);
+        }
+
+
+
+
+        return redirect()->route('order.index')
+            ->with('success', 'Cảm ơn bạn đã đánh giá sản phẩm!');
     }
-
-
-      
-
-    return redirect()->route('order.index')
-    ->with('success', 'Cảm ơn bạn đã đánh giá sản phẩm!');
-
-
 }
-
-
-

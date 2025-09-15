@@ -125,7 +125,7 @@
 
         <!-- Quản lý đơn hoàn hàng/hoàn tiền -->
         <li class="{{ request()->is('admin/refund*') ? 'mm-active' : '' }}">
-            <a href="{{ route('admin.refund.index') }}" aria-expanded="false">
+            <a href="{{ route('refund.index') }}" aria-expanded="false">
                 <div class="icon_menu">
                     <img src="{{ asset('admins/assets/img/menu-icon/2.svg') }}" alt>
                 </div>

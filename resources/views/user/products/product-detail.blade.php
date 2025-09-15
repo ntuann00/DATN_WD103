@@ -3,10 +3,9 @@
 @section('content')
     <div class="container py-5">
         @if (session('error'))
-
-    <div class="alert alert-danger">
-        {{ session('error') }}
-    </div>
+            <div class="alert alert-danger">
+                {{ session('error') }}
+            </div>
 
             <div class="alert alert-danger">
                 {{ session('error') }}
@@ -35,7 +34,6 @@
                                         <div class="tab-pane fade {{ $loop->first && $loop->parent->first ? 'show active' : '' }}"
                                             id="view-pills-img{{ $loop->parent->index }}-{{ $loop->index }}"
                                             role="tabpanel"
-
                                             aria-labelledby="view-pills-img{{ $loop->parent->index }}-{{ $loop->index }}-tab">
 
                                             <div class="shop-details-tab-img">
@@ -72,7 +70,7 @@
                                 </div> --}}
                             </div>
 
-                            <div class="nav nav-pills justify-content-center mt-2" id="view-tab" role="tablist"
+                            {{-- <div class="nav nav-pills justify-content-center mt-2" id="view-tab" role="tablist"
                                 aria-orientation="horizontal">
                                 @foreach ($Product->variants as $variant)
                                     @foreach ($variant->images as $image)
@@ -85,9 +83,9 @@
                                                 width="60px">
                                         </button>
                                     @endforeach
-                                @endforeach
+                                @endforeach --}}
 
-                                {{-- <button class="nav-link" id="view-pills-img2-tab" data-bs-toggle="pill"
+                            {{-- <button class="nav-link" id="view-pills-img2-tab" data-bs-toggle="pill"
                                     data-bs-target="#view-pills-img2" type="button" role="tab"
                                     aria-controls="view-pills-img2" aria-selected="false">
                                     <img src="{{ asset('user/assets/img/inner-page/shop-details-nav-img2.png') }}" alt="">
@@ -104,14 +102,14 @@
                                     <img src="{{ asset('user/assets/img/inner-page/shop-details-nav-img4.png') }}" alt="">
                                 </button> --}}
 
-                                    <img src="{{ asset('user/assets/img/inner-page/shop-details-nav-img4.png') }}"
+                            {{-- <img src="{{ asset('user/assets/img/inner-page/shop-details-nav-img4.png') }}"
                                         alt="">
                                 </button>
 
                                     <img src="{{ asset('user/assets/img/inner-page/shop-details-nav-img4.png') }}" alt="">
                                 </button> --}}
 
-                            </div>
+                            {{-- </div> --}}
 
                         </div>
                         <div class="nav " id="view-tab" role="tablist" aria-orientation="vertical">
@@ -173,9 +171,11 @@
                                                     <li>
                                                         <input type="radio" name="attribute[{{ $attrName }}]"
                                                             value="{{ $value->id }}" id="attr_{{ $value->id }}"
-                                                            data-value="{{ $value->value }}" data-attribute="{{ $attrName }}"
+                                                            data-value="{{ $value->value }}"
+                                                            data-attribute="{{ $attrName }}"
                                                             class="btn-check attribute-input" required>
-                                                        <label class="btn btn-outline-primary" for="attr_{{ $value->id }}">
+                                                        <label class="btn btn-outline-primary"
+                                                            for="attr_{{ $value->id }}">
                                                             {{ $value->value }}
                                                         </label>
                                                     </li>
@@ -192,7 +192,8 @@
                                         <h6 class="widget-title">Quantity</h6>
                                         <div class="quantity-counter">
                                             <a href="#" class="quantity__minus"><i class='bx bx-minus'></i></a>
-                                            <input name="quantity" type="number" class="quantity__input" value="1" min="1">
+                                            <input name="quantity" type="number" class="quantity__input" value="1"
+                                                min="1">
                                             <a href="#" class="quantity__plus"><i class='bx bx-plus'></i></a>
                                         </div>
                                     </div>
@@ -211,7 +212,7 @@
 
                         <div class="product-info">
 
-      </div>
+                        </div>
                         <ul class="product-shipping-delivers">
                             <p>Số lượng sản phẩm : {{ $variant->quantity }}</p>
                             <li class="product-shipping">
@@ -283,11 +284,11 @@
                                     data-bs-target="#nav-description" type="button" role="tab"
                                     aria-controls="nav-description" aria-selected="true">Recomment</button>
                                 <button class="nav-link" id="nav-add-info-tab" data-bs-toggle="tab"
-                                    data-bs-target="#nav-add-info" type="button" role="tab" aria-controls="nav-add-info"
-                                    aria-selected="false">Additional Information</button>
+                                    data-bs-target="#nav-add-info" type="button" role="tab"
+                                    aria-controls="nav-add-info" aria-selected="false">Additional Information</button>
                                 <button class="nav-link" id="nav-reviews-tab" data-bs-toggle="tab"
-                                    data-bs-target="#nav-reviews" type="button" role="tab" aria-controls="nav-reviews"
-                                    aria-selected="false">Reviews (15)</button>
+                                    data-bs-target="#nav-reviews" type="button" role="tab"
+                                    aria-controls="nav-reviews" aria-selected="false">Reviews (15)</button>
                             </div>
                         </nav>
                     </div>
@@ -319,8 +320,8 @@
                                                                     $path = $item->image;
                                                                     $img =
                                                                         $path && file_exists(public_path($path))
-                                                                        ? asset($path)
-                                                                        : 'https://product.hstatic.net/1000006063/product/3ce_blush_lighter_atf_-_02_b483e7c8fa3b4c12b167fbade4e7537d_1024x1024.jpg';
+                                                                            ? asset($path)
+                                                                            : 'https://product.hstatic.net/1000006063/product/3ce_blush_lighter_atf_-_02_b483e7c8fa3b4c12b167fbade4e7537d_1024x1024.jpg';
                                                                 @endphp
                                                                 @if (!$relVariant)
                                                                     @continue
@@ -329,7 +330,8 @@
                                                                     <a href="{{ route('u.product_detail', $item->id) }}"
                                                                         class="text-decoration-none text-dark">
                                                                         <div class="card h-100 shadow-sm">
-                                                                            <img src="{{ $img }}" class="card-img-top"
+                                                                            <img src="{{ $img }}"
+                                                                                class="card-img-top"
                                                                                 alt="{{ $item->name }}"
                                                                                 style="height:180px; object-fit:cover;">
                                                                             <div class="card-body d-flex flex-column">
@@ -365,94 +367,101 @@
                                         </div>
                                     @endif
                                 </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
 
-                                {{-- Script tăng giảm số lượng --}}
-                                <script>
-                                    document.querySelectorAll('.increment').forEach(btn => {
-                                        btn.addEventListener('click', () => {
-                                            const input = btn.previousElementSibling;
-                                            input.value = parseInt(input.value) + 1;
-                                        });
-                                    });
-                                    document.querySelectorAll('.decrement').forEach(btn => {
-                                        btn.addEventListener('click', () => {
-                                            const input = btn.nextElementSibling;
-                                            if (parseInt(input.value) > 1) {
-                                                input.value = parseInt(input.value) - 1;
-                                            }
-                                        });
-                                    });
-                                </script>
+    {{-- Script tăng giảm số lượng --}}
+    <script>
+        document.querySelectorAll('.increment').forEach(btn => {
+            btn.addEventListener('click', () => {
+                const input = btn.previousElementSibling;
+                input.value = parseInt(input.value) + 1;
+            });
+        });
+        document.querySelectorAll('.decrement').forEach(btn => {
+            btn.addEventListener('click', () => {
+                const input = btn.nextElementSibling;
+                if (parseInt(input.value) > 1) {
+                    input.value = parseInt(input.value) - 1;
+                }
+            });
+        });
+    </script>
 
-                                <script>
-                                    document.addEventListener('DOMContentLoaded', function () {
-                                        const inputs = document.querySelectorAll('.attribute-input');
-                                        const attributeQuantity = @json($attributeQuantity); // { "White-S-": 10, "White-M-": 0, ... }
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            const inputs = document.querySelectorAll('.attribute-input');
+            const attributeQuantity = @json($attributeQuantity); // { "White-S-": 10, "White-M-": 0, ... }
 
-                                        const allAttributes = {}; // { Color: Set(), Size: Set(), ... }
+            const allAttributes = {}; // { Color: Set(), Size: Set(), ... }
 
-                                        // Gom tất cả thuộc tính
-                                        inputs.forEach(input => {
-                                            const attr = input.dataset.attribute;
-                                            const val = input.dataset.value;
+            // Gom tất cả thuộc tính
+            inputs.forEach(input => {
+                const attr = input.dataset.attribute;
+                const val = input.dataset.value;
 
-                                            if (!allAttributes[attr]) allAttributes[attr] = new Set();
-                                            allAttributes[attr].add(val);
+                if (!allAttributes[attr]) allAttributes[attr] = new Set();
+                allAttributes[attr].add(val);
 
-                                            input.addEventListener('change', handleChange);
-                                        });
+                input.addEventListener('change', handleChange);
+            });
 
-                                        function handleChange() {
-                                            const selected = {};
+            function handleChange() {
+                const selected = {};
 
-                                            // Lấy các thuộc tính đang được chọn
-                                            Object.keys(allAttributes).forEach(attr => {
-                                                const checked = document.querySelector(
-                                                    `.attribute-input[data-attribute="${attr}"]:checked`);
-                                                if (checked) selected[attr] = checked.dataset.value;
-                                            });
+                // Lấy các thuộc tính đang được chọn
+                Object.keys(allAttributes).forEach(attr => {
+                    const checked = document.querySelector(
+                        `.attribute-input[data-attribute="${attr}"]:checked`);
+                    if (checked) selected[attr] = checked.dataset.value;
+                });
 
-                                            // Reset tất cả trước
-                                            inputs.forEach(input => {
-                                                input.disabled = false;
-                                                input.classList.remove('text-muted', 'unselectable');
-                                            });
+                // Reset tất cả trước
+                inputs.forEach(input => {
+                    input.disabled = false;
+                    input.classList.remove('text-muted', 'unselectable');
+                });
 
-                                            const selectedAttrKeys = Object.keys(selected);
-                                            if (selectedAttrKeys.length === 0) return;
+                const selectedAttrKeys = Object.keys(selected);
+                if (selectedAttrKeys.length === 0) return;
 
-                                            // Khi chọn 1 thuộc tính, kiểm tra tổ hợp có hợp lệ với các thuộc tính còn lại
-                                            const selectedAttr = selectedAttrKeys[0];
-                                            const selectedValue = selected[selectedAttr];
+                // Khi chọn 1 thuộc tính, kiểm tra tổ hợp có hợp lệ với các thuộc tính còn lại
+                const selectedAttr = selectedAttrKeys[0];
+                const selectedValue = selected[selectedAttr];
 
-                                            const remainingAttrs = Object.keys(allAttributes).filter(attr => attr !== selectedAttr);
+                const remainingAttrs = Object.keys(allAttributes).filter(attr => attr !== selectedAttr);
 
-                                            remainingAttrs.forEach(attr => {
-                                                allAttributes[attr].forEach(option => {
-                                                    const selector =
-                                                        `.attribute-input[data-attribute="${attr}"][data-value="${option}"]`;
-                                                    const input = document.querySelector(selector);
-                                                    if (!input) return;
+                remainingAttrs.forEach(attr => {
+                    allAttributes[attr].forEach(option => {
+                        const selector =
+                            `.attribute-input[data-attribute="${attr}"][data-value="${option}"]`;
+                        const input = document.querySelector(selector);
+                        if (!input) return;
 
-                                                    const comboKeyParts = [selectedValue, option];
-                                                    const comboKey = comboKeyParts.join('-') + '-';
+                        const comboKeyParts = [selectedValue, option];
+                        const comboKey = comboKeyParts.join('-') + '-';
 
-                                                    const quantity = attributeQuantity[comboKey];
+                        const quantity = attributeQuantity[comboKey];
 
-                                                    if (!quantity || quantity <= 0) {
-                                                        input.disabled = true;
-                                                        input.classList.add('text-muted', 'unselectable');
+                        if (!quantity || quantity <= 0) {
+                            input.disabled = true;
+                            input.classList.add('text-muted', 'unselectable');
 
-                                                        // Nếu đang được chọn mà bị loại => bỏ chọn
-                                                        if (input.checked) input.checked = false;
-                                                    }
-                                                });
-                                            });
-                                        }
+                            // Nếu đang được chọn mà bị loại => bỏ chọn
+                            if (input.checked) input.checked = false;
+                        }
+                    });
+                });
+            }
 
-                                        // CSS để làm mờ và không thể click
-                                        const style = document.createElement('style');
-                                        style.textContent = `
+            // CSS để làm mờ và không thể click
+            const style = document.createElement('style');
+            style.textContent = `
 
             .text-muted {
                 opacity: 0.4 !important;
@@ -462,8 +471,187 @@
             }
         `;
 
-                                        document.head.appendChild(style);
-                                    });
-                                </script>
+            document.head.appendChild(style);
+        });
+    </script>
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            const inputs = document.querySelectorAll('.attribute-input');
+            const attributeQuantity = @json($attributeQuantity);
 
+            // Chuẩn bị dữ liệu variants trong PHP trước
+            @php
+                $variantsData = $Product->variants
+                    ->map(function ($v) {
+                        return [
+                            'id' => $v->id,
+                            'price' => $v->price,
+                            'quantity' => $v->quantity,
+                            'attributes' => $v->attributeValues->pluck('value', 'attribute.name')->toArray(),
+                            'images' => $v->images
+                                ->map(function ($img) {
+                                    return ['url' => $img->image_url, 'alt' => $img->alt_text];
+                                })
+                                ->toArray(),
+                        ];
+                    })
+                    ->toArray();
+            @endphp
+
+            const variants = @json($variantsData);
+
+            const allAttributes = {};
+
+            // Gom tất cả thuộc tính
+            inputs.forEach(input => {
+                const attr = input.dataset.attribute;
+                const val = input.dataset.value;
+
+                if (!allAttributes[attr]) allAttributes[attr] = new Set();
+                allAttributes[attr].add(val);
+
+                input.addEventListener('change', handleChange);
+            });
+
+            function handleChange() {
+                const selected = {};
+
+                // Lấy các thuộc tính đang được chọn
+                Object.keys(allAttributes).forEach(attr => {
+                    const checked = document.querySelector(
+                        `.attribute-input[data-attribute="${attr}"]:checked`);
+                    if (checked) selected[attr] = checked.dataset.value;
+                });
+
+                // Reset tất cả trước
+                inputs.forEach(input => {
+                    input.disabled = false;
+                    input.classList.remove('text-muted', 'unselectable');
+                });
+
+                // Chuyển ảnh theo biến thể được chọn
+                changeImageByVariant(selected);
+
+                const selectedAttrKeys = Object.keys(selected);
+                if (selectedAttrKeys.length === 0) return;
+
+                // Logic kiểm tra tổ hợp hợp lệ (giữ nguyên code cũ của bạn)
+                const selectedAttr = selectedAttrKeys[0];
+                const selectedValue = selected[selectedAttr];
+
+                const remainingAttrs = Object.keys(allAttributes).filter(attr => attr !== selectedAttr);
+
+                remainingAttrs.forEach(attr => {
+                    allAttributes[attr].forEach(option => {
+                        const selector =
+                            `.attribute-input[data-attribute="${attr}"][data-value="${option}"]`;
+                        const input = document.querySelector(selector);
+                        if (!input) return;
+
+                        const comboKeyParts = [selectedValue, option];
+                        const comboKey = comboKeyParts.join('-') + '-';
+
+                        const quantity = attributeQuantity[comboKey];
+
+                        if (!quantity || quantity <= 0) {
+                            input.disabled = true;
+                            input.classList.add('text-muted', 'unselectable');
+
+                            if (input.checked) input.checked = false;
+                        }
+                    });
+                });
+            }
+
+            function changeImageByVariant(selectedAttributes) {
+                // Tìm variant phù hợp với các thuộc tính đã chọn
+                const matchedVariant = variants.find(variant => {
+                    const variantAttrs = variant.attributes;
+
+                    // Kiểm tra xem tất cả thuộc tính được chọn có khớp với variant không
+                    for (let [attrName, attrValue] of Object.entries(selectedAttributes)) {
+                        if (!variantAttrs[attrName] || variantAttrs[attrName] !== attrValue) {
+                            return false;
+                        }
+                    }
+                    return true;
+                });
+
+                if (matchedVariant && matchedVariant.images.length > 0) {
+                    // Tìm index của variant trong danh sách
+                    const variantIndex = variants.indexOf(matchedVariant);
+
+                    // Active tab ảnh đầu tiên của variant này
+                    const targetTabId = `view-pills-img${variantIndex}-0`;
+                    const targetTab = document.getElementById(targetTabId);
+                    const targetTabButton = document.getElementById(`${targetTabId}-tab`);
+
+                    if (targetTab && targetTabButton) {
+                        // Ẩn tất cả các tab hiện tại
+                        document.querySelectorAll('.tab-pane').forEach(pane => {
+                            pane.classList.remove('show', 'active');
+                        });
+
+                        // Bỏ active tất cả các nút
+                        document.querySelectorAll('#view-tab .nav-link').forEach(btn => {
+                            btn.classList.remove('active');
+                            btn.setAttribute('aria-selected', 'false');
+                        });
+
+                        // Active tab mới
+                        targetTab.classList.add('show', 'active');
+                        targetTabButton.classList.add('active');
+                        targetTabButton.setAttribute('aria-selected', 'true');
+
+                        // Scroll đến nút được chọn trong danh sách thumbnail
+                        targetTabButton.scrollIntoView({
+                            behavior: 'smooth',
+                            block: 'nearest'
+                        });
+                    }
+
+                    // Cập nhật giá
+                    const priceElement = document.querySelector('.price-area .price');
+                    if (priceElement && matchedVariant.price) {
+                        priceElement.innerHTML = `${new Intl.NumberFormat('vi-VN').format(matchedVariant.price)}Đ`;
+                    }
+
+                    // Cập nhật số lượng tồn kho
+                    const quantityElement = document.querySelector('.product-info p');
+                    if (quantityElement && matchedVariant.quantity !== undefined) {
+                        quantityElement.textContent = `Số lượng sản phẩm : ${matchedVariant.quantity}`;
+                    }
+                }
+            }
+
+            // CSS để làm mờ và không thể click
+            const style = document.createElement('style');
+            style.textContent = `
+        .text-muted {
+            opacity: 0.4 !important;
+        }
+        .unselectable {
+            pointer-events: none !important;
+        }
+        #view-tab {
+            display: flex;
+            gap: 10px;
+            overflow-x: auto;
+            padding: 10px 0;
+        }
+        #view-tab .nav-link {
+            border: 2px solid transparent;
+            padding: 5px;
+            transition: all 0.3s;
+        }
+        #view-tab .nav-link.active {
+            border-color: #000;
+        }
+        #view-tab .nav-link:hover {
+            border-color: #ccc;
+        }
+    `;
+            document.head.appendChild(style);
+        });
+    </script>
 @endsection

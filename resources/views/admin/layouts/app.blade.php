@@ -47,8 +47,5 @@
 @push('scripts')
 
 @include('admin.layouts.footer')
-<<<<<<< HEAD
-=======
 @stack('page-js')
 @stack('scripts')
->>>>>>> origin/main

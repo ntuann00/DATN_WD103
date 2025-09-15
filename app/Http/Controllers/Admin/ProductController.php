@@ -343,10 +343,21 @@ class ProductController extends Controller
      */
 
     public function destroy(string $id)
-    {
-        $product = Product::findOrFail($id);
-        $product->delete();
+    {$product = Product::findOrFail($id);
 
-        return redirect()->route('products.index')->with('success', 'Xoá sản phẩm thành công!');
+    // Xóa images trước (qua variants)
+    foreach ($product->variants as $variant) {
+        $variant->images()->delete();
+    }
+
+    // Xóa variants
+    $product->variants()->delete();
+
+    // Cuối cùng xóa product
+    $product->delete();
+
+    return redirect()
+        ->route('products.index')
+        ->with('success', 'Xóa sản phẩm thành công!');
     }
 }

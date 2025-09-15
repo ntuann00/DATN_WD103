@@ -8,13 +8,11 @@ use App\Models\Product;
 use App\Models\Product_variant_value;
 use App\Models\User;
 use App\Models\Category;
-<<<<<<< HEAD
-=======
 use App\Models\Refund;
 use App\Models\Refund_info;
 use App\Models\Order;
 use App\Models\OrderDetail;
->>>>>>> origin/main
+use App\Models\ProductVariant;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Hash;
@@ -137,8 +135,6 @@ class HomeController extends BaseController
         return view('user.products.list-product', compact('Products'));
     }
 
-<<<<<<< HEAD
-=======
 
     public function purchasehistory(){
         $userId = auth()->id(); // user id
@@ -154,7 +150,7 @@ class HomeController extends BaseController
 
         // Lấy thông tin sản phẩm và biến thể
         $products = Product::whereIn('id', $productIds)->get();
-        $variants = Product_variant::whereIn('id', $variantIds)->get();
+        $variants = ProductVariant::whereIn('id', $variantIds)->get();
 
         return view('user.users.purchasehistory', compact('orders', 'orderDetails', 'products','variants'));
     }
@@ -213,7 +209,6 @@ class HomeController extends BaseController
         return redirect()->route('admin.categories.index')->with('success', 'Thêm mới thành công!');
     }
 
->>>>>>> origin/main
     public function account()
     {
         return view('user.pages.my_account');
