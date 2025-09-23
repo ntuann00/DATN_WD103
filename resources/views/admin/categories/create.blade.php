@@ -32,8 +32,8 @@
         <div class="mb-3">
             <label for="status" class="form-label">Trạng thái</label>
             <select class="form-control" id="status" name="status" required>
-                <option value="active" {{ old('status') == 'active' ? 'selected' : '' }}>Kích hoạt</option>
-                <option value="inactive" {{ old('status') == 'inactive' ? 'selected' : '' }}>Không kích hoạt</option>
+                <option value="1" {{ old('status') == '1' ? 'selected' : '' }}>Kích hoạt</option>
+                <option value="0" {{ old('status') == '0' ? 'selected' : '' }}>Không kích hoạt</option>
             </select>
         </div>
 

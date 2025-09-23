@@ -41,7 +41,7 @@ class HomeController extends BaseController
     // }
     public function index()
     {
-        $FProducts = Product::with(['category', 'variants.values'])->orderBy('created_at', 'desc')->limit(8)->get();
+        $FProducts = Product::with(['category', 'variants.values','images'])->orderBy('created_at', 'desc')->limit(8)->get();
         return view('user.index', compact('FProducts'));
 
         // $Products = Product::has('variants')
@@ -67,14 +67,14 @@ class HomeController extends BaseController
         // Eager‐load relation 'variants' để có thể dùng $product->variants->first() trong view
         $Products = Product::has('variants')
             ->with('variants')
-            ->paginate(10);  
+            ->paginate(12);  
         return view('user.products.list-product', compact('Products'));
     }
 
 
     public function new_product()
     {
-        $Products = Product::orderBy('created_at', 'desc')->paginate(10);
+        $Products = Product::orderBy('created_at', 'desc')->paginate(12);
         return view('user.products.list-product', compact('Products'));
     }
 

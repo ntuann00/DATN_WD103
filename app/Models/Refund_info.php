@@ -8,7 +8,7 @@ use Illuminate\Database\Eloquent\Model;
 class Refund_info extends Model
 {
     use HasFactory;
-    protected $fillable = ['refund_id', 'bank', 'bank_number', 'bankholder'];
+    protected $fillable = ['refund_id', 'bank_name', 'bank_number', 'bank_holder'];
 }
 
 

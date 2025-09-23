@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
 use App\Models\Order;
+use App\Models\OrderDetail;
 use App\Models\Status;
 use Illuminate\Http\Request;
 
@@ -13,8 +14,8 @@ class AdminOrderController extends Controller
     public function index()
     {
         $orders = Order::with(['user', 'status', 'payment'])
-                       ->orderByDesc('created_at')
-                       ->get();
+            ->orderByDesc('created_at')
+            ->paginate(10);
 
         return view('admin.orders.index', compact('orders'));
     }
@@ -77,6 +78,124 @@ class AdminOrderController extends Controller
         $order->save();
 
         return redirect()->route('orders.show', $order->id)
-                         ->with('success', '✅ Cập nhật trạng thái thành công!');
+            ->with('success', '✅ Cập nhật trạng thái thành công!');
+    }
+    public function updateProductStatus(Request $request, $orderId, $detailId)
+    {
+        try {
+            $detail = OrderDetail::where('order_id', $orderId)
+                ->where('id', $detailId)
+                ->firstOrFail();
+
+            $currentStatus = $detail->status_id ?? 1;
+            $newStatus = $request->status_id;
+
+            if($currentStatus == 8 || $currentStatus == 9){
+                return response()->json([
+                    'success' => false,
+                    'message' => 'Không thể thay đổi trạng thái khi đang hủy hoặc hoàn!'
+                ], 422);
+            }
+
+            // Admin không thể hủy đơn hoặc hoàn hàng khi đã xác nhận
+            if (($newStatus == 8 || $newStatus == 9) && $currentStatus >= 2) {
+                return response()->json([
+                    'success' => false,
+                    'message' => 'Không thể hủy đơn hoặc hoàn hàng khi đã xác nhận!'
+                ], 422);
+            }
+
+            // Chỉ cho phép chuyển sang trạng thái kế tiếp
+            if ($newStatus != $currentStatus + 1 && $newStatus != $currentStatus) {
+                // Ngoại lệ: có thể hủy khi chưa xác nhận
+                if (!($newStatus == 8 && $currentStatus == 1)) {
+                    return response()->json([
+                        'success' => false,
+                        'message' => 'Chỉ được chuyển sang trạng thái kế tiếp!'
+                    ], 422);
+                }
+            }
+
+            // Cập nhật trạng thái
+            $detail->status_id = $newStatus;
+            $detail->save();
+
+            // Cập nhật trạng thái tổng của đơn hàng
+            $this->updateOrderStatus($orderId);
+
+            // Lấy thông tin trạng thái mới
+            $status = Status::find($newStatus);
+
+            // Lấy danh sách trạng thái có thể chuyển tiếp
+            $nextStatuses = $this->getAvailableStatuses($newStatus);
+
+            return response()->json([
+                'success' => true,
+                'message' => 'Cập nhật trạng thái sản phẩm thành công!',
+                'status_name' => $status->name ?? 'N/A',
+                'status_id' => $newStatus,
+                'next_statuses' => $nextStatuses
+            ]);
+        } catch (\Exception $e) {
+            return response()->json([
+                'success' => false,
+                'message' => 'Có lỗi xảy ra: ' . $e->getMessage()
+            ], 500);
+        }
+    }
+
+    private function updateOrderStatus($orderId)
+    {
+        $order = Order::find($orderId);
+        if (!$order) {
+            return;
+        }
+
+        // Kiểm tra xem có sản phẩm nào đang ở trạng thái 1-6 không
+        $hasProcessingItems = OrderDetail::where('order_id', $orderId)
+            ->whereIn('status_id', [1, 2, 3, 4, 5, 6])
+            ->exists();
+
+        // Cập nhật status: 0 = chưa hoàn thành, 1 = hoàn thành
+        $order->status = $hasProcessingItems ? 0 : 1;
+
+        if ($hasProcessingItems) {
+            $order->status_payment = '1';
+        }
+
+        $order->save();
+    }
+
+    private function getAvailableStatuses($currentStatusId)
+    {
+        $statuses = Status::all();
+        $availableStatuses = [];
+
+        foreach ($statuses as $status) {
+            $canSelect = false;
+
+            // Trạng thái hiện tại
+            if ($currentStatusId == $status->id) {
+                $canSelect = true;
+            }
+            // Trạng thái kế tiếp (không cho phép chuyển sang hoàn hàng)
+            elseif ($currentStatusId + 1 == $status->id && $status->id != 9) {
+                $canSelect = true;
+            }
+            // Chỉ có thể hủy khi ở trạng thái chờ xác nhận
+            elseif ($status->id == 8 && $currentStatusId == 1) {
+                $canSelect = true;
+            }
+
+            if ($canSelect) {
+                $availableStatuses[] = [
+                    'id' => $status->id,
+                    'name' => $status->name,
+                    'is_cancel' => $status->id == 8
+                ];
+            }
+        }
+
+        return $availableStatuses;
     }
 }

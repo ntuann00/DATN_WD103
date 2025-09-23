@@ -25,7 +25,7 @@ class CategoryController extends BaseController
             $validated = $request->validate([
                 'name' => 'required|string|max:255',
                 'description' => 'nullable|string',
-                'status' => 'required|in:active,inactive',
+                'status' => 'required|in:0,1',
             ]);
 
             Category::create($validated);

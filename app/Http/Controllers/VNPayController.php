@@ -179,8 +179,7 @@ class VNPayController extends Controller
                 }
             }
 
-            $order->status_id = 1;
-            $order->status_payment = 1;
+            $order->status_payment = '1';
             $order->save();
 
             $selectedIds = session('selected_items', []);

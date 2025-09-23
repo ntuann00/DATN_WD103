@@ -73,6 +73,8 @@ Route::middleware('auth')->group(function () {
     // Orders
     Route::get('/order', [OrderController::class, 'index'])->name('order.index');
     Route::post('/order', [OrderController::class, 'store'])->name('order.store');
+    Route::get('/orders/detail/{id}', [OrderController::class, 'showOrderDetail'])->name('ordersDetail.show');
+    Route::post('/order/action', [OrderController::class, 'handleOrderAction'])->name('order.action')->middleware('auth');
 
     Route::get('/order/success', function () {
         return view('user.orders.order_success');
@@ -84,7 +86,6 @@ Route::middleware('auth')->group(function () {
     })->name('order.fail');
     Route::post('/checkout-selected', [OrderController::class, 'checkoutSelected'])->name('checkout.selected');
     Route::post('/orders/{id}/cancel', [OrderController::class, 'cancel'])->name('orders.cancel');
-    Route::post('/orders/{id}/return', [OrderController::class, 'return'])->name('orders.return');
     Route::get('/orders/{id}/return', [OrderController::class, 'return'])->name('orders.return');
 
 
@@ -93,7 +94,7 @@ Route::middleware('auth')->group(function () {
 
     // Các thao tác với đơn hàng
     Route::post('/orders/{id}/cancel', [OrderController::class, 'cancel'])->name('orders.cancel');
-    Route::match(['get','post'],'/orders/{id}/return', [OrderController::class, 'return'])->name('orders.return');
+    Route::match(['get', 'post'], '/orders/{id}/return', [OrderController::class, 'return'])->name('orders.return');
 
     // ✅ Thêm route xác nhận đã nhận hàng
     Route::post('/orders/{id}/confirm', [OrderController::class, 'confirmReceived'])->name('orders.confirm');
@@ -103,59 +104,62 @@ Route::middleware('auth')->group(function () {
     Route::post('/orders/{id}/review', [OrderController::class, 'submitReview'])->name('orders.review.submit');
 
 
-// ================== Admin Routes ===================
-Route::middleware(['auth', 'check.role'])->group(function () {
-    Route::get('/admin', [AdminController::class, 'index'])->name('admin');
+    // ================== Admin Routes ===================
+    Route::middleware(['auth', 'check.role'])->group(function () {
+        Route::get('/admin', [AdminController::class, 'index'])->name('admin');
 
-    // Categories
-    Route::resource('categories', CategoryController::class);
+        // Categories
+        Route::resource('categories', CategoryController::class);
 
-    // Attributes + Values
-    Route::resource('attributes', AttributeController::class)->except(['show']);
-    Route::get('/attributes/{id}/show', [AttributeController::class, 'show'])->name('attributes.show');
-    Route::resource('attributeValues', AttributeValueController::class);
-    Route::put('/attributeValues/{attributeValue}', [AttributeValueController::class, 'update'])->name('attributeValues.update');
+        // Attributes + Values
+        Route::resource('attributes', AttributeController::class)->except(['show']);
+        Route::get('/attributes/{id}/show', [AttributeController::class, 'show'])->name('attributes.show');
+        Route::resource('attributeValues', AttributeValueController::class);
+        Route::put('/attributeValues/{attributeValue}', [AttributeValueController::class, 'update'])->name('attributeValues.update');
 
-    // Users
-    Route::resource('users', UserController::class);
-    Route::patch('/users/{id}/toggle-status', [UserController::class, 'toggleStatus'])->name('users.toggleStatus');
+        // Users
+        Route::resource('users', UserController::class);
+        Route::patch('/users/{id}/toggle-status', [UserController::class, 'toggleStatus'])->name('users.toggleStatus');
 
-    // Products
-    Route::resource('products', ProductController::class);
-    Route::delete('product-images/{id}', [ProductImageController::class, 'destroy'])->name('product-images.destroy');
+        // Products
+        Route::resource('products', ProductController::class);
+        Route::delete('product-images/{id}', [ProductImageController::class, 'destroy'])->name('product-images.destroy');
 
-    // Orders
-    Route::get('/orders', [AdminOrderController::class, 'index'])->name('orders.index');
-    Route::get('/orders/{id}', [AdminOrderController::class, 'show'])->name('orders.show');
-    Route::put('/orders/{id}/status', [AdminOrderController::class, 'updateStatus'])->name('orders.updateStatus');
+        // Orders
+        Route::get('/orders', [AdminOrderController::class, 'index'])->name('orders.index');
+        Route::get('/orders/{id}', [AdminOrderController::class, 'show'])->name('orders.show');
+        Route::put('/orders/{id}/status', [AdminOrderController::class, 'updateStatus'])->name('orders.updateStatus');
+        Route::post(
+            '/admin/orders/{orderId}/details/{detailId}/status',
+            [AdminOrderController::class, 'updateProductStatus']
+        )
+            ->name('admin.orders.updateProductStatus');
 
-
-    // Promotions
-    Route::resource('promotions', PromotionController::class);
-
-
-
-    Route::get('/admin/reviews', [ReviewController::class, 'index'])->name('admin.reviews.index');
-
-    // Statistics
-    Route::get('/admin/statistics', [App\Http\Controllers\Admin\StatisticsController::class, 'index'])
-    ->name('admin.statistics');
-
-    // Reviews
-    Route::get('reviews', [ReviewController::class, 'index'])->name('reviews.index');
-    Route::patch('reviews/{review}/hide', [ReviewController::class, 'hide'])->name('reviews.hide');
-
-    // Refund
-    Route::get('refund', [RefundController::class, 'index'])->name('refund.index');
-    Route::get('refund/{id}', [RefundController::class, 'detail'])->name('refund.detail');
-    Route::post('refund/{id}', [RefundController::class, 'update'])->name('refund.update');
-
-});
+        // Promotions
+        Route::resource('promotions', PromotionController::class);
 
 
 
-//vn-pay
+        Route::get('/admin/reviews', [ReviewController::class, 'index'])->name('admin.reviews.index');
 
-Route::post('/vnpay/payment', [VNPayController::class, 'create'])->name('vnpay.payment');
-Route::get('/vnpay-return', [VNPayController::class, 'vnpayReturn'])->name('vnpay.return');
+        // Statistics
+        Route::get('/admin/statistics', [App\Http\Controllers\Admin\StatisticsController::class, 'index'])
+            ->name('admin.statistics');
+
+        // Reviews
+        Route::get('reviews', [ReviewController::class, 'index'])->name('reviews.index');
+        Route::patch('reviews/{review}/hide', [ReviewController::class, 'hide'])->name('reviews.hide');
+
+        // Refund
+        Route::get('refund', [RefundController::class, 'index'])->name('refund.index');
+        Route::get('refund/{id}', [RefundController::class, 'detail'])->name('refund.detail');
+        Route::post('refund', [RefundController::class, 'updateStatus'])->name('refund.update');
+    });
+
+
+
+    //vn-pay
+
+    Route::post('/vnpay/payment', [VNPayController::class, 'create'])->name('vnpay.payment');
+    Route::get('/vnpay-return', [VNPayController::class, 'vnpayReturn'])->name('vnpay.return');
 });

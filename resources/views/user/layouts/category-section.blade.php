@@ -17,7 +17,7 @@
             </div>
 
             <!-- start category list  -->
-            <div class="row g-4">
+            <div class="row g-4 justify-content-center">
                 <!-- single category -->
                 <div class="col-lg-2 col-md-3 col-sm-4">
                     <div class="category-card style-2">
@@ -57,18 +57,7 @@
                         </div>
                    </div>
                 </div>
-                <div class="col-lg-2 col-md-3 col-sm-4">
-                    <div class="category-card style-2">
-                        <div class="category-card-img">
-                            <a href="shop-list.html">
-                                <img src="{{ asset('user/assets/img/home2/home2-category-img4.png')}}" alt="">
-                            </a>
-                        </div>
-                        <div class="category-card-content">
-                           <a href="shop-list.html">Kids & Baby</a>
-                        </div>
-                   </div>
-                </div>
+
                 <div class="col-lg-2 col-md-3 col-sm-4">
                     <div class="category-card style-2">
                         <div class="category-card-img">

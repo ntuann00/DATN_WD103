@@ -16,9 +16,9 @@ class Order extends Model
         'user_id',
         'name',
         'payment_id',
-        'status_id',
         'description',
         'cancel_reason',
+        'status_payment',
         'address_id',
         'phone',
         'total',
@@ -27,7 +27,7 @@ class Order extends Model
 
     public function orderDetails()
     {
-        return $this->hasMany(Order_detail::class);
+        return $this->hasMany(OrderDetail::class);
     }
 
     public function user()

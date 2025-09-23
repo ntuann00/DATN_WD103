@@ -14,10 +14,13 @@ use App\Models\Promotion;
 use App\Models\Order_detail;
 use App\Models\OrderDetail;
 use App\Models\Payment;
+use App\Models\Refund;
+use App\Models\Refund_info;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use App\Models\Review;
-
+use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Log;
 
 class OrderController extends Controller
 {
@@ -43,7 +46,8 @@ class OrderController extends Controller
         $cart = Cart::with([
 
             'cartDetails.variant.attributeValues.attribute',
-            'cartDetails.product'
+            'cartDetails.product',
+            'cartDetails.variant.images'
         ])
             ->where('user_id', Auth::id())
             ->latest('id')
@@ -100,6 +104,7 @@ class OrderController extends Controller
                 }
             }
         }
+        session()->forget('selected_items');
         // 1. Validate input
         $request->validate([
             'name' => 'required|string',
@@ -170,7 +175,6 @@ class OrderController extends Controller
             'user_id'    => Auth::id(),
             'name'       => $request->name,
             'payment_id' => $request->payment_id,
-            'status_id' => 1,
             'description' => $request->description,
             'address_id' => $address->id,
             'phone'      => $request->phone,
@@ -188,6 +192,17 @@ class OrderController extends Controller
             $unitPrice = $variant ? $variant->price : 0;
             $quantity  = $row->quantity;
             $itemTotal = $unitPrice * $quantity;
+            $name_product = $row->product->name;
+            $variant_product = [];
+            if ($variant && $variant->attributeValues) {
+                foreach ($variant->attributeValues as $attrValue) {
+                    $attributeName = $attrValue->attribute->name ?? 'Thuộc tính';
+                    $value = $attrValue->value;
+
+                    $variant_product[$attributeName] = $value;
+                }
+            }
+            $variant_product_json = json_encode($variant_product, JSON_UNESCAPED_UNICODE);
             //    dd($variant?->id);
 
             //         dd([
@@ -203,66 +218,248 @@ class OrderController extends Controller
                 'order_id'   => $order->id,
                 'product_id' => $row->product->id,
                 'product_variant_id' => $row->product_variant_id,
+                'name_product' => $name_product,
+                'variant_product' => $variant_product_json,
                 'quantity'   => $quantity,
                 'price'      => $unitPrice,
                 'total'      => $itemTotal,
+                'status_id' => 1,
                 'created_at' => now(),
                 'updated_at' => now(),
             ];
 
+            $row->variant->decrement('quantity', $quantity);
+            $row->variant->save();
+        }
 
-            if (empty($data)) {
-                return redirect()->route('order.index')->with('error', 'Chưa có sản phẩm nào trong giỏ hàng!');
+        if (empty($data)) {
+            return redirect()->route('order.index')->with('error', 'Chưa có sản phẩm nào trong giỏ hàng!');
+        }
+
+        // 8. Tạo order_details
+        OrderDetail::insert($data);
+
+        // 9. Xử lý theo payment_id
+        if ($request->payment_id == 4) {
+            // Thanh toán COD: xoá sản phẩm đã mua trong giỏ
+            if ($cart) {
+                $cart->cartDetails()->whereIn('id', $selectedIds)->delete();
             }
+            session()->forget('selected_items');
 
+            return redirect()
+                ->route('order.success')
+                ->with('success', 'Đặt hàng thành công!');
+        }
 
-            // 8. Tạo order_details
-            OrderDetail::insert($data);
+        if ($request->payment_id == 5) {
+            $request->merge([
+                'total' => $total,
+                'order_id' => $order->id
+                // KHÔNG tạo order ở đây
+            ]);
 
-            // 9. Xử lý theo payment_id
-            if ($request->payment_id == 4) {
-                // Thanh toán COD: xoá sản phẩm đã mua trong giỏ
-                if ($cart) {
-                    $cart->cartDetails()->whereIn('id', $selectedIds)->delete();
+            $vnpay = new VNPayController();
+            return $vnpay->create($request); // chỉ truyền dữ liệu
+        }
+
+        return back()->with('error', 'Phương thức thanh toán không hợp lệ.');
+    }
+
+    public function   showOrderDetail($id)
+    {
+        $order = Order::with([
+            'orderDetails.productVariant.images',
+            'orderDetails.status',
+        ])->where('user_id', auth()->id())
+            ->findOrFail($id);
+
+        return view('user.auth.order-detail', compact('order'));
+    }
+
+    public function handleOrderAction(Request $request)
+    {
+        try {
+            $validated = $request->validate([
+                'action' => 'required|in:return,cancel',
+                'order_id' => 'required|exists:orders,id',
+                'products' => 'required|array',
+                'products.*.id' => 'required|exists:order_details,id',
+                'products.*.reason' => 'required|string|max:500',
+                'bank_name' => 'required_if:action,return|string|max:255',
+                'account_number' => 'required_if:action,return|string|max:50',
+                'account_holder' => 'required_if:action,return|string|max:255',
+            ]);
+
+            // Kiểm tra quyền sở hữu đơn hàng
+            $order = Order::where('id', $validated['order_id'])
+                ->where('user_id', auth()->id())
+                ->firstOrFail();
+
+            DB::beginTransaction();
+
+            $totalRefundAmount = 0;
+            $reasons = [];
+            $shippingFee = 30000; // Phí ship cố định
+
+            foreach ($validated['products'] as $product) {
+                $orderDetail = OrderDetail::findOrFail($product['id']);
+
+                // Kiểm tra orderDetail thuộc order này
+                if ($orderDetail->order_id !== $order->id) {
+                    throw new \Exception('Sản phẩm không thuộc đơn hàng này');
                 }
-                session()->forget('selected_items');
 
-                return redirect()
-                    ->route('order.success')
-                    ->with('success', 'Đặt hàng thành công!');
-            }
+                // Kiểm tra status hợp lệ
+                if ($validated['action'] === 'cancel' && $orderDetail->status_id !== 1) {
+                    throw new \Exception('Sản phẩm không thể hủy');
+                }
 
-            if ($request->payment_id == 5) {
-                $request->merge([
-                    'total' => $total,
-                    'order_id' => $order->id
-                    // KHÔNG tạo order ở đây
+                if ($validated['action'] === 'return' && $orderDetail->status_id !== 7) {
+                    throw new \Exception('Sản phẩm không thể hoàn');
+                }
+
+                // Cập nhật status
+                $newStatus = $validated['action'] == 'cancel' ? 8 : 9;
+
+                if ($newStatus == 8) {
+                    $orderDetail->productVariant->increment('quantity', $orderDetail->quantity);
+                    $orderDetail->productVariant->save();
+                }
+
+                $orderDetail->update([
+                    'status_id' => $newStatus,
+                    'reason' => $product['reason'],
+                    'updated_at' => now()
                 ]);
 
-                $vnpay = new VNPayController();
-                return $vnpay->create($request); // chỉ truyền dữ liệu
+                // Tính toán số tiền hoàn trả cho sản phẩm này
+                $totalRefundAmount += $orderDetail->total;
+                $reasons[] = $product['reason'];
             }
 
-            return back()->with('error', 'Phương thức thanh toán không hợp lệ.');
+            // Đếm số lượng sản phẩm theo status
+            $orderDetails = $order->orderDetails;
+            $totalProducts = $orderDetails->count();
+            $cancelledCount = $orderDetails->where('status_id', 8)->count();
+            $returnedCount = $orderDetails->where('status_id', 9)->count();
+
+            if ($returnedCount == $totalProducts) {
+                $order->update([
+                    'status_id' => 9
+                ]);
+            } else if ($cancelledCount == $totalProducts) {
+                $order->update([
+                    'status_id' => 8
+                ]);
+            }
+
+            // Xử lý logic trừ tiền
+            if ($validated['action'] == 'return') {
+                // Hoàn hàng: LUÔN giữ lại 30,000 tiền ship
+                $remainingOrderTotal = $order->total - $totalRefundAmount;
+
+                // Đảm bảo luôn giữ lại ít nhất 30,000 tiền ship
+                if ($remainingOrderTotal < $shippingFee) {
+                    $remainingOrderTotal = $shippingFee;
+                }
+            } else if ($validated['action'] == 'cancel') {
+                // Hủy đơn
+                if ($cancelledCount == $totalProducts) {
+                    // Nếu hủy TẤT CẢ sản phẩm: hoàn cả tiền ship
+                    $remainingOrderTotal = 0;
+                } else {
+                    // Nếu hủy một phần: giữ lại tiền ship
+                    $remainingOrderTotal = $order->total - $totalRefundAmount;
+
+                    // Đảm bảo giữ lại ít nhất tiền ship nếu còn sản phẩm
+                    if ($remainingOrderTotal < $shippingFee) {
+                        $remainingOrderTotal = $shippingFee;
+                    }
+                }
+            }
+
+            // Cập nhật tổng tiền đơn hàng
+            $order->update([
+                'total' => max(0, $remainingOrderTotal)
+            ]);
+
+            // Xử lý hoàn tiền nếu đã thanh toán
+            if ($order->status_payment == 1 && $totalRefundAmount > 0) {
+                $description = 'Yêu cầu hoàn tiền';
+
+                // Thêm lý do vào mô tả
+                if (!empty($reasons)) {
+                    $description .= '. Lý do: ' . implode('; ', array_unique($reasons));
+                }
+
+                $status_description = 0;
+
+                // Thêm thông tin về phí ship
+                if ($validated['action'] === 'return') {
+                    $description .= ' (Đã giữ lại phí vận chuyển 30,000đ)';
+                    $status_description = 1;
+                } else if ($validated['action'] == 'cancel' && $cancelledCount == $totalProducts) {
+                    $description .= ' (Hoàn tiền)';
+                }
+
+                // Tạo 1 bản ghi hoàn tiền duy nhất
+                $refund = Refund::create([
+                    'order_id' => $order->id,
+                    'user_id' => auth()->id(),
+                    'reason' => 'Hoàn tiền',
+                    'total' => $totalRefundAmount ?? 0,
+                    'description' => $description,
+                    'status_description' => $status_description
+                ]);
+
+                Refund_info::create([
+                    'refund_id' => $refund->id,
+                    'bank_name' => $validated['bank_name'],
+                    'bank_number' => $validated['account_number'],
+                    'bank_holder' => $validated['account_holder'],
+                ]);
+            }
+
+            DB::commit();
+
+            return response()->json([
+                'success' => true,
+                'message' => $validated['action'] === 'cancel'
+                    ? 'Hủy sản phẩm thành công'
+                    : 'Yêu cầu hoàn hàng đã được gửi',
+                'refund_amount' => $actualRefundAmount ?? 0,
+                'remaining_total' => $remainingOrderTotal,
+                'shipping_fee_kept' => $remainingOrderTotal >= $shippingFee
+            ]);
+        } catch (\Exception $e) {
+            DB::rollBack();
+            Log::error('Order action error: ' . $e->getMessage());
+
+            return response()->json([
+                'success' => false,
+                'message' => $e->getMessage()
+            ], 422);
         }
-        // public function checkoutSelected(Request $request)
-        // {
-        //     $selectedIds = $request->input('selected_items', []);
-
-        //     if (empty($selectedIds)) {
-        //         return redirect()->route('cart.view')->with('error', 'Vui lòng chọn ít nhất một sản phẩm để mua.');
-        //     }
-
-        //     $cartDetails = Cart_detail::whereIn('id', $selectedIds)
-        //         ->whereHas('cart', function ($query) {
-        //             $query->where('user_id', Auth::id());
-        //         })
-        //         ->with(['product', 'variant'])
-        //         ->get();
-
-        //     return view('user.orders.checkout', compact('cartDetails'));
-        // }
     }
+    // public function checkoutSelected(Request $request)
+    // {
+    //     $selectedIds = $request->input('selected_items', []);
+
+    //     if (empty($selectedIds)) {
+    //         return redirect()->route('cart.view')->with('error', 'Vui lòng chọn ít nhất một sản phẩm để mua.');
+    //     }
+
+    //     $cartDetails = Cart_detail::whereIn('id', $selectedIds)
+    //         ->whereHas('cart', function ($query) {
+    //             $query->where('user_id', Auth::id());
+    //         })
+    //         ->with(['product', 'variant'])
+    //         ->get();
+
+    //     return view('user.orders.checkout', compact('cartDetails'));
+    // }
+
 
     public function cancel(Request $request, $id)
     {
@@ -270,7 +467,7 @@ class OrderController extends Controller
             'cancel_reason' => 'required|string|max:255',
         ]);
 
-        $order = Order::where('user_id', auth()->id())->findOrFail($id);
+        $order = Order::with('orderDetails.productVariant')->where('user_id', auth()->id())->findOrFail($id);
 
         if ($order->status_id >= 6) {
             return back()->with('error', 'Không thể hủy đơn hàng đang giao hoặc đã giao.');
@@ -375,10 +572,7 @@ class OrderController extends Controller
             ]);
         }
 
-
-
-
-        return redirect()->route('order.index')
+        return redirect()->route('profile')
             ->with('success', 'Cảm ơn bạn đã đánh giá sản phẩm!');
     }
 }

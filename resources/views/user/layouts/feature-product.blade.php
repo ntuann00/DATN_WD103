@@ -26,9 +26,16 @@
                             <span>NEW</span>
                             <!-- <span>-15%</span> -->
                         </div>
-                        <div class="product-card-img">
+
+                        <div class="product-card-img" style="height: 250px">
+                              @php
+                                                    $firstVariant = $product->variants->first();
+                                                    $firstImage =
+                                                        $firstVariant?->images->first() ?? $product->images->first();
+                                                     
+                                                @endphp
                            <a href="{{ route('u.product_detail',$product->id) }}">
-                            <img src="{{ asset('user/assets/img/home2/product-img-1.png')}}" alt="">
+                            <img src="{{ asset($firstImage->image_url)}}" alt="" style="height: 250px">
                            </a>
                            <div class="cart-btn-area">
                                <div class="cart-btn">

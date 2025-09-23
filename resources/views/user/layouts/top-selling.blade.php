@@ -1,4 +1,4 @@
-<!-- Start Top-selling section -->
+{{-- <!-- Start Top-selling section -->
     <div class="top-selling-section mb-110">
         <div class="container">
             <div class="section-title3">
@@ -376,4 +376,4 @@
             </div>
         </div>
     </div>
-    <!-- End Top-selling section -->
+    <!-- End Top-selling section --> --}}

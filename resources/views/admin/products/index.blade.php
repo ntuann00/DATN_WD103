@@ -62,15 +62,7 @@
                 </td>
                 <td>
                     <a href="{{ route('products.edit', $product->id) }}" class="btn btn-sm btn-warning">Sửa</a>
-                    {{-- <a href="{{ route('products.show', $product->id) }}" class="btn btn-sm btn-info">Chi tiết</a> --}}
-                    <form action="{{ route('products.destroy', $product->id) }}" method="POST" class="d-inline">
-                        @csrf @method('DELETE')
-                        <button type="submit"
-                                class="btn btn-sm btn-danger"
-                                onclick="return confirm('Bạn chắc chắn muốn xóa?')">
-                          Xóa
-                        </button>
-                    </form>
+                    <a href="{{ route('products.show', $product->id) }}" class="btn btn-sm btn-info">Chi tiết</a>
                 </td>
             </tr>
         @endforeach

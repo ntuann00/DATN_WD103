@@ -8,8 +8,14 @@ use Illuminate\Database\Eloquent\Model;
 class Refund extends Model
 {
     use HasFactory;
-    protected $fillable = ['user_id', 'order_id', 'reason', 'description'];
+    protected $fillable = ['user_id', 'order_id', 'reason', 'description','total','status_description'];
 
+    public function refundInfo()
+    {
+        return $this->hasOne(Refund_info::class);
+    }
+
+    public function order(){
+        return $this->belongsTo(Order::class);
+    }
 }
-
-
