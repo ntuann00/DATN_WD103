@@ -24,7 +24,7 @@
                         <label class="form-label">Thương hiệu</label>
                         <input type="text" name="brand" value="{{ old('brand', $product->brand) }}" class="form-control">
                     </div>
-                    <div class="col-md-6">
+                    <div class="col-md-12">
                         <label class="form-label">Danh mục</label>
                         <select name="category_id" class="form-select" required>
                             <option value="">-- Chọn danh mục --</option>
@@ -33,40 +33,9 @@
                             @endforeach
                         </select>
                     </div>
-                    <div class="col-md-6">
-    <label class="form-label">SKU</label>
-    {{-- Sync to first variant --}}
-    <input type="hidden" name="variants[0][id]" value="{{ optional($product->variants->first())->id }}">
-    <input type="text" name="variants[0][sku]" value="{{ old('variants.0.sku', optional($product->variants->first())->sku) }}" class="form-control">
-</div>
-                    <div class="col-md-4">
-    <label class="form-label">Giá</label>
-    <input type="number" name="variants[0][price]" value="{{ old('variants.0.price', optional($product->variants->first())->price) }}" class="form-control">
-</div>
-                    <div class="col-md-4">
-    <label class="form-label">Số lượng</label>
-    <input type="number" name="variants[0][quantity]" value="{{ old('variants.0.quantity', optional($product->variants->first())->quantity) }}" class="form-control">
-</div>
-                    <div class="col-md-4">
-                        <label class="form-label">Trạng thái</label>
-                        <select name="status" class="form-select">
-                            <option value="1" {{ old('status', $product->status) == 1 ? 'selected' : '' }}>Còn hàng</option>
-                            <option value="0" {{ old('status', $product->status) == 0 ? 'selected' : '' }}>Hết hàng</option>
-                        </select>
-                    </div>
                     <div class="col-12">
                         <label class="form-label">Mô tả sản phẩm</label>
                         <textarea name="description" class="form-control" rows="4">{{ old('description', $product->description) }}</textarea>
-                    </div>
-                    <div class="col-12">
-                        <label class="form-label">Ảnh sản phẩm</label>
-                        <input type="file" name="images[]" multiple class="form-control">
-                        <div class="form-text">Chọn để thay thế hoặc thêm mới ảnh sản phẩm.</div>
-                        <div class="mt-2 d-flex flex-wrap gap-2">
-                            @foreach($product->images as $img)
-                                <img src="{{ asset($img->image_url) }}" class="img-thumbnail" style="max-width:100px;">
-                            @endforeach
-                        </div>
                     </div>
                 </div>
 

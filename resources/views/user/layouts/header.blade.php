@@ -2,16 +2,16 @@
 <header class="header-area style-2">
     <div class="container-md position-relative  d-flex flex-nowrap align-items-center justify-content-between">
         <!-- <div class="header-logo d-lg-none d-flex">
-                <a href="#1"><img alt="image" class="img-fluid" src="{{ asset('user/assets/img/logo.svg') }}"></a>
+                <a href="#1"><img alt="image" class="img-fluid" src="{{ asset('user/assets/img/logouser.png') }}"></a>
             </div> -->
         <div class="company-logo d-lg-flex d-none">
             <!-- logo  -->
-            <a href="{{ route('home') }}"><img src="{{ asset('user/assets/img/logo.svg') }}" alt=""></a>
+            <a href="{{ route('home') }}"><img src="{{ asset('user/assets/img/logouser.png') }}" alt="" style="width: 100px;"></a>
         </div>
         <div class="main-menu">
             <div class="mobile-logo-area d-lg-none d-flex justify-content-between align-items-center">
                 <div class="mobile-logo-wrap">
-                    <a href="{{ route('home') }}"><img alt="image" src="{{ asset('user/assets/img/logo.svg') }}"></a>
+                    <a href="{{ route('home') }}"><img alt="image" src="{{ asset('user/assets/img/logouser.png') }}"></a>
                 </div>
             </div>
 

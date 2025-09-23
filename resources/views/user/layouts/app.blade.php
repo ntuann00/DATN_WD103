@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="en">
+<meta name="csrf-token" content="{{ csrf_token() }}">
 
 <!-- Mirrored from demo.egenslab.com/html/beautico/preview/index2.html by HTTrack Website Copier/3.x [XR&CO'2014], Fri, 13 Jun 2025 11:24:35 GMT -->
 
@@ -28,11 +29,11 @@
     <!--  Style CSS  -->
     <link rel="stylesheet" href="{{ asset('user/assets/css/style.css') }}">
     <title>5 Beauty - Beauty & Cosmetics</title>
-    <link rel="icon" href="{{ asset('user/assets/img/sm-logo.svg') }}" type="image/gif">
+    <link rel="icon" href="{{ asset('user/assets/img/logouser.png') }}" type="image/gif">
     <link href="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.css" rel="stylesheet">
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.js"></script>
-
+    @stack('styles')
 </head>
 
 <body class="style-2">
@@ -62,12 +63,12 @@
 <script src="{{ asset('user/assets/js/waypoints.min.js') }}"></script>
 <!-- main js  -->
 <script src="{{ asset('user/assets/js/main.js') }}"></script>
-
+<script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
 <script>
     function showToast(type, message) {
         switch (type) {
             case 'success':
-                toastr.success(message, 'Thành công',{
+                toastr.success(message, 'Thành công', {
                     positionClass: "toast-top-right",
                     closeButton: true,
                     progressBar: true,

@@ -116,6 +116,7 @@ class AuthController extends BaseController
         $orders = Order::with([
             'orderDetails.product',
             'orderDetails.productVariant.attributeValues.attribute',
+            'orderDetails.productVariant.images',
             'payment',
             'status'
         ])

@@ -282,7 +282,7 @@
     <div class="container">
         <!-- Brand Section -->
         <div class="footer-brand">
-            <h2>BEAUTICO</h2>
+            <h2>FIVEBEAUTY</h2>
             <p>Nơi vẻ đẹp tự nhiên tỏa sáng</p>
         </div>
 

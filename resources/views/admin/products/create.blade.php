@@ -31,26 +31,26 @@
                         @endforeach
                     </select>
                 </div>
-                <div class="mb-3">
+                {{-- <div class="mb-3">
                     <label class="form-label">Mã sản phẩm (SKU)</label>
                     <input type="text" name="sku" class="form-control" placeholder="Nhập SKU">
                 </div>
                 <div class="mb-3">
                     <label class="form-label">Giá</label>
                     <input type="number" name="price" class="form-control" placeholder="Nhập giá" required>
-                </div>
-                <div class="mb-3">
+                </div> --}}
+                {{-- <div class="mb-3">
                     <label class="form-label">Số lượng</label>
                     <input type="number" name="stock" class="form-control" placeholder="Nhập số lượng" required>
-                </div>
+                </div> --}}
                 <div class="mb-3">
                     <label class="form-label">Mô tả sản phẩm</label>
                     <textarea name="description" class="form-control" rows="4" placeholder="Nhập mô tả sản phẩm"></textarea>
                 </div>
-                <div class="mb-3">
+                {{-- <div class="mb-3">
                     <label class="form-label">Ảnh sản phẩm</label>
                     <input type="file" name="images[]" multiple class="form-control">
-                </div>
+                </div> --}}
             </div>
         </div>
 
